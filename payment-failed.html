@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Unsuccessful — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Payment could not be completed. Your custom signage order has been safely saved. Try another payment method or contact our workshop." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="Payment Unsuccessful — MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Payment could not be completed. Your custom signage order has been safely saved. Try another payment method or contact our workshop.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- MAIN FAILED STATUS -->
+    <main class="success-page" style="max-width:850px;margin:50px auto;padding:0 20px;">
+        <div class="success-box" style="background:#fafafa;border:1px solid #f0d5d5;border-radius:8px;padding:40px 30px;text-align:center;">
+
+            <div style="width:68px;height:68px;background:#e53e3e;color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:20px;box-shadow:0 6px 18px rgba(229, 62, 62, 0.25);">
+                ✕
+            </div>
+
+            <p style="font-size:12px;letter-spacing:1.5px;color:#c53030;font-weight:700;margin-bottom:6px;">
+                PAYMENT WAS NOT COMPLETED
+            </p>
+
+            <h1 style="font-family:var(--font-heading);font-size:34px;font-weight:600;margin:0 0 14px;color:#111;">
+                Payment Authorization Unsuccessful
+            </h1>
+
+            <p style="font-size:15px;color:#555;line-height:1.6;max-width:580px;margin:0 auto 24px;">
+                Your card has <strong>not been charged</strong>. Don't worry — your custom signage specifications, dimensions, and materials have been safely preserved in your cart.
+            </p>
+
+            <!-- DIAGNOSTIC REASONS CARD -->
+            <div style="text-align:left;background:#fff;border:1px solid #eee;border-radius:6px;padding:24px;margin-bottom:28px;">
+                <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <span>⚠️ Common Reasons for Transaction Declines</span>
+                </h3>
+                <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:#555;line-height:1.8;">
+                    <li><strong>1. 3D Secure Verification:</strong> Bank SMS code or banking app authorization timed out or was closed prematurely.</li>
+                    <li><strong>2. Daily Online Purchase Limit:</strong> Bespoke commercial signage amounts may require temporarily adjusting your bank card ceiling.</li>
+                    <li><strong>3. Card Number or CVV Mismatch:</strong> Double-check the 16-digit card number, expiry date (MM/YY), or 3-digit CVV security code.</li>
+                    <li><strong>4. Corporate Card Restriction:</strong> Some business cards block direct online merchant payments without manager approval.</li>
+                </ul>
+            </div>
+
+            <!-- SAVED ITEMS RECOVERY -->
+            <div id="failedOrderRecovery" style="text-align:left;background:#fff;border:1px solid #eee;border-radius:6px;padding:22px;margin-bottom:28px;">
+                <h3 style="font-size:15px;font-weight:600;margin-bottom:10px;border-bottom:1px solid #eee;padding-bottom:8px;">
+                    Saved Cart Items Waiting for Checkout
+                </h3>
+                <div id="recoveryItemsList"></div>
+            </div>
+
+            <!-- RESOLUTION BUTTONS -->
+            <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;">
+                <a href="checkout.html" class="btn btn-dark" style="padding:15px 32px;font-size:14px;font-weight:700;text-decoration:none;">
+                    🔄 Retry Payment Now
+                </a>
+                <a href="https://wa.me/33148418590?text=Hello,%20my%20payment%20did%20not%20go%20through.%20Can%20I%20complete%20my%20order%20directly%20with%20the%20workshop?" target="_blank" class="btn" style="background:#25d366;color:#fff;padding:15px 24px;font-size:14px;font-weight:700;text-decoration:none;">
+                    <i class="fa-brands fa-whatsapp"></i> Pay via WhatsApp Workshop
+                </a>
+            </div>
+
+            <div style="margin-top:20px;font-size:13px;color:#666;">
+                Need immediate help? Call our workshop team at <strong>01 48 41 85 90</strong> or email <a href="mailto:contact@mystickerzenseigne.com" style="text-decoration:underline;color:#111;">contact@mystickerzenseigne.com</a>.
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function escapeHtml(val) {
+            return String(val || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        let cart = [];
+        try { cart = JSON.parse(localStorage.getItem("veloraCart")) || []; } catch (e) {}
+
+        const listContainer = document.getElementById("recoveryItemsList");
+        if (listContainer) {
+            if (cart.length > 0) {
+                listContainer.innerHTML = cart.map(item => `
+                    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f2f2f0;font-size:13px;">
+                        <span><strong>${escapeHtml(item.name)}</strong> × ${item.quantity || 1} ${item.customText ? `("${escapeHtml(item.customText)}")` : ""}</span>
+                        <strong>€${((Number(item.price) || 0) * (Number(item.quantity) || 1)).toFixed(2)}</strong>
+                    </div>
+                `).join("");
+            } else {
+                listContainer.innerHTML = "<p style='color:#777;font-size:12px;'>No items currently in memory. You can select products from our catalog.</p>";
+            }
+        }
+    });
+    </script>
+</body>
+</html>

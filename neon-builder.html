@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom LED Neon Sign Builder — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Design your custom LED neon sign online with real-time 2.5D illuminated visualizer, font choices, colors, and live pricing." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:title" content="Custom LED Neon Sign Builder — MY STICKERZ ENSEIGNE" />
+    <meta property="og:description" content="Design custom neon signs with live Day/Night simulation and instant workshop pricing." />
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts for Neon Typographies -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=DM+Sans:wght@400;500;700&family=Monoton&family=Montserrat:wght@500;700;800&family=Oswald:wght@500;700&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" class="active" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" class="active" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="#" class="search-toggle" style="display:flex;align-items:center;gap:8px;"><span>🔍</span> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <div style="max-width:1300px;margin:25px auto 0;padding:0 4%;font-size:13px;color:#777;">
+        <a href="index.html" style="color:#555;">Home</a> <span>/</span>
+        <a href="products.html" style="color:#555;">Products</a> <span>/</span>
+        <strong style="color:#111;">Custom LED Neon Sign Builder</strong>
+        <h1 style="font-family:var(--font-heading);font-size:26px;font-weight:600;margin:12px 0 0;color:#111;">Custom LED Neon Sign Builder</h1>
+    </div>
+
+    <!-- MAIN NEON BUILDER CONTAINER -->
+    <main class="neon-builder-page">
+        <div class="neon-builder-layout">
+
+            <!-- =========================================================
+                 LEFT COLUMN: STICKY 2.5D NEON SIMULATOR
+            ========================================================= -->
+            <div class="neon-simulator-column">
+                <div class="neon-stage-wrapper wall-anthracite mode-night" id="neonStageWrapper">
+                    
+                    <!-- Live Dimension & Character Badge -->
+                    <div class="neon-dimension-pill" id="neonDimensionPill">
+                        <span id="neonDimensionsText">78 × 26 cm</span> • <span id="neonCharCountText">9 characters</span>
+                    </div>
+
+                    <!-- Day / Night Mode & Lights ON/OFF Toggle -->
+                    <button type="button" class="neon-power-toggle" id="neonPowerToggle" title="Turn Lights ON / OFF">
+                        <span class="power-indicator-dot" id="powerDot"></span>
+                        <span id="powerToggleLabel">Lights ON</span>
+                    </button>
+
+                    <!-- Acrylic Silhouette Backboard with Rendered Neon Tube -->
+                    <div class="neon-acrylic-plate acrylic-cut-shape acrylic-finish-clear" id="neonAcrylicPlate">
+                        <div class="neon-sign-display align-center" id="neonSignDisplay">
+                            <span class="neon-sign-line" style="font-family:'Dancing Script', cursive;">Your Neon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator Toolbar: Wall Backgrounds & Environment Controls -->
+                <div class="neon-simulator-toolbar">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="font-weight:700;color:#333;">Wall Texture:</span>
+                        <div class="neon-wall-btns">
+                            <button type="button" class="neon-wall-btn" data-wall="wall-clean-white">⚪ White Studio</button>
+                            <button type="button" class="neon-wall-btn active" data-wall="wall-anthracite">⬛ Anthracite</button>
+                            <button type="button" class="neon-wall-btn" data-wall="wall-exposed-brick">🧱 Brick Loft</button>
+                            <button type="button" class="neon-wall-btn" data-wall="wall-wood-slats">🪵 Timber Slats</button>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:6px;">
+                        <button type="button" class="btn btn-light" id="btnToggleDayNight" style="padding:6px 12px;font-size:11px;border-radius:20px;border:1px solid #ccc;">
+                            ☀️ / 🌙 Toggle Ambient Light
+                        </button>
+                    </div>
+                </div>
+
+                <div style="margin-top:14px;padding:12px 16px;background:#fafaf8;border:1px solid #e7e7e2;border-radius:6px;font-size:12px;color:#666;line-height:1.5;" data-i18n="neonAtelierAssurance">
+                    💡 <strong>Atelier Assurance:</strong> 100% hand-crafted with shatterproof LED flex silicone tubing. Powered by low voltage 12V adapter with 2-Year Workshop Warranty.
+                </div>
+            </div>
+
+            <!-- =========================================================
+                 RIGHT COLUMN: STEP-BY-STEP CONFIGURATOR CONTROLS
+            ========================================================= -->
+            <div class="neon-configurator-column">
+                <div class="neon-configurator-card">
+
+                    <!-- STEP 1: TEXT & TYPOGRAPHY -->
+                    <div class="neon-step-section" style="margin-bottom:26px;">
+                        <div class="neon-step-header">
+                            <span class="neon-step-title">
+                                <span class="neon-step-number">1</span> Your Text &amp; Typography
+                            </span>
+                            <div class="neon-align-group">
+                                <button type="button" class="neon-align-btn" data-align="left" title="Align Left">Left</button>
+                                <button type="button" class="neon-align-btn active" data-align="center" title="Align Center">Center</button>
+                                <button type="button" class="neon-align-btn" data-align="right" title="Align Right">Right</button>
+                            </div>
+                        </div>
+
+                        <textarea id="neonTextInput" class="neon-textarea" rows="2" maxlength="60" placeholder="Type your text (Enter for new line)..." aria-label="Custom neon text">Your Neon</textarea>
+                        <p style="font-size:11px;color:#888;margin-top:4px;">Up to 3 lines. Press Enter to create a new line.</p>
+
+                        <!-- Font Selection Cards -->
+                        <div style="margin-top:14px;">
+                            <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;color:#444;">Select Typography (Google Fonts):</label>
+                            <div class="neon-fonts-grid" id="neonFontsGrid">
+                                <!-- Font 1: Dancing Script -->
+                                <button type="button" class="neon-font-card active" data-font="Dancing Script" data-class="font-dancing" style="font-family:'Dancing Script', cursive;">
+                                    <div class="neon-font-preview">Dancing Script</div>
+                                    <div class="neon-font-name">Cursive / Flow</div>
+                                </button>
+                                <!-- Font 2: Caveat -->
+                                <button type="button" class="neon-font-card" data-font="Caveat" data-class="font-caveat" style="font-family:'Caveat', cursive;">
+                                    <div class="neon-font-preview">Caveat</div>
+                                    <div class="neon-font-name">Handwritten</div>
+                                </button>
+                                <!-- Font 3: Pacifico -->
+                                <button type="button" class="neon-font-card" data-font="Pacifico" data-class="font-pacifico" style="font-family:'Pacifico', cursive;">
+                                    <div class="neon-font-preview">Pacifico</div>
+                                    <div class="neon-font-name">Retro Script</div>
+                                </button>
+                                <!-- Font 4: DM Sans -->
+                                <button type="button" class="neon-font-card" data-font="DM Sans" data-class="font-dmsans" style="font-family:'DM Sans', sans-serif;">
+                                    <div class="neon-font-preview">DM Sans</div>
+                                    <div class="neon-font-name">Modern Clean</div>
+                                </button>
+                                <!-- Font 5: Montserrat -->
+                                <button type="button" class="neon-font-card" data-font="Montserrat" data-class="font-montserrat" style="font-family:'Montserrat', sans-serif;">
+                                    <div class="neon-font-preview">Montserrat</div>
+                                    <div class="neon-font-name">Geometric Bold</div>
+                                </button>
+                                <!-- Font 6: Bebas Neue -->
+                                <button type="button" class="neon-font-card" data-font="Bebas Neue" data-class="font-bebas" style="font-family:'Bebas Neue', sans-serif;letter-spacing:1px;">
+                                    <div class="neon-font-preview">Bebas Neue</div>
+                                    <div class="neon-font-name">Condensed Display</div>
+                                </button>
+                                <!-- Font 7: Oswald -->
+                                <button type="button" class="neon-font-card" data-font="Oswald" data-class="font-oswald" style="font-family:'Oswald', sans-serif;">
+                                    <div class="neon-font-preview">Oswald</div>
+                                    <div class="neon-font-name">Strong Sans</div>
+                                </button>
+                                <!-- Font 8: Monoton -->
+                                <button type="button" class="neon-font-card" data-font="Monoton" data-class="font-monoton" style="font-family:'Monoton', cursive;">
+                                    <div class="neon-font-preview">Monoton</div>
+                                    <div class="neon-font-name">Triple-Line Neon</div>
+                                </button>
+                                <!-- Font 9: Playfair Display -->
+                                <button type="button" class="neon-font-card" data-font="Playfair Display" data-class="font-playfair" style="font-family:'Playfair Display', serif;">
+                                    <div class="neon-font-preview">Playfair</div>
+                                    <div class="neon-font-name">Elegant Serif</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: NEON COLOR PALETTE -->
+                    <div class="neon-step-section" style="margin-bottom:26px;">
+                        <div class="neon-step-header">
+                            <span class="neon-step-title">
+                                <span class="neon-step-number">2</span> Neon Color Palette
+                            </span>
+                            <span id="selectedColorLabel" style="font-size:12px;font-weight:700;color:#111;">Hot Pink / Magenta</span>
+                        </div>
+
+                        <div class="neon-colors-grid" id="neonColorsGrid">
+                            <!-- 1. Warm White (3000K) -->
+                            <button type="button" class="neon-color-btn" data-color="Warm White" data-core="#fffcf0" data-glow="#fde047" data-border="#eab308">
+                                <span class="neon-swatch-circle" style="background:#fffcf0;box-shadow:0 0 10px #fde047;border:1px solid #eab308;"></span>
+                                <span class="neon-color-title">Warm White</span>
+                            </button>
+                            <!-- 2. Cool White (6000K) -->
+                            <button type="button" class="neon-color-btn" data-color="Cool White" data-core="#ffffff" data-glow="#e2e8f0" data-border="#94a3b8">
+                                <span class="neon-swatch-circle" style="background:#ffffff;box-shadow:0 0 10px #e2e8f0;border:1px solid #cbd5e1;"></span>
+                                <span class="neon-color-title">Cool White</span>
+                            </button>
+                            <!-- 3. Lemon Yellow -->
+                            <button type="button" class="neon-color-btn" data-color="Lemon Yellow" data-core="#fffebb" data-glow="#facc15" data-border="#ca8a04">
+                                <span class="neon-swatch-circle" style="background:#fef08a;box-shadow:0 0 10px #facc15;"></span>
+                                <span class="neon-color-title">Lemon Yellow</span>
+                            </button>
+                            <!-- 4. Golden Yellow -->
+                            <button type="button" class="neon-color-btn" data-color="Golden Yellow" data-core="#fef9c3" data-glow="#eab308" data-border="#a16207">
+                                <span class="neon-swatch-circle" style="background:#eab308;box-shadow:0 0 10px #ca8a04;"></span>
+                                <span class="neon-color-title">Golden Yellow</span>
+                            </button>
+                            <!-- 5. Sunset Orange -->
+                            <button type="button" class="neon-color-btn" data-color="Sunset Orange" data-core="#ffedd5" data-glow="#f97316" data-border="#c2410c">
+                                <span class="neon-swatch-circle" style="background:#f97316;box-shadow:0 0 10px #ea580c;"></span>
+                                <span class="neon-color-title">Sunset Orange</span>
+                            </button>
+                            <!-- 6. Fiery Red -->
+                            <button type="button" class="neon-color-btn" data-color="Fiery Red" data-core="#fee2e2" data-glow="#ef4444" data-border="#b91c1c">
+                                <span class="neon-swatch-circle" style="background:#ef4444;box-shadow:0 0 10px #dc2626;"></span>
+                                <span class="neon-color-title">Fiery Red</span>
+                            </button>
+                            <!-- 7. Cotton Candy Pink -->
+                            <button type="button" class="neon-color-btn" data-color="Cotton Candy Pink" data-core="#fdf2f8" data-glow="#f472b6" data-border="#db2777">
+                                <span class="neon-swatch-circle" style="background:#f472b6;box-shadow:0 0 10px #ec4899;"></span>
+                                <span class="neon-color-title">Cotton Candy</span>
+                            </button>
+                            <!-- 8. Hot Pink / Magenta -->
+                            <button type="button" class="neon-color-btn active" data-color="Hot Pink / Magenta" data-core="#fff0f7" data-glow="#ec4899" data-border="#be185d">
+                                <span class="neon-swatch-circle" style="background:#ec4899;box-shadow:0 0 12px #db2777;"></span>
+                                <span class="neon-color-title">Hot Pink</span>
+                            </button>
+                            <!-- 9. Electric Purple -->
+                            <button type="button" class="neon-color-btn" data-color="Electric Purple" data-core="#faf5ff" data-glow="#a855f7" data-border="#7e22ce">
+                                <span class="neon-swatch-circle" style="background:#a855f7;box-shadow:0 0 10px #9333ea;"></span>
+                                <span class="neon-color-title">Electric Purple</span>
+                            </button>
+                            <!-- 10. Deep Ocean Blue -->
+                            <button type="button" class="neon-color-btn" data-color="Deep Ocean Blue" data-core="#eff6ff" data-glow="#3b82f6" data-border="#1d4ed8">
+                                <span class="neon-swatch-circle" style="background:#3b82f6;box-shadow:0 0 10px #2563eb;"></span>
+                                <span class="neon-color-title">Deep Blue</span>
+                            </button>
+                            <!-- 11. Ice Blue / Cyan -->
+                            <button type="button" class="neon-color-btn" data-color="Ice Blue / Cyan" data-core="#ecfeff" data-glow="#06b6d4" data-border="#0891b2">
+                                <span class="neon-swatch-circle" style="background:#06b6d4;box-shadow:0 0 10px #0891b2;"></span>
+                                <span class="neon-color-title">Ice Blue</span>
+                            </button>
+                            <!-- 12. Lime Green -->
+                            <button type="button" class="neon-color-btn" data-color="Lime Green" data-core="#f7fee7" data-glow="#84cc16" data-border="#4d7c0f">
+                                <span class="neon-swatch-circle" style="background:#84cc16;box-shadow:0 0 10px #65a30d;"></span>
+                                <span class="neon-color-title">Lime Green</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: SIZE TIERS -->
+                    <div class="neon-step-section" style="margin-bottom:26px;">
+                        <div class="neon-step-header">
+                            <span class="neon-step-title">
+                                <span class="neon-step-number">3</span> Size Tier
+                            </span>
+                            <span style="font-size:11px;color:#888;">Auto-scales with text</span>
+                        </div>
+
+                        <div class="neon-options-grid" id="neonSizeGrid">
+                            <button type="button" class="neon-option-card" data-size="Small" data-mult="0.9" data-char-rate="8" data-target-w="50">
+                                <strong>Small (~50 cm)</strong>
+                                <span>Desk, bedroom, accent · Base rate</span>
+                            </button>
+                            <button type="button" class="neon-option-card active" data-size="Medium" data-mult="1.2" data-char-rate="10" data-target-w="75">
+                                <strong>Medium (~75 cm)</strong>
+                                <span>Living room or storefront · Most Popular</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-size="Large" data-mult="1.6" data-char-rate="12" data-target-w="100">
+                                <strong>Large (~100 cm)</strong>
+                                <span>Commercial backdrop & photo booth</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-size="XL" data-mult="2.2" data-char-rate="14" data-target-w="150">
+                                <strong>XL (~150 cm)</strong>
+                                <span>Architectural business signage</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: ACRYLIC BACKBOARD CUT & FINISH -->
+                    <div class="neon-step-section" style="margin-bottom:26px;">
+                        <div class="neon-step-header">
+                            <span class="neon-step-title">
+                                <span class="neon-step-number">4</span> Acrylic Backboard Cut &amp; Finish
+                            </span>
+                        </div>
+
+                        <!-- Cut Style -->
+                        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;color:#444;">Acrylic Silhouette Cut:</label>
+                        <div class="neon-options-grid neon-options-grid-3" id="neonCutGrid">
+                            <button type="button" class="neon-option-card active" data-cut="cut-shape" data-extra="0" data-label="Cut to Shape / Contour">
+                                <strong>Contour Cut</strong>
+                                <span>Organic silhouette</span>
+                                <span class="neon-price-badge">+€0</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-cut="whole-rect" data-extra="15" data-label="Whole Rectangle Plate">
+                                <strong>Full Rectangle</strong>
+                                <span>Solid acrylic slab</span>
+                                <span class="neon-price-badge">+€15</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-cut="cut-letter" data-extra="25" data-label="Cut to Letter / Stand-alone">
+                                <strong>Stand-Alone Letter</strong>
+                                <span>Invisible backing</span>
+                                <span class="neon-price-badge">+€25</span>
+                            </button>
+                        </div>
+
+                        <!-- Backboard Finish -->
+                        <label style="font-size:12px;font-weight:700;display:block;margin:14px 0 6px;color:#444;">Backboard Material / Finish:</label>
+                        <div class="neon-options-grid neon-options-grid-3" id="neonFinishGrid">
+                            <button type="button" class="neon-option-card active" data-finish="clear" data-extra="0" data-label="Clear Transparent Acrylic">
+                                <strong>Clear Transparent</strong>
+                                <span>High-clarity optical glass</span>
+                                <span class="neon-price-badge">+€0</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-finish="black" data-extra="10" data-label="Glossy Black Acrylic">
+                                <strong>Glossy Black</strong>
+                                <span>Ultra-contrast backdrop</span>
+                                <span class="neon-price-badge">+€10</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-finish="mirror" data-extra="20" data-label="Silver Mirror Acrylic">
+                                <strong>Silver Mirror</strong>
+                                <span>Reflective luxury mirror</span>
+                                <span class="neon-price-badge">+€20</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: WATERPROOFING & USAGE ENVIRONMENT -->
+                    <div class="neon-step-section" style="margin-bottom:26px;">
+                        <div class="neon-step-header">
+                            <span class="neon-step-title">
+                                <span class="neon-step-number">5</span> Environment &amp; Waterproofing
+                            </span>
+                        </div>
+
+                        <div class="neon-options-grid" id="neonEnvGrid">
+                            <button type="button" class="neon-option-card active" data-env="indoor" data-extra="0">
+                                <strong>Indoor Use (IP20)</strong>
+                                <span>Interior room, shop display · Included</span>
+                                <span class="neon-price-badge">+€0</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-env="outdoor" data-extra="40">
+                                <strong>Outdoor Waterproof (IP67)</strong>
+                                <span>Sealed silicone jacket &amp; IP67 transformer</span>
+                                <span class="neon-price-badge">+€40</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 6: DIMMER & ACCESSORIES -->
+                    <div class="neon-step-section" style="margin-bottom:26px;">
+                        <div class="neon-step-header">
+                            <span class="neon-step-title">
+                                <span class="neon-step-number">6</span> Dimmer Controller &amp; Mounting Kit
+                            </span>
+                        </div>
+
+                        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;color:#444;">Dimmer Controller:</label>
+                        <div class="neon-options-grid neon-options-grid-3" id="neonDimmerGrid">
+                            <button type="button" class="neon-option-card active" data-dimmer="standard" data-extra="0" data-label="Standard In-line Dimmer">
+                                <strong>Standard Dimmer</strong>
+                                <span>In-line manual switch</span>
+                                <span class="neon-price-badge">+€0</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-dimmer="remote" data-extra="15" data-label="Wireless RF Remote Controller">
+                                <strong>Wireless Remote</strong>
+                                <span>Pulse, strobe &amp; dimming</span>
+                                <span class="neon-price-badge">+€15</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-dimmer="smart" data-extra="30" data-label="Smart Wi-Fi Controller (Alexa / Google / Tuya)">
+                                <strong>Smart Wi-Fi</strong>
+                                <span>Alexa, Google &amp; App</span>
+                                <span class="neon-price-badge">+€30</span>
+                            </button>
+                        </div>
+
+                        <label style="font-size:12px;font-weight:700;display:block;margin:14px 0 6px;color:#444;">Mounting Hardware:</label>
+                        <div class="neon-options-grid" id="neonMountGrid">
+                            <button type="button" class="neon-option-card active" data-mount="screws" data-extra="0" data-label="Wall Mounting Standoff Screws">
+                                <strong>Wall Standoff Screws</strong>
+                                <span>Sleek metallic pins for wall mounting</span>
+                                <span class="neon-price-badge">+€0</span>
+                            </button>
+                            <button type="button" class="neon-option-card" data-mount="hanging" data-extra="10" data-label="Ceiling Hanging Steel Wire Kit">
+                                <strong>Ceiling Hanging Kit</strong>
+                                <span>Adjustable stainless steel suspension wire</span>
+                                <span class="neon-price-badge">+€10</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- QUANTITY -->
+                    <div style="margin-top:20px;display:flex;align-items:center;justify-content:space-between;">
+                        <span style="font-size:13px;font-weight:700;">Quantity:</span>
+                        <div class="quantity-wrapper">
+                            <button type="button" id="neonQtyMinus">−</button>
+                            <input type="number" id="neonQtyInput" value="1" min="1" max="20" aria-label="Quantity">
+                            <button type="button" id="neonQtyPlus">+</button>
+                        </div>
+                    </div>
+
+                    <!-- LIVE PRICING BAR & ACTIONS -->
+                    <div class="neon-pricing-bar">
+                        <div>
+                            <span style="font-size:11px;letter-spacing:1px;color:#777;text-transform:uppercase;font-weight:700;">Total Workshop Price</span>
+                            <div class="neon-live-price" id="neonLivePrice">€350.00 HT</div>
+                        </div>
+                        <div style="font-size:12px;color:#555;text-align:right;">
+                            <span id="neonSummaryLine">Medium (~75 cm) · 9 chars</span><br>
+                            <span style="color:#555;font-weight:600;">✓ Tracked Atelier Shipping</span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:12px;margin-top:20px;">
+                        <button type="button" id="neonAddToCartBtn" class="primary-button" style="flex:1;height:52px;background:#111;color:#fff;font-size:13px;font-weight:700;">
+                            🛒 Add Custom Neon to Cart
+                        </button>
+                        <button type="button" id="neonBuyNowBtn" class="btn" style="flex:1;height:52px;border:2px solid #111;background:#fff;color:#111;font-size:13px;font-weight:700;">
+                            ⚡ Buy Now
+                        </button>
+                    </div>
+
+                    <button type="button" id="neonWishlistBtn" class="wishlist-product-button" style="margin-top:12px;">
+                        <i class="fa-regular fa-heart"></i> Save Design to Wishlist
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html">Neon Sign Builder</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <!-- SHARED GLOBAL CONTROLLERS -->
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- DEDICATED VANILLA JS NEON BUILDER CONTROLLER -->
+    <script>
+    (function () {
+        "use strict";
+
+        // Configurator State
+        const state = {
+            text: "Your Neon",
+            align: "center",
+            font: "Dancing Script",
+            colorName: "Hot Pink / Magenta",
+            coreColor: "#fff0f7",
+            glowColor: "#ec4899",
+            borderColor: "#be185d",
+            sizeTier: "Medium",
+            sizeMult: 1.2,
+            charRate: 14,
+            targetWidthCm: 75,
+            acrylicCut: "cut-shape",
+            acrylicCutLabel: "Cut to Shape / Contour",
+            acrylicCutExtra: 0,
+            acrylicFinish: "clear",
+            acrylicFinishLabel: "Clear Transparent Acrylic",
+            acrylicFinishExtra: 0,
+            isOutdoor: false,
+            outdoorExtra: 0,
+            dimmerKey: "standard",
+            dimmerLabel: "Standard In-line Dimmer",
+            dimmerExtra: 0,
+            mountKey: "screws",
+            mountLabel: "Wall Mounting Standoff Screws",
+            mountExtra: 0,
+            quantity: 1,
+            isLightsOn: true,
+            isNightMode: true,
+            wallTexture: "wall-anthracite"
+        };
+
+        // DOM elements
+        const stageWrapper = document.getElementById("neonStageWrapper");
+        const acrylicPlate = document.getElementById("neonAcrylicPlate");
+        const signDisplay = document.getElementById("neonSignDisplay");
+        const dimsText = document.getElementById("neonDimensionsText");
+        const charCountText = document.getElementById("neonCharCountText");
+        const livePriceEl = document.getElementById("neonLivePrice");
+        const summaryLineEl = document.getElementById("neonSummaryLine");
+        const textInput = document.getElementById("neonTextInput");
+        const powerToggle = document.getElementById("neonPowerToggle");
+        const powerDot = document.getElementById("powerDot");
+        const powerLabel = document.getElementById("powerToggleLabel");
+        const colorLabel = document.getElementById("selectedColorLabel");
+        const qtyInput = document.getElementById("neonQtyInput");
+        const qtyMinus = document.getElementById("neonQtyMinus");
+        const qtyPlus = document.getElementById("neonQtyPlus");
+        const addToCartBtn = document.getElementById("neonAddToCartBtn");
+        const buyNowBtn = document.getElementById("neonBuyNowBtn");
+        const wishlistBtn = document.getElementById("neonWishlistBtn");
+        const btnToggleDayNight = document.getElementById("btnToggleDayNight");
+
+        // Dimensional calculation helper
+        function calculateDimensions() {
+            const rawText = state.text.trim();
+            const lines = rawText.split("\n").filter(l => l.trim().length > 0);
+            const lineCount = Math.max(1, lines.length);
+            const maxLineChars = lines.reduce((max, l) => Math.max(max, l.length), 0);
+            const totalChars = rawText.replace(/\s/g, "").length || 1;
+
+            // Base width is determined by size tier & longest line
+            const baseW = state.targetWidthCm;
+            const computedWidth = Math.max(30, Math.round(baseW * (maxLineChars > 8 ? 1 + (maxLineChars - 8) * 0.05 : 1)));
+            const computedHeight = Math.max(15, Math.round(computedWidth * (0.28 * lineCount)));
+
+            return {
+                width: computedWidth,
+                height: computedHeight,
+                chars: totalChars,
+                lines: lineCount
+            };
+        }
+
+        // Pricing logic (2026 Commercial Baseline: 350 € base + 14 €/char × size factor)
+        function calculateNeonPrice() {
+            const dims = calculateDimensions();
+            const basePrice = 350; // Base starting baseline (350 € HT)
+            const charCharge = dims.chars * state.charRate;
+            const lineCharge = dims.lines > 1 ? (dims.lines - 1) * 25 : 0;
+            const addOns = state.acrylicCutExtra + state.acrylicFinishExtra + state.outdoorExtra + state.dimmerExtra + state.mountExtra;
+
+            const unitPrice = Math.round((basePrice + charCharge + lineCharge + addOns) * 100) / 100;
+            return {
+                unitPrice: unitPrice,
+                totalPrice: unitPrice * state.quantity
+            };
+        }
+
+        // Update neon glow effect & simulator stage
+        function updateSimulator() {
+            const dims = calculateDimensions();
+
+            // Render multi-line text
+            const rawText = state.text || "Your Neon";
+            const lines = rawText.split("\n");
+
+            signDisplay.className = `neon-sign-display align-${state.align}`;
+            signDisplay.innerHTML = lines.map(line => {
+                const displayText = line.trim() ? line : " ";
+                return `<span class="neon-sign-line" style="font-family:'${state.font}';">${escapeHtml(displayText)}</span>`;
+            }).join("");
+
+            // Adjust font-size for longer text
+            const maxChars = lines.reduce((max, l) => Math.max(max, l.length), 0);
+            const renderedLines = signDisplay.querySelectorAll(".neon-sign-line");
+            let targetSize = 52;
+            if (maxChars > 20) targetSize = 28;
+            else if (maxChars > 14) targetSize = 36;
+            else if (maxChars > 9) targetSize = 44;
+
+            if (lines.length > 2) targetSize = Math.min(targetSize, 34);
+
+            renderedLines.forEach(l => l.style.fontSize = `${targetSize}px`);
+
+            // Apply realistic neon glow vs lights OFF
+            const glow = state.glowColor;
+            const core = state.coreColor;
+
+            if (state.isLightsOn) {
+                stageWrapper.classList.remove("lights-off");
+                renderedLines.forEach(l => {
+                    l.style.color = core;
+                    l.style.textShadow = `
+                        0 0 4px #ffffff,
+                        0 0 10px ${glow},
+                        0 0 20px ${glow},
+                        0 0 40px ${glow},
+                        0 0 80px ${glow}
+                    `;
+                });
+                powerDot.className = "power-indicator-dot";
+                powerLabel.textContent = "Lights ON";
+            } else {
+                stageWrapper.classList.add("lights-off");
+                renderedLines.forEach(l => {
+                    l.style.color = "#d1d5db";
+                    l.style.textShadow = "none";
+                });
+                powerDot.className = "power-indicator-dot off";
+                powerLabel.textContent = "Lights OFF";
+            }
+
+            // Acrylic Backboard Cut & Finish
+            acrylicPlate.className = `neon-acrylic-plate acrylic-${state.acrylicCut} acrylic-finish-${state.acrylicFinish}`;
+
+            // Dimensions badge
+            dimsText.textContent = `${dims.width} × ${dims.height} cm`;
+            charCountText.textContent = `${dims.chars} char${dims.chars > 1 ? "s" : ""}`;
+
+            // Live pricing
+            const pricing = calculateNeonPrice();
+            livePriceEl.textContent = `€${pricing.totalPrice.toFixed(2)} HT`;
+            livePriceEl.classList.remove("price-pulse");
+            void livePriceEl.offsetWidth;
+            livePriceEl.classList.add("price-pulse");
+
+            summaryLineEl.textContent = `${state.sizeTier} (~${dims.width} cm) · ${state.colorName}`;
+        }
+
+        function escapeHtml(str) {
+            return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // =========================================================
+        // EVENT BINDINGS
+        // =========================================================
+
+        // Step 1: Text & Align
+        textInput.addEventListener("input", function () {
+            state.text = this.value;
+            updateSimulator();
+        });
+
+        document.querySelectorAll(".neon-align-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".neon-align-btn").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+                state.align = this.getAttribute("data-align");
+                updateSimulator();
+            });
+        });
+
+        // Step 1: Fonts
+        document.querySelectorAll(".neon-font-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll(".neon-font-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.font = this.getAttribute("data-font");
+                updateSimulator();
+            });
+        });
+
+        // Step 2: Colors
+        document.querySelectorAll(".neon-color-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".neon-color-btn").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+                state.colorName = this.getAttribute("data-color");
+                state.coreColor = this.getAttribute("data-core");
+                state.glowColor = this.getAttribute("data-glow");
+                state.borderColor = this.getAttribute("data-border");
+                colorLabel.textContent = state.colorName;
+                updateSimulator();
+            });
+        });
+
+        // Step 3: Size Tiers
+        document.querySelectorAll("#neonSizeGrid .neon-option-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll("#neonSizeGrid .neon-option-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.sizeTier = this.getAttribute("data-size");
+                state.sizeMult = parseFloat(this.getAttribute("data-mult"));
+                state.charRate = parseFloat(this.getAttribute("data-char-rate"));
+                state.targetWidthCm = parseFloat(this.getAttribute("data-target-w"));
+                updateSimulator();
+            });
+        });
+
+        // Step 4: Acrylic Cut
+        document.querySelectorAll("#neonCutGrid .neon-option-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll("#neonCutGrid .neon-option-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.acrylicCut = this.getAttribute("data-cut");
+                state.acrylicCutLabel = this.getAttribute("data-label");
+                state.acrylicCutExtra = parseFloat(this.getAttribute("data-extra"));
+                updateSimulator();
+            });
+        });
+
+        // Step 4: Acrylic Finish
+        document.querySelectorAll("#neonFinishGrid .neon-option-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll("#neonFinishGrid .neon-option-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.acrylicFinish = this.getAttribute("data-finish");
+                state.acrylicFinishLabel = this.getAttribute("data-label");
+                state.acrylicFinishExtra = parseFloat(this.getAttribute("data-extra"));
+                updateSimulator();
+            });
+        });
+
+        // Step 5: Environment
+        document.querySelectorAll("#neonEnvGrid .neon-option-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll("#neonEnvGrid .neon-option-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.isOutdoor = this.getAttribute("data-env") === "outdoor";
+                state.outdoorExtra = parseFloat(this.getAttribute("data-extra"));
+                updateSimulator();
+            });
+        });
+
+        // Step 6: Dimmer
+        document.querySelectorAll("#neonDimmerGrid .neon-option-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll("#neonDimmerGrid .neon-option-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.dimmerKey = this.getAttribute("data-dimmer");
+                state.dimmerLabel = this.getAttribute("data-label");
+                state.dimmerExtra = parseFloat(this.getAttribute("data-extra"));
+                updateSimulator();
+            });
+        });
+
+        // Step 6: Mounting
+        document.querySelectorAll("#neonMountGrid .neon-option-card").forEach(card => {
+            card.addEventListener("click", function () {
+                document.querySelectorAll("#neonMountGrid .neon-option-card").forEach(c => c.classList.remove("active"));
+                this.classList.add("active");
+                state.mountKey = this.getAttribute("data-mount");
+                state.mountLabel = this.getAttribute("data-label");
+                state.mountExtra = parseFloat(this.getAttribute("data-extra"));
+                updateSimulator();
+            });
+        });
+
+        // Wall texture controls
+        document.querySelectorAll(".neon-wall-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".neon-wall-btn").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+                const texture = this.getAttribute("data-wall");
+                state.wallTexture = texture;
+                stageWrapper.className = `neon-stage-wrapper ${texture} ${state.isNightMode ? 'mode-night' : ''} ${state.isLightsOn ? '' : 'lights-off'}`;
+            });
+        });
+
+        // Power toggle (Lights ON/OFF)
+        powerToggle.addEventListener("click", function () {
+            state.isLightsOn = !state.isLightsOn;
+            updateSimulator();
+        });
+
+        // Day/Night Ambient Light Toggle
+        btnToggleDayNight.addEventListener("click", function () {
+            state.isNightMode = !state.isNightMode;
+            stageWrapper.classList.toggle("mode-night", state.isNightMode);
+        });
+
+        // Quantity controls
+        qtyMinus.addEventListener("click", function () {
+            state.quantity = Math.max(1, state.quantity - 1);
+            qtyInput.value = state.quantity;
+            updateSimulator();
+        });
+
+        qtyPlus.addEventListener("click", function () {
+            state.quantity = Math.min(20, state.quantity + 1);
+            qtyInput.value = state.quantity;
+            updateSimulator();
+        });
+
+        qtyInput.addEventListener("change", function () {
+            state.quantity = Math.max(1, Math.min(20, parseInt(this.value, 10) || 1));
+            this.value = state.quantity;
+            updateSimulator();
+        });
+
+        // Build cart product object according to specification
+        function buildCartObject() {
+            const dims = calculateDimensions();
+            const pricing = calculateNeonPrice();
+            const cleanText = state.text.trim() || "Custom Neon";
+
+            return {
+                id: "neon-signs",
+                name: "Custom Neon Sign: " + cleanText.slice(0, 24),
+                price: pricing.unitPrice,
+                quantity: state.quantity,
+                customText: cleanText,
+                font: state.font,
+                color: state.colorName,
+                size: state.sizeTier,
+                estimatedDimensions: `${dims.width} × ${dims.height} cm`,
+                acrylicCut: state.acrylicCutLabel,
+                acrylicColor: state.acrylicFinishLabel,
+                environment: state.isOutdoor ? "Outdoor (IP67)" : "Indoor (IP20)",
+                dimmer: state.dimmerLabel,
+                mounting: state.mountLabel,
+                image: "images/neon-signs.jpg"
+            };
+        }
+
+        // Add to Cart handler
+        addToCartBtn.addEventListener("click", function () {
+            const item = buildCartObject();
+            let cart = [];
+            try { cart = JSON.parse(localStorage.getItem("veloraCart")) || []; } catch (e) {}
+            cart.push(item);
+            localStorage.setItem("veloraCart", JSON.stringify(cart));
+
+            // Update badge & toast
+            const totalItems = cart.reduce((s, i) => s + (Number(i.quantity) || 1), 0);
+            document.querySelectorAll("#cartCount, .cart-count").forEach(c => c.textContent = totalItems);
+
+            // Toast feedback
+            const toast = document.createElement("div");
+            toast.className = "toast-item";
+            toast.style.cssText = "position:fixed;top:24px;right:24px;z-index:999999;background:#111;color:#fff;padding:14px 20px;border-radius:8px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,0.25);";
+            toast.innerHTML = `<span>✨</span> <span><strong>${item.name}</strong> added to cart!</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3200);
+        });
+
+        // Buy Now handler
+        buyNowBtn.addEventListener("click", function () {
+            const item = buildCartObject();
+            let cart = [];
+            try { cart = JSON.parse(localStorage.getItem("veloraCart")) || []; } catch (e) {}
+            cart.push(item);
+            localStorage.setItem("veloraCart", JSON.stringify(cart));
+            window.location.href = "checkout.html";
+        });
+
+        // Wishlist toggle
+        wishlistBtn.addEventListener("click", function () {
+            const item = buildCartObject();
+            let wishlist = [];
+            try { wishlist = JSON.parse(localStorage.getItem("veloraWishlist")) || []; } catch (e) {}
+            wishlist.push(item);
+            localStorage.setItem("veloraWishlist", JSON.stringify(wishlist));
+
+            this.classList.add("active");
+            this.innerHTML = `<i class="fa-solid fa-heart" style="color:#fff;"></i> Saved in Wishlist!`;
+            setTimeout(() => {
+                this.classList.remove("active");
+                this.innerHTML = `<i class="fa-regular fa-heart"></i> Save Design to Wishlist`;
+            }, 2500);
+        });
+
+        // Initial render
+        updateSimulator();
+    })();
+    </script>
+</body>
+</html>

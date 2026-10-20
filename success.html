@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Your custom signage order has been confirmed." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="Order Confirmed — MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Your custom signage order has been confirmed.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        @media print {
+            .top-bar, .navbar, .footer, .success-actions, .nav-icons { display: none !important; }
+            body { background: #fff !important; }
+            .success-section { padding: 0 !important; }
+            .success-box { border: none !important; box-shadow: none !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- SUCCESS CONTENT -->
+    <main class="success-page" style="max-width:850px;margin:50px auto;padding:0 20px;">
+        <div class="success-box" style="background:#fafafa;border:1px solid #e0e0e0;border-radius:8px;padding:40px 30px;text-align:center;">
+
+            <div style="width:64px;height:64px;background:#111;color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px;">
+                ✓
+            </div>
+
+            <p style="font-size:12px;letter-spacing:1.5px;color:#777;font-weight:700;margin-bottom:6px;">
+                ORDER CONFIRMED & QUEUED FOR PRODUCTION
+            </p>
+
+            <h1 style="font-family:var(--font-heading);font-size:34px;font-weight:600;margin:0 0 15px;color:#111;">
+                Thank You For Your Order
+            </h1>
+
+            <p style="font-size:15px;color:#555;line-height:1.6;max-width:550px;margin:0 auto 25px;">
+                Your order has been recorded. Our workshop is preparing your production specs and digital proof (BAT).
+            </p>
+
+            <div style="font-size:16px;color:#222;background:#ffffff;border:1px solid #e0e0e0;display:inline-block;padding:12px 24px;border-radius:4px;margin-bottom:25px;">
+                Order Reference: <strong id="orderNumber" style="color:#111;">MSE-000000</strong>
+            </div>
+
+            <!-- SUMMARY DETAILS -->
+            <div style="display:flex;justify-content:space-around;background:#fff;border:1px solid #eee;padding:18px;border-radius:6px;margin-bottom:25px;flex-wrap:wrap;gap:12px;">
+                <div>
+                    <span style="display:block;font-size:12px;color:#777;margin-bottom:4px;">Grand Total</span>
+                    <strong id="successTotal" style="font-size:18px;color:#111;">€0.00</strong>
+                </div>
+                <div>
+                    <span style="display:block;font-size:12px;color:#777;margin-bottom:4px;">Payment Method</span>
+                    <strong id="successPayment" style="font-size:16px;color:#111;">-</strong>
+                </div>
+                <div>
+                    <span style="display:block;font-size:12px;color:#777;margin-bottom:4px;">Estimated Dispatch</span>
+                    <strong style="font-size:15px;color:#111;">5 - 8 Business Days</strong>
+                </div>
+            </div>
+
+            <!-- ORDER SPECIFICATIONS & ITEMS -->
+            <div style="text-align:left;background:#fff;border:1px solid #eee;border-radius:6px;padding:24px;margin-bottom:25px;">
+                <h3 style="font-size:16px;font-weight:600;margin:0 0 15px;border-bottom:1px solid #eee;padding-bottom:10px;">
+                    Workshop Production Specifications
+                </h3>
+                <div id="orderedItemsList"></div>
+
+                <div style="margin-top:15px;padding-top:15px;border-top:1px solid #eee;font-size:14px;color:#444;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                        <span>Subtotal:</span>
+                        <span id="orderSubtotal">€0.00</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                        <span>Shipping:</span>
+                        <span id="orderShipping">€10.00</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-weight:700;font-size:16px;color:#111;margin-top:10px;padding-top:10px;border-top:1px solid #ddd;">
+                        <span>Total:</span>
+                        <span id="orderGrandTotal">€0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SHIPPING & CLIENT INFO -->
+            <div id="shippingInfoCard" style="text-align:left;background:#fff;border:1px solid #eee;border-radius:6px;padding:20px;margin-bottom:30px;display:none;">
+                <h3 style="font-size:15px;font-weight:600;margin:0 0 10px;border-bottom:1px solid #eee;padding-bottom:10px;">
+                    Client & Delivery Address
+                </h3>
+                <p id="shippingName" style="margin:4px 0;font-weight:600;color:#222;"></p>
+                <p id="shippingAddress" style="margin:4px 0;color:#555;font-size:14px;line-height:1.5;"></p>
+                <p id="shippingContact" style="margin:4px 0;color:#777;font-size:13px;"></p>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="success-actions" style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap;">
+                <button type="button" onclick="window.print()" class="btn btn-dark" style="padding:14px 26px;">
+                    🖨️ Print Receipt & Specs
+                </button>
+                <a href="products.html" class="btn" style="border:1px solid #ccc;padding:14px 26px;">
+                    Continue Browsing Shop
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function escapeHtml(value) {
+            return String(value || "")
+                .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        let order = null;
+        try { order = JSON.parse(localStorage.getItem("veloraLastOrder")); } catch (e) { order = null; }
+
+        if (!order) {
+            document.querySelector(".success-box").innerHTML = `
+                <h2 style="font-size:24px;margin-bottom:15px;">No recent order found</h2>
+                <p style="color:#666;margin-bottom:25px;">Browse our collection to configure and order your custom visual solutions.</p>
+                <a href="products.html" class="btn btn-dark">Browse Shop</a>
+            `;
+            return;
+        }
+
+        document.getElementById("orderNumber").textContent = order.orderNumber || "MSE-000000";
+        document.getElementById("successTotal").textContent = `€${Number(order.total || 0).toFixed(2)}`;
+        document.getElementById("successPayment").textContent = (order.payment === "paypal") ? "PayPal Standard" : (order.payment === "whatsapp" ? "Direct Workshop (WhatsApp)" : "Credit / Debit Card");
+
+        document.getElementById("orderSubtotal").textContent = `€${Number(order.subtotal || 0).toFixed(2)}`;
+        document.getElementById("orderShipping").textContent = `€${Number(order.shipping ?? 10).toFixed(2)}`;
+        document.getElementById("orderGrandTotal").textContent = `€${Number(order.total || 0).toFixed(2)}`;
+
+        const itemsList = document.getElementById("orderedItemsList");
+        if (itemsList && Array.isArray(order.items)) {
+            itemsList.innerHTML = order.items.map(item => {
+                const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 1);
+                let specs = [];
+                if (item.customText) specs.push(`<strong>Text:</strong> "${escapeHtml(item.customText)}"`);
+                if (item.size) specs.push(`<strong>Dimensions:</strong> ${escapeHtml(item.size)}`);
+                if (item.thickness) specs.push(`<strong>Relief:</strong> ${escapeHtml(item.thickness)}`);
+                if (item.finish) specs.push(`<strong>Finish:</strong> ${escapeHtml(item.finish)}`);
+
+                return `
+                    <div style="padding:12px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:flex-start;font-size:13px;">
+                        <div>
+                            <div style="font-weight:700;font-size:14px;color:#111;">
+                                ${escapeHtml(item.name)} × ${item.quantity}
+                            </div>
+                            ${specs.length ? `<div style="font-size:12px;color:#666;margin-top:4px;line-height:1.5;">${specs.join(" • ")}</div>` : ""}
+                        </div>
+                        <strong style="white-space:nowrap;margin-left:15px;">€${itemTotal.toFixed(2)}</strong>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        const cust = order.customer || {};
+        if (order.customer) {
+            const card = document.getElementById("shippingInfoCard");
+            document.getElementById("shippingName").textContent = `${cust.firstName || ""} ${cust.lastName || ""} ${cust.company ? `(${cust.company})` : ""}`.trim();
+            document.getElementById("shippingAddress").textContent = `${cust.address || ""}, ${cust.postcode || ""} ${cust.city || ""}, ${cust.country || "France"}`;
+            document.getElementById("shippingContact").textContent = `Email: ${cust.email || "-"} | Phone: ${cust.phone || "-"}`;
+            card.style.display = "block";
+        }
+    });
+    </script>
+</body>
+</html>

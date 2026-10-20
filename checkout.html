@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Secure SSL 256-bit checkout for custom signage." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="Secure Checkout — MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Secure SSL 256-bit checkout for custom signage.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- CHECKOUT MAIN -->
+    <main class="checkout-page">
+        <div class="checkout-heading">
+            <p>100% SECURE ENCRYPTED CHECKOUT</p>
+            <h1>Complete Your Order</h1>
+        </div>
+
+        <form id="checkoutForm" novalidate>
+            <div class="checkout-layout">
+                <!-- CUSTOMER DETAILS -->
+                <div class="checkout-details">
+                    <section class="checkout-section">
+                        <h2>Contact Information</h2>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+                    </section>
+
+                    <section class="checkout-section" style="margin-top:20px;">
+                        <h2>Shipping & Workshop Delivery Address</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" required placeholder="Jean">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" required placeholder="Dupont">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Company / Business Name (Optional)</label>
+                            <input type="text" id="company" placeholder="e.g. Boulangerie Martin SAS">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country / Region</label>
+                            <select id="country" required>
+                                <option value="FR" selected>France</option>
+                                <option value="BE">Belgium</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="LU">Luxembourg</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" placeholder="123 rue de la Paix" required>
+                        </div>
+
+                        <div class="form-row form-row-3">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" required placeholder="Paris">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">Department / State</label>
+                                <input type="text" id="state" required placeholder="Île-de-France">
+                            </div>
+                            <div class="form-group">
+                                <label for="postcode">Postal Code</label>
+                                <input type="text" id="postcode" required placeholder="75001">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Required for tracked delivery)</label>
+                            <input type="tel" id="phone" placeholder="+33 6 12 34 56 78" required>
+                        </div>
+                    </section>
+
+                    <section class="checkout-section" style="margin-top:20px;">
+                        <h2>Payment Options</h2>
+
+                        <!-- OPTION 1: CREDIT / DEBIT CARD -->
+                        <label class="payment-option" id="cardPaymentOption" style="display:block;border:2px solid #111;padding:16px;border-radius:6px;margin-bottom:12px;cursor:pointer;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <input type="radio" name="payment" value="card" checked>
+                                    <strong>Credit / Debit Card</strong>
+                                </div>
+                                <span style="font-size:12px;color:#555;font-weight:700;">VISA • MASTERCARD • CB</span>
+                            </div>
+                            <div id="cardFields" style="margin-top:14px;padding-top:14px;border-top:1px solid #eee;">
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number</label>
+                                    <input type="text" id="cardNumber" placeholder="4532 •••• •••• 1234" maxlength="19">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry</label>
+                                        <input type="text" id="expiry" placeholder="MM / YY" maxlength="7">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                                    </div>
+                                </div>
+                                <p style="font-size:11px;color:#888;margin:4px 0 0;">
+                                    <em>Note: To test failure recovery page, use card ending in <strong>0002</strong>.</em>
+                                </p>
+                            </div>
+                        </label>
+
+                        <!-- OPTION 2: PAYPAL -->
+                        <label class="payment-option" id="paypalPaymentOption" style="display:block;border:1px solid #ddd;padding:16px;border-radius:6px;margin-bottom:12px;cursor:pointer;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <input type="radio" name="payment" value="paypal">
+                                    <strong>PayPal & 4X Free</strong>
+                                </div>
+                                <span style="font-weight:700;color:#003087;">PayPal</span>
+                            </div>
+                        </label>
+
+                        <!-- OPTION 3: DIRECT WHATSAPP WORKSHOP -->
+                        <label class="payment-option" id="whatsappPaymentOption" style="display:block;border:1px solid #25D366;background:#f6fdf8;padding:16px;border-radius:6px;cursor:pointer;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <input type="radio" name="payment" value="whatsapp">
+                                    <strong style="color:#075e54;"><i class="fa-brands fa-whatsapp" style="font-size:16px;color:#25d366;"></i> Direct Workshop Order (WhatsApp)</strong>
+                                </div>
+                                <span style="font-size:11px;font-weight:700;background:#25d366;color:#fff;padding:2px 8px;border-radius:10px;">Instant Proof</span>
+                            </div>
+                            <p style="font-size:12px;color:#555;margin:8px 0 0 24px;">Send order specifications directly to our technicians to receive an instant digital proof (BAT) and quote.</p>
+                        </label>
+                    </section>
+
+                    <div id="checkoutErrorMsg" style="display:none;background:#fff5f5;color:#c53030;border:1px solid #feb2b2;padding:12px;border-radius:4px;font-size:13px;margin-top:16px;"></div>
+
+                    <button type="submit" class="place-order-button" id="placeOrderButton" style="margin-top:20px;width:100%;height:52px;background:#111;color:#fff;border:none;border-radius:4px;font-weight:700;font-size:14px;cursor:pointer;">
+                        Confirm & Place Order
+                    </button>
+                    <p style="text-align:center;font-size:12px;color:#777;margin-top:10px;">🔒 Encrypted with 256-bit SSL. Bank card details are never stored.</p>
+                </div>
+
+                <!-- ORDER SUMMARY -->
+                <aside class="checkout-summary" style="border:1px solid #eee;background:#fafafa;padding:24px;border-radius:6px;position:sticky;top:100px;">
+                    <h2 style="font-size:20px;margin-bottom:18px;">Your Order</h2>
+                    <div id="checkoutItems"></div>
+                    <div class="summary-row" style="margin-top:16px;"><span>Sous-total HT</span><strong id="checkoutSubtotal">0,00 € HT</strong></div>
+                    <div class="summary-row"><span>Livraison atelier HT</span><strong id="checkoutShipping">10,00 € HT</strong></div>
+                    <div class="summary-row"><span>TVA (20%)</span><strong id="checkoutTva">0,00 €</strong></div>
+                    <div class="summary-row total"><span>Total TTC</span><strong id="checkoutTotal">0,00 € TTC</strong></div>
+
+                    <div style="margin-top:25px;border-top:1px solid #eee;padding-top:15px;font-size:12px;color:#666;line-height:1.6;">
+                        <p data-i18n="checkoutWarranty">✓ 2-Year technical workshop warranty</p>
+                        <p data-i18n="checkoutDelivery">✓ Insured tracked delivery across France</p>
+                        <p data-i18n="checkoutCustomFinal">✓ Custom manufactured: All sales final (Art. L.221-28)</p>
+                    </div>
+                </aside>
+            </div>
+        </form>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("checkoutForm");
+        const itemsContainer = document.getElementById("checkoutItems");
+        const subtotalEl = document.getElementById("checkoutSubtotal");
+        const shippingEl = document.getElementById("checkoutShipping");
+        const tvaEl = document.getElementById("checkoutTva");
+        const totalEl = document.getElementById("checkoutTotal");
+        const cardFields = document.getElementById("cardFields");
+        const placeOrderBtn = document.getElementById("placeOrderButton");
+        const errorMsg = document.getElementById("checkoutErrorMsg");
+
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem("veloraCart")) || []; } catch(e) { return []; }
+        }
+
+        function calculateTotals(cart) {
+            const subtotal = cart.reduce((s, i) => s + (Number(i.price) || 0) * (Number(i.quantity) || 1), 0);
+            const shipping = subtotal > 0 ? 10 : 0;
+            const tva = (subtotal + shipping) * 0.20;
+            const total = subtotal + shipping + tva;
+            return { subtotal, shipping, tva, total };
+        }
+
+        function renderCheckoutItems() {
+            const cart = getCart();
+            if (!cart.length) {
+                itemsContainer.innerHTML = "<p style='color:#777;font-size:13px;'>Your cart is empty. <a href='products.html' style='text-decoration:underline;'>Browse products</a></p>";
+                subtotalEl.textContent = "0,00 € HT";
+                shippingEl.textContent = "0,00 € HT";
+                if (tvaEl) tvaEl.textContent = "0,00 €";
+                totalEl.textContent = "0,00 € TTC";
+                return;
+            }
+
+            const { subtotal, shipping, tva, total } = calculateTotals(cart);
+
+            itemsContainer.innerHTML = cart.map(item => {
+                const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 1);
+                let details = [];
+                if (item.customText) details.push(`Text: "${item.customText}"`);
+                if (item.dimensions || item.size) details.push(`Size: ${item.dimensions || item.size}`);
+                if (item.thickness) details.push(`Relief: ${item.thickness}`);
+                if (item.finish) details.push(`Finish: ${item.finish}`);
+
+                return `
+                    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eee;font-size:13px;">
+                        <div>
+                            <strong>${item.name}</strong> × ${item.quantity}
+                            ${details.length ? `<br><span style='color:#777;font-size:11px;'>${details.join(" · ")}</span>` : ""}
+                        </div>
+                        <strong>${itemTotal.toFixed(2)} € HT</strong>
+                    </div>
+                `;
+            }).join("");
+
+            subtotalEl.textContent = `${subtotal.toFixed(2)} € HT`;
+            shippingEl.textContent = `${shipping.toFixed(2)} € HT`;
+            if (tvaEl) tvaEl.textContent = `${tva.toFixed(2)} €`;
+            totalEl.textContent = `${total.toFixed(2)} € TTC`;
+        }
+
+        renderCheckoutItems();
+
+        // Auto-fill customer details if logged into account
+        if (window.DB && window.DB.getCurrentCustomer) {
+            const loggedCust = window.DB.getCurrentCustomer();
+            if (loggedCust) {
+                if (loggedCust.name && document.getElementById("firstName")) {
+                    const parts = loggedCust.name.split(" ");
+                    document.getElementById("firstName").value = parts[0] || "";
+                    if (parts.length > 1 && document.getElementById("lastName")) {
+                        document.getElementById("lastName").value = parts.slice(1).join(" ");
+                    }
+                }
+                if (loggedCust.email && document.getElementById("email")) {
+                    document.getElementById("email").value = loggedCust.email;
+                }
+                if (loggedCust.phone && document.getElementById("phone")) {
+                    document.getElementById("phone").value = loggedCust.phone;
+                }
+            }
+        }
+
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener("change", function () {
+                const val = this.value;
+                cardFields.style.display = (val === "card") ? "block" : "none";
+                if (val === "whatsapp") {
+                    placeOrderBtn.textContent = "Send Order Directly via WhatsApp";
+                    placeOrderBtn.style.background = "#25d366";
+                } else {
+                    placeOrderBtn.textContent = "Confirm & Place Order";
+                    placeOrderBtn.style.background = "#111111";
+                }
+            });
+        });
+
+        // Checkout Submission
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            errorMsg.style.display = "none";
+            const cart = getCart();
+
+            if (!cart.length) {
+                errorMsg.textContent = "Your cart is empty. Please add a product first.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            const required = form.querySelectorAll("[required]");
+            let valid = true;
+            required.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = "#e00";
+                    valid = false;
+                } else {
+                    input.style.borderColor = "#ccc";
+                }
+            });
+
+            if (!valid) {
+                errorMsg.textContent = "Please fill in all required shipping and contact fields.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            const { subtotal, shipping, total } = calculateTotals(cart);
+            const paymentMethod = form.querySelector('input[name="payment"]:checked')?.value || "card";
+            const cardNumber = document.getElementById("cardNumber")?.value || "";
+
+            const customer = {
+                firstName: document.getElementById("firstName").value.trim(),
+                lastName: document.getElementById("lastName").value.trim(),
+                company: document.getElementById("company").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                address: document.getElementById("address").value.trim(),
+                city: document.getElementById("city").value.trim(),
+                state: document.getElementById("state").value.trim(),
+                postcode: document.getElementById("postcode").value.trim(),
+                country: document.getElementById("country").value,
+                phone: document.getElementById("phone").value.trim()
+            };
+
+            const orderPayload = {
+                customer,
+                items: cart,
+                subtotal,
+                shipping,
+                total,
+                payment: paymentMethod,
+                cardNumber
+            };
+
+            try {
+                placeOrderBtn.disabled = true;
+                placeOrderBtn.textContent = "Securing transaction...";
+
+                const res = await fetch("/api/checkout/process", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(orderPayload)
+                });
+                const result = await res.json();
+
+                if (!res.ok || result.success === false) {
+                    // Payment declined: Save failed attempt and redirect to payment-failed.html
+                    localStorage.setItem("veloraFailedOrder", JSON.stringify({
+                        customer,
+                        items: cart,
+                        total,
+                        error: result.error || "Declined",
+                        date: new Date().toISOString()
+                    }));
+                    window.location.href = result.redirectUrl || "payment-failed.html";
+                    return;
+                }
+
+                // Success
+                const orderData = {
+                    orderNumber: result.orderNumber,
+                    items: cart,
+                    subtotal,
+                    shipping,
+                    total,
+                    payment: paymentMethod,
+                    customer,
+                    date: new Date().toISOString()
+                };
+
+                localStorage.setItem("veloraLastOrder", JSON.stringify(orderData));
+                localStorage.removeItem("veloraCart");
+
+                if (paymentMethod === "whatsapp") {
+                    let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${result.orderNumber}* :\n`;
+                    cart.forEach((it, idx) => {
+                        msg += `\n${idx + 1}. *${it.name}* (x${it.quantity}) - €${(it.price * it.quantity).toFixed(2)}`;
+                        if (it.customText) msg += `\n   - Texte: "${it.customText}"`;
+                    });
+                    msg += `\n\n*Total:* €${total.toFixed(2)}`;
+                    msg += `\n*Client:* ${customer.firstName} ${customer.lastName} (${customer.phone})`;
+
+                    window.open(`https://wa.me/33123456789?text=${encodeURIComponent(msg)}`, "_blank");
+                    window.location.href = "success.html";
+                } else {
+                    window.location.href = "success.html";
+                }
+
+            } catch (err) {
+                // Static deployment fallback: Create client-side order reference
+                const fallbackOrderNumber = "ORD-" + Date.now().toString(36).toUpperCase();
+                const orderData = {
+                    orderNumber: fallbackOrderNumber,
+                    items: cart,
+                    subtotal,
+                    shipping,
+                    total,
+                    payment: paymentMethod,
+                    customer,
+                    date: new Date().toISOString()
+                };
+                localStorage.setItem("veloraLastOrder", JSON.stringify(orderData));
+                localStorage.removeItem("veloraCart");
+
+                // Save order to Supabase Cloud Database
+                try {
+                    if (window.DB && window.DB.saveOrder) {
+                        await window.DB.saveOrder(orderData);
+                    }
+                } catch (dbErr) {
+                    console.warn("[DB] Supabase order save failed, continuing:", dbErr);
+                }
+
+                // Send instant order dispatch notification to store owner via Web3Forms
+                try {
+                    let orderSummary = `New Order Placed: #${fallbackOrderNumber}\n\n`;
+                    orderSummary += `Customer: ${customer.firstName} ${customer.lastName}\n`;
+                    orderSummary += `Email: ${customer.email}\n`;
+                    orderSummary += `Phone: ${customer.phone}\n`;
+                    orderSummary += `Address: ${customer.address}, ${customer.city} ${customer.postcode}, ${customer.country}\n\n`;
+                    orderSummary += `Payment Method: ${paymentMethod}\n`;
+                    orderSummary += `Subtotal: €${subtotal.toFixed(2)}\n`;
+                    orderSummary += `Shipping: €${shipping.toFixed(2)}\n`;
+                    orderSummary += `Total: €${total.toFixed(2)}\n\n`;
+                    orderSummary += `Items Ordered:\n`;
+                    cart.forEach((it, idx) => {
+                        orderSummary += `${idx + 1}. ${it.name} (Qty: ${it.quantity}) - €${(it.price * it.quantity).toFixed(2)}\n`;
+                        if (it.customText) orderSummary += `   - Custom Text: "${it.customText}"\n`;
+                    });
+
+                    await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                        body: JSON.stringify({
+                            access_key: "3509eeff-f80f-4989-8d2d-fe5f6ddcf417",
+                            from_name: "MY STICKERZ ENSEIGNE Checkout",
+                            subject: `New Store Order #${fallbackOrderNumber} - €${total.toFixed(2)}`,
+                            name: `${customer.firstName} ${customer.lastName}`,
+                            email: customer.email,
+                            phone: customer.phone,
+                            message: orderSummary
+                        })
+                    });
+                } catch (notifyErr) {
+                    // Fail silently so customer checkout flow is never blocked
+                }
+
+                if (paymentMethod === "whatsapp") {
+                    let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${fallbackOrderNumber}* :\n`;
+                    cart.forEach((it, idx) => {
+                        msg += `\n${idx + 1}. *${it.name}* (x${it.quantity}) - ${(it.price * it.quantity).toFixed(2)} € HT`;
+                        if (it.customText) msg += `\n   - Texte: "${it.customText}"`;
+                    });
+                    msg += `\n\n*Total TTC:* ${total.toFixed(2)} €`;
+                    msg += `\n*Client:* ${customer.firstName} ${customer.lastName} (${customer.phone})`;
+
+                    window.open(`https://wa.me/33123456789?text=${encodeURIComponent(msg)}`, "_blank");
+                    window.location.href = "success.html";
+                } else {
+                    window.location.href = "success.html";
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

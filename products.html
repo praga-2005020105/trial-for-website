@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Explore our premium collection of custom signage, stickers, and business displays." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="Products — MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Explore our premium collection of custom signage, stickers, and business displays.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" class="active" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" class="active" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><span>🔍</span> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- SHOP HEADER -->
+    <section class="shop-header">
+        <h1 data-i18n="shopTitle">All Products</h1>
+        <p data-i18n="shopSubtitle">Explore our premium collection of custom signage, stickers, and business displays.</p>
+    </section>
+
+    <!-- SHOP SECTION -->
+    <main class="shop-section section-container">
+        <!-- IN-PAGE INTERACTIVE CATALOG SEARCH WITH LIVE WORD SUGGESTIONS -->
+        <div class="shop-search-bar-wrap">
+            <div class="shop-search-input-box">
+                <span class="shop-search-icon">🔍</span>
+                <input type="text" id="shopCatalogSearchInput" aria-label="Filter products or search by keyword" placeholder="Filter products or search by keyword (e.g. neon, pvc letters, stickers, vehicle, store...)" autocomplete="off">
+                <button type="button" id="shopCatalogSearchClear" class="shop-search-clear" style="display:none;" title="Clear search">✕</button>
+            </div>
+            <div id="shopCatalogSuggestions" class="shop-catalog-suggestions"></div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="shop-controls">
+            <div class="categories-filter">
+                <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All Products</button>
+                <button class="filter-btn" data-filter="Signage" data-i18n="filterSignage">Signage</button>
+                <button class="filter-btn" data-filter="Print &amp; Graphics" data-i18n="filterPrint">Print &amp; Graphics</button>
+                <button class="filter-btn" data-filter="Vehicle Graphics" data-i18n="filterVehicle">Vehicle Graphics</button>
+                <button class="filter-btn" data-filter="Business Signage" data-i18n="filterBusiness">Business Signage</button>
+                <button class="filter-btn" data-filter="Outdoor Solutions" data-i18n="filterOutdoor">Outdoor Solutions</button>
+                <button class="filter-btn" data-filter="Interior Solutions" data-i18n="filterInterior">Interior Solutions</button>
+                <button class="filter-btn" data-filter="Building Solutions" data-i18n="filterBuilding">Building Solutions</button>
+                <button class="filter-btn" data-filter="Custom PVC Letters" data-i18n="filterPvc">Custom PVC Letters</button>
+            </div>
+            <div class="sort-box">
+                <label for="sortProducts" data-i18n="sortLabel">Sort by:</label>
+                <select id="sortProducts">
+                    <option value="default" data-i18n="sortDefault">Default</option>
+                    <option value="low" data-i18n="sortLow">Price: Low to High</option>
+                    <option value="high" data-i18n="sortHigh">Price: High to Low</option>
+                    <option value="name-az" data-i18n="sortNameAZ">Name: A to Z</option>
+                    <option value="name-za" data-i18n="sortNameZA">Name: Z to A</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- PRODUCTS GRID -->
+        <div class="shop-products-grid" id="productsGrid">
+            
+            <div class="shop-product" data-id="neon-signs" data-category="Signage" data-price="350" data-name="Custom LED Neon Signs">
+                <div class="shop-product-image">
+                    <span style="position:absolute;top:10px;left:10px;background:#111;color:#fff;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;z-index:2;letter-spacing:0.5px;">✨ 2.5D BUILDER</span>
+                    <a href="neon-builder.html" style="display:block;width:100%;height:100%;">
+                        <img src="images/neon-signs.jpg" alt="Custom LED Neon Signs" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="neon-signs"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="neon-builder.html">Custom LED Neon Signs</a></h3>
+                    <p class="shop-price">350,00 € HT</p>
+                    <div style="display:flex;gap:6px;margin-top:6px;">
+                        <a href="neon-builder.html" class="btn btn-dark" style="flex:1;font-size:11px;padding:8px 6px;text-align:center;text-decoration:none;font-weight:700;border-radius:4px;">✨ 2.5D Builder</a>
+                        <button class="shop-add-cart" data-id="neon-signs" data-i18n="quickAddToCart" style="flex:1;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="business-signs" data-category="Business Signage" data-price="100" data-name="2D Flat Sign (PVC / Alu)">
+                <div class="shop-product-image">
+                    <a href="product.html?id=business-signs" style="display:block;width:100%;height:100%;">
+                        <img src="images/business-signs.jpg" alt="2D Flat Sign (PVC / Alu)" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="business-signs"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=business-signs">2D Flat Sign (PVC / Alu)</a></h3>
+                    <p class="shop-price">100,00 € HT</p>
+                    <button class="shop-add-cart" data-id="business-signs" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="aluminium-facades" data-category="Building Solutions" data-price="175" data-name="ACP / Dibond Cladding & Sign">
+                <div class="shop-product-image">
+                    <a href="product.html?id=aluminium-facades" style="display:block;width:100%;height:100%;">
+                        <img src="images/aluminium-facades.jpg" alt="ACP / Dibond Cladding & Sign" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="aluminium-facades"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=aluminium-facades">ACP / Dibond Cladding &amp; Sign</a></h3>
+                    <p class="shop-price">175,00 € HT</p>
+                    <button class="shop-add-cart" data-id="aluminium-facades" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="pvc-cut-letters" data-category="Custom PVC Letters" data-price="100" data-name="Custom PVC / Forex Cut Letters">
+                <div class="shop-product-image">
+                    <a href="product.html?id=pvc-cut-letters" style="display:block;width:100%;height:100%;">
+                        <img src="images/3d-raised-letters.jpg" alt="Custom PVC / Forex Cut Letters" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <span class="product-tag">CUSTOMIZABLE</span>
+                    <button class="wishlist" data-id="pvc-cut-letters"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=pvc-cut-letters">Custom PVC / Forex Cut Letters</a></h3>
+                    <p class="shop-price">From 100,00 € HT</p>
+                    <button class="shop-add-cart" data-id="pvc-cut-letters" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="lettres-3d-lumineuses" data-category="Signage" data-price="365" data-name="Front-Lit 3D Channel Letters">
+                <div class="shop-product-image">
+                    <a href="product.html?id=lettres-3d-lumineuses" style="display:block;width:100%;height:100%;">
+                        <img src="images/3d-raised-letters.jpg" alt="Front-Lit 3D Channel Letters" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <span class="product-tag" style="background:#111;color:#fff;">365 € / LETTRE</span>
+                    <button class="wishlist" data-id="lettres-3d-lumineuses"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=lettres-3d-lumineuses">Front-Lit 3D Channel Letters</a></h3>
+                    <p class="shop-price">365,00 € HT</p>
+                    <button class="shop-add-cart" data-id="lettres-3d-lumineuses" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="lettres-3d-retro-halo" data-category="Signage" data-price="390" data-name="Halo Backlit 3D Letters">
+                <div class="shop-product-image">
+                    <a href="product.html?id=lettres-3d-retro-halo" style="display:block;width:100%;height:100%;">
+                        <img src="images/3d-raised-letters.jpg" alt="Halo Backlit 3D Letters" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <span class="product-tag" style="background:#111;color:#fff;">390 € / LETTRE</span>
+                    <button class="wishlist" data-id="lettres-3d-retro-halo"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=lettres-3d-retro-halo">Halo Backlit 3D Letters</a></h3>
+                    <p class="shop-price">390,00 € HT</p>
+                    <button class="shop-add-cart" data-id="lettres-3d-retro-halo" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="lettres-3d-lateral" data-category="Signage" data-price="390" data-name="Side-Lit 3D Channel Letters">
+                <div class="shop-product-image">
+                    <a href="product.html?id=lettres-3d-lateral" style="display:block;width:100%;height:100%;">
+                        <img src="images/3d-raised-letters.jpg" alt="Side-Lit 3D Channel Letters" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <span class="product-tag" style="background:#111;color:#fff;">390 € / LETTRE</span>
+                    <button class="wishlist" data-id="lettres-3d-lateral"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=lettres-3d-lateral">Side-Lit 3D Channel Letters</a></h3>
+                    <p class="shop-price">390,00 € HT</p>
+                    <button class="shop-add-cart" data-id="lettres-3d-lateral" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="lettres-3d-plateau-acp" data-category="Signage" data-price="600" data-name="3D Letters on ACP Tray">
+                <div class="shop-product-image">
+                    <a href="product.html?id=lettres-3d-plateau-acp" style="display:block;width:100%;height:100%;">
+                        <img src="images/business-signs.jpg" alt="3D Letters on ACP Tray" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <span class="product-tag">SUR-MESURE</span>
+                    <button class="wishlist" data-id="lettres-3d-plateau-acp"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=lettres-3d-plateau-acp">3D Letters on ACP Tray</a></h3>
+                    <p class="shop-price">600,00 € HT / m²</p>
+                    <button class="shop-add-cart" data-id="lettres-3d-plateau-acp" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="caisson-lumineux" data-category="Business Signage" data-price="460" data-name="Illuminated LED Lightbox Sign">
+                <div class="shop-product-image">
+                    <a href="product.html?id=caisson-lumineux" style="display:block;width:100%;height:100%;">
+                        <img src="images/business-signs.jpg" alt="Illuminated LED Lightbox Sign" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <span class="product-tag" style="background:#22c55e;color:#fff;">LED PRO</span>
+                    <button class="wishlist" data-id="caisson-lumineux"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=caisson-lumineux">Illuminated LED Lightbox Sign</a></h3>
+                    <p class="shop-price">460,00 € HT / m²</p>
+                    <button class="shop-add-cart" data-id="caisson-lumineux" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="enseigne-drapeau" data-category="Signage" data-price="850" data-name="Double-Sided Projecting Blade Sign">
+                <div class="shop-product-image">
+                    <a href="product.html?id=enseigne-drapeau" style="display:block;width:100%;height:100%;">
+                        <img src="images/acrylic-signs.jpg" alt="Double-Sided Projecting Blade Sign" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="enseigne-drapeau"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=enseigne-drapeau">Double-Sided Blade Sign</a></h3>
+                    <p class="shop-price">850,00 € HT</p>
+                    <button class="shop-add-cart" data-id="enseigne-drapeau" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="vehicle-wrapping" data-category="Vehicle Graphics" data-price="750" data-name="Vehicle Semi & Total Wrap">
+                <div class="shop-product-image">
+                    <a href="product.html?id=vehicle-wrapping" style="display:block;width:100%;height:100%;">
+                        <img src="images/vehicle-wrapping.jpg" alt="Vehicle Semi & Total Wrap" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="vehicle-wrapping"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=vehicle-wrapping">Vehicle Semi &amp; Total Wrap</a></h3>
+                    <p class="shop-price">From 750,00 € HT</p>
+                    <button class="shop-add-cart" data-id="vehicle-wrapping" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="vehicle-lettering-graphics" data-category="Vehicle Graphics" data-price="350" data-name="Commercial Vehicle Lettering">
+                <div class="shop-product-image">
+                    <a href="product.html?id=vehicle-lettering-graphics" style="display:block;width:100%;height:100%;">
+                        <img src="images/vehicle-lettering.jpg" alt="Commercial Vehicle Lettering" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="vehicle-lettering-graphics"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=vehicle-lettering-graphics">Commercial Vehicle Lettering</a></h3>
+                    <p class="shop-price">350,00 € HT</p>
+                    <button class="shop-add-cart" data-id="vehicle-lettering-graphics" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="3d-raised-letters" data-category="Signage" data-price="180" data-name="3D Raised Letters (Raw Relief)">
+                <div class="shop-product-image">
+                    <a href="product.html?id=3d-raised-letters" style="display:block;width:100%;height:100%;">
+                        <img src="images/3d-raised-letters.jpg" alt="3D Raised Letters" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="3d-raised-letters"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=3d-raised-letters">3D Raised Letters (Raw Relief)</a></h3>
+                    <p class="shop-price">180,00 € HT</p>
+                    <button class="shop-add-cart" data-id="3d-raised-letters" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="acrylic-signs-displays" data-category="Signage" data-price="129" data-name="Acrylic Signs & Displays">
+                <div class="shop-product-image">
+                    <a href="product.html?id=acrylic-signs-displays" style="display:block;width:100%;height:100%;">
+                        <img src="images/acrylic-signs.jpg" alt="Acrylic Signs & Displays" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="acrylic-signs-displays"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=acrylic-signs-displays">Acrylic Signs &amp; Displays</a></h3>
+                    <p class="shop-price">129,00 € HT</p>
+                    <button class="shop-add-cart" data-id="acrylic-signs-displays" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="retractable-awnings" data-category="Outdoor Solutions" data-price="299" data-name="Retractable Awnings">
+                <div class="shop-product-image">
+                    <a href="product.html?id=retractable-awnings" style="display:block;width:100%;height:100%;">
+                        <img src="images/retractable-awnings.jpg" alt="Retractable Awnings" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="retractable-awnings"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=retractable-awnings">Retractable Awnings</a></h3>
+                    <p class="shop-price">299,00 € HT</p>
+                    <button class="shop-add-cart" data-id="retractable-awnings" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="suspended-ceilings" data-category="Interior Solutions" data-price="399" data-name="Suspended Ceilings">
+                <div class="shop-product-image">
+                    <a href="product.html?id=suspended-ceilings" style="display:block;width:100%;height:100%;">
+                        <img src="images/suspended-ceilings.jpg" alt="Suspended Ceilings" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="suspended-ceilings"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=suspended-ceilings">Suspended Ceilings</a></h3>
+                    <p class="shop-price">399,00 € HT</p>
+                    <button class="shop-add-cart" data-id="suspended-ceilings" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="adhesive-stickers" data-category="Print & Graphics" data-price="29" data-name="Adhesive Stickers">
+                <div class="shop-product-image">
+                    <a href="product.html?id=adhesive-stickers" style="display:block;width:100%;height:100%;">
+                        <img src="images/adhesive-stickers.jpg" alt="Adhesive Stickers" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="adhesive-stickers"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=adhesive-stickers">Adhesive Stickers</a></h3>
+                    <p class="shop-price">29,00 € HT</p>
+                    <button class="shop-add-cart" data-id="adhesive-stickers" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="shop-product" data-id="wall-stickers" data-category="Print & Graphics" data-price="49" data-name="Wall Stickers">
+                <div class="shop-product-image">
+                    <a href="product.html?id=wall-stickers" style="display:block;width:100%;height:100%;">
+                        <img src="images/wall-stickers.jpg" alt="Wall Stickers" loading="lazy" decoding="async" width="400" height="300">
+                    </a>
+                    <button class="wishlist" data-id="wall-stickers"><i class="fa-regular fa-heart"></i></button>
+                </div>
+                <div class="shop-product-details">
+                    <h3><a href="product.html?id=wall-stickers">Wall Stickers</a></h3>
+                    <p class="shop-price">49,00 € HT</p>
+                    <button class="shop-add-cart" data-id="wall-stickers" data-i18n="quickAddToCart">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

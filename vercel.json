@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(css|js)/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/products", "destination": "/products.html" },
+    { "source": "/product", "destination": "/product.html" },
+    { "source": "/cart", "destination": "/cart.html" },
+    { "source": "/checkout", "destination": "/checkout.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/wishlist", "destination": "/wishlist.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/neon-builder", "destination": "/neon-builder.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/shipping", "destination": "/shipping.html" },
+    { "source": "/returns", "destination": "/returns.html" },
+    { "source": "/cookies", "destination": "/cookies.html" },
+    { "source": "/success", "destination": "/success.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/signup", "destination": "/signup.html" },
+    { "source": "/dashboard", "destination": "/login.html" },
+    { "source": "/payment-failed", "destination": "/payment-failed.html" }
+  ]
+}

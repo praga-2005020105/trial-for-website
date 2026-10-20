@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Livraison & Délais d'Expédition - MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Découvrez nos délais de fabrication artisanale, transport sécurisé et livraison suivie partout en France." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="Politique de Livraison & Délais d'Expédition - MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Découvrez nos délais de fabrication artisanale, transport sécurisé et livraison suivie partout en France.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- SHOP HEADER -->
+    <section class="shop-header">
+        <h1 data-i18n="shippingHeaderTitle">Shipping Policy &amp; Delivery Times</h1>
+        <p data-i18n="shippingHeaderSub">Handcrafted in our atelier in Garges-lès-Gonesse (95) with tracked shipping across France and Europe.</p>
+    </section>
+
+    <!-- POLICY CONTENT -->
+    <main class="policy-main" style="max-width:1100px;margin:50px auto;padding:0 5%;">
+        <div class="policy-crosslinks" style="display:flex;justify-content:center;gap:12px;margin-bottom:40px;">
+            <a href="shipping.html" class="btn btn-dark" data-i18n="footerShipping">Shipping</a>
+            <a href="returns.html" class="btn" style="border:1px solid #ddd;" data-i18n="footerReturns">No Returns Policy</a>
+            <a href="terms.html" class="btn" style="border:1px solid #ddd;" data-i18n="footerTerms">Terms</a>
+        </div>
+
+        <div style="background:#f4f4f1;border:1px solid #e0e0dc;border-radius:8px;padding:24px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;margin-bottom:40px;">
+            <div>
+                <p style="font-size:11px;letter-spacing:1.5px;font-weight:700;color:#777;text-transform:uppercase;margin-bottom:4px;" data-i18n="shippingAdvantageTag">Atelier Shipping</p>
+                <p style="font-size:15px;font-weight:600;color:#111;margin:0;" data-i18n="shippingAdvantageText">Tracked and insured delivery across France and Europe on all orders.</p>
+            </div>
+            <a href="products.html" class="btn btn-dark" style="padding:12px 20px;" data-i18n="shippingBackBtn">Back to Catalog</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr));gap:20px;">
+            <div style="border:1px solid #e5e5e2;background:#fff;padding:26px;border-radius:8px;">
+                <span style="font-size:10px;font-weight:700;color:#888;letter-spacing:1.5px;text-transform:uppercase;" data-i18n="shippingOptStandardTag">Standard Option</span>
+                <h3 style="font-size:18px;margin:8px 0;" data-i18n="shippingOptStandardTitle">Colissimo / GLS Tracked Delivery</h3>
+                <p style="font-weight:700;margin-bottom:12px;color:#111;" data-i18n="shippingOptStandardPrice">€10.00</p>
+                <ul style="list-style:none;padding:0;font-size:13px;color:#666;line-height:1.8;">
+                    <li data-i18n="shippingOptStandardL1">⏱ 3 to 5 business days after manufacturing</li>
+                    <li data-i18n="shippingOptStandardL2">📦 Tracking number sent by email</li>
+                    <li data-i18n="shippingOptStandardL3">🏠 Secure delivery with signature</li>
+                </ul>
+            </div>
+
+            <div style="border:2px solid #111;background:#fff;padding:26px;border-radius:8px;">
+                <span style="font-size:10px;font-weight:700;color:#111;letter-spacing:1.5px;text-transform:uppercase;" data-i18n="shippingOptExpressTag">Express Urgency</span>
+                <h3 style="font-size:18px;margin:8px 0;" data-i18n="shippingOptExpressTitle">Chronopost Express 24H</h3>
+                <p style="font-weight:700;margin-bottom:12px;color:#111;" data-i18n="shippingOptExpressPrice">€14.90</p>
+                <ul style="list-style:none;padding:0;font-size:13px;color:#666;line-height:1.8;">
+                    <li data-i18n="shippingOptExpressL1">⏱ Guaranteed next-day delivery before 1pm</li>
+                    <li data-i18n="shippingOptExpressL2">✍️ In-person delivery against signature</li>
+                    <li data-i18n="shippingOptExpressL3">📱 SMS alert with 1-hour delivery window</li>
+                </ul>
+            </div>
+
+            <div style="border:1px solid #e5e5e2;background:#fff;padding:26px;border-radius:8px;">
+                <span style="font-size:10px;font-weight:700;color:#888;letter-spacing:1.5px;text-transform:uppercase;" data-i18n="shippingOptLargeTag">Large Formats</span>
+                <h3 style="font-size:18px;margin:8px 0;" data-i18n="shippingOptLargeTitle">Specialized Geodis Freight</h3>
+                <p style="font-weight:700;margin-bottom:12px;color:#111;" data-i18n="shippingOptLargePrice">Included or on quote</p>
+                <ul style="list-style:none;padding:0;font-size:13px;color:#666;line-height:1.8;">
+                    <li data-i18n="shippingOptLargeL1">⏱ 48h to 72h with scheduled appointment</li>
+                    <li data-i18n="shippingOptLargeL2">🚚 Tailgate truck for rigid signage and lightboxes</li>
+                    <li data-i18n="shippingOptLargeL3">🏢 Direct delivery to your commercial storefront</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

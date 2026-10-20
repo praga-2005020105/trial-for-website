@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.5D Atelier Customizer — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Custom illuminated signage, custom LED neon signs, 3D relief letters, vehicle graphics, and professional stickers with live 2.5D visualizer." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="2.5D Atelier Customizer — MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Custom illuminated signage, custom LED neon signs, 3D relief letters, vehicle graphics, and professional stickers with live 2.5D visualizer.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Google Fonts Stack -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600&family=Dancing+Script:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Libre+Franklin:wght@600;700;800;900&family=Monoton&family=Montserrat:wght@500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" class="active" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" class="active" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><span>🔍</span> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="index.html" data-i18n="navHome">Home</a>
+        <span>/</span>
+        <a href="products.html" data-i18n="navProducts">Products</a>
+        <span>/</span>
+        <span id="breadcrumbProduct" class="current-crumb" data-i18n="customizerStudio">Customizer Studio</span>
+    </div>
+
+    <!-- MAIN PRODUCT CUSTOMIZER SPLIT LAYOUT -->
+    <main class="product-customizer-grid">
+
+        <!-- =========================================================
+             LEFT COLUMN: STICKY 2.5D WORKSHOP STAGE
+        ========================================================= -->
+        <div class="visualizer-column">
+            <div class="workshop-stage-box wall-anthracite mode-night" id="workshopStageBox">
+
+                <!-- Real-Time Metrics HUD Pill (JetBrains Mono) -->
+                <div class="live-hud-pill" id="liveDimensionHud">
+                    <span class="hud-live-dot"></span>
+                    <span id="hudMetricsText">104 × 20 cm · 0.21 m² · 8 elements</span>
+                </div>
+
+                <!-- -----------------------------------------------------
+                     STAGE 1: 2.5D LED NEON SIGN SIMULATOR
+                ------------------------------------------------------ -->
+                <div class="neon-visualizer-stage" id="stageNeon" style="display:none;">
+                    <div class="neon-acrylic-silhouette neon-cut-shape acrylic-finish-clear" id="neonAcrylicSilhouette">
+                        <div class="neon-text-render neon-glow-on" id="neonTextDisplay" style="font-family:'Dancing Script', cursive;">
+                            <span class="neon-line-span">YOUR NEON</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -----------------------------------------------------
+                     STAGE 2: 3D RELIEF LETTERS & CUT LOGOS
+                ------------------------------------------------------ -->
+                <div class="relief-visualizer-stage" id="stageRelief3D" style="display:none;">
+                    <div class="standoff-hardware-studs" id="standoffContainer">
+                        <div class="relief-text-render thickness-10mm" id="reliefTextDisplay" style="color:#ffffff;">
+                            YOUR SIGN
+                        </div>
+                        <img id="reliefLogoDisplay" src="" alt="Vector Logo Preview" style="display:none;max-height:160px;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,0.5));">
+                    </div>
+                </div>
+
+                <!-- -----------------------------------------------------
+                     STAGE 3: COMMERCIAL FACADES, SIGNS, AWNINGS, CEILINGS
+                ------------------------------------------------------ -->
+                <div class="facade-visualizer-stage" id="stageFacade" style="display:none;">
+                    <!-- Sub-view 3A: Business Signs & Aluminium Cassette Facade -->
+                    <div id="facadeSignSubView" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+                        <div class="led-trough-ramp ramp-active" id="ledTroughRamp"></div>
+                        <div class="facade-cassette-board" id="facadeCassetteBoard">
+                            <span class="facade-sign-text" id="facadeSignText">BUSINESS SIGN</span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view 3B: Retractable Awning (Stores Bannes) -->
+                    <div id="facadeAwningSubView" class="awning-preview-box" style="display:none;">
+                        <div class="awning-fabric-slope" id="awningFabricSlope" style="background:#2b2f33;"></div>
+                        <div class="awning-valance-lambrequin" id="awningValance">
+                            <span id="awningValanceText">LE BISTROT PARISIEN</span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view 3C: Suspended Ceiling Modular Grid -->
+                    <div id="facadeCeilingSubView" style="display:none;flex-direction:column;align-items:center;">
+                        <div class="ceiling-tiles-grid" id="ceilingTilesGrid">
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile tile-led"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile tile-led"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile tile-led"></div>
+                            <div class="ceiling-tile"></div>
+                            <div class="ceiling-tile"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -----------------------------------------------------
+                     STAGE 4: COMMERCIAL FLEET VEHICLE GRAPHICS
+                ------------------------------------------------------ -->
+                <div class="vehicle-visualizer-stage" id="stageVehicle" style="display:none;">
+                    <svg class="vehicle-blueprint-svg" id="vehicleBlueprintSvg" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Vehicle Silhouette Body -->
+                        <path id="vehicleChassisBody" d="M30 170 C30 150 45 130 90 120 L160 115 L220 60 L440 60 L540 100 C565 110 580 130 580 160 L580 180 C580 190 570 195 550 195 L490 195 C490 165 440 165 440 195 L200 195 C200 165 150 165 150 195 L50 195 C35 195 30 185 30 170 Z" fill="#1e2025" stroke="#4a4d57" stroke-width="2"/>
+                        <!-- Windows -->
+                        <path id="vehicleFrontWindow" d="M225 68 L170 118 L275 118 L275 68 Z" fill="#0c1017" stroke="#333842"/>
+                        <path id="vehicleSideWindow" d="M285 68 L285 118 L430 118 L430 68 Z" fill="#0c1017" stroke="#333842"/>
+                        <path id="vehicleRearWindow" d="M440 68 L440 118 L530 108 L440 68 Z" fill="#0c1017" stroke="#333842"/>
+                        <!-- Coverage Highlight Zone (Lettering / 50% / 100%) -->
+                        <path id="vehicleCoverageZone" d="M280 65 L435 65 L545 105 L575 160 L575 190 L495 190 C495 168 435 168 435 190 L280 190 Z" fill="rgba(255, 15, 57, 0.35)" stroke="#ff0f39" stroke-width="2" stroke-dasharray="4 4"/>
+                        <!-- Lettering Preview Text on Doors -->
+                        <text id="vehicleDoorText" x="220" y="155" fill="#ffffff" font-family="'Libre Franklin', sans-serif" font-weight="800" font-size="14" letter-spacing="1">MY BRAND FLEET</text>
+                        <text id="vehicleSiretText" x="220" y="172" fill="#9999a5" font-family="'JetBrains Mono', monospace" font-size="9">01 48 41 85 90 · SIRET 848972827</text>
+                        <!-- Wheels -->
+                        <circle cx="175" cy="195" r="28" fill="#0a0a0c" stroke="#555" stroke-width="3"/>
+                        <circle cx="175" cy="195" r="14" fill="#252530" stroke="#777"/>
+                        <circle cx="465" cy="195" r="28" fill="#0a0a0c" stroke="#555" stroke-width="3"/>
+                        <circle cx="465" cy="195" r="14" fill="#252530" stroke="#777"/>
+                    </svg>
+                    <div class="vehicle-coverage-badge" id="vehicleCoverageBadge">
+                        Zone de Marquage: 2 Portes Avant + Arrière
+                    </div>
+                </div>
+
+                <!-- -----------------------------------------------------
+                     STAGE 5: CUSTOM STICKERS & WALL MURALS
+                ------------------------------------------------------ -->
+                <div class="sticker-visualizer-stage" id="stageStickers" style="display:none;">
+                    <div class="sticker-artwork-canvas sticker-die-cut sheen-gloss" id="stickerArtworkCanvas">
+                        <div id="stickerGraphicText" style="font-family:'Libre Franklin', sans-serif;font-weight:900;font-size:24px;color:#0a0a0f;letter-spacing:1px;text-transform:uppercase;">
+                            CUSTOM STICKER
+                        </div>
+                        <div id="stickerCutBadge" style="margin-top:10px;font-family:'JetBrains Mono', monospace;font-size:10px;color:#ff0f39;font-weight:700;">
+                            ✂️ Kiss-Cut (Easy Peel)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Stage Control Bar -->
+            <div class="stage-controls-bar">
+                <div class="wall-buttons-group">
+                    <span style="font-size:10px;font-weight:700;color:var(--customizer-text-muted);padding-left:4px;" data-i18n="wallLabel">WALL:</span>
+                    <button type="button" class="wall-pill-btn" data-wall="wall-clean-white" data-i18n="wallWhite" title="White Studio">⚪ White</button>
+                    <button type="button" class="wall-pill-btn active" data-wall="wall-anthracite" data-i18n="wallAnthracite" title="Anthracite Slate">⬛ Slate</button>
+                    <button type="button" class="wall-pill-btn" data-wall="wall-brick" data-i18n="wallBrick" title="Red Brick">🧱 Brick</button>
+                    <button type="button" class="wall-pill-btn" data-wall="wall-wood" data-i18n="wallWood" title="Timber Wood">🪵 Wood</button>
+                </div>
+
+                <button type="button" class="day-night-btn lights-active" id="stageDayNightToggle" title="Toggle Day / Night Lighting">
+                    <span id="dayNightIcon">🌙</span>
+                    <span id="dayNightLabel" data-i18n="lightsOn">Lights ON</span>
+                </button>
+            </div>
+
+            <div class="stage-atelier-badge" data-i18n="atelierAssuranceBadge">
+                ⚡ 2.5D ATELIER SIMULATOR · REAL-TIME VECTOR RENDERING
+            </div>
+        </div>
+
+        <!-- =========================================================
+             RIGHT COLUMN: MODULAR CONFIGURATOR PANEL
+        ========================================================= -->
+        <div class="configurator-column">
+
+            <!-- CONFIG HEADER CARD -->
+            <div class="config-header-card">
+                <div class="config-category-badge" id="productCategoryBadge">
+                    <span class="hud-live-dot" style="width:5px;height:5px;"></span>
+                    <span id="productCategoryText" data-i18n="customizerBadge">CUSTOM SIGNAGE</span>
+                </div>
+                <h1 id="productTitle" class="product-customizer-title">Custom Signage</h1>
+                <div class="product-price-row">
+                    <span id="productPriceDisplay" class="live-price-ticker">100,00 € HT</span>
+                    <span class="price-tax-hint" data-i18n="taxNotice">Tarifs professionnels HT · Chiffrage direct atelier</span>
+                </div>
+                <div class="dispatch-badge-pill">
+                    <span data-i18n="dispatchBadge">⚡ Dispatched in 5 to 8 business days · Handcrafted in France 🇫🇷</span>
+                </div>
+                <p id="productDescription" class="config-product-desc" data-i18n="customizerDefaultDesc">
+                    High-end visual solution engineered and manufactured in our French atelier. Customize finishes, dimensions, and illumination options.
+                </p>
+            </div>
+
+            <!-- =====================================================
+                 PANEL ENGINE 1: CUSTOM LED NEON SIGNS (`neon-signs`)
+            ====================================================== -->
+            <div class="config-engine-panel" id="panelEngineNeon" style="display:none;">
+                
+                <!-- Step 1: Text & Font -->
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="neonStep1Title">Step 1: Text &amp; Typography</span>
+                        <span class="config-step-num">Step 1</span>
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label for="neonInputText" data-i18n="neonInputLabel">Neon text (up to 3 lines)</label>
+                        <textarea id="neonInputText" rows="2" data-i18n-placeholder="neonInputPlaceholder" placeholder="Your neon text...">YOUR NEON</textarea>
+                    </div>
+                    <div class="config-grid-3" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card neon-align-btn" data-align="left">
+                            <strong data-i18n="neonAlignLeft">⫷ Left</strong>
+                            <span data-i18n="neonAlignSub">Alignment</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-align-btn active" data-align="center">
+                            <strong data-i18n="neonAlignCenter">≡ Center</strong>
+                            <span data-i18n="neonRecommended">Recommended</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-align-btn" data-align="right">
+                            <strong data-i18n="neonAlignRight">⫸ Right</strong>
+                            <span data-i18n="neonAlignSub">Alignment</span>
+                        </button>
+                    </div>
+                    <div>
+                        <label for="neonFontSelect" data-i18n="neonFontLabel">Neon Font Style</label>
+                        <select id="neonFontSelect">
+                            <option value="'Dancing Script', cursive">Dancing Script (Cursive Flow)</option>
+                            <option value="'Caveat', cursive">Caveat (Handwritten Signature)</option>
+                            <option value="'Pacifico', cursive">Pacifico (Retro Vintage)</option>
+                            <option value="'DM Sans', sans-serif">DM Sans (Modern Clean)</option>
+                            <option value="'Montserrat', sans-serif">Montserrat (Geometric Contemporary)</option>
+                            <option value="'Bebas Neue', sans-serif">Bebas Neue (Condensed Bold)</option>
+                            <option value="'Monoton', cursive">Monoton (Retro Multi-Line)</option>
+                            <option value="'Playfair Display', serif">Playfair Display (Luxury Serif)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 2: Neon Color Palette -->
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="neonStep2Title">Step 2: Tube Hue &amp; Glow Color (12 Colors)</span>
+                        <span class="config-step-num">Step 2</span>
+                    </div>
+                    <div class="swatches-palette-grid" id="neonSwatchesGrid">
+                        <!-- 12 glowing circular swatches -->
+                        <button type="button" class="neon-color-swatch-btn" data-color="#ffeedd" data-glow="#ffeedd" data-name="Warm White 3000K" title="Warm White 3000K" style="background:#ffeedd;color:#ffeedd;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#f0f8ff" data-glow="#cce6ff" data-name="Cool White 6500K" title="Cool White 6500K" style="background:#f0f8ff;color:#cce6ff;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#fef08a" data-glow="#eab308" data-name="Lemon Yellow" title="Lemon Yellow" style="background:#fef08a;color:#eab308;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#fbbf24" data-glow="#d97706" data-name="Golden Sun" title="Golden Sun" style="background:#fbbf24;color:#d97706;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#fb923c" data-glow="#ea580c" data-name="Sunset Orange" title="Sunset Orange" style="background:#fb923c;color:#ea580c;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#ef4444" data-glow="#dc2626" data-name="Fiery Red" title="Fiery Red" style="background:#ef4444;color:#dc2626;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#f472b6" data-glow="#db2777" data-name="Cotton Candy Pink" title="Cotton Candy Pink" style="background:#f472b6;color:#db2777;"></button>
+                        <button type="button" class="neon-color-swatch-btn active" data-color="#ec4899" data-glow="#ec4899" data-name="Hot Magenta" title="Hot Magenta" style="background:#ec4899;color:#ec4899;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#a855f7" data-glow="#9333ea" data-name="Electric Purple" title="Electric Purple" style="background:#a855f7;color:#9333ea;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#3b82f6" data-glow="#2563eb" data-name="Deep Blue" title="Deep Blue" style="background:#3b82f6;color:#2563eb;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#38bdf8" data-glow="#0284c7" data-name="Ice Blue" title="Ice Blue" style="background:#38bdf8;color:#0284c7;"></button>
+                        <button type="button" class="neon-color-swatch-btn" data-color="#22c55e" data-glow="#16a34a" data-name="Lime Green" title="Lime Green" style="background:#22c55e;color:#16a34a;"></button>
+                    </div>
+                    <div id="neonSelectedColorLabel" style="margin-top:10px;font-size:11px;color:#475569;font-family:var(--font-mono);">
+                        Active color: Hot Magenta
+                    </div>
+                </div>
+
+                <!-- Step 3: Size Tiers -->
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="neonStep3Title">Step 3: Size &amp; Dimensions</span>
+                        <span class="config-step-num">Step 3</span>
+                    </div>
+                    <div class="config-grid-4">
+                        <button type="button" class="option-btn-card neon-size-btn" data-size="Small" data-width="50" data-mult="1.0">
+                            <strong data-i18n="neonSizeSmall">Small</strong>
+                            <span data-i18n="neonSizeSmallSub">~50 cm</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-size-btn active" data-size="Medium" data-width="75" data-mult="1.25">
+                            <strong data-i18n="neonSizeMedium">Medium</strong>
+                            <span data-i18n="neonSizeMediumSub">~75 cm (Standard)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-size-btn" data-size="Large" data-width="100" data-mult="1.55">
+                            <strong data-i18n="neonSizeLarge">Large</strong>
+                            <span data-i18n="neonSizeLargeSub">~100 cm</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-size-btn" data-size="XL" data-width="150" data-mult="2.1">
+                            <strong data-i18n="neonSizeXL">XL</strong>
+                            <span data-i18n="neonSizeXLSub">~150 cm</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Acrylic Backboard -->
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="neonStep4Title">Step 4: Acrylic Cut &amp; Backboard Finish</span>
+                        <span class="config-step-num">Step 4</span>
+                    </div>
+                    <label data-i18n="neonCutStyleLabel">Acrylic Cut Style</label>
+                    <div class="config-grid-3" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card neon-cut-btn active" data-cut="shape" data-price="0">
+                            <strong data-i18n="neonCutShape">Cut to Shape</strong>
+                            <span data-i18n="neonCutShapeSub">Follows letters (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-cut-btn" data-cut="rect" data-price="15">
+                            <strong data-i18n="neonCutRect">Whole Rectangle</strong>
+                            <span data-i18n="neonCutRectSub">Full backboard (+€15)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-cut-btn" data-cut="letter" data-price="25">
+                            <strong data-i18n="neonCutLetter">Cut to Letter</strong>
+                            <span data-i18n="neonCutLetterSub">Hollow cut (+€25)</span>
+                        </button>
+                    </div>
+                    <label data-i18n="neonFinishLabel">Backboard Acrylic Finish</label>
+                    <div class="config-grid-3">
+                        <button type="button" class="option-btn-card neon-finish-btn active" data-finish="clear" data-price="0">
+                            <strong data-i18n="neonFinishClear">Clear Transparent</strong>
+                            <span data-i18n="neonFinishClearSub">Standard (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-finish-btn" data-finish="black" data-price="10">
+                            <strong data-i18n="neonFinishBlack">Glossy Black</strong>
+                            <span data-i18n="neonFinishBlackSub">High contrast (+€10)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-finish-btn" data-finish="mirror" data-price="20">
+                            <strong data-i18n="neonFinishMirror">Silver Mirror</strong>
+                            <span data-i18n="neonFinishMirrorSub">Luxury reflection (+€20)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Waterproofing & Control -->
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="neonStep5Title">Step 5: Environment, Dimmer &amp; Mounting</span>
+                        <span class="config-step-num">Step 5</span>
+                    </div>
+                    <div class="config-grid-2" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card neon-waterproof-btn active" data-env="indoor" data-price="0">
+                            <strong data-i18n="neonEnvIndoor">Indoor (IP20)</strong>
+                            <span data-i18n="neonEnvIndoorSub">Standard use (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-waterproof-btn" data-env="outdoor" data-price="45">
+                            <strong data-i18n="neonEnvOutdoor">Waterproof Outdoor (IP67)</strong>
+                            <span data-i18n="neonEnvOutdoorSub">Rain & UV resistant (+€45)</span>
+                        </button>
+                    </div>
+                    <label data-i18n="neonDimmerLabel">Dimmer &amp; Controller</label>
+                    <div class="config-grid-3" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card neon-dimmer-btn active" data-dimmer="inline" data-price="0">
+                            <strong data-i18n="neonDimmerInline">Manual In-Line</strong>
+                            <span data-i18n="neonDimmerInlineSub">Included (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-dimmer-btn" data-dimmer="rf" data-price="15">
+                            <strong data-i18n="neonDimmerRf">Wireless RF Remote</strong>
+                            <span data-i18n="neonDimmerRfSub">Wireless (+€15)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-dimmer-btn" data-dimmer="wifi" data-price="30">
+                            <strong data-i18n="neonDimmerWifi">Smart Wi-Fi / App</strong>
+                            <span data-i18n="neonDimmerWifiSub">Tuya / Smart Life (+€30)</span>
+                        </button>
+                    </div>
+                    <label data-i18n="neonMountingLabel">Mounting Hardware Included</label>
+                    <div class="config-grid-2">
+                        <button type="button" class="option-btn-card neon-mounting-btn active" data-mount="standoff" data-price="0">
+                            <strong data-i18n="neonMountingStandoff">Wall Standoffs (Inox)</strong>
+                            <span data-i18n="neonMountingStandoffSub">20mm wall offset (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card neon-mounting-btn" data-mount="wire" data-price="12">
+                            <strong data-i18n="neonMountingWire">Ceiling Wire Kit</strong>
+                            <span data-i18n="neonMountingWireSub">Steel suspension (+€12)</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 PANEL ENGINE 2: 3D RELIEF & CUT LETTERS
+                 (`3d-raised-letters`, `pvc-cut-letters`, `acrylic-signs-displays`)
+            ====================================================== -->
+            <div class="config-engine-panel" id="panelEngineRelief" style="display:none;">
+                
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="reliefStep1Title">Step 1: Input Method</span>
+                        <span class="config-step-num">Step 1</span>
+                    </div>
+                    <div class="config-grid-2" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card relief-method-btn active" data-method="text">
+                            <strong data-i18n="reliefMethodText">Direct Text</strong>
+                            <span>8 atelier fonts</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-method-btn" data-method="upload">
+                            <strong data-i18n="reliefMethodUpload">Vector File Upload</strong>
+                            <span>.AI / .EPS / .SVG</span>
+                        </button>
+                    </div>
+
+                    <div id="reliefTextGroup">
+                        <label for="reliefInputText" data-i18n="reliefTextInputLabel">Signage Text</label>
+                        <input type="text" id="reliefInputText" data-i18n-placeholder="reliefTextInputPlaceholder" placeholder="YOUR SIGN" value="YOUR SIGN">
+                    </div>
+
+                    <div id="reliefUploadGroup" style="display:none;margin-top:10px;">
+                        <label for="reliefFileInput" data-i18n="reliefUploadLabel">Vector Artwork (.AI, .EPS, .PDF, .SVG)</label>
+                        <input type="file" id="reliefFileInput" accept=".ai,.eps,.svg,.pdf,.png,.jpg">
+                        <p style="font-size:11px;color:var(--customizer-text-muted);margin-top:4px;" data-i18n="reliefUploadNotice">
+                            Upload your logo vector file. Real-time preview renders on the facade wall.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="reliefStep2Title">Step 2: Letter Height &amp; Dimensions</span>
+                        <span class="config-step-num">Step 2</span>
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label for="reliefHeightSelect" data-i18n="reliefHeightLabel">Letter Height (cm)</label>
+                        <select id="reliefHeightSelect">
+                            <option value="15">15 cm (Subtle Interior / Desk)</option>
+                            <option value="20" selected>20 cm (Standard Storefront)</option>
+                            <option value="25">25 cm (Visible Entrance)</option>
+                            <option value="30">30 cm (High Street Frontage)</option>
+                            <option value="40">40 cm (High Visibility)</option>
+                            <option value="50">50 cm (Monument Scale)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="reliefStep3Title">Step 3: 3D Relief Thickness</span>
+                        <span class="config-step-num">Step 3</span>
+                    </div>
+                    <div class="config-grid-4">
+                        <button type="button" class="option-btn-card relief-thick-btn" data-thick="5" data-price="0">
+                            <strong>5 mm</strong>
+                            <span data-i18n="reliefThick5Sub">Flat &amp; lightweight (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-thick-btn active" data-thick="10" data-price="15">
+                            <strong>10 mm</strong>
+                            <span data-i18n="reliefThick10Sub">Standard relief (+€15)</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-thick-btn" data-thick="19" data-price="30">
+                            <strong>19 mm</strong>
+                            <span data-i18n="reliefThick19Sub">Deep 3D relief (+€30)</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-thick-btn" data-thick="30" data-price="50">
+                            <strong>30 mm</strong>
+                            <span data-i18n="reliefThick30Sub">Monument block (+€50)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="reliefStep4Title">Step 4: Material &amp; Face Finish</span>
+                        <span class="config-step-num">Step 4</span>
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <select id="reliefMaterialSelect">
+                            <option value="pvc-white" selected data-i18n="reliefMatPvcWhite">PVC Pure White (Matt)</option>
+                            <option value="pvc-black" data-i18n="reliefMatPvcBlack">PVC Jet Black (Matt)</option>
+                            <option value="pvc-ral" data-i18n="reliefMatRal">Custom RAL Workshop Paint (+€35)</option>
+                            <option value="dibond-silver" data-i18n="reliefMatDibondSilver">Brushed Silver Composite (+€25)</option>
+                            <option value="dibond-gold" data-i18n="reliefMatDibondGold">Brushed Gold Composite (+€30)</option>
+                            <option value="acrylic-clear" data-i18n="reliefMatAcrylicClear">Cast Clear Acrylic (+€20)</option>
+                            <option value="acrylic-frosted" data-i18n="reliefMatAcrylicFrosted">Frosted Cast Acrylic (+€25)</option>
+                            <option value="acrylic-black" data-i18n="reliefMatAcrylicBlack">Smoked Gloss Black Acrylic (+€25)</option>
+                        </select>
+                    </div>
+
+                    <div id="reliefRalPickerRow" style="display:none;align-items:center;gap:12px;margin-top:10px;">
+                        <label for="reliefHexColor" style="margin:0;" data-i18n="reliefRalHexLabel">Custom HEX or RAL Paint Shade:</label>
+                        <input type="color" id="reliefHexColor" value="#ff0f39" style="width:44px;height:36px;padding:0;border:none;cursor:pointer;">
+                        <input type="text" id="reliefRalCodeInput" placeholder="RAL 3020" style="width:120px;">
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="reliefStep5Title">Step 5: LED Illumination Style</span>
+                        <span class="config-step-num">Step 5</span>
+                    </div>
+                    <div class="config-grid-3">
+                        <button type="button" class="option-btn-card relief-led-btn active" data-led="none" data-price="0">
+                            <strong data-i18n="reliefLedNone">Non-Illuminated</strong>
+                            <span data-i18n="reliefLedNoneSub">Pure relief (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-led-btn" data-led="halo" data-price="85">
+                            <strong data-i18n="reliefLedHalo">Halo Backlit LED</strong>
+                            <span data-i18n="reliefLedHaloSub">Ambient wall glow (+€85)</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-led-btn" data-led="front" data-price="115">
+                            <strong data-i18n="reliefLedFront">Front-Lit Face</strong>
+                            <span data-i18n="reliefLedFrontSub">Direct illumination (+€115)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="reliefStep6Title">Step 6: Fixing Hardware &amp; Template</span>
+                        <span class="config-step-num">Step 6</span>
+                    </div>
+                    <div class="config-grid-2" style="margin-bottom:12px;">
+                        <button type="button" class="option-btn-card relief-fix-btn active" data-fix="tape" data-price="0">
+                            <strong data-i18n="reliefFixingTape">Double-Sided VHB Pro</strong>
+                            <span data-i18n="reliefFixingTapeSub">Direct flat mount (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card relief-fix-btn" data-fix="standoff" data-price="25">
+                            <strong data-i18n="reliefFixingStandoff">Click-on Standoffs</strong>
+                            <span data-i18n="reliefFixingStandoffSub">15mm offset studs (+€25)</span>
+                        </button>
+                    </div>
+                    <div>
+                        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+                            <input type="checkbox" id="reliefTemplateCheck" style="width:18px;height:18px;accent-color:var(--accent-crimson);">
+                            <span data-i18n="reliefTemplateCheck">1:1 Full-scale paper drilling template (+€12)</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 PANEL ENGINE 3: COMMERCIAL FACADES & LIGHTBOX
+                 (`business-signs`, `aluminium-facades`, `retractable-awnings`, `suspended-ceilings`)
+            ====================================================== -->
+            <div class="config-engine-panel" id="panelEngineFacade" style="display:none;">
+                
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="facadeStep1Title">Step 1: Storefront Sign Type</span>
+                        <span class="config-step-num">Step 1</span>
+                    </div>
+                    <div class="config-grid-2">
+                        <button type="button" class="option-btn-card facade-type-btn active" data-type="lightbox" data-price="0">
+                            <strong data-i18n="facadeTypeLightbox">LED Lightbox</strong>
+                            <span data-i18n="facadeTypeLightboxSub">Illuminated cassette (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card facade-type-btn" data-type="flat" data-price="-50">
+                            <strong data-i18n="facadeTypeFlat">Flat Alupanel Board</strong>
+                            <span data-i18n="facadeTypeFlatSub">Composite plate (-€50)</span>
+                        </button>
+                        <button type="button" class="option-btn-card facade-type-btn" data-type="awning" data-price="120">
+                            <strong data-i18n="facadeTypeAwning">Retractable Awning</strong>
+                            <span data-i18n="facadeTypeAwningSub">Storefront awning (+€120)</span>
+                        </button>
+                        <button type="button" class="option-btn-card facade-type-btn" data-type="ceiling" data-price="80">
+                            <strong data-i18n="facadeTypeCeiling">Ceiling Grid Tiles</strong>
+                            <span data-i18n="facadeTypeCeilingSub">Modular tiles (+€80)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="facadeStep2Title">Step 2: Substrate &amp; Workshop Finish</span>
+                        <span class="config-step-num">Step 2</span>
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <select id="facadeSubstrateSelect">
+                            <option value="alu-black" selected data-i18n="facadeSubAluBlack">Matt Black Alupanel (+€0)</option>
+                            <option value="alu-white" data-i18n="facadeSubAluWhite">Pure White Alupanel (+€0)</option>
+                            <option value="alu-anthracite" data-i18n="facadeSubAluAnthracite">Anthracite Grey RAL 7016 (+€25)</option>
+                            <option value="plexi-opal" data-i18n="facadeSubPlexiOpal">Opal White Acrylic Face (+€45)</option>
+                            <option value="awning-bordeaux" data-i18n="facadeSubAwningBordeaux">Canvas Bordeaux Red (+€0)</option>
+                            <option value="awning-anthracite" data-i18n="facadeSubAwningAnthracite">Canvas Anthracite Grey (+€0)</option>
+                            <option value="awning-striped" data-i18n="facadeSubAwningStriped">Traditional Bistro Stripes (+€30)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="facadeStep3Title">Step 3: Dimensions &amp; Aspect</span>
+                        <span class="config-step-num">Step 3</span>
+                    </div>
+                    <div class="config-grid-3" style="margin-bottom:12px;">
+                        <button type="button" class="option-btn-card facade-dim-btn active" data-dim="standard" data-w="200" data-h="50" data-price="0">
+                            <strong data-i18n="facadeDimStandard">Standard (200 × 50 cm)</strong>
+                            <span data-i18n="facadeDimStandardSub">1.00 m² facade</span>
+                        </button>
+                        <button type="button" class="option-btn-card facade-dim-btn" data-dim="large" data-w="300" data-h="60" data-price="120">
+                            <strong data-i18n="facadeDimLarge">Large (300 × 60 cm)</strong>
+                            <span data-i18n="facadeDimLargeSub">1.80 m² commercial</span>
+                        </button>
+                        <button type="button" class="option-btn-card facade-dim-btn" data-dim="xl" data-w="400" data-h="80" data-price="250">
+                            <strong data-i18n="facadeDimXL">Grand Monument (400 × 80 cm)</strong>
+                            <span data-i18n="facadeDimXLSub">3.20 m² storefront</span>
+                        </button>
+                    </div>
+                    <div>
+                        <label for="facadeTextInput" data-i18n="facadeTextLabel">Storefront / Lambrequin Text:</label>
+                        <input type="text" id="facadeTextInput" value="MY STOREFRONT">
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="facadeStep4Title">Step 4: Illumination &amp; Operation</span>
+                        <span class="config-step-num">Step 4</span>
+                    </div>
+                    <select id="facadeLightingSelect">
+                        <option value="led-backlit" selected data-i18n="facadeLightBacklit">Internal LED Modules (+€0)</option>
+                        <option value="led-edge" data-i18n="facadeLightEdgelit">Edge-lit Optical Diffuser (+€45)</option>
+                        <option value="spotlights" data-i18n="facadeLightSpotlights">Overhead LED Spotlights (+€65)</option>
+                        <option value="awning-manual" data-i18n="facadeLightManual">Manual Crank Handle (+€0)</option>
+                        <option value="awning-somfy" data-i18n="facadeLightSomfy">Somfy RTS Motor &amp; Remote (+€140)</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 PANEL ENGINE 4: COMMERCIAL FLEET VEHICLE GRAPHICS
+                 (`vehicle-wrapping`, `vehicle-lettering-graphics`)
+            ====================================================== -->
+            <div class="config-engine-panel" id="panelEngineVehicle" style="display:none;">
+                
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="vehicleStep1Title">Step 1: Commercial Vehicle Template</span>
+                        <span class="config-step-num">Step 1</span>
+                    </div>
+                    <div class="config-grid-3" style="margin-bottom:12px;">
+                        <button type="button" class="option-btn-card vehicle-type-btn" data-type="compact-van" data-price="0">
+                            <strong data-i18n="vehicleTypeCompact">Compact Van</strong>
+                            <span data-i18n="vehicleTypeCompactSub">Kangoo / Berlingo</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-type-btn active" data-type="medium-van" data-price="150">
+                            <strong data-i18n="vehicleTypeMedium">Medium Van</strong>
+                            <span data-i18n="vehicleTypeMediumSub">Trafic / Transporter</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-type-btn" data-type="large-van" data-price="299">
+                            <strong data-i18n="vehicleTypeLarge">Large Cargo Van</strong>
+                            <span data-i18n="vehicleTypeLargeSub">Master / Ducato</span>
+                        </button>
+                    </div>
+                    <div class="config-grid-2">
+                        <div>
+                            <label for="vehicleMakeModel" data-i18n="vehicleMakeLabel">Make &amp; Model</label>
+                            <input type="text" id="vehicleMakeModel" placeholder="Ex: Renault Trafic L2H1" value="Renault Trafic L2H1">
+                        </div>
+                        <div>
+                            <label for="vehicleYear" data-i18n="vehicleYearLabel">Vehicle Year</label>
+                            <input type="number" id="vehicleYear" min="2000" max="2027" value="2024">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="vehicleStep2Title">Step 2: Graphic Coverage Level</span>
+                        <span class="config-step-num">Step 2</span>
+                    </div>
+                    <div class="config-grid-3" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card vehicle-coverage-btn active" data-cov="lettering" data-price="0">
+                            <strong data-i18n="vehicleCovLettering">Cut Lettering</strong>
+                            <span data-i18n="vehicleCovLetteringSub">2 Doors + Rear (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-coverage-btn" data-cov="half" data-price="250">
+                            <strong data-i18n="vehicleCovHalf">Half-Wrap (50%)</strong>
+                            <span data-i18n="vehicleCovHalfSub">Rear printed wrap (+€250)</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-coverage-btn" data-cov="full" data-price="750">
+                            <strong data-i18n="vehicleCovFull">Total Wrap (100%)</strong>
+                            <span data-i18n="vehicleCovFullSub">Full encapsulation (+€750)</span>
+                        </button>
+                    </div>
+                    <label data-i18n="vehicleWindowLabel">Rear Window Treatment</label>
+                    <div class="config-grid-3">
+                        <button type="button" class="option-btn-card vehicle-window-btn active" data-win="none" data-price="0">
+                            <strong data-i18n="vehicleWinNone">No Window Graphics</strong>
+                            <span data-i18n="vehicleWinNoneSub">Bare glass (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-window-btn" data-win="opaque" data-price="30">
+                            <strong data-i18n="vehicleWinOpaque">Solid Opaque Vinyl</strong>
+                            <span data-i18n="vehicleWinOpaqueSub">Full adhesive (+€30)</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-window-btn" data-win="micro" data-price="65">
+                            <strong data-i18n="vehicleWinMicro">Certified One-Way Film</strong>
+                            <span data-i18n="vehicleWinMicroSub">Interior visibility (+€65)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="vehicleStep3Title">Step 3: Fleet Branding Information</span>
+                        <span class="config-step-num">Step 3</span>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <label for="vehicleBrandingText" data-i18n="vehicleBrandLabel">Company Name / Brand</label>
+                        <input type="text" id="vehicleBrandingText" value="MY BRAND FLEET">
+                    </div>
+                    <div class="config-grid-2">
+                        <div>
+                            <label for="vehiclePhone" data-i18n="vehiclePhoneLabel">Business Phone</label>
+                            <input type="text" id="vehiclePhone" value="01 48 41 85 90">
+                        </div>
+                        <div>
+                            <label for="vehicleSiret" data-i18n="vehicleSiretLabel">Legal Reg. (SIRET)</label>
+                            <input type="text" id="vehicleSiret" value="SIRET 848972827">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 PANEL ENGINE 5: CUSTOM STICKERS & WALL MURALS
+                 (`adhesive-stickers`, `wall-stickers`)
+            ====================================================== -->
+            <div class="config-engine-panel" id="panelEngineStickers" style="display:none;">
+                
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="stickerStep1Title">Step 1: Dimensions &amp; Cut Style</span>
+                        <span class="config-step-num">Step 1</span>
+                    </div>
+                    <div class="config-grid-2" style="margin-bottom:12px;">
+                        <div>
+                            <label for="stickerWidthCm" data-i18n="stickerWidthLabel">Width (cm)</label>
+                            <input type="number" id="stickerWidthCm" min="5" max="300" value="15">
+                        </div>
+                        <div>
+                            <label for="stickerHeightCm" data-i18n="stickerHeightLabel">Height (cm)</label>
+                            <input type="number" id="stickerHeightCm" min="5" max="300" value="15">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label for="stickerText" data-i18n="stickerTextLabel">Sticker Text or Graphic Title</label>
+                        <input type="text" id="stickerText" value="CUSTOM STICKER">
+                    </div>
+                    <label data-i18n="stickerCutLabel">Atelier Die-Cut Style</label>
+                    <div class="config-grid-3">
+                        <button type="button" class="option-btn-card sticker-cut-btn active" data-cut="die-cut" data-price="0">
+                            <strong data-i18n="stickerCutDie">Die-Cut (Contour)</strong>
+                            <span data-i18n="stickerCutDieSub">Custom outline (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card sticker-cut-btn" data-cut="kiss-cut" data-price="5">
+                            <strong data-i18n="stickerCutKiss">Kiss-Cut (Easy Peel)</strong>
+                            <span data-i18n="stickerCutKissSub">Backing sheet (+€5)</span>
+                        </button>
+                        <button type="button" class="option-btn-card sticker-cut-btn" data-cut="transfer" data-price="10">
+                            <strong data-i18n="stickerCutTransfer">Transfer Lettering</strong>
+                            <span data-i18n="stickerCutTransferSub">Application tape (+€10)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="config-card-title">
+                        <span data-i18n="stickerStep2Title">Step 2: Material, Sheen &amp; Finish</span>
+                        <span class="config-step-num">Step 2</span>
+                    </div>
+                    <div class="config-grid-2">
+                        <button type="button" class="option-btn-card sticker-sheen-btn active" data-sheen="gloss" data-price="0">
+                            <strong data-i18n="stickerSheenGloss">Glossy Vinyl (Gloss)</strong>
+                            <span data-i18n="stickerSheenGlossSub">Vibrant shine (+€0)</span>
+                        </button>
+                        <button type="button" class="option-btn-card sticker-sheen-btn" data-sheen="matte" data-price="5">
+                            <strong data-i18n="stickerSheenMatte">Velvet Anti-Glare Matt</strong>
+                            <span data-i18n="stickerSheenMatteSub">Sleek finish (+€5)</span>
+                        </button>
+                        <button type="button" class="option-btn-card sticker-sheen-btn" data-sheen="holographic" data-price="15">
+                            <strong data-i18n="stickerSheenHolo">Prismatic Holographic</strong>
+                            <span data-i18n="stickerSheenHoloSub">Rainbow reflections (+€15)</span>
+                        </button>
+                        <button type="button" class="option-btn-card sticker-sheen-btn" data-sheen="frosted" data-price="12">
+                            <strong data-i18n="stickerSheenFrosted">Frosted Etched Window</strong>
+                            <span data-i18n="stickerSheenFrostedSub">Glass etch look (+€12)</span>
+                        </button>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+                            <input type="checkbox" id="stickerPrepressCheck" style="width:18px;height:18px;accent-color:var(--accent-crimson);">
+                            <span data-i18n="stickerPrepressCheck">Prepress artwork review &amp; professional studio vectorization (+€10)</span>
+                        </label>
+                    </div>
+
+                    <!-- Volume tiered discount matrix indicator -->
+                    <div style="margin-top:14px;">
+                        <label data-i18n="stickerDiscountBrackets">Automatic Tiered Volume Discounts</label>
+                        <div class="volume-discount-brackets">
+                            <div class="discount-bracket-chip active-bracket" id="bracket1">1–9 pcs : 0%</div>
+                            <div class="discount-bracket-chip" id="bracket2">10–49 pcs : -15%</div>
+                            <div class="discount-bracket-chip" id="bracket3">50–99 pcs : -30%</div>
+                            <div class="discount-bracket-chip" id="bracket4">100+ pcs : -45%</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 UNIVERSAL SERVICE & INSTALLATION ADD-ONS (2026 COMMERCIAL SCHEDULE)
+            ====================================================== -->
+            <div class="config-card" id="universalServicesCard" style="margin-top:16px;">
+                <div class="config-card-title">
+                    <span data-i18n="servicesCardTitle">Options &amp; Services d'Installation (Barème 2026)</span>
+                    <span class="config-step-num">Services</span>
+                </div>
+                
+                <div style="margin-bottom:12px;">
+                    <label for="serviceInstallationSelect" data-i18n="serviceInstallLabel">Pose &amp; Déploiement sur site</label>
+                    <select id="serviceInstallationSelect">
+                        <option value="none" selected data-i18n="serviceInstallNone">Fourniture seule (Sans pose) (+0 €)</option>
+                        <option value="ground" data-i18n="serviceInstallGround">Pose standard au rez-de-chaussée (RDC) (+350 €)</option>
+                        <option value="nacelle" data-i18n="serviceInstallNacelle">Pose avec accès difficile / nacelle (+750 €)</option>
+                    </select>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;">
+                        <input type="checkbox" id="serviceElectricalCheck" style="width:18px;height:18px;accent-color:var(--accent-crimson);">
+                        <span data-i18n="serviceElectricalLabel">Raccordement électrique &amp; minuterie (+180 €)</span>
+                    </label>
+                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;">
+                        <input type="checkbox" id="serviceSurveyCheck" style="width:18px;height:18px;accent-color:var(--accent-crimson);">
+                        <span data-i18n="serviceSurveyLabel">Relevé sur site &amp; étude technique (+120 €)</span>
+                    </label>
+                    <label id="serviceFrameRow" style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;">
+                        <input type="checkbox" id="serviceFrameCheck" style="width:18px;height:18px;accent-color:var(--accent-crimson);">
+                        <span data-i18n="serviceFrameLabel">Bordure / cadre aluminium plié (+80 € / ml)</span>
+                    </label>
+                    <label id="serviceDiffuserRow" style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;">
+                        <input type="checkbox" id="serviceDiffuserCheck" style="width:18px;height:18px;accent-color:var(--accent-crimson);">
+                        <span data-i18n="serviceDiffuserLabel">Face diffusante Plexiglas / PMMA (+50 € / m²)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- =====================================================
+                 BOTTOM ACTION BAR (CART, BUY NOW, WISHLIST)
+            ====================================================== -->
+            <div class="config-bottom-actions">
+                <div class="stepper-row">
+                    <label style="margin:0;font-size:13px;font-weight:700;color:var(--customizer-text-primary);" data-i18n="quantityLabel">Quantity:</label>
+                    <div class="dark-stepper">
+                        <button type="button" id="quantityMinus" aria-label="Decrease quantity">−</button>
+                        <input type="number" id="productQuantity" value="1" min="1" max="500" aria-label="Quantity">
+                        <button type="button" id="quantityPlus" aria-label="Increase quantity">+</button>
+                    </div>
+                </div>
+
+                <div class="actions-buttons-stack">
+                    <button type="button" class="btn-primary-add" id="productAddToCart" data-i18n="btnAddToCart">
+                        Add to Cart
+                    </button>
+                    <button type="button" class="btn-secondary-buy" id="buyNow" data-i18n="btnBuyNow">
+                        Buy Now
+                    </button>
+                </div>
+
+                <button type="button" class="btn-dark-wishlist" id="productWishlist">
+                    <i class="fa-regular fa-heart"></i>
+                    <span data-i18n="btnWishlistAdd">Add to Wishlist</span>
+                </button>
+
+                <div class="reassurance-strip">
+                    <div class="reassurance-item">
+                        <span class="reassurance-icon">🛡️</span>
+                        <strong data-i18n="reassuranceWarrantyTitle">2-Year Warranty</strong>
+                        <span data-i18n="reassuranceWarrantySub">Certified atelier</span>
+                    </div>
+                    <div class="reassurance-item">
+                        <span class="reassurance-icon">🇫🇷</span>
+                        <strong data-i18n="reassuranceFranceTitle">100% Made in France</strong>
+                        <span data-i18n="reassuranceFranceSub">Precision machining</span>
+                    </div>
+                    <div class="reassurance-item">
+                        <span class="reassurance-icon">🚚</span>
+                        <strong data-i18n="reassuranceShippingTitle">Anti-Breakage</strong>
+                        <span data-i18n="reassuranceShippingSub">Reinforced packaging</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="margin-top:60px;">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="admin.html" data-i18n="adminPortal">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html" data-i18n="cookiesTitle">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT INCLUDES -->
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

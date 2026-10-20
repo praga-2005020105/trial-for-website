@@ -1,0 +1,203 @@
+{
+  "products": [
+    {
+      "id": "neon-signs",
+      "name": { "en": "Custom LED Neon Signs", "fr": "Enseignes Néon LED" },
+      "price": 350,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/neon-signs.jpg",
+      "description": {
+        "en": "Custom neon signs designed for shops, businesses, events and interior spaces. High-output silicone LED flex on contour acrylic backboard.",
+        "fr": "Enseignes néon LED sur-mesure haute intensité pour commerces, événements et décoration intérieure. Tube flex silicone sur support acrylique usiné."
+      }
+    },
+    {
+      "id": "business-signs",
+      "name": { "en": "2D Flat Sign (PVC / Alu)", "fr": "Enseigne 2D Plate (PVC / Alu)" },
+      "price": 100,
+      "category": { "en": "Business Signage", "fr": "Enseignes Magasin" },
+      "image": "images/business-signs.jpg",
+      "description": {
+        "en": "Professional 2D flat panel storefront signs made from durable PVC or composite aluminium with UV-resistant print or vinyl graphics.",
+        "fr": "Enseignes planes 2D économiques et durables pour magasins et commerces, usinées en panneau composite aluminium ou PVC expansé."
+      }
+    },
+    {
+      "id": "aluminium-facades",
+      "name": { "en": "ACP / Dibond Cladding & Sign", "fr": "Enseigne ACP / Dibond (Façades Alu)" },
+      "price": 175,
+      "category": { "en": "Building Solutions", "fr": "Solutions Bâtiment" },
+      "image": "images/aluminium-facades.jpg",
+      "description": {
+        "en": "Architectural aluminium composite panels (ACP / Dibond) for modern commercial building cladding, storefront revitalization and rigid exterior signs.",
+        "fr": "Habillage de façade et panneaux d'enseignes en composite aluminium (Dibond / ACP) avec finition brute, laquée RAL ou impression numérique directe."
+      }
+    },
+    {
+      "id": "pvc-cut-letters",
+      "name": { "en": "Custom PVC / Forex Cut Letters", "fr": "Enseigne PVC / Forex (Lettres Découpées)" },
+      "price": 100,
+      "category": { "en": "Custom PVC Letters", "fr": "Lettres PVC Découpées" },
+      "image": "images/3d-raised-letters.jpg",
+      "description": {
+        "en": "High-density CNC-milled PVC Forex cut letters with realistic relief simulation, thickness choices (5mm to 30mm), RAL lacquer finishes and stud mountings.",
+        "fr": "Lettres et logos découpés en PVC expansé Forex haute densité, usinés par commande numérique avec choix d'épaisseurs (5 à 30 mm), laquage et entretoises."
+      },
+      "customizer": "pvc-letters"
+    },
+    {
+      "id": "lettres-3d-lumineuses",
+      "name": { "en": "Front-Lit 3D Channel Letters", "fr": "Lettres 3D éclairées en façade" },
+      "price": 365,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/3d-raised-letters.jpg",
+      "description": {
+        "en": "Premium individual three-dimensional block letters with direct luminous Plexiglas face illumination and high-efficiency IP67 waterproof LED modules.",
+        "fr": "Lettres boîtiers individuelles en relief 3D avec face diffusante lumineuse en PMMA plexiglas et modules LED étanches haute luminosité."
+      }
+    },
+    {
+      "id": "lettres-3d-retro-halo",
+      "name": { "en": "Halo Backlit 3D Letters", "fr": "Lettres 3D rétroéclairées (Halo)" },
+      "price": 390,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/3d-raised-letters.jpg",
+      "description": {
+        "en": "Prestige 3D letters mounted on offset standoffs projecting a soft, ambient halo glow onto the architectural facade wall.",
+        "fr": "Lettres relief 3D montées sur entretoises déportées créant un halo lumineux élégant et feutré sur la façade ou le mur d'accueil."
+      }
+    },
+    {
+      "id": "lettres-3d-lateral",
+      "name": { "en": "Side-Lit 3D Channel Letters", "fr": "Lettres 3D éclairage latéral" },
+      "price": 390,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/3d-raised-letters.jpg",
+      "description": {
+        "en": "Contemporary 3D signage featuring side-edge luminous acrylic returns with opaque fronts for a high-contrast luxury architectural look.",
+        "fr": "Lettres boîtiers modernes avec chant lumineux en acrylique diffusant latéral et face opaque pour un rendu architectural contemporain."
+      }
+    },
+    {
+      "id": "lettres-3d-plateau-acp",
+      "name": { "en": "3D Letters on ACP Tray", "fr": "Lettres 3D sur plateau ACP" },
+      "price": 600,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/business-signs.jpg",
+      "description": {
+        "en": "Turnkey storefront signage combining folded aluminium composite cassette tray with 3D relief or illuminated letters pre-wired for seamless installation.",
+        "fr": "Enseigne complète prête à poser associant un caisson ou plateau aluminium composite plié et des lettres en relief 3D pré-câblées."
+      }
+    },
+    {
+      "id": "caisson-lumineux",
+      "name": { "en": "Illuminated LED Lightbox Sign", "fr": "Caisson lumineux (Plexi + LED)" },
+      "price": 460,
+      "category": { "en": "Business Signage", "fr": "Enseignes Magasin" },
+      "image": "images/business-signs.jpg",
+      "description": {
+        "en": "Double or single-sided extruded aluminium lightbox with translucent opal acrylic face and uniform internal LED backlighting.",
+        "fr": "Caisson d'enseigne lumineux en profilé aluminium extrudé laqué avec face diffusante en plexiglas opale et rétro-éclairage LED homogène."
+      }
+    },
+    {
+      "id": "enseigne-drapeau",
+      "name": { "en": "Double-Sided Projecting Blade Sign", "fr": "Enseigne drapeau double face" },
+      "price": 850,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/acrylic-signs.jpg",
+      "description": {
+        "en": "Perpendicular projecting blade sign for high street visibility, manufactured in rigid aluminum frame with optional internal LED modules.",
+        "fr": "Enseigne drapeau perpendiculaire double face pour une visibilité piétonne et routière optimale dans les rues commerçantes."
+      }
+    },
+    {
+      "id": "vehicle-wrapping",
+      "name": { "en": "Vehicle Semi & Total Wrap", "fr": "Covering Véhicule (Semi & Total)" },
+      "price": 750,
+      "category": { "en": "Vehicle Graphics", "fr": "Covering Véhicule" },
+      "image": "images/vehicle-wrapping.jpg",
+      "description": {
+        "en": "High-durability cast wrapping film for partial (50%) or complete (100%) commercial fleet vehicle branding and bodywork protection.",
+        "fr": "Habillage adhésif coulé 3D haute conformabilité pour semi-covering (50%) ou covering total (100%) de flottes et utilitaires d'entreprise."
+      }
+    },
+    {
+      "id": "vehicle-lettering-graphics",
+      "name": { "en": "Commercial Vehicle Lettering", "fr": "Marquage & Lettrage Véhicule" },
+      "price": 350,
+      "category": { "en": "Vehicle Graphics", "fr": "Covering Véhicule" },
+      "image": "images/vehicle-lettering.jpg",
+      "description": {
+        "en": "Custom precision computer-cut vinyl lettering, company logos and mandatory regulatory text (SIRET/phone) for utility vehicles.",
+        "fr": "Lettrage adhésif découpé haute résistance pour portes, capot et arrière de camionnettes avec mentions légales et coordonnées."
+      }
+    },
+    {
+      "id": "3d-raised-letters",
+      "name": { "en": "3D Raised Letters (Raw Relief)", "fr": "Lettres Relief 3D (Brut)" },
+      "price": 180,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/3d-raised-letters.jpg",
+      "description": {
+        "en": "Premium three-dimensional raised lettering for professional storefronts and business interiors.",
+        "fr": "Lettres en relief 3D premium pour façades de boutiques et logos d'accueil d'entreprise."
+      }
+    },
+    {
+      "id": "acrylic-signs-displays",
+      "name": { "en": "Acrylic Signs & Displays", "fr": "Plaques & Enseignes Plexiglas" },
+      "price": 129,
+      "category": { "en": "Signage", "fr": "Enseignes" },
+      "image": "images/acrylic-signs.jpg",
+      "description": {
+        "en": "Elegant acrylic signs and displays for reception areas, shops, offices and commercial spaces.",
+        "fr": "Plaques professionnelles et enseignes en verre acrylique transparent ou dépoli avec fixations entretoises."
+      }
+    },
+    {
+      "id": "retractable-awnings",
+      "name": { "en": "Retractable Awnings", "fr": "Stores Bannes Rétractables" },
+      "price": 299,
+      "category": { "en": "Outdoor Solutions", "fr": "Solutions Extérieures" },
+      "image": "images/retractable-awnings.jpg",
+      "description": {
+        "en": "Retractable awnings designed for storefronts, terraces and outdoor commercial spaces.",
+        "fr": "Stores bannes rétractables professionnels pour terrasses de cafés, restaurants et devantures commerciales."
+      }
+    },
+    {
+      "id": "suspended-ceilings",
+      "name": { "en": "Suspended Ceilings", "fr": "Faux Plafonds Suspendus" },
+      "price": 399,
+      "category": { "en": "Interior Solutions", "fr": "Solutions Intérieures" },
+      "image": "images/suspended-ceilings.jpg",
+      "description": {
+        "en": "Suspended ceiling solutions for commercial and professional interiors.",
+        "fr": "Solutions de faux plafonds suspendus décoratifs et acoustiques pour commerces et bureaux."
+      }
+    },
+    {
+      "id": "adhesive-stickers",
+      "name": { "en": "Adhesive Stickers", "fr": "Stickers Adhésifs" },
+      "price": 29,
+      "category": { "en": "Print & Graphics", "fr": "Impression & Stickers" },
+      "image": "images/adhesive-stickers.jpg",
+      "description": {
+        "en": "High-quality adhesive stickers for branding, promotions, windows, packaging and everyday business use.",
+        "fr": "Stickers adhésifs haute qualité pour vitrines, emballages, promotions et communication visuelle."
+      }
+    },
+    {
+      "id": "wall-stickers",
+      "name": { "en": "Wall Stickers & Murals", "fr": "Stickers Muraux Décoratifs" },
+      "price": 49,
+      "category": { "en": "Print & Graphics", "fr": "Impression & Stickers" },
+      "image": "images/wall-stickers.jpg",
+      "description": {
+        "en": "Custom wall stickers and vinyl murals for businesses, interiors, branding and decorative applications.",
+        "fr": "Adhésifs muraux grands formats et fresques personnalisées pour bureaux et espaces commerciaux."
+      }
+    }
+  ]
+}

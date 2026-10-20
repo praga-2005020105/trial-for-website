@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY STICKERZ ENSEIGNE — Signage & Custom Graphics</title>
+    <meta name="description" content="Custom signage, neon signs, adhesive stickers, and commercial storefront solutions in France." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:title" content="MY STICKERZ ENSEIGNE" />
+    <meta property="og:description" content="Custom signage, neon signs, adhesive stickers, and commercial storefront solutions." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR WITH SYNCHRONIZED LANGUAGE SWITCH -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" class="active" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="#services" data-i18n="navServices">Services</a>
+                <a href="#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account">👤</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="active" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><span>🔍</span> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+            <a href="login.html" style="font-weight:700;color:#111;" data-i18n="navAccount">👤 My Account</a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="eyebrow">MY STICKERZ ENSEIGNE</span>
+                <h1 data-i18n="heroTitle">Signs made to <span data-i18n="heroTitleSpan">stand out.</span></h1>
+                <p data-i18n="heroText">Discover custom signage, stickers, vehicle graphics, neon signs and professional visual solutions for businesses and spaces.</p>
+
+                <div class="hero-buttons">
+                    <a href="products.html" class="btn btn-dark">
+                        <span data-i18n="heroBtnExplore">Explore Products</span> <span>→</span>
+                    </a>
+                    <a href="#services" class="text-btn" data-i18n="heroBtnServices">Our Services ↓</a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="hero-image-content">
+                    <span>MY STICKERZ</span>
+                    <h3 data-i18n="heroImageTitle">Custom Signage</h3>
+                    <p data-i18n="heroImageText">Professional visual solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST SECTION -->
+    <section class="trust-section">
+        <div class="trust-container">
+            <div class="trust-item">
+                <div class="trust-icon">◇</div>
+                <div>
+                    <h4 data-i18n="trust1Title">Professional Quality</h4>
+                    <p data-i18n="trust1Text">Custom visual solutions for businesses</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">◉</div>
+                <div>
+                    <h4 data-i18n="trust2Title">Based in France</h4>
+                    <p data-i18n="trust2Text">Serving customers from Garges-lès-Gonesse</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">✓</div>
+                <div>
+                    <h4 data-i18n="trust3Title">Custom Solutions</h4>
+                    <p data-i18n="trust3Text">Projects adapted to your needs</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">↩</div>
+                <div>
+                    <h4 data-i18n="trust4Title">Customer Support</h4>
+                    <p data-i18n="trust4Text">Contact us about your project</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="categories" id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <div>
+                    <span class="section-label" data-i18n="servicesLabel">OUR SERVICES</span>
+                    <h2 data-i18n="servicesTitle">Solutions for every project</h2>
+                </div>
+                <a href="products.html" class="view-link" data-i18n="viewAll">View all →</a>
+            </div>
+
+            <div class="category-grid">
+                <a href="product.html?id=neon-signs" class="category-card" data-id="neon-signs">
+                    <div class="category-image category-one">
+                        <div class="category-overlay">
+                            <span>01</span>
+                            <h3 data-i18n="cat1Title">Neon Signs</h3>
+                            <p data-i18n="cat1Text">Custom illuminated signs for businesses and spaces</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="product.html?id=business-signs" class="category-card" data-id="business-signs">
+                    <div class="category-image category-two">
+                        <div class="category-overlay">
+                            <span>02</span>
+                            <h3 data-i18n="cat2Title">Business Signs</h3>
+                            <p data-i18n="cat2Text">Professional signage designed for your business</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="product.html?id=vehicle-wrapping" class="category-card" data-id="vehicle-wrapping">
+                    <div class="category-image category-three">
+                        <div class="category-overlay">
+                            <span>03</span>
+                            <h3 data-i18n="cat3Title">Vehicle Wrapping</h3>
+                            <p data-i18n="cat3Text">Custom vehicle graphics and professional wrapping</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED SOLUTIONS -->
+    <section class="featured" id="featured">
+        <div class="section-container">
+            <div class="section-header">
+                <div>
+                    <span class="section-label" data-i18n="servicesLabel">OUR SERVICES</span>
+                    <h2 data-i18n="featuredTitle">Featured solutions</h2>
+                </div>
+                <a href="products.html" class="view-link" data-i18n="viewAll">View all →</a>
+            </div>
+
+            <div class="products-grid">
+                <article class="product-card" data-id="neon-signs" data-name="Neon Signs" data-price="350">
+                    <div class="product-image">
+                        <span class="product-tag">FEATURED</span>
+                        <button class="wishlist" aria-label="Add to wishlist" data-id="neon-signs"><i class="fa-regular fa-heart"></i></button>
+                        <a href="product.html?id=neon-signs" style="width:100%;height:100%;">
+                            <img src="images/neon-signs.jpg" alt="Neon Signs" loading="lazy" decoding="async" width="600" height="450">
+                        </a>
+                        <button class="quick-add add-cart" data-id="neon-signs" data-name="Neon Signs" data-price="350" data-image="images/neon-signs.jpg" data-i18n="quickAddToCart">Add to cart</button>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">SIGNAGE</span>
+                        <h3><a href="product.html?id=neon-signs">Neon Signs</a></h3>
+                        <div class="product-price">350,00 € HT</div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-id="adhesive-stickers" data-name="Adhesive Stickers" data-price="29">
+                    <div class="product-image">
+                        <button class="wishlist" aria-label="Add to wishlist" data-id="adhesive-stickers"><i class="fa-regular fa-heart"></i></button>
+                        <a href="product.html?id=adhesive-stickers" style="width:100%;height:100%;">
+                            <img src="images/adhesive-stickers.jpg" alt="Adhesive Stickers" loading="lazy" decoding="async" width="600" height="450">
+                        </a>
+                        <button class="quick-add add-cart" data-id="adhesive-stickers" data-name="Adhesive Stickers" data-price="29" data-image="images/adhesive-stickers.jpg" data-i18n="quickAddToCart">Add to cart</button>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">PRINT & GRAPHICS</span>
+                        <h3><a href="product.html?id=adhesive-stickers">Adhesive Stickers</a></h3>
+                        <div class="product-price">29,00 € HT</div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-id="business-signs" data-name="Business Signs" data-price="100">
+                    <div class="product-image">
+                        <span class="product-tag">POPULAR</span>
+                        <button class="wishlist" aria-label="Add to wishlist" data-id="business-signs"><i class="fa-regular fa-heart"></i></button>
+                        <a href="product.html?id=business-signs" style="width:100%;height:100%;">
+                            <img src="images/business-signs.jpg" alt="Business Signs" loading="lazy" decoding="async" width="600" height="450">
+                        </a>
+                        <button class="quick-add add-cart" data-id="business-signs" data-name="Business Signs" data-price="100" data-image="images/business-signs.jpg" data-i18n="quickAddToCart">Add to cart</button>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">BUSINESS SIGNAGE</span>
+                        <h3><a href="product.html?id=business-signs">Business Signs</a></h3>
+                        <div class="product-price">100,00 € HT</div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-id="vehicle-wrapping" data-name="Vehicle Wrapping" data-price="350">
+                    <div class="product-image">
+                        <button class="wishlist" aria-label="Add to wishlist" data-id="vehicle-wrapping"><i class="fa-regular fa-heart"></i></button>
+                        <a href="product.html?id=vehicle-wrapping" style="width:100%;height:100%;">
+                            <img src="images/vehicle-wrapping.jpg" alt="Vehicle Wrapping" loading="lazy" decoding="async" width="600" height="450">
+                        </a>
+                        <button class="quick-add add-cart" data-id="vehicle-wrapping" data-name="Vehicle Wrapping" data-price="350" data-image="images/vehicle-wrapping.jpg" data-i18n="quickAddToCart">Add to cart</button>
+                    </div>
+                    <div class="product-details">
+                        <span class="product-category">VEHICLE GRAPHICS</span>
+                        <h3><a href="product.html?id=vehicle-wrapping">Vehicle Wrapping</a></h3>
+                        <div class="product-price">350,00 € HT</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMOTIONAL BANNER -->
+    <section class="promo">
+        <div class="promo-container">
+            <span class="eyebrow" data-i18n="promoLabel">CUSTOM PROJECTS</span>
+            <h2 data-i18n="promoTitle">Make your brand <br> stand out.</h2>
+            <p data-i18n="promoText">From signage and stickers to vehicle graphics and custom visual solutions, discover services designed for your project.</p>
+            <a href="products.html" class="btn btn-light" data-i18n="promoBtn">Explore Services →</a>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image">
+                    MY STICKERZ <br> ENSEIGNE
+                </div>
+                <div class="about-text">
+                    <span class="section-label" data-i18n="aboutLabel">ABOUT US</span>
+                    <h2 data-i18n="aboutTitle">Creative signage for businesses and spaces.</h2>
+                    <p data-i18n="aboutText1">MY STICKERZ ENSEIGNE provides custom visual communication and signage solutions for businesses, vehicles and interiors.</p>
+                    <p data-i18n="aboutText2">Our services include neon signs, adhesive stickers, business signs, vehicle wrapping, raised letters, aluminium facades and custom wall graphics.</p>
+                    <p data-i18n="aboutText3">Based in Garges-lès-Gonesse, France, we create professional visual solutions tailored to each project.</p>
+                    <a href="contact.html" class="text-link" data-i18n="aboutBtn">Contact us →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews">
+        <div class="section-container">
+            <div class="review-heading">
+                <span class="section-label" data-i18n="reviewsLabel">CUSTOMER EXPERIENCE</span>
+                <h2 data-i18n="reviewsTitle">What our customers say</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="review1">"The quality exceeded my expectations. The entire experience was smooth and professional."</p>
+                    <span>— Sarah M.</span>
+                </div>
+                <div class="review">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="review2">"Excellent visual work and very professional service. I would definitely order again."</p>
+                    <span>— Daniel R.</span>
+                </div>
+                <div class="review">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="review3">"Great customer service and the final result looked even better than expected."</p>
+                    <span>— Emma K.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <div class="section-container">
+            <div class="newsletter-content">
+                <div>
+                    <span class="section-label" data-i18n="newsletterLabel">STAY CONNECTED</span>
+                    <h2 data-i18n="newsletterTitle">Stay connected with MY STICKERZ ENSEIGNE.</h2>
+                </div>
+                <form class="newsletter-form" id="newsletterForm" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="3509eeff-f80f-4989-8d2d-fe5f6ddcf417">
+                    <input type="hidden" name="subject" value="New Newsletter Subscription - MY STICKERZ ENSEIGNE">
+                    <input type="hidden" name="from_name" value="MY STICKERZ ENSEIGNE Newsletter">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+                    <input type="email" id="newsletterEmail" name="email" aria-label="Your email address" data-i18n-placeholder="newsletterPlaceholder" placeholder="Your email address" required>
+                    <button type="submit" data-i18n="newsletterBtn">Subscribe →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="login.html" data-i18n="navAccount">My Account</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
