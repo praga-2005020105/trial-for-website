@@ -81,7 +81,9 @@ export default defineConfig(() => {
           cookies: path.resolve(__dirname, 'cookies.html'),
           paymentFailed: path.resolve(__dirname, 'payment-failed.html'),
           admin: path.resolve(__dirname, 'admin.html'),
-          neonBuilder: path.resolve(__dirname, 'neon-builder.html')
+          neonBuilder: path.resolve(__dirname, 'neon-builder.html'),
+          login: path.resolve(__dirname, 'login.html'),
+          signup: path.resolve(__dirname, 'signup.html')
         }
       }
     },
