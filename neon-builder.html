@@ -19,7 +19,7 @@
     <!-- Google Fonts for Neon Typographies -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=DM+Sans:wght@400;500;700&family=Monoton&family=Montserrat:wght@500;700;800&family=Oswald:wght@500;700&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Anton&family=Audiowide&family=Barlow+Condensed:wght@600;700;800&family=Bebas+Neue&family=Bungee&family=Caveat:wght@600;700&family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Libre+Franklin:wght@600;700;800;900&family=Limelight&family=Monoton&family=Montserrat:wght@500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Oswald:wght@500;600;700&family=Outfit:wght@500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@500;600;700;800&family=Prata&family=Raleway:wght@600;700;800&family=Righteous&family=Sacramento&family=Satisfy&family=Shrikhand&family=Syncopate:wght@700&family=Teko:wght@600;700&family=Yellowtail&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -158,53 +158,164 @@
 
                         <!-- Font Selection Cards -->
                         <div style="margin-top:14px;">
-                            <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;color:#444;">Select Typography (Google Fonts):</label>
-                            <div class="neon-fonts-grid" id="neonFontsGrid">
-                                <!-- Font 1: Dancing Script -->
-                                <button type="button" class="neon-font-card active" data-font="Dancing Script" data-class="font-dancing" style="font-family:'Dancing Script', cursive;">
-                                    <div class="neon-font-preview">Dancing Script</div>
-                                    <div class="neon-font-name">Cursive / Flow</div>
-                                </button>
-                                <!-- Font 2: Caveat -->
-                                <button type="button" class="neon-font-card" data-font="Caveat" data-class="font-caveat" style="font-family:'Caveat', cursive;">
-                                    <div class="neon-font-preview">Caveat</div>
-                                    <div class="neon-font-name">Handwritten</div>
-                                </button>
-                                <!-- Font 3: Pacifico -->
-                                <button type="button" class="neon-font-card" data-font="Pacifico" data-class="font-pacifico" style="font-family:'Pacifico', cursive;">
-                                    <div class="neon-font-preview">Pacifico</div>
-                                    <div class="neon-font-name">Retro Script</div>
-                                </button>
-                                <!-- Font 4: DM Sans -->
-                                <button type="button" class="neon-font-card" data-font="DM Sans" data-class="font-dmsans" style="font-family:'DM Sans', sans-serif;">
-                                    <div class="neon-font-preview">DM Sans</div>
-                                    <div class="neon-font-name">Modern Clean</div>
-                                </button>
-                                <!-- Font 5: Montserrat -->
-                                <button type="button" class="neon-font-card" data-font="Montserrat" data-class="font-montserrat" style="font-family:'Montserrat', sans-serif;">
-                                    <div class="neon-font-preview">Montserrat</div>
-                                    <div class="neon-font-name">Geometric Bold</div>
-                                </button>
-                                <!-- Font 6: Bebas Neue -->
-                                <button type="button" class="neon-font-card" data-font="Bebas Neue" data-class="font-bebas" style="font-family:'Bebas Neue', sans-serif;letter-spacing:1px;">
-                                    <div class="neon-font-preview">Bebas Neue</div>
-                                    <div class="neon-font-name">Condensed Display</div>
-                                </button>
-                                <!-- Font 7: Oswald -->
-                                <button type="button" class="neon-font-card" data-font="Oswald" data-class="font-oswald" style="font-family:'Oswald', sans-serif;">
-                                    <div class="neon-font-preview">Oswald</div>
-                                    <div class="neon-font-name">Strong Sans</div>
-                                </button>
-                                <!-- Font 8: Monoton -->
-                                <button type="button" class="neon-font-card" data-font="Monoton" data-class="font-monoton" style="font-family:'Monoton', cursive;">
-                                    <div class="neon-font-preview">Monoton</div>
-                                    <div class="neon-font-name">Triple-Line Neon</div>
-                                </button>
-                                <!-- Font 9: Playfair Display -->
-                                <button type="button" class="neon-font-card" data-font="Playfair Display" data-class="font-playfair" style="font-family:'Playfair Display', serif;">
-                                    <div class="neon-font-preview">Playfair</div>
-                                    <div class="neon-font-name">Elegant Serif</div>
-                                </button>
+                            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+                                <label style="font-size:12px;font-weight:700;color:#444;margin:0;">Select Typography (30+ Google Fonts):</label>
+                                <span style="font-size:11px;color:#777;font-weight:600;">Real-Time Glow Preview</span>
+                            </div>
+
+                            <!-- Font Category Filter Pills -->
+                            <div class="neon-font-filter-pills" id="neonFontFilterPills">
+                                <button type="button" class="font-filter-pill active" data-filter="all">All (30+)</button>
+                                <button type="button" class="font-filter-pill" data-filter="cursive">✨ Cursive &amp; Script</button>
+                                <button type="button" class="font-filter-pill" data-filter="modern">🏢 Modern Sans</button>
+                                <button type="button" class="font-filter-pill" data-filter="bold">⚡ Bold Display</button>
+                                <button type="button" class="font-filter-pill" data-filter="retro">🌈 Retro Neon</button>
+                                <button type="button" class="font-filter-pill" data-filter="serif">👑 Luxury Serif</button>
+                                <button type="button" class="font-filter-pill" data-filter="cyber">🤖 Cyber / Tech</button>
+                            </div>
+
+                            <div class="neon-fonts-scroll-container">
+                                <div class="neon-fonts-grid" id="neonFontsGrid">
+                                    <!-- CURSIVE & SCRIPT FONTS -->
+                                    <button type="button" class="neon-font-card active" data-font="Dancing Script" data-category="cursive" style="font-family:'Dancing Script', cursive;">
+                                        <div class="neon-font-preview">Dancing Script</div>
+                                        <div class="neon-font-name">Cursive / Flow</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Caveat" data-category="cursive" style="font-family:'Caveat', cursive;">
+                                        <div class="neon-font-preview">Caveat</div>
+                                        <div class="neon-font-name">Handwritten</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Pacifico" data-category="cursive" style="font-family:'Pacifico', cursive;">
+                                        <div class="neon-font-preview">Pacifico</div>
+                                        <div class="neon-font-name">Retro Script</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Great Vibes" data-category="cursive" style="font-family:'Great Vibes', cursive;">
+                                        <div class="neon-font-preview">Great Vibes</div>
+                                        <div class="neon-font-name">High Elegance</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Satisfy" data-category="cursive" style="font-family:'Satisfy', cursive;">
+                                        <div class="neon-font-preview">Satisfy</div>
+                                        <div class="neon-font-name">Brush Script</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Sacramento" data-category="cursive" style="font-family:'Sacramento', cursive;">
+                                        <div class="neon-font-preview">Sacramento</div>
+                                        <div class="neon-font-name">Continuous Wire</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Yellowtail" data-category="cursive" style="font-family:'Yellowtail', cursive;">
+                                        <div class="neon-font-preview">Yellowtail</div>
+                                        <div class="neon-font-name">Diner Script</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Alex Brush" data-category="cursive" style="font-family:'Alex Brush', cursive;">
+                                        <div class="neon-font-preview">Alex Brush</div>
+                                        <div class="neon-font-name">Luxury Cursive</div>
+                                    </button>
+
+                                    <!-- MODERN SANS FONTS -->
+                                    <button type="button" class="neon-font-card" data-font="DM Sans" data-category="modern" style="font-family:'DM Sans', sans-serif;">
+                                        <div class="neon-font-preview">DM Sans</div>
+                                        <div class="neon-font-name">Modern Clean</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Montserrat" data-category="modern" style="font-family:'Montserrat', sans-serif;">
+                                        <div class="neon-font-preview">Montserrat</div>
+                                        <div class="neon-font-name">Geometric Bold</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Poppins" data-category="modern" style="font-family:'Poppins', sans-serif;">
+                                        <div class="neon-font-preview">Poppins</div>
+                                        <div class="neon-font-name">Geometric Clean</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Outfit" data-category="modern" style="font-family:'Outfit', sans-serif;">
+                                        <div class="neon-font-preview">Outfit</div>
+                                        <div class="neon-font-name">Minimal Studio</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Raleway" data-category="modern" style="font-family:'Raleway', sans-serif;">
+                                        <div class="neon-font-preview">Raleway</div>
+                                        <div class="neon-font-name">Haute Couture</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Inter" data-category="modern" style="font-family:'Inter', sans-serif;">
+                                        <div class="neon-font-preview">Inter</div>
+                                        <div class="neon-font-name">Ultra Legible</div>
+                                    </button>
+
+                                    <!-- BOLD & IMPACT DISPLAY FONTS -->
+                                    <button type="button" class="neon-font-card" data-font="Bebas Neue" data-category="bold" style="font-family:'Bebas Neue', sans-serif;letter-spacing:1px;">
+                                        <div class="neon-font-preview">Bebas Neue</div>
+                                        <div class="neon-font-name">Condensed Display</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Oswald" data-category="bold" style="font-family:'Oswald', sans-serif;">
+                                        <div class="neon-font-preview">Oswald</div>
+                                        <div class="neon-font-name">Strong Sans</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Anton" data-category="bold" style="font-family:'Anton', sans-serif;letter-spacing:1px;">
+                                        <div class="neon-font-preview">Anton</div>
+                                        <div class="neon-font-name">Maximum Impact</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Barlow Condensed" data-category="bold" style="font-family:'Barlow Condensed', sans-serif;">
+                                        <div class="neon-font-preview">Barlow Cond.</div>
+                                        <div class="neon-font-name">Architectural</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Teko" data-category="bold" style="font-family:'Teko', sans-serif;">
+                                        <div class="neon-font-preview">Teko</div>
+                                        <div class="neon-font-name">Tall Display</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Libre Franklin" data-category="bold" style="font-family:'Libre Franklin', sans-serif;font-weight:800;">
+                                        <div class="neon-font-preview">Libre Franklin</div>
+                                        <div class="neon-font-name">Heavy Industrial</div>
+                                    </button>
+
+                                    <!-- RETRO & DECO NEON FONTS -->
+                                    <button type="button" class="neon-font-card" data-font="Monoton" data-category="retro" style="font-family:'Monoton', cursive;">
+                                        <div class="neon-font-preview">Monoton</div>
+                                        <div class="neon-font-name">Triple-Line Neon</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Righteous" data-category="retro" style="font-family:'Righteous', cursive;">
+                                        <div class="neon-font-preview">Righteous</div>
+                                        <div class="neon-font-name">Deco Geometric</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Shrikhand" data-category="retro" style="font-family:'Shrikhand', cursive;">
+                                        <div class="neon-font-preview">Shrikhand</div>
+                                        <div class="neon-font-name">Psychedelic Sign</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Limelight" data-category="retro" style="font-family:'Limelight', cursive;">
+                                        <div class="neon-font-preview">Limelight</div>
+                                        <div class="neon-font-name">Art Deco Cinema</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Bungee" data-category="retro" style="font-family:'Bungee', cursive;">
+                                        <div class="neon-font-preview">Bungee</div>
+                                        <div class="neon-font-name">Urban Signage</div>
+                                    </button>
+
+                                    <!-- LUXURY SERIF & HERITAGE FONTS -->
+                                    <button type="button" class="neon-font-card" data-font="Playfair Display" data-category="serif" style="font-family:'Playfair Display', serif;">
+                                        <div class="neon-font-preview">Playfair</div>
+                                        <div class="neon-font-name">Elegant Serif</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Cinzel" data-category="serif" style="font-family:'Cinzel', serif;">
+                                        <div class="neon-font-preview">Cinzel</div>
+                                        <div class="neon-font-name">Roman Classical</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Cormorant Garamond" data-category="serif" style="font-family:'Cormorant Garamond', serif;">
+                                        <div class="neon-font-preview">Cormorant</div>
+                                        <div class="neon-font-name">French Atelier</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Prata" data-category="serif" style="font-family:'Prata', serif;">
+                                        <div class="neon-font-preview">Prata</div>
+                                        <div class="neon-font-name">Fashion Boutique</div>
+                                    </button>
+
+                                    <!-- CYBER, TECH & SCI-FI FONTS -->
+                                    <button type="button" class="neon-font-card" data-font="Orbitron" data-category="cyber" style="font-family:'Orbitron', sans-serif;">
+                                        <div class="neon-font-preview">Orbitron</div>
+                                        <div class="neon-font-name">Cyberpunk Glow</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Audiowide" data-category="cyber" style="font-family:'Audiowide', sans-serif;">
+                                        <div class="neon-font-preview">Audiowide</div>
+                                        <div class="neon-font-name">Techno Synthetic</div>
+                                    </button>
+                                    <button type="button" class="neon-font-card" data-font="Syncopate" data-category="cyber" style="font-family:'Syncopate', sans-serif;">
+                                        <div class="neon-font-preview">Syncopate</div>
+                                        <div class="neon-font-name">Futuristic Wide</div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -685,6 +796,23 @@
                 this.classList.add("active");
                 state.align = this.getAttribute("data-align");
                 updateSimulator();
+            });
+        });
+
+        // Step 1: Font Category Filter Pills
+        document.querySelectorAll(".font-filter-pill").forEach(pill => {
+            pill.addEventListener("click", function () {
+                document.querySelectorAll(".font-filter-pill").forEach(p => p.classList.remove("active"));
+                this.classList.add("active");
+                const filter = this.getAttribute("data-filter");
+                document.querySelectorAll(".neon-font-card").forEach(card => {
+                    const cat = card.getAttribute("data-category");
+                    if (filter === "all" || cat === filter) {
+                        card.style.display = "flex";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
             });
         });
 

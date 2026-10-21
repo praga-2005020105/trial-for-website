@@ -16,7 +16,7 @@
     <!-- Google Fonts Stack -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600&family=Dancing+Script:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Libre+Franklin:wght@600;700;800;900&family=Monoton&family=Montserrat:wght@500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Anton&family=Audiowide&family=Barlow+Condensed:wght@600;700;800&family=Bebas+Neue&family=Bungee&family=Caveat:wght@600;700&family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Libre+Franklin:wght@600;700;800;900&family=Limelight&family=Monoton&family=Montserrat:wght@500;600;700;800&family=Orbitron:wght@600;700;800;900&family=Oswald:wght@500;600;700&family=Outfit:wght@500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@500;600;700;800&family=Prata&family=Raleway:wght@600;700;800&family=Righteous&family=Sacramento&family=Satisfy&family=Shrikhand&family=Syncopate:wght@700&family=Teko:wght@600;700&family=Yellowtail&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -278,16 +278,52 @@
                         </button>
                     </div>
                     <div>
-                        <label for="neonFontSelect" data-i18n="neonFontLabel">Neon Font Style</label>
+                        <label for="neonFontSelect" data-i18n="neonFontLabel">Neon Font Style (30+ Atelier Typographies)</label>
                         <select id="neonFontSelect">
-                            <option value="'Dancing Script', cursive">Dancing Script (Cursive Flow)</option>
-                            <option value="'Caveat', cursive">Caveat (Handwritten Signature)</option>
-                            <option value="'Pacifico', cursive">Pacifico (Retro Vintage)</option>
-                            <option value="'DM Sans', sans-serif">DM Sans (Modern Clean)</option>
-                            <option value="'Montserrat', sans-serif">Montserrat (Geometric Contemporary)</option>
-                            <option value="'Bebas Neue', sans-serif">Bebas Neue (Condensed Bold)</option>
-                            <option value="'Monoton', cursive">Monoton (Retro Multi-Line)</option>
-                            <option value="'Playfair Display', serif">Playfair Display (Luxury Serif)</option>
+                            <optgroup label="✨ Cursive &amp; Flowing Scripts">
+                                <option value="'Dancing Script', cursive" selected style="font-family:'Dancing Script', cursive;">Dancing Script (Cursive Flow)</option>
+                                <option value="'Caveat', cursive" style="font-family:'Caveat', cursive;">Caveat (Casual Signature)</option>
+                                <option value="'Pacifico', cursive" style="font-family:'Pacifico', cursive;">Pacifico (Retro Vintage Script)</option>
+                                <option value="'Great Vibes', cursive" style="font-family:'Great Vibes', cursive;">Great Vibes (High Elegance Calligraphy)</option>
+                                <option value="'Satisfy', cursive" style="font-family:'Satisfy', cursive;">Satisfy (Boutique Brush Script)</option>
+                                <option value="'Sacramento', cursive" style="font-family:'Sacramento', cursive;">Sacramento (Continuous Wire Neon)</option>
+                                <option value="'Yellowtail', cursive" style="font-family:'Yellowtail', cursive;">Yellowtail (Retro 50s Diner Script)</option>
+                                <option value="'Alex Brush', cursive" style="font-family:'Alex Brush', cursive;">Alex Brush (Fine Luxury Cursive)</option>
+                            </optgroup>
+                            <optgroup label="🏢 Modern Clean &amp; Geometric">
+                                <option value="'DM Sans', sans-serif" style="font-family:'DM Sans', sans-serif;">DM Sans (Modern Clean)</option>
+                                <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Contemporary)</option>
+                                <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Geometric Rounded)</option>
+                                <option value="'Outfit', sans-serif" style="font-family:'Outfit', sans-serif;">Outfit (Minimalist Studio)</option>
+                                <option value="'Raleway', sans-serif" style="font-family:'Raleway', sans-serif;">Raleway (Haute Couture Sans)</option>
+                                <option value="'Inter', sans-serif" style="font-family:'Inter', sans-serif;">Inter (Ultra-Legible Sans)</option>
+                            </optgroup>
+                            <optgroup label="⚡ Bold Display &amp; Heavy Impact">
+                                <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (Condensed Bold)</option>
+                                <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Heavy Commercial Impact)</option>
+                                <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Maximum Impact Headline)</option>
+                                <option value="'Barlow Condensed', sans-serif" style="font-family:'Barlow Condensed', sans-serif;">Barlow Condensed (Signage Display)</option>
+                                <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Tall Geometric Display)</option>
+                                <option value="'Libre Franklin', sans-serif" style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Industrial Bold)</option>
+                            </optgroup>
+                            <optgroup label="🌈 Retro, Art Deco &amp; Iconic Neon">
+                                <option value="'Monoton', cursive" style="font-family:'Monoton', cursive;">Monoton (Retro Multi-Line Neon)</option>
+                                <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Deco Geometric)</option>
+                                <option value="'Shrikhand', cursive" style="font-family:'Shrikhand', cursive;">Shrikhand (Fat Retro Psychedelic)</option>
+                                <option value="'Limelight', cursive" style="font-family:'Limelight', cursive;">Limelight (Art Deco Cinema)</option>
+                                <option value="'Bungee', cursive" style="font-family:'Bungee', cursive;">Bungee (Urban Block Signage)</option>
+                            </optgroup>
+                            <optgroup label="👑 Luxury Serif &amp; Heritage">
+                                <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Editorial Serif)</option>
+                                <option value="'Cinzel', serif" style="font-family:'Cinzel', serif;">Cinzel (Roman Classical Monumental)</option>
+                                <option value="'Cormorant Garamond', serif" style="font-family:'Cormorant Garamond', serif;">Cormorant Garamond (Fine French Atelier)</option>
+                                <option value="'Prata', serif" style="font-family:'Prata', serif;">Prata (Sophisticated Boutique Serif)</option>
+                            </optgroup>
+                            <optgroup label="🤖 Cyber, Tech &amp; Futuristic">
+                                <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (Cyberpunk Illuminated)</option>
+                                <option value="'Audiowide', sans-serif" style="font-family:'Audiowide', sans-serif;">Audiowide (Techno Synthetic)</option>
+                                <option value="'Syncopate', sans-serif" style="font-family:'Syncopate', sans-serif;">Syncopate (Wide Runway Display)</option>
+                            </optgroup>
                         </select>
                     </div>
                 </div>
@@ -442,7 +478,7 @@
                     <div class="config-grid-2" style="margin-bottom:14px;">
                         <button type="button" class="option-btn-card relief-method-btn active" data-method="text">
                             <strong data-i18n="reliefMethodText">Direct Text</strong>
-                            <span>8 atelier fonts</span>
+                            <span>25+ atelier fonts</span>
                         </button>
                         <button type="button" class="option-btn-card relief-method-btn" data-method="upload">
                             <strong data-i18n="reliefMethodUpload">Vector File Upload</strong>
@@ -453,6 +489,44 @@
                     <div id="reliefTextGroup">
                         <label for="reliefInputText" data-i18n="reliefTextInputLabel">Signage Text</label>
                         <input type="text" id="reliefInputText" data-i18n-placeholder="reliefTextInputPlaceholder" placeholder="YOUR SIGN" value="YOUR SIGN">
+                        
+                        <div style="margin-top:12px;">
+                            <label for="reliefFontSelect" data-i18n="reliefFontLabel">Relief Typography (25+ Atelier Fonts)</label>
+                            <select id="reliefFontSelect">
+                                <optgroup label="🏢 Modern Architectural Sans">
+                                    <option value="'DM Sans', sans-serif" selected style="font-family:'DM Sans', sans-serif;">DM Sans (Modern Clean)</option>
+                                    <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Bold)</option>
+                                    <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Contemporary Clean)</option>
+                                    <option value="'Outfit', sans-serif" style="font-family:'Outfit', sans-serif;">Outfit (Minimalist Studio)</option>
+                                    <option value="'Raleway', sans-serif" style="font-family:'Raleway', sans-serif;">Raleway (Refined Sans)</option>
+                                </optgroup>
+                                <optgroup label="⚡ Heavy Commercial &amp; Condensed">
+                                    <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (Condensed Block)</option>
+                                    <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Industrial High-Impact)</option>
+                                    <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Heavy Headline)</option>
+                                    <option value="'Barlow Condensed', sans-serif" style="font-family:'Barlow Condensed', sans-serif;">Barlow Condensed (Architectural)</option>
+                                    <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Monumental Display)</option>
+                                    <option value="'Libre Franklin', sans-serif" style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Storefront Heavy)</option>
+                                </optgroup>
+                                <optgroup label="👑 Luxury Roman &amp; Classical Serif">
+                                    <option value="'Cinzel', serif" style="font-family:'Cinzel', serif;">Cinzel (Roman Inscriptional)</option>
+                                    <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Serif)</option>
+                                    <option value="'Cormorant Garamond', serif" style="font-family:'Cormorant Garamond', serif;">Cormorant Garamond (Heritage Atelier)</option>
+                                    <option value="'Prata', serif" style="font-family:'Prata', serif;">Prata (Sophisticated Boutique)</option>
+                                </optgroup>
+                                <optgroup label="📜 Elegant Script &amp; Signature">
+                                    <option value="'Dancing Script', cursive" style="font-family:'Dancing Script', cursive;">Dancing Script (Relief Cursive)</option>
+                                    <option value="'Pacifico', cursive" style="font-family:'Pacifico', cursive;">Pacifico (Retro Script Relief)</option>
+                                    <option value="'Great Vibes', cursive" style="font-family:'Great Vibes', cursive;">Great Vibes (Formal Calligraphy)</option>
+                                    <option value="'Caveat', cursive" style="font-family:'Caveat', cursive;">Caveat (Signature Relief)</option>
+                                </optgroup>
+                                <optgroup label="🤖 Tech &amp; Futuristic">
+                                    <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (Geometric Tech)</option>
+                                    <option value="'Audiowide', sans-serif" style="font-family:'Audiowide', sans-serif;">Audiowide (Futuristic Curve)</option>
+                                    <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Deco Geometric)</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
 
                     <div id="reliefUploadGroup" style="display:none;margin-top:10px;">
@@ -650,6 +724,21 @@
                         <label for="facadeTextInput" data-i18n="facadeTextLabel">Storefront / Lambrequin Text:</label>
                         <input type="text" id="facadeTextInput" value="MY STOREFRONT">
                     </div>
+                    <div style="margin-top:12px;">
+                        <label for="facadeFontSelect" data-i18n="facadeFontLabel">Storefront Typography Style</label>
+                        <select id="facadeFontSelect">
+                            <option value="'Montserrat', sans-serif" selected style="font-family:'Montserrat', sans-serif;">Montserrat (Contemporary Retail)</option>
+                            <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (Storefront Impact)</option>
+                            <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Haute Couture &amp; Bistro)</option>
+                            <option value="'Cinzel', serif" style="font-family:'Cinzel', serif;">Cinzel (Luxury Roman Inscription)</option>
+                            <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Commercial Signage)</option>
+                            <option value="'Cormorant Garamond', serif" style="font-family:'Cormorant Garamond', serif;">Cormorant Garamond (Fine French Boutique)</option>
+                            <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Retro Café &amp; Bar)</option>
+                            <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Monumental Block)</option>
+                            <option value="'DM Sans', sans-serif" style="font-family:'DM Sans', sans-serif;">DM Sans (Clean Architecture)</option>
+                            <option value="'Dancing Script', cursive" style="font-family:'Dancing Script', cursive;">Dancing Script (Artisan Bakery &amp; Florist)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="config-card">
@@ -750,6 +839,21 @@
                         <label for="vehicleBrandingText" data-i18n="vehicleBrandLabel">Company Name / Brand</label>
                         <input type="text" id="vehicleBrandingText" value="MY BRAND FLEET">
                     </div>
+                    <div style="margin-bottom:12px;">
+                        <label for="vehicleFontSelect" data-i18n="vehicleFontLabel">Fleet Lettering Typography</label>
+                        <select id="vehicleFontSelect">
+                            <option value="'Libre Franklin', sans-serif" selected style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Ultra Bold Pro)</option>
+                            <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Corporate)</option>
+                            <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (High-Impact Condensed)</option>
+                            <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Heavy Fleet Sans)</option>
+                            <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Heavy Headline)</option>
+                            <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Modern Clean)</option>
+                            <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Tall Commercial Display)</option>
+                            <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (High-Tech Fleet)</option>
+                            <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Artisan &amp; Craft)</option>
+                            <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Executive)</option>
+                        </select>
+                    </div>
                     <div class="config-grid-2">
                         <div>
                             <label for="vehiclePhone" data-i18n="vehiclePhoneLabel">Business Phone</label>
@@ -788,6 +892,23 @@
                     <div style="margin-bottom:14px;">
                         <label for="stickerText" data-i18n="stickerTextLabel">Sticker Text or Graphic Title</label>
                         <input type="text" id="stickerText" value="CUSTOM STICKER">
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label for="stickerFontSelect" data-i18n="stickerFontLabel">Sticker Typography Style</label>
+                        <select id="stickerFontSelect">
+                            <option value="'Libre Franklin', sans-serif" selected style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Streetwear Bold)</option>
+                            <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (Poster Display)</option>
+                            <option value="'Pacifico', cursive" style="font-family:'Pacifico', cursive;">Pacifico (Retro California)</option>
+                            <option value="'Dancing Script', cursive" style="font-family:'Dancing Script', cursive;">Dancing Script (Handmade Script)</option>
+                            <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Vintage Decal)</option>
+                            <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Impact Heavy)</option>
+                            <option value="'Monoton', cursive" style="font-family:'Monoton', cursive;">Monoton (Prismatic Retro)</option>
+                            <option value="'Shrikhand', cursive" style="font-family:'Shrikhand', cursive;">Shrikhand (Fat Bold Badge)</option>
+                            <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (Cyber Tech)</option>
+                            <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Clean Geometric)</option>
+                            <option value="'Great Vibes', cursive" style="font-family:'Great Vibes', cursive;">Great Vibes (Luxury Wedding &amp; Gift)</option>
+                            <option value="'Bungee', cursive" style="font-family:'Bungee', cursive;">Bungee (Urban Street Decal)</option>
+                        </select>
                     </div>
                     <label data-i18n="stickerCutLabel">Atelier Die-Cut Style</label>
                     <div class="config-grid-3">

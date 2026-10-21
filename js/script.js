@@ -2088,6 +2088,7 @@ document.addEventListener("DOMContentLoaded", function () {
     --------------------------------------------------------- */
     const facadeState = {
         signText: "MY STOREFRONT",
+        font: "'Montserrat', sans-serif",
         widthCm: 200,
         heightCm: 50,
         type: "lightbox",
@@ -2141,7 +2142,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (fabricSlope) fabricSlope.style.background = facadeState.awningFabricColor;
                 if (valance) valance.style.background = facadeState.awningFabricColor;
-                if (valanceText) valanceText.textContent = facadeState.signText || "LE BISTROT PARISIEN";
+                if (valanceText) {
+                    valanceText.textContent = facadeState.signText || "LE BISTROT PARISIEN";
+                    if (facadeState.font) valanceText.style.fontFamily = facadeState.font;
+                }
 
                 updateHudPill(facadeState.widthCm || 300, 250, 1, "Store Banne");
 
@@ -2159,6 +2163,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     material: "Toile Déperlante Anti-UV Dickson",
                     finish: `Motorisation & Éclairage: ${facadeState.lighting.toUpperCase()}`,
                     customText: facadeState.signText,
+                    font: facadeState.font,
                     options: {
                         type: "awning",
                         widthCm: facadeState.widthCm,
@@ -2198,7 +2203,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 const ledTroughRamp = document.getElementById("ledTroughRamp");
                 const facadeCassetteBoard = document.getElementById("facadeCassetteBoard");
 
-                if (facadeSignText) facadeSignText.textContent = facadeState.signText || "BUSINESS SIGN";
+                if (facadeSignText) {
+                    facadeSignText.textContent = facadeState.signText || "BUSINESS SIGN";
+                    if (facadeState.font) facadeSignText.style.fontFamily = facadeState.font;
+                }
 
                 if (ledTroughRamp) {
                     const isRamp = facadeState.lighting === "spotlights";
@@ -2245,6 +2253,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     material: facadeState.substrate.toUpperCase(),
                     finish: `Éclairage ${facadeState.lighting.toUpperCase()}`,
                     customText: facadeState.signText,
+                    font: facadeState.font,
                     options: {
                         type: currentType,
                         widthCm: facadeState.widthCm,
@@ -2314,6 +2323,15 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
+        // Facade font style select
+        const facadeFontSelect = document.getElementById("facadeFontSelect");
+        if (facadeFontSelect) {
+            facadeFontSelect.addEventListener("change", function () {
+                facadeState.font = this.value;
+                renderFacade();
+            });
+        }
+
         // Facade lighting dropdown
         const facadeLightingSelect = document.getElementById("facadeLightingSelect");
         if (facadeLightingSelect) {
@@ -2346,6 +2364,7 @@ document.addEventListener("DOMContentLoaded", function () {
         windowOpt: "none",
         windowPrice: 0,
         brandingText: "MY BRAND FLEET",
+        font: "'Libre Franklin', sans-serif",
         phone: "01 48 41 85 90",
         siret: "SIRET 848972827"
     };
@@ -2360,7 +2379,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const vehicleSiret = document.getElementById("vehicleSiret");
 
         function renderVehicle() {
-            if (vehicleDoorText) vehicleDoorText.textContent = vehicleState.brandingText;
+            if (vehicleDoorText) {
+                vehicleDoorText.textContent = vehicleState.brandingText;
+                if (vehicleState.font) {
+                    vehicleDoorText.setAttribute("font-family", vehicleState.font);
+                    vehicleDoorText.style.fontFamily = vehicleState.font;
+                }
+            }
             if (vehicleSiretText) vehicleSiretText.textContent = `${vehicleState.phone} · ${vehicleState.siret}`;
 
             if (vehicleCoverageZone) {
@@ -2418,6 +2443,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 material: "Vinyle Coulé 3D Polymère Hexis / 3M",
                 finish: `Finition Anti-UV Protection Carrosserie · Vitre: ${vehicleState.windowOpt.toUpperCase()}`,
                 customText: `${vehicleState.brandingText} (${vehicleState.phone})`,
+                font: vehicleState.font,
                 options: {
                     vehicleType: vehicleState.type,
                     makeModel: vehicleState.makeModel,
@@ -2445,6 +2471,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (vehicleBrandingText) {
             vehicleBrandingText.addEventListener("input", function () {
                 vehicleState.brandingText = this.value || "MY BRAND FLEET";
+                renderVehicle();
+            });
+        }
+        const vehicleFontSelect = document.getElementById("vehicleFontSelect");
+        if (vehicleFontSelect) {
+            vehicleFontSelect.addEventListener("change", function () {
+                vehicleState.font = this.value;
                 renderVehicle();
             });
         }
@@ -2503,6 +2536,7 @@ document.addEventListener("DOMContentLoaded", function () {
         widthCm: 15,
         heightCm: 15,
         text: "CUSTOM STICKER",
+        font: "'Libre Franklin', sans-serif",
         cut: "die-cut",
         cutPrice: 0,
         sheen: "gloss",
@@ -2522,7 +2556,10 @@ document.addEventListener("DOMContentLoaded", function () {
         function renderStickers() {
             const rawText = (stickerText ? stickerText.value : "") || "CUSTOM STICKER";
             stickerState.text = rawText;
-            if (stickerGraphicText) stickerGraphicText.textContent = rawText;
+            if (stickerGraphicText) {
+                stickerGraphicText.textContent = rawText;
+                if (stickerState.font) stickerGraphicText.style.fontFamily = stickerState.font;
+            }
 
             if (stickerArtworkCanvas) {
                 stickerArtworkCanvas.className = "sticker-artwork-canvas";
@@ -2587,6 +2624,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 material: `Vinyle Adhésif Haute Résistance (${stickerState.sheen.toUpperCase()})`,
                 finish: `Découpe ${stickerState.cut.toUpperCase()}`,
                 customText: rawText,
+                font: stickerState.font,
                 options: {
                     widthCm: stickerState.widthCm,
                     heightCm: stickerState.heightCm,
@@ -2612,6 +2650,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (stickerText) {
             stickerText.addEventListener("input", function () {
+                renderStickers();
+            });
+        }
+        const stickerFontSelect = document.getElementById("stickerFontSelect");
+        if (stickerFontSelect) {
+            stickerFontSelect.addEventListener("change", function () {
+                stickerState.font = this.value;
                 renderStickers();
             });
         }
