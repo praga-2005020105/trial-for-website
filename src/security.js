@@ -38,9 +38,18 @@ const defaultAdmin = hashPassword("AdminSecure2026!@#");
 export const adminUsers = [
   {
     id: "admin-1",
-    email: "admin@mystickerzenseigne.com",
+    email: "mystickerz75@gmail.com",
     role: "admin",
     name: "Master Workshop Admin",
+    passwordHash: defaultAdmin.hash,
+    passwordSalt: defaultAdmin.salt,
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "admin-2",
+    email: "admin@mystickerzenseigne.com",
+    role: "admin",
+    name: "Master Workshop Admin (Alt)",
     passwordHash: defaultAdmin.hash,
     passwordSalt: defaultAdmin.salt,
     createdAt: new Date().toISOString()

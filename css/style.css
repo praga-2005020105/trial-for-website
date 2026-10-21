@@ -2239,8 +2239,8 @@ button {
   width: min(1200px, 90%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 36px;
   padding-bottom: 40px;
 }
 
@@ -3871,5 +3871,54 @@ html, body {
     .order-table {
         min-width: 600px;
     }
+}
+
+/* =========================================================
+   FLOATING WHATSAPP ATELIER QUICK-CONNECT
+========================================================= */
+.floating-whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #25d366;
+  color: #ffffff !important;
+  padding: 12px 18px;
+  border-radius: 50px;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-body);
+}
+
+.floating-whatsapp-btn i {
+  font-size: 20px;
+}
+
+.floating-whatsapp-btn:hover {
+  background: #20ba5a;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 26px rgba(37, 211, 102, 0.55);
+  color: #ffffff !important;
+}
+
+@media (max-width: 600px) {
+  .floating-whatsapp-btn {
+    bottom: 18px;
+    right: 18px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .floating-whatsapp-btn span {
+    display: none;
+  }
 }
 

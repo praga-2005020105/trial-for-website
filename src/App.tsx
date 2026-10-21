@@ -160,7 +160,7 @@ const MainAuthApp: React.FC = () => {
                 <div className="p-4 border-b border-gray-800 flex items-center justify-between">
                   <h2 className="text-sm font-bold text-gray-200">Active Workshop Projects</h2>
                   <a
-                    href="https://wa.me/33123456789"
+                    href="https://wa.me/33698710050"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs text-emerald-400 hover:underline inline-flex items-center gap-1"

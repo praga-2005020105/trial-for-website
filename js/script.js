@@ -2365,7 +2365,7 @@ document.addEventListener("DOMContentLoaded", function () {
         windowPrice: 0,
         brandingText: "MY BRAND FLEET",
         font: "'Libre Franklin', sans-serif",
-        phone: "01 48 41 85 90",
+        phone: "06 98 71 00 50",
         siret: "SIRET 848972827"
     };
 
