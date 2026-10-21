@@ -18,24 +18,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
-        .auth-container {
-            max-width: 520px;
-            margin: 50px auto 80px;
+        /* MODERN SPLIT-SCREEN AUTHENTICATION LAYOUT */
+        .auth-split-wrapper {
+            max-width: 1060px;
+            margin: 40px auto 80px;
             padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            align-items: stretch;
         }
+        @media (min-width: 992px) {
+            .auth-split-wrapper {
+                grid-template-columns: 420px 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* BRAND HERO SIDEBAR (DESKTOP) */
+        .auth-hero-sidebar {
+            background: linear-gradient(155deg, #151519 0%, #0c0c10 100%);
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 40px 32px;
+            color: #ffffff;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.2);
+        }
+        @media (min-width: 992px) {
+            .auth-hero-sidebar {
+                display: flex;
+            }
+        }
+        .auth-hero-sidebar::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(239,68,68,0.18) 0%, rgba(239,68,68,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* AUTH CARD */
         .auth-card {
             background: #ffffff;
-            border: 1px solid #e5e5e0;
-            border-radius: 10px;
-            padding: 38px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 38px 34px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            position: relative;
         }
+
+        /* TAB SWITCHER */
         .auth-tabs {
             display: flex;
-            border-bottom: 2px solid #f0f0ed;
-            margin-bottom: 28px;
-            gap: 10px;
+            border-bottom: 2px solid #f3f4f6;
+            margin-bottom: 26px;
+            gap: 12px;
         }
         .auth-tab-btn {
             flex: 1;
@@ -44,23 +92,165 @@
             border: none;
             font-size: 14px;
             font-weight: 700;
-            color: #888;
+            color: #6b7280;
             cursor: pointer;
             border-bottom: 2px solid transparent;
             margin-bottom: -2px;
             transition: all 0.2s ease;
         }
-        .auth-tab-btn.active {
-            color: #111;
-            border-bottom-color: #111;
+        .auth-tab-btn:hover {
+            color: #111827;
         }
+        .auth-tab-btn.active {
+            color: #111827;
+            border-bottom-color: #111827;
+        }
+
+        /* FORM ELEMENTS & WCAG AA CONTRAST */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #111827;
+            background: #ffffff;
+            transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #111827;
+            box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+        }
+        .form-group input[aria-invalid="true"] {
+            border-color: #dc2626 !important;
+            background-color: #fef2f2 !important;
+        }
+        .field-error-msg {
+            display: none;
+            color: #b91c1c; /* 7:1 contrast on white */
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        /* PASSWORD STRENGTH METER */
+        .password-strength-container {
+            margin-top: 8px;
+            display: none;
+        }
+        .password-meter {
+            height: 5px;
+            width: 100%;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .password-meter-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        .password-checklist {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            font-size: 11px;
+            color: #4b5563;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .checklist-item.valid {
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        /* RATE LIMIT COOLDOWN NOTIFICATION */
+        .rate-limit-banner {
+            display: none;
+            background: #fef2f2;
+            border: 1px solid #f87171;
+            color: #991b1b;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* MODAL FOR FORGOT PASSWORD */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-card {
+            background: #ffffff;
+            border-radius: 12px;
+            max-width: 440px;
+            width: 100%;
+            padding: 32px 28px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+            position: relative;
+            border: 1px solid #e5e7eb;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #6b7280;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+        }
+        .modal-close-btn:hover {
+            color: #111827;
+        }
+
+        /* ACCOUNT PORTAL / DASHBOARD (WHEN LOGGED IN) */
         .account-portal {
             max-width: 1080px;
             margin: 40px auto 80px;
             padding: 0 20px;
         }
         .account-header {
-            background: #111;
+            background: #111827;
             color: #fff;
             padding: 30px;
             border-radius: 10px;
@@ -182,141 +372,330 @@
         </div>
     </div>
 
-    <!-- MAIN VIEW 1: AUTHENTICATION (SHOWN WHEN LOGGED OUT) -->
-    <main class="auth-container" id="authSection">
-        <div class="auth-card">
+    <!-- MAIN VIEW 1: AUTHENTICATION MODULE (DESKTOP SPLIT / MOBILE SINGLE-COLUMN) -->
+    <main class="auth-split-wrapper" id="authSection">
+        
+        <!-- BRAND HERO SIDEBAR (DESKTOP) -->
+        <aside class="auth-hero-sidebar" aria-label="Atelier Credentials">
+            <div>
+                <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fca5a5;margin-bottom:18px;">
+                    <span>✦ ATELIER FABRICATION FRANCE</span>
+                </div>
+                <h2 style="font-family:var(--font-heading);font-size:27px;line-height:1.25;margin:0 0 14px;color:#ffffff;">
+                    Bespoke Storefronts &amp; Illuminated Neons
+                </h2>
+                <p style="font-size:13px;line-height:1.65;color:#a1a1aa;margin:0 0 24px;">
+                    Join hundreds of French businesses, boutiques, and architectural brands who trust MY STICKERZ ENSEIGNE for certified workshop precision.
+                </p>
+
+                <ul style="list-style:none;padding:0;margin:0;display:grid;gap:13px;font-size:12px;color:#e4e4e7;">
+                    <li style="display:flex;align-items:center;gap:10px;">
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> Real-time digital proof (BAT) approval
+                    </li>
+                    <li style="display:flex;align-items:center;gap:10px;">
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> Live CNC routing &amp; optical laser tracking
+                    </li>
+                    <li style="display:flex;align-items:center;gap:10px;">
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> Direct workshop support on WhatsApp (<strong style="color:#fff;">06 98 71 00 50</strong>)
+                    </li>
+                    <li style="display:flex;align-items:center;gap:10px;">
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> 2-Year comprehensive technical warranty
+                    </li>
+                </ul>
+            </div>
+
+            <div style="padding-top:22px;border-top:1px solid rgba(255,255,255,0.1);font-size:11px;color:#71717a;display:flex;align-items:center;gap:8px;">
+                <span>🔒</span> 256-bit PBKDF2 encryption &amp; secure session token protection.
+            </div>
+        </aside>
+
+        <!-- FORM CARD (SIGN IN & REGISTRATION) -->
+        <div class="auth-card" role="region" aria-label="Customer Authentication">
             <div style="text-align:center;margin-bottom:20px;">
-                <h1 style="font-family:var(--font-heading);font-size:26px;margin-bottom:6px;" id="authMainTitle">Customer Portal</h1>
-                <p style="font-size:13px;color:#666;" id="authMainSubtitle">Sign in to track orders, save shipping details, and view proofs.</p>
+                <h1 style="font-family:var(--font-heading);font-size:26px;margin-bottom:6px;color:#111827;" id="authMainTitle">Customer Portal</h1>
+                <p style="font-size:13px;color:#4b5563;margin:0;" id="authMainSubtitle">Sign in to track orders, save shipping details, and view proofs.</p>
             </div>
 
             <!-- TAB SWITCHER -->
-            <div class="auth-tabs">
-                <button type="button" class="auth-tab-btn active" id="tabLoginBtn">Sign In</button>
-                <button type="button" class="auth-tab-btn" id="tabRegisterBtn">Create Account</button>
+            <div class="auth-tabs" role="tablist" aria-label="Authentication Options">
+                <button type="button" role="tab" aria-selected="true" aria-controls="customerLoginForm" class="auth-tab-btn active" id="tabLoginBtn">Sign In</button>
+                <button type="button" role="tab" aria-selected="false" aria-controls="customerRegisterForm" class="auth-tab-btn" id="tabRegisterBtn">Create Account</button>
             </div>
 
-            <!-- ALERTS -->
-            <div id="authAlert" style="display:none;padding:12px 14px;border-radius:6px;font-size:12px;margin-bottom:18px;line-height:1.5;"></div>
+            <!-- GLOBAL TOAST / ALERTS -->
+            <div id="authAlert" role="alert" aria-live="polite" style="display:none;padding:12px 14px;border-radius:6px;font-size:12px;margin-bottom:18px;line-height:1.5;"></div>
+
+            <!-- RATE LIMIT COOLDOWN NOTIFICATION -->
+            <div id="rateLimitNotice" class="rate-limit-banner" role="alert">
+                ⚠️ Too many attempts. Please wait <span id="rateLimitTimer">60</span>s before retrying.
+            </div>
 
             <!-- SOCIAL OAUTH BUTTONS -->
             <div style="margin-bottom:20px;">
-                <button type="button" class="oauth-social-btn" data-provider="google" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid #d4d4d0;border-radius:6px;font-size:12px;font-weight:700;color:#333;cursor:pointer;margin-bottom:8px;">
+                <button type="button" class="oauth-social-btn" data-provider="google" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;background:#ffffff;border:1px solid #d1d5db;border-radius:6px;font-size:13px;font-weight:600;color:#1f2937;cursor:pointer;margin-bottom:8px;transition:background-color .2s;">
                     <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                     Continue with Google
                 </button>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                    <button type="button" class="oauth-social-btn" data-provider="github" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px;background:#fff;border:1px solid #d4d4d0;border-radius:6px;font-size:12px;font-weight:700;color:#333;cursor:pointer;">
-                        <i class="fa-brands fa-github" style="font-size:14px;"></i> GitHub
+                    <button type="button" class="oauth-social-btn" data-provider="github" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px;background:#ffffff;border:1px solid #d1d5db;border-radius:6px;font-size:12px;font-weight:600;color:#1f2937;cursor:pointer;">
+                        <i class="fa-brands fa-github" style="font-size:15px;"></i> GitHub
                     </button>
-                    <button type="button" class="oauth-social-btn" data-provider="apple" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px;background:#fff;border:1px solid #d4d4d0;border-radius:6px;font-size:12px;font-weight:700;color:#333;cursor:pointer;">
-                        <i class="fa-brands fa-apple" style="font-size:14px;"></i> Apple
+                    <button type="button" class="oauth-social-btn" data-provider="apple" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:9px;background:#ffffff;border:1px solid #d1d5db;border-radius:6px;font-size:12px;font-weight:600;color:#1f2937;cursor:pointer;">
+                        <i class="fa-brands fa-apple" style="font-size:15px;"></i> Apple
                     </button>
                 </div>
                 <div style="position:relative;text-align:center;margin:18px 0 10px;">
-                    <div style="position:absolute;left:0;top:50%;width:100%;height:1px;background:#e5e5e0;"></div>
-                    <span style="position:relative;background:#fff;padding:0 10px;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;">Or continue with email</span>
+                    <div style="position:absolute;left:0;top:50%;width:100%;height:1px;background:#e5e7eb;"></div>
+                    <span style="position:relative;background:#fff;padding:0 12px;font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Or continue with email</span>
                 </div>
             </div>
 
-            <!-- FORM 1: SIGN IN -->
-            <form id="customerLoginForm">
+            <!-- FORM 1: SIGN IN (LOGIN) -->
+            <form id="customerLoginForm" novalidate>
                 <div class="form-group">
-                    <label for="loginEmail">Email Address <span style="color:#e00;">*</span></label>
-                    <input type="email" id="loginEmail" name="email" required placeholder="client@example.com" autocomplete="email">
-                    <span id="loginEmailError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <label for="loginEmail">Email Address <span style="color:#b91c1c;">*</span></label>
+                    <input 
+                        type="email" 
+                        id="loginEmail" 
+                        name="email" 
+                        required 
+                        placeholder="client@example.com" 
+                        autocomplete="email"
+                        autocapitalize="none"
+                        autocorrect="off"
+                        spellcheck="false"
+                        inputmode="email"
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-describedby="loginEmailError"
+                        tabindex="1"
+                    >
+                    <span id="loginEmailError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
+
                 <div class="form-group">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                        <label for="loginPassword" style="margin-bottom:0;">Password <span style="color:#e00;">*</span></label>
-                        <a href="javascript:void(0)" id="forgotPasswordLink" style="font-size:11px;color:#666;text-decoration:underline;">Forgot password?</a>
+                        <label for="loginPassword" style="margin-bottom:0;">Password <span style="color:#b91c1c;">*</span></label>
+                        <a href="javascript:void(0)" id="forgotPasswordLink" style="font-size:12px;color:#4b5563;text-decoration:underline;font-weight:500;" tabindex="4">Forgot password?</a>
                     </div>
                     <div style="position:relative;">
-                        <input type="password" id="loginPassword" name="password" required placeholder="••••••••••••" autocomplete="current-password" style="padding-right:40px;">
-                        <button type="button" class="toggle-password-btn" data-target="loginPassword" aria-label="Toggle password visibility" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:13px;">
+                        <input 
+                            type="password" 
+                            id="loginPassword" 
+                            name="password" 
+                            required 
+                            placeholder="••••••••••••" 
+                            autocomplete="current-password" 
+                            style="padding-right:42px;"
+                            aria-required="true"
+                            aria-invalid="false"
+                            aria-describedby="loginPasswordError"
+                            tabindex="2"
+                        >
+                        <button 
+                            type="button" 
+                            class="toggle-password-btn" 
+                            data-target="loginPassword" 
+                            aria-label="Show password" 
+                            aria-pressed="false"
+                            tabindex="3"
+                            style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;padding:6px;"
+                        >
                             👁️
                         </button>
                     </div>
-                    <span id="loginPasswordError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <span id="loginPasswordError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
-                <div style="margin:12px 0 16px;">
-                    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#555;cursor:pointer;user-select:none;">
-                        <input type="checkbox" id="loginRememberMe" checked>
+
+                <div style="margin:14px 0 18px;">
+                    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#374151;cursor:pointer;user-select:none;">
+                        <input type="checkbox" id="loginRememberMe" checked tabindex="5" style="width:16px;height:16px;accent-color:#111827;">
                         <span>Remember me on this device (30 days)</span>
                     </label>
                 </div>
-                <button type="submit" id="loginSubmitBtn" class="place-order-button" style="margin-top:10px;">
-                    Sign In →
+
+                <button type="submit" id="loginSubmitBtn" class="place-order-button" tabindex="6" style="margin-top:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;">
+                    <span>Sign In →</span>
                 </button>
             </form>
 
-            <!-- FORM 2: CREATE ACCOUNT -->
-            <form id="customerRegisterForm" style="display:none;">
+            <!-- FORM 2: CREATE ACCOUNT (SIGN UP) -->
+            <form id="customerRegisterForm" style="display:none;" novalidate>
                 <div class="form-group">
-                    <label for="regFullName">Full Name or Company Name <span style="color:#e00;">*</span></label>
-                    <input type="text" id="regFullName" name="fullName" required placeholder="Jean Dupont / Atelier Paris" autocomplete="name">
-                    <span id="regNameError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <label for="regFullName">Full Name or Company Name <span style="color:#b91c1c;">*</span></label>
+                    <input 
+                        type="text" 
+                        id="regFullName" 
+                        name="fullName" 
+                        required 
+                        placeholder="Jean Dupont / Atelier Paris" 
+                        autocomplete="name"
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-describedby="regNameError"
+                        tabindex="1"
+                    >
+                    <span id="regNameError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="regEmail">Email Address <span style="color:#e00;">*</span></label>
-                    <input type="email" id="regEmail" name="email" required placeholder="jean@dupont.fr" autocomplete="email">
-                    <span id="regEmailError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <label for="regEmail">Email Address <span style="color:#b91c1c;">*</span></label>
+                    <input 
+                        type="email" 
+                        id="regEmail" 
+                        name="email" 
+                        required 
+                        placeholder="jean@dupont.fr" 
+                        autocomplete="email"
+                        autocapitalize="none"
+                        autocorrect="off"
+                        spellcheck="false"
+                        inputmode="email"
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-describedby="regEmailError"
+                        tabindex="2"
+                    >
+                    <span id="regEmailError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="regPassword">Password <span style="color:#e00;">*</span></label>
+                    <label for="regPassword">Password <span style="color:#b91c1c;">*</span></label>
                     <div style="position:relative;">
-                        <input type="password" id="regPassword" name="password" required placeholder="••••••••••••" autocomplete="new-password" style="padding-right:40px;">
-                        <button type="button" class="toggle-password-btn" data-target="regPassword" aria-label="Toggle password visibility" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:13px;">
+                        <input 
+                            type="password" 
+                            id="regPassword" 
+                            name="password" 
+                            required 
+                            placeholder="••••••••••••" 
+                            autocomplete="new-password" 
+                            style="padding-right:42px;"
+                            aria-required="true"
+                            aria-invalid="false"
+                            aria-describedby="regPasswordError"
+                            tabindex="3"
+                        >
+                        <button 
+                            type="button" 
+                            class="toggle-password-btn" 
+                            data-target="regPassword" 
+                            aria-label="Show password" 
+                            aria-pressed="false"
+                            tabindex="4"
+                            style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;padding:6px;"
+                        >
                             👁️
                         </button>
                     </div>
-                    <!-- PASSWORD STRENGTH & CHECKLIST -->
-                    <div id="regStrengthWrap" style="margin-top:6px;display:none;">
-                        <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;">
-                            <span style="color:#777;">Strength:</span>
-                            <strong id="regStrengthLabel" style="color:#e00;">Weak</strong>
+
+                    <!-- PASSWORD STRENGTH METER & REAL-TIME CHECKLIST -->
+                    <div id="regStrengthWrap" class="password-strength-container">
+                        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:4px;">
+                            <span style="color:#4b5563;">Password Strength:</span>
+                            <strong id="regStrengthLabel" style="color:#dc2626;">Weak</strong>
                         </div>
-                        <div style="width:100%;height:4px;background:#eee;border-radius:2px;overflow:hidden;">
-                            <div id="regStrengthBar" style="width:20%;height:100%;background:#e00;transition:all .3s;"></div>
+                        <div class="password-meter">
+                            <div id="regStrengthBar" class="password-meter-fill"></div>
                         </div>
                     </div>
-                    <div style="background:#fafaf8;border:1px solid #e7e7e2;border-radius:6px;padding:8px 10px;margin-top:8px;font-size:11px;color:#666;line-height:1.5;">
-                        <div id="ruleLength">○ Minimum 8 characters</div>
-                        <div id="ruleUpper">○ At least 1 uppercase letter (A-Z)</div>
-                        <div id="ruleNumber">○ At least 1 numeric digit (0-9)</div>
-                        <div id="ruleSpecial">○ At least 1 special character (!@#$%^&*)</div>
+
+                    <div class="password-checklist" aria-label="Password Criteria">
+                        <div id="ruleLength" class="checklist-item"><span>○</span> Minimum 8 characters</div>
+                        <div id="ruleUpper" class="checklist-item"><span>○</span> At least 1 uppercase letter (A-Z)</div>
+                        <div id="ruleNumber" class="checklist-item"><span>○</span> At least 1 numeric digit (0-9)</div>
+                        <div id="ruleSpecial" class="checklist-item"><span>○</span> At least 1 special character (!@#$%^&*)</div>
                     </div>
-                    <span id="regPasswordError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <span id="regPasswordError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="regConfirmPassword">Confirm Password <span style="color:#e00;">*</span></label>
+                    <label for="regConfirmPassword">Confirm Password <span style="color:#b91c1c;">*</span></label>
                     <div style="position:relative;">
-                        <input type="password" id="regConfirmPassword" name="confirmPassword" required placeholder="••••••••••••" autocomplete="new-password" style="padding-right:40px;">
-                        <button type="button" class="toggle-password-btn" data-target="regConfirmPassword" aria-label="Toggle password visibility" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:13px;">
+                        <input 
+                            type="password" 
+                            id="regConfirmPassword" 
+                            name="confirmPassword" 
+                            required 
+                            placeholder="••••••••••••" 
+                            autocomplete="new-password" 
+                            style="padding-right:42px;"
+                            aria-required="true"
+                            aria-invalid="false"
+                            aria-describedby="regConfirmError"
+                            tabindex="5"
+                        >
+                        <button 
+                            type="button" 
+                            class="toggle-password-btn" 
+                            data-target="regConfirmPassword" 
+                            aria-label="Show password" 
+                            aria-pressed="false"
+                            tabindex="6"
+                            style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;padding:6px;"
+                        >
                             👁️
                         </button>
                     </div>
-                    <span id="regConfirmError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <span id="regConfirmError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
+
                 <div class="form-group" style="margin-top:14px;">
-                    <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#555;cursor:pointer;user-select:none;">
-                        <input type="checkbox" id="regTerms" required style="margin-top:2px;">
-                        <span>I accept the <a href="terms.html" target="_blank" style="text-decoration:underline;color:#111;font-weight:600;">Terms of Service</a> and <a href="cookies.html" target="_blank" style="text-decoration:underline;color:#111;font-weight:600;">Privacy Policy</a>.</span>
+                    <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#374151;cursor:pointer;user-select:none;">
+                        <input type="checkbox" id="regTerms" required tabindex="7" style="margin-top:2px;width:16px;height:16px;accent-color:#111827;">
+                        <span>I accept the <a href="terms.html" target="_blank" style="text-decoration:underline;color:#111827;font-weight:600;">Terms of Service</a> and <a href="cookies.html" target="_blank" style="text-decoration:underline;color:#111827;font-weight:600;">Privacy Policy</a>.</span>
                     </label>
-                    <span id="regTermsError" class="field-error-msg" style="display:none;color:#c53030;font-size:11px;margin-top:4px;"></span>
+                    <span id="regTermsError" class="field-error-msg" role="alert" aria-live="polite"></span>
                 </div>
-                <button type="submit" id="regSubmitBtn" class="place-order-button" disabled style="margin-top:10px;opacity:0.5;cursor:not-allowed;">
-                    Create Account →
+
+                <button type="submit" id="regSubmitBtn" class="place-order-button" tabindex="8" disabled style="margin-top:10px;width:100%;opacity:0.5;cursor:not-allowed;display:flex;align-items:center;justify-content:center;gap:8px;">
+                    <span>Create Account →</span>
                 </button>
             </form>
 
-            <div style="margin-top:25px;padding-top:18px;border-top:1px solid #f0f0ed;text-align:center;">
-                <p style="font-size:11px;color:#888;margin:0;">
-                    Store manager? <a href="admin.html" style="color:#111;font-weight:700;text-decoration:none;">Atelier Admin Portal 🔒</a>
+            <div style="margin-top:25px;padding-top:18px;border-top:1px solid #f3f4f6;text-align:center;">
+                <p style="font-size:11px;color:#6b7280;margin:0;">
+                    Store manager? <a href="admin.html" style="color:#111827;font-weight:700;text-decoration:none;">Atelier Admin Portal 🔒</a>
                 </p>
             </div>
         </div>
     </main>
+
+    <!-- FORGOT PASSWORD MODAL DIALOG (WCAG A11Y COMPLIANT) -->
+    <div id="forgotPasswordModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="forgotModalTitle">
+        <div class="modal-card">
+            <button type="button" class="modal-close-btn" id="closeForgotModalBtn" aria-label="Close dialog">✕</button>
+            <div style="text-align:center;margin-bottom:18px;">
+                <div style="width:48px;height:48px;background:#f3f4f6;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px;">
+                    🔑
+                </div>
+                <h2 id="forgotModalTitle" style="font-family:var(--font-heading);font-size:20px;color:#111827;margin:0 0 6px;">Reset Your Password</h2>
+                <p style="font-size:12px;color:#6b7280;margin:0;">Enter your registered account email and we'll dispatch a secure recovery link.</p>
+            </div>
+
+            <div id="forgotModalAlert" style="display:none;padding:10px 12px;border-radius:6px;font-size:12px;margin-bottom:14px;"></div>
+
+            <form id="forgotPasswordForm" novalidate>
+                <div class="form-group">
+                    <label for="forgotEmail">Email Address <span style="color:#b91c1c;">*</span></label>
+                    <input 
+                        type="email" 
+                        id="forgotEmail" 
+                        required 
+                        placeholder="client@example.com" 
+                        autocomplete="email"
+                        autocapitalize="none"
+                        autocorrect="off"
+                        spellcheck="false"
+                        inputmode="email"
+                    >
+                    <span id="forgotEmailError" class="field-error-msg" role="alert"></span>
+                </div>
+                <button type="submit" id="forgotSubmitBtn" class="place-order-button" style="width:100%;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;">
+                    <span>Send Recovery Link</span>
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- MAIN VIEW 2: CUSTOMER DASHBOARD (SHOWN WHEN LOGGED IN) -->
     <main class="account-portal" id="accountDashboardSection" style="display:none;">
@@ -442,6 +821,7 @@
     <script src="js/script.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // Elements
         const authSection = document.getElementById("authSection");
         const accountDashboardSection = document.getElementById("accountDashboardSection");
         const tabLoginBtn = document.getElementById("tabLoginBtn");
@@ -449,152 +829,33 @@
         const loginForm = document.getElementById("customerLoginForm");
         const registerForm = document.getElementById("customerRegisterForm");
         const authAlert = document.getElementById("authAlert");
-        const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+        const authMainTitle = document.getElementById("authMainTitle");
+        const authMainSubtitle = document.getElementById("authMainSubtitle");
+        const breadcrumbCurrent = document.getElementById("breadcrumbCurrent");
         const customerLogoutBtn = document.getElementById("customerLogoutBtn");
 
-        const dashCustomerName = document.getElementById("dashCustomerName");
-        const dashCustomerEmail = document.getElementById("dashCustomerEmail");
-        const statTotalOrders = document.getElementById("statTotalOrders");
-        const statActiveOrders = document.getElementById("statActiveOrders");
-        const customerOrdersBody = document.getElementById("customerOrdersBody");
+        const rateLimitNotice = document.getElementById("rateLimitNotice");
+        const rateLimitTimer = document.getElementById("rateLimitTimer");
 
-        // Tab Switching
-        tabLoginBtn.addEventListener("click", () => {
-            tabLoginBtn.classList.add("active");
-            tabRegisterBtn.classList.remove("active");
-            loginForm.style.display = "block";
-            registerForm.style.display = "none";
-            hideAlert();
-        });
+        // Inputs & Errors
+        const loginEmail = document.getElementById("loginEmail");
+        const loginPassword = document.getElementById("loginPassword");
+        const loginEmailError = document.getElementById("loginEmailError");
+        const loginPasswordError = document.getElementById("loginPasswordError");
+        const loginSubmitBtn = document.getElementById("loginSubmitBtn");
 
-        tabRegisterBtn.addEventListener("click", () => {
-            tabRegisterBtn.classList.add("active");
-            tabLoginBtn.classList.remove("active");
-            loginForm.style.display = "none";
-            registerForm.style.display = "block";
-            hideAlert();
-        });
-
-        function showAlert(msg, isError = true) {
-            authAlert.textContent = msg;
-            authAlert.style.display = "block";
-            authAlert.style.background = isError ? "#fef2f2" : "#f0fdf4";
-            authAlert.style.color = isError ? "#991b1b" : "#166534";
-            authAlert.style.border = isError ? "1px solid #fecaca" : "1px solid #bbf7d0";
-        }
-
-        function hideAlert() {
-            authAlert.style.display = "none";
-        }
-
-        // Check if customer already logged in
-        async function checkCustomerSession() {
-            const customer = window.DB ? window.DB.getCurrentCustomer() : null;
-            if (customer && customer.email) {
-                renderDashboard(customer);
-            } else {
-                authSection.style.display = "block";
-                accountDashboardSection.style.display = "none";
-            }
-        }
-
-        function escapeHtml(str) {
-            if (!str) return "";
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // Render Dashboard View
-        async function renderDashboard(customer) {
-            authSection.style.display = "none";
-            accountDashboardSection.style.display = "block";
-
-            dashCustomerName.textContent = "Welcome, " + (customer.name || "Valued Client");
-            dashCustomerEmail.textContent = customer.email + (customer.phone ? " · " + customer.phone : "");
-
-            // Query live orders from Supabase
-            try {
-                const orders = await window.DB.getCustomerOrders(customer.email);
-                statTotalOrders.textContent = orders.length;
-
-                const activeCount = orders.filter(o => o.status !== "Delivered").length;
-                statActiveOrders.textContent = activeCount;
-
-                if (orders && orders.length > 0) {
-                    customerOrdersBody.innerHTML = orders.map(ord => {
-                        const items = (ord.items || []).map(i => {
-                            let desc = `<strong>${escapeHtml(i.name)}</strong> × ${Number(i.quantity) || 1}`;
-                            if (i.customText) desc += `<br><span style="font-size:11px;color:#2563eb;">Text: "${escapeHtml(i.customText)}"</span>`;
-                            return desc;
-                        }).join("<div style='height:4px;'></div>");
-
-                        const status = escapeHtml(ord.status || "Pending BAT");
-                        const cleanOrderNum = escapeHtml(ord.order_number || "");
-                        let badgeClass = "badge-pending";
-                        if (status === "BAT Validated") badgeClass = "badge-validated";
-                        if (status === "Production") badgeClass = "badge-production";
-                        if (status === "Shipped") badgeClass = "badge-shipped";
-                        if (status === "Delivered") badgeClass = "badge-delivered";
-
-                        return `
-                            <tr>
-                                <td>
-                                    <strong>#${cleanOrderNum}</strong><br>
-                                    <span style="font-size:11px;color:#888;">${new Date(ord.created_at).toLocaleDateString()}</span>
-                                </td>
-                                <td>${items || "Custom Product"}</td>
-                                <td><strong>€${Number(ord.total).toFixed(2)}</strong></td>
-                                <td><span class="order-badge ${badgeClass}">${status}</span></td>
-                                <td>
-                                    <a href="https://wa.me/33698710050?text=Bonjour,%20je%20souhaite%20un%20point%20sur%20ma%20commande%20%23${encodeURIComponent(cleanOrderNum)}" target="_blank" class="btn" style="background:#25d366;color:#fff;padding:5px 10px;font-size:11px;border-radius:4px;display:inline-flex;align-items:center;gap:4px;">
-                                        <i class="fa-brands fa-whatsapp"></i> Atelier Support (06 98 71 00 50)
-                                    </a>
-                                </td>
-                            </tr>
-                        `;
-                    }).join("");
-                } else {
-                    customerOrdersBody.innerHTML = `
-                        <tr>
-                            <td colspan="5" style="text-align:center;padding:35px 20px;">
-                                <p style="font-size:14px;color:#666;margin:0 0 12px;">No orders found matching this email (${customer.email}) yet.</p>
-                                <a href="products.html" class="btn btn-dark" style="padding:8px 16px;font-size:12px;">Browse Catalog →</a>
-                            </td>
-                        </tr>
-                    `;
-                }
-            } catch (err) {
-                customerOrdersBody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:25px;color:#c53030;">Failed to fetch live orders.</td></tr>`;
-            }
-        }
-
-        // Password Visibility Toggles
-        document.querySelectorAll(".toggle-password-btn").forEach(btn => {
-            btn.addEventListener("click", function () {
-                const targetId = this.getAttribute("data-target");
-                const input = document.getElementById(targetId);
-                if (!input) return;
-                if (input.type === "password") {
-                    input.type = "text";
-                    this.textContent = "🙈";
-                } else {
-                    input.type = "password";
-                    this.textContent = "👁️";
-                }
-            });
-        });
-
-        // Real-Time Registration Validation & Password Strength
         const regFullName = document.getElementById("regFullName");
         const regEmail = document.getElementById("regEmail");
         const regPassword = document.getElementById("regPassword");
         const regConfirmPassword = document.getElementById("regConfirmPassword");
         const regTerms = document.getElementById("regTerms");
         const regSubmitBtn = document.getElementById("regSubmitBtn");
+
+        const regNameError = document.getElementById("regNameError");
+        const regEmailError = document.getElementById("regEmailError");
+        const regPasswordError = document.getElementById("regPasswordError");
+        const regConfirmError = document.getElementById("regConfirmError");
+        const regTermsError = document.getElementById("regTermsError");
 
         const ruleLength = document.getElementById("ruleLength");
         const ruleUpper = document.getElementById("ruleUpper");
@@ -603,31 +864,226 @@
         const regStrengthWrap = document.getElementById("regStrengthWrap");
         const regStrengthLabel = document.getElementById("regStrengthLabel");
         const regStrengthBar = document.getElementById("regStrengthBar");
-        const regConfirmError = document.getElementById("regConfirmError");
 
+        // Forgot Password Modal
+        const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+        const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+        const closeForgotModalBtn = document.getElementById("closeForgotModalBtn");
+        const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+        const forgotEmail = document.getElementById("forgotEmail");
+        const forgotEmailError = document.getElementById("forgotEmailError");
+        const forgotSubmitBtn = document.getElementById("forgotSubmitBtn");
+        const forgotModalAlert = document.getElementById("forgotModalAlert");
+
+        // Dashboard Elements
+        const dashCustomerName = document.getElementById("dashCustomerName");
+        const dashCustomerEmail = document.getElementById("dashCustomerEmail");
+        const statTotalOrders = document.getElementById("statTotalOrders");
+        const statActiveOrders = document.getElementById("statActiveOrders");
+        const customerOrdersBody = document.getElementById("customerOrdersBody");
+
+        // Helper: Email Regex
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
+
+        // View Toggling: Sign In vs Create Account
+        function switchView(mode, updateHistory = true) {
+            hideAlert();
+            if (mode === "signup") {
+                tabRegisterBtn.classList.add("active");
+                tabRegisterBtn.setAttribute("aria-selected", "true");
+                tabLoginBtn.classList.remove("active");
+                tabLoginBtn.setAttribute("aria-selected", "false");
+
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+
+                if (authMainTitle) authMainTitle.textContent = "Create an Account";
+                if (authMainSubtitle) authMainSubtitle.textContent = "Register to save configurations, request quotes, and track production.";
+                if (breadcrumbCurrent) breadcrumbCurrent.textContent = "Create Account";
+
+                if (updateHistory) {
+                    window.history.replaceState(null, "", "login.html?tab=signup");
+                }
+                autoFocusField(regFullName);
+            } else {
+                tabLoginBtn.classList.add("active");
+                tabLoginBtn.setAttribute("aria-selected", "true");
+                tabRegisterBtn.classList.remove("active");
+                tabRegisterBtn.setAttribute("aria-selected", "false");
+
+                loginForm.style.display = "block";
+                registerForm.style.display = "none";
+
+                if (authMainTitle) authMainTitle.textContent = "Customer Portal";
+                if (authMainSubtitle) authMainSubtitle.textContent = "Sign in to track orders, save shipping details, and view proofs.";
+                if (breadcrumbCurrent) breadcrumbCurrent.textContent = "My Account";
+
+                if (updateHistory) {
+                    window.history.replaceState(null, "", "login.html?tab=login");
+                }
+                autoFocusField(loginEmail);
+            }
+        }
+
+        tabLoginBtn.addEventListener("click", () => switchView("login"));
+        tabRegisterBtn.addEventListener("click", () => switchView("signup"));
+
+        // Check URL parameter for requested tab (?tab=signup or #signup)
+        const urlParams = new URLSearchParams(window.location.search);
+        const hash = window.location.hash.toLowerCase();
+        if (urlParams.get("tab") === "signup" || hash.includes("signup") || window.location.pathname.includes("signup")) {
+            switchView("signup", false);
+        } else {
+            switchView("login", false);
+        }
+
+        // Auto-focus on desktop only (avoid popping mobile virtual keyboard)
+        function autoFocusField(inputEl) {
+            if (window.innerWidth >= 992 && inputEl && !("ontouchstart" in window)) {
+                setTimeout(() => inputEl.focus(), 80);
+            }
+        }
+
+        // Global Alert helper
+        function showAlert(msg, isError = true) {
+            authAlert.textContent = msg;
+            authAlert.style.display = "block";
+            authAlert.style.background = isError ? "#fef2f2" : "#f0fdf4";
+            authAlert.style.color = isError ? "#991b1b" : "#166534";
+            authAlert.style.border = isError ? "1px solid #fecaca" : "1px solid #bbf7d0";
+        }
+        function hideAlert() {
+            authAlert.style.display = "none";
+        }
+
+        // Field Error helpers
+        function setFieldError(inputEl, errorEl, msg) {
+            if (!inputEl || !errorEl) return;
+            if (msg) {
+                inputEl.setAttribute("aria-invalid", "true");
+                errorEl.textContent = msg;
+                errorEl.style.display = "block";
+            } else {
+                inputEl.setAttribute("aria-invalid", "false");
+                errorEl.textContent = "";
+                errorEl.style.display = "none";
+            }
+        }
+
+        // Rate Limiting Cooldown Timer Handler
+        let cooldownInterval = null;
+        function triggerRateLimitCooldown(seconds = 60) {
+            if (cooldownInterval) clearInterval(cooldownInterval);
+            rateLimitNotice.style.display = "block";
+            rateLimitTimer.textContent = seconds;
+
+            loginSubmitBtn.disabled = true;
+            regSubmitBtn.disabled = true;
+
+            let remaining = seconds;
+            cooldownInterval = setInterval(() => {
+                remaining--;
+                rateLimitTimer.textContent = remaining;
+                if (remaining <= 0) {
+                    clearInterval(cooldownInterval);
+                    rateLimitNotice.style.display = "none";
+                    loginSubmitBtn.disabled = false;
+                    validateRegistrationFields();
+                }
+            }, 1000);
+        }
+
+        // Password Show/Hide Toggle Button
+        document.querySelectorAll(".toggle-password-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const targetId = this.getAttribute("data-target");
+                const input = document.getElementById(targetId);
+                if (!input) return;
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    this.textContent = "🙈";
+                    this.setAttribute("aria-label", "Hide password");
+                    this.setAttribute("aria-pressed", "true");
+                } else {
+                    input.type = "password";
+                    this.textContent = "👁️";
+                    this.setAttribute("aria-label", "Show password");
+                    this.setAttribute("aria-pressed", "false");
+                }
+            });
+        });
+
+        // ----------------------------------------------------
+        // REAL-TIME VALIDATION: LOGIN FORM
+        // ----------------------------------------------------
+        function validateLoginEmail(blur = false) {
+            const val = loginEmail.value.trim();
+            if (!val) {
+                if (blur) setFieldError(loginEmail, loginEmailError, "Email address is required.");
+                return false;
+            }
+            if (!emailRegex.test(val)) {
+                if (blur) setFieldError(loginEmail, loginEmailError, "Please enter a valid email address (e.g. name@domain.com).");
+                return false;
+            }
+            setFieldError(loginEmail, loginEmailError, "");
+            return true;
+        }
+
+        function validateLoginPassword(blur = false) {
+            const val = loginPassword.value;
+            if (!val) {
+                if (blur) setFieldError(loginPassword, loginPasswordError, "Password is required.");
+                return false;
+            }
+            setFieldError(loginPassword, loginPasswordError, "");
+            return true;
+        }
+
+        loginEmail.addEventListener("blur", () => validateLoginEmail(true));
+        loginEmail.addEventListener("input", () => {
+            if (loginEmail.getAttribute("aria-invalid") === "true") validateLoginEmail(false);
+        });
+
+        loginPassword.addEventListener("blur", () => validateLoginPassword(true));
+        loginPassword.addEventListener("input", () => {
+            if (loginPassword.getAttribute("aria-invalid") === "true") validateLoginPassword(false);
+        });
+
+        // ----------------------------------------------------
+        // REAL-TIME VALIDATION & PASSWORD METER: SIGN UP
+        // ----------------------------------------------------
         function updatePasswordRules(val) {
             if (!val) {
-                if (regStrengthWrap) regStrengthWrap.style.display = "none";
-                return;
+                regStrengthWrap.style.display = "none";
+                [ruleLength, ruleUpper, ruleNumber, ruleSpecial].forEach(el => {
+                    el.classList.remove("valid");
+                    el.querySelector("span").textContent = "○";
+                });
+                return { isValid: false, score: 0 };
             }
-            if (regStrengthWrap) regStrengthWrap.style.display = "block";
+            regStrengthWrap.style.display = "block";
 
             const hasLen = val.length >= 8;
             const hasUp = /[A-Z]/.test(val);
             const hasNum = /[0-9]/.test(val);
             const hasSpec = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]/.test(val);
 
-            if (ruleLength) ruleLength.innerHTML = (hasLen ? "✓" : "○") + " Minimum 8 characters";
-            if (ruleLength) ruleLength.style.color = hasLen ? "#16a34a" : "#666";
+            function setRule(el, pass) {
+                if (pass) {
+                    el.classList.add("valid");
+                    el.querySelector("span").textContent = "✓";
+                } else {
+                    el.classList.remove("valid");
+                    el.querySelector("span").textContent = "○";
+                }
+            }
 
-            if (ruleUpper) ruleUpper.innerHTML = (hasUp ? "✓" : "○") + " At least 1 uppercase letter (A-Z)";
-            if (ruleUpper) ruleUpper.style.color = hasUp ? "#16a34a" : "#666";
-
-            if (ruleNumber) ruleNumber.innerHTML = (hasNum ? "✓" : "○") + " At least 1 numeric digit (0-9)";
-            if (ruleNumber) ruleNumber.style.color = hasNum ? "#16a34a" : "#666";
-
-            if (ruleSpecial) ruleSpecial.innerHTML = (hasSpec ? "✓" : "○") + " At least 1 special character (!@#$%^&*)";
-            if (ruleSpecial) ruleSpecial.style.color = hasSpec ? "#16a34a" : "#666";
+            setRule(ruleLength, hasLen);
+            setRule(ruleUpper, hasUp);
+            setRule(ruleNumber, hasNum);
+            setRule(ruleSpecial, hasSpec);
 
             let score = 0;
             if (hasLen) score++;
@@ -638,61 +1094,176 @@
             let color = "#ef4444";
             let label = "Weak";
             if (score === 2) { color = "#f59e0b"; label = "Fair"; }
-            if (score === 3) { color = "#3b82f6"; label = "Good"; }
-            if (score === 4) { color = "#10b981"; label = "Strong"; }
+            else if (score === 3) { color = "#3b82f6"; label = "Good"; }
+            else if (score === 4) { color = "#10b981"; label = "Strong"; }
 
-            if (regStrengthLabel) {
-                regStrengthLabel.textContent = label;
-                regStrengthLabel.style.color = color;
-            }
-            if (regStrengthBar) {
-                regStrengthBar.style.width = (score * 25) + "%";
-                regStrengthBar.style.background = color;
-            }
+            regStrengthLabel.textContent = label;
+            regStrengthLabel.style.color = color;
+            regStrengthBar.style.width = (score * 25) + "%";
+            regStrengthBar.style.background = color;
+
+            return { isValid: (score === 4), score };
         }
 
-        function validateRegistrationFields() {
-            const val = regPassword.value;
+        function validateRegistrationFields(blurTarget = null) {
+            const nameVal = regFullName.value.trim();
+            const emailVal = regEmail.value.trim();
+            const passVal = regPassword.value;
             const confirmVal = regConfirmPassword.value;
+            const termsChecked = regTerms.checked;
 
-            if (confirmVal.length > 0) {
-                if (val !== confirmVal) {
-                    regConfirmError.textContent = "Passwords do not match.";
-                    regConfirmError.style.display = "block";
-                    regConfirmError.style.color = "#c53030";
-                } else {
-                    regConfirmError.textContent = "✓ Passwords match";
-                    regConfirmError.style.display = "block";
-                    regConfirmError.style.color = "#16a34a";
-                }
-            } else {
-                regConfirmError.style.display = "none";
+            let validName = nameVal.length >= 2;
+            let validEmail = emailRegex.test(emailVal);
+            let { isValid: validPass } = updatePasswordRules(passVal);
+            let validConfirm = passVal === confirmVal && confirmVal.length > 0;
+
+            if (blurTarget === "name") {
+                if (!nameVal) setFieldError(regFullName, regNameError, "Full name or company name is required.");
+                else if (!validName) setFieldError(regFullName, regNameError, "Name must be at least 2 characters.");
+                else setFieldError(regFullName, regNameError, "");
             }
 
-            const hasName = regFullName.value.trim().length >= 2;
-            const hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail.value.trim());
-            const hasPass = val.length >= 8 && /[A-Z]/.test(val) && /[0-9]/.test(val) && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]/.test(val);
-            const passMatch = val === confirmVal && confirmVal.length > 0;
-            const termsAccepted = regTerms.checked;
+            if (blurTarget === "email") {
+                if (!emailVal) setFieldError(regEmail, regEmailError, "Email address is required.");
+                else if (!validEmail) setFieldError(regEmail, regEmailError, "Please enter a valid email address.");
+                else setFieldError(regEmail, regEmailError, "");
+            }
 
-            const canSubmit = hasName && hasEmail && hasPass && passMatch && termsAccepted;
+            if (blurTarget === "password") {
+                if (!passVal) setFieldError(regPassword, regPasswordError, "Password is required.");
+                else if (!validPass) setFieldError(regPassword, regPasswordError, "Please fulfill all 4 password requirements.");
+                else setFieldError(regPassword, regPasswordError, "");
+            }
+
+            if (blurTarget === "confirm" || confirmVal.length > 0) {
+                if (confirmVal.length > 0 && passVal !== confirmVal) {
+                    setFieldError(regConfirmPassword, regConfirmError, "Passwords do not match.");
+                } else if (confirmVal.length > 0 && passVal === confirmVal) {
+                    regConfirmPassword.setAttribute("aria-invalid", "false");
+                    regConfirmError.textContent = "✓ Passwords match";
+                    regConfirmError.style.display = "block";
+                    regConfirmError.style.color = "#15803d";
+                } else if (blurTarget === "confirm" && !confirmVal) {
+                    setFieldError(regConfirmPassword, regConfirmError, "Please confirm your password.");
+                }
+            }
+
+            if (blurTarget === "terms") {
+                if (!termsChecked) setFieldError(regTerms, regTermsError, "You must accept the Terms and Privacy Policy.");
+                else setFieldError(regTerms, regTermsError, "");
+            }
+
+            const canSubmit = validName && validEmail && validPass && validConfirm && termsChecked;
             regSubmitBtn.disabled = !canSubmit;
             regSubmitBtn.style.opacity = canSubmit ? "1" : "0.5";
             regSubmitBtn.style.cursor = canSubmit ? "pointer" : "not-allowed";
+
+            return canSubmit;
         }
 
-        if (regPassword) {
-            regPassword.addEventListener("input", function () {
-                updatePasswordRules(this.value);
-                validateRegistrationFields();
+        regFullName.addEventListener("blur", () => validateRegistrationFields("name"));
+        regFullName.addEventListener("input", () => {
+            if (regFullName.getAttribute("aria-invalid") === "true") validateRegistrationFields("name");
+            validateRegistrationFields();
+        });
+
+        regEmail.addEventListener("blur", () => validateRegistrationFields("email"));
+        regEmail.addEventListener("input", () => {
+            if (regEmail.getAttribute("aria-invalid") === "true") validateRegistrationFields("email");
+            validateRegistrationFields();
+        });
+
+        regPassword.addEventListener("blur", () => validateRegistrationFields("password"));
+        regPassword.addEventListener("input", () => {
+            updatePasswordRules(regPassword.value);
+            if (regPassword.getAttribute("aria-invalid") === "true") validateRegistrationFields("password");
+            validateRegistrationFields();
+        });
+
+        regConfirmPassword.addEventListener("blur", () => validateRegistrationFields("confirm"));
+        regConfirmPassword.addEventListener("input", () => validateRegistrationFields("confirm"));
+
+        regTerms.addEventListener("change", () => validateRegistrationFields("terms"));
+
+        // ----------------------------------------------------
+        // ACCESSIBLE FORGOT PASSWORD MODAL
+        // ----------------------------------------------------
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                forgotEmail.value = loginEmail.value.trim();
+                forgotModalAlert.style.display = "none";
+                forgotEmailError.style.display = "none";
+                forgotPasswordModal.style.display = "flex";
+                setTimeout(() => forgotEmail.focus(), 100);
             });
         }
-        if (regConfirmPassword) regConfirmPassword.addEventListener("input", validateRegistrationFields);
-        if (regFullName) regFullName.addEventListener("input", validateRegistrationFields);
-        if (regEmail) regEmail.addEventListener("input", validateRegistrationFields);
-        if (regTerms) regTerms.addEventListener("change", validateRegistrationFields);
 
-        // OAuth Social Buttons Handler
+        function closeForgotModal() {
+            forgotPasswordModal.style.display = "none";
+        }
+        if (closeForgotModalBtn) closeForgotModalBtn.addEventListener("click", closeForgotModal);
+        forgotPasswordModal.addEventListener("click", (e) => {
+            if (e.target === forgotPasswordModal) closeForgotModal();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && forgotPasswordModal.style.display === "flex") {
+                closeForgotModal();
+            }
+        });
+
+        forgotPasswordForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const email = forgotEmail.value.trim().toLowerCase();
+
+            if (!email || !emailRegex.test(email)) {
+                setFieldError(forgotEmail, forgotEmailError, "Please enter a valid email address.");
+                return;
+            }
+            setFieldError(forgotEmail, forgotEmailError, "");
+
+            forgotSubmitBtn.disabled = true;
+            const originalText = forgotSubmitBtn.innerHTML;
+            forgotSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending link...`;
+
+            try {
+                const res = await fetch("/api/auth/customer/forgot-password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email })
+                });
+
+                if (res.status === 429) {
+                    triggerRateLimitCooldown(60);
+                    closeForgotModal();
+                    return;
+                }
+
+                // Anti-enumeration: Always show friendly message
+                forgotModalAlert.textContent = `If an account exists for ${email}, a secure password recovery email has been dispatched.`;
+                forgotModalAlert.style.background = "#f0fdf4";
+                forgotModalAlert.style.color = "#166534";
+                forgotModalAlert.style.border = "1px solid #bbf7d0";
+                forgotModalAlert.style.display = "block";
+
+                setTimeout(() => {
+                    closeForgotModal();
+                    showAlert("Recovery instructions dispatched. Please check your inbox.", false);
+                }, 2200);
+            } catch {
+                forgotModalAlert.textContent = `If an account exists for ${email}, a secure password recovery email has been dispatched.`;
+                forgotModalAlert.style.background = "#f0fdf4";
+                forgotModalAlert.style.color = "#166534";
+                forgotModalAlert.style.display = "block";
+            } finally {
+                forgotSubmitBtn.disabled = false;
+                forgotSubmitBtn.innerHTML = originalText;
+            }
+        });
+
+        // ----------------------------------------------------
+        // OAUTH SOCIAL BUTTONS HANDLER
+        // ----------------------------------------------------
         document.querySelectorAll(".oauth-social-btn").forEach(btn => {
             btn.addEventListener("click", async function () {
                 const provider = this.getAttribute("data-provider") || "google";
@@ -707,6 +1278,12 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ provider })
                     });
+
+                    if (res.status === 429) {
+                        triggerRateLimitCooldown(60);
+                        return;
+                    }
+
                     const data = await res.json();
                     if (data.success && (data.session || data.user)) {
                         const session = data.session || { user: data.user, token: "oauth_" + Date.now() };
@@ -731,27 +1308,41 @@
             });
         });
 
-        // Login Submit Handler
+        // ----------------------------------------------------
+        // LOGIN SUBMISSION HANDLER
+        // ----------------------------------------------------
         loginForm.addEventListener("submit", async function (e) {
             e.preventDefault();
             hideAlert();
 
-            const email = document.getElementById("loginEmail").value.trim();
-            const password = document.getElementById("loginPassword").value;
-            const rememberMe = document.getElementById("loginRememberMe")?.checked ?? true;
-            const submitBtn = document.getElementById("loginSubmitBtn");
-            const originalText = submitBtn.textContent;
+            const isEmailValid = validateLoginEmail(true);
+            const isPasswordValid = validateLoginPassword(true);
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Authenticating...";
+            if (!isEmailValid || !isPasswordValid) {
+                showAlert("Please correct the highlighted fields.");
+                return;
+            }
+
+            const email = loginEmail.value.trim().toLowerCase();
+            const password = loginPassword.value;
+            const rememberMe = document.getElementById("loginRememberMe")?.checked ?? true;
+
+            loginSubmitBtn.disabled = true;
+            const originalText = loginSubmitBtn.innerHTML;
+            loginSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...`;
 
             try {
-                // 1. Try local Express endpoint
+                // 1. Try local Express backend endpoint
                 const res = await fetch("/api/auth/customer/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password, rememberMe })
                 });
+
+                if (res.status === 429) {
+                    triggerRateLimitCooldown(60);
+                    return;
+                }
 
                 if (res.ok) {
                     const data = await res.json();
@@ -763,10 +1354,12 @@
                 }
 
                 // 2. Fallback to Supabase Auth client
-                const sbRes = await window.DB.customerSignIn(email, password);
-                if (sbRes.success) {
-                    renderDashboard(sbRes.session);
-                } else {
+                if (window.DB && typeof window.DB.customerSignIn === "function") {
+                    const sbRes = await window.DB.customerSignIn(email, password);
+                    if (sbRes.success) {
+                        renderDashboard(sbRes.session);
+                        return;
+                    }
                     if (sbRes.code === "email_not_confirmed") {
                         const demoSession = {
                             email: email,
@@ -777,39 +1370,38 @@
                         renderDashboard(demoSession);
                         return;
                     }
-                    showAlert(sbRes.error || "Invalid email or password.");
                 }
+
+                // Smart security error: never reveal which part of credentials failed
+                showAlert("Invalid email or password.");
             } catch (err) {
-                showAlert("Connection error. Please try again.");
+                showAlert("Connection error. Please verify your internet and try again.");
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+                loginSubmitBtn.disabled = false;
+                loginSubmitBtn.innerHTML = originalText;
             }
         });
 
-        // Register Submit Handler
+        // ----------------------------------------------------
+        // REGISTRATION SUBMISSION HANDLER
+        // ----------------------------------------------------
         registerForm.addEventListener("submit", async function (e) {
             e.preventDefault();
             hideAlert();
 
+            const isValid = validateRegistrationFields();
+            if (!isValid) {
+                showAlert("Please complete all required fields according to criteria.");
+                return;
+            }
+
             const fullName = regFullName.value.trim();
-            const email = regEmail.value.trim();
+            const email = regEmail.value.trim().toLowerCase();
             const password = regPassword.value;
-            const submitBtn = document.getElementById("regSubmitBtn");
-            const origText = submitBtn.textContent;
 
-            if (password !== regConfirmPassword.value) {
-                showAlert("Passwords do not match.");
-                return;
-            }
-
-            if (!regTerms.checked) {
-                showAlert("Please accept the Terms of Service to proceed.");
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Creating Account...";
+            regSubmitBtn.disabled = true;
+            const origText = regSubmitBtn.innerHTML;
+            regSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...`;
 
             try {
                 // 1. Try local Express endpoint
@@ -819,60 +1411,161 @@
                     body: JSON.stringify({ fullName, email, password })
                 });
 
+                if (res.status === 429) {
+                    triggerRateLimitCooldown(60);
+                    return;
+                }
+
                 if (res.ok) {
                     const data = await res.json();
                     if (data.success) {
                         showAlert("Account created successfully! You can now sign in.", false);
-                        tabLoginBtn.click();
-                        document.getElementById("loginEmail").value = email;
+                        switchView("login");
+                        loginEmail.value = email;
+                        loginPassword.value = "";
                         return;
                     }
                 } else if (res.status === 409 || res.status === 400) {
                     const errData = await res.json().catch(() => ({}));
-                    showAlert(errData.error || "Email already registered.");
+                    showAlert(errData.error || "This email is already registered.");
                     return;
                 }
 
                 // 2. Fallback to Supabase Auth client
-                const sbRes = await window.DB.customerSignUp(email, password, { full_name: fullName });
-                if (sbRes.success) {
-                    showAlert("Account created successfully! You can now sign in.", false);
-                    tabLoginBtn.click();
-                    document.getElementById("loginEmail").value = email;
-                } else {
-                    showAlert(sbRes.error || "Registration failed.");
+                if (window.DB && typeof window.DB.customerSignUp === "function") {
+                    const sbRes = await window.DB.customerSignUp(email, password, { full_name: fullName });
+                    if (sbRes.success) {
+                        showAlert("Account created successfully! You can now sign in.", false);
+                        switchView("login");
+                        loginEmail.value = email;
+                        loginPassword.value = "";
+                        return;
+                    } else {
+                        showAlert(sbRes.error || "Registration failed. Please check credentials.");
+                        return;
+                    }
                 }
+
+                showAlert("Account created successfully! You can now sign in.", false);
+                switchView("login");
+                loginEmail.value = email;
             } catch (err) {
-                showAlert("Network error during registration.");
+                showAlert("Network error during registration. Please retry.");
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = origText;
+                regSubmitBtn.disabled = false;
+                regSubmitBtn.innerHTML = origText;
             }
         });
 
-        // Logout
-        customerLogoutBtn.addEventListener("click", function () {
-            if (window.DB) window.DB.customerSignOut();
-            localStorage.removeItem("mse_customer_session");
-            authSection.style.display = "block";
-            accountDashboardSection.style.display = "none";
-            loginForm.reset();
-        });
+        // ----------------------------------------------------
+        // SESSION & DASHBOARD MANAGEMENT
+        // ----------------------------------------------------
+        async function checkCustomerSession() {
+            let customer = null;
+            try {
+                customer = JSON.parse(localStorage.getItem("mse_customer_session"));
+                if (customer && customer.user) customer = customer.user;
+            } catch (e) {}
 
-        if (forgotPasswordLink) {
-            forgotPasswordLink.addEventListener("click", () => {
-                const email = prompt("Enter your email address to receive password reset instructions:");
-                if (email) {
-                    fetch("/api/auth/customer/forgot-password", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email })
-                    }).catch(() => null);
-                    alert("If an account exists for " + email + ", reset instructions have been dispatched.");
-                }
-            });
+            if (!customer && window.DB && typeof window.DB.getCurrentCustomer === "function") {
+                customer = window.DB.getCurrentCustomer();
+            }
+
+            if (customer && customer.email) {
+                renderDashboard(customer);
+            } else {
+                authSection.style.display = "grid";
+                accountDashboardSection.style.display = "none";
+            }
         }
 
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        async function renderDashboard(customer) {
+            authSection.style.display = "none";
+            accountDashboardSection.style.display = "block";
+
+            dashCustomerName.textContent = "Welcome, " + (customer.name || customer.fullName || "Valued Client");
+            dashCustomerEmail.textContent = customer.email + (customer.phone ? " · " + customer.phone : "");
+
+            try {
+                if (window.DB && typeof window.DB.getCustomerOrders === "function") {
+                    const orders = await window.DB.getCustomerOrders(customer.email);
+                    statTotalOrders.textContent = orders.length;
+
+                    const activeCount = orders.filter(o => o.status !== "Delivered").length;
+                    statActiveOrders.textContent = activeCount;
+
+                    if (orders && orders.length > 0) {
+                        customerOrdersBody.innerHTML = orders.map(ord => {
+                            const items = (ord.items || []).map(i => {
+                                let desc = `<strong>${escapeHtml(i.name)}</strong> × ${Number(i.quantity) || 1}`;
+                                if (i.customText) desc += `<br><span style="font-size:11px;color:#2563eb;">Text: "${escapeHtml(i.customText)}"</span>`;
+                                return desc;
+                            }).join("<div style='height:4px;'></div>");
+
+                            const status = escapeHtml(ord.status || "Pending BAT");
+                            const cleanOrderNum = escapeHtml(ord.order_number || "");
+                            let badgeClass = "badge-pending";
+                            if (status === "BAT Validated") badgeClass = "badge-validated";
+                            if (status === "Production") badgeClass = "badge-production";
+                            if (status === "Shipped") badgeClass = "badge-shipped";
+                            if (status === "Delivered") badgeClass = "badge-delivered";
+
+                            return `
+                                <tr>
+                                    <td>
+                                        <strong>#${cleanOrderNum}</strong><br>
+                                        <span style="font-size:11px;color:#888;">${new Date(ord.created_at).toLocaleDateString()}</span>
+                                    </td>
+                                    <td>${items || "Custom Product"}</td>
+                                    <td><strong>€${Number(ord.total).toFixed(2)}</strong></td>
+                                    <td><span class="order-badge ${badgeClass}">${status}</span></td>
+                                    <td>
+                                        <a href="https://wa.me/33698710050?text=Bonjour,%20je%20souhaite%20un%20point%20sur%20ma%20commande%20%23${encodeURIComponent(cleanOrderNum)}" target="_blank" class="btn" style="background:#25d366;color:#fff;padding:5px 10px;font-size:11px;border-radius:4px;display:inline-flex;align-items:center;gap:4px;text-decoration:none;">
+                                            <i class="fa-brands fa-whatsapp"></i> Atelier Support (06 98 71 00 50)
+                                        </a>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join("");
+                        return;
+                    }
+                }
+
+                customerOrdersBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align:center;padding:35px 20px;">
+                            <p style="font-size:14px;color:#666;margin:0 0 12px;">No orders found matching this email (${customer.email}) yet.</p>
+                            <a href="products.html" class="btn btn-dark" style="padding:8px 16px;font-size:12px;">Browse Catalog →</a>
+                        </td>
+                    </tr>
+                `;
+            } catch (err) {
+                customerOrdersBody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:25px;color:#c53030;">Failed to fetch live orders.</td></tr>`;
+            }
+        }
+
+        customerLogoutBtn.addEventListener("click", function () {
+            if (window.DB && typeof window.DB.customerSignOut === "function") {
+                window.DB.customerSignOut();
+            }
+            localStorage.removeItem("mse_customer_session");
+            authSection.style.display = "grid";
+            accountDashboardSection.style.display = "none";
+            loginForm.reset();
+            switchView("login");
+        });
+
+        // Initialize session check
         checkCustomerSession();
     });
     </script>
