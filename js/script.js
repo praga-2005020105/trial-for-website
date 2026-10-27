@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+function initMainApp() {
     "use strict";
 
     /* =========================================================
@@ -3479,24 +3479,55 @@ document.addEventListener("DOMContentLoaded", function () {
         const filterBtns = document.querySelectorAll(".portfolio-filter-btn");
         const items = document.querySelectorAll(".portfolio-item");
 
-        if (filterBtns.length > 0 && items.length > 0) {
-            filterBtns.forEach(function (btn) {
-                btn.addEventListener("click", function () {
-                    filterBtns.forEach(function (b) { b.classList.remove("active"); });
-                    btn.classList.add("active");
-                    const filter = btn.getAttribute("data-portfolio-filter");
+        window.filterPortfolio = function (filter, clickedBtn) {
+            const btns = document.querySelectorAll(".portfolio-filter-btn");
+            const portItems = document.querySelectorAll(".portfolio-item");
 
-                    items.forEach(function (item) {
-                        const itemCat = item.getAttribute("data-portfolio-category");
-                        if (filter === "all" || itemCat === filter) {
-                            item.style.display = "flex";
-                        } else {
-                            item.style.display = "none";
-                        }
-                    });
+            btns.forEach(function (b) {
+                b.classList.remove("active");
+                b.setAttribute("aria-selected", "false");
+            });
+
+            if (clickedBtn) {
+                clickedBtn.classList.add("active");
+                clickedBtn.setAttribute("aria-selected", "true");
+            } else {
+                const match = document.querySelector(`.portfolio-filter-btn[data-portfolio-filter="${filter}"]`);
+                if (match) {
+                    match.classList.add("active");
+                    match.setAttribute("aria-selected", "true");
+                }
+            }
+
+            portItems.forEach(function (item) {
+                const itemCat = item.getAttribute("data-portfolio-category");
+                if (filter === "all" || itemCat === filter) {
+                    item.style.setProperty("display", "flex", "important");
+                } else {
+                    item.style.setProperty("display", "none", "important");
+                }
+            });
+        };
+
+        if (filterBtns.length > 0) {
+            filterBtns.forEach(function (btn) {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const filter = btn.getAttribute("data-portfolio-filter") || "all";
+                    window.filterPortfolio(filter, btn);
                 });
             });
         }
+
+        // Delegated listener for click resilience
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".portfolio-filter-btn");
+            if (btn) {
+                e.preventDefault();
+                const filter = btn.getAttribute("data-portfolio-filter") || "all";
+                window.filterPortfolio(filter, btn);
+            }
+        });
 
         const modal = document.getElementById("serviceLightboxModal");
         const modalImg = document.getElementById("serviceLightboxImg");
@@ -3615,24 +3646,38 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        if (prevBtn) {
-            prevBtn.addEventListener("click", function () {
+        window.heroSlideGoTo = function (idx) {
+            showSlide(idx);
+            startTimer();
+        };
+
+        window.heroSlideStep = function (dir) {
+            if (dir > 0) {
+                nextSlide();
+            } else {
                 prevSlide();
-                startTimer();
+            }
+            startTimer();
+        };
+
+        if (prevBtn) {
+            prevBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                window.heroSlideStep(-1);
             });
         }
 
         if (nextBtn) {
-            nextBtn.addEventListener("click", function () {
-                nextSlide();
-                startTimer();
+            nextBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                window.heroSlideStep(1);
             });
         }
 
         dots.forEach(function (dot, idx) {
-            dot.addEventListener("click", function () {
-                showSlide(idx);
-                startTimer();
+            dot.addEventListener("click", function (e) {
+                e.preventDefault();
+                window.heroSlideGoTo(idx);
             });
         });
 
@@ -3663,12 +3708,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =========================================================
-       15. INITIALIZATION
+       18. INITIALIZATION
     ========================================================= */
 
-    updateProductPage();
-    updateCartCount();
-    updateAllWishlistButtons();
-    initServicesPortfolio();
-    initHeroSlideshow();
-});
+    try { updateProductPage(); } catch (err) { console.warn("updateProductPage:", err); }
+    try { updateCartCount(); } catch (err) { console.warn("updateCartCount:", err); }
+    try { updateAllWishlistButtons(); } catch (err) { console.warn("updateAllWishlistButtons:", err); }
+    try { initServicesPortfolio(); } catch (err) { console.warn("initServicesPortfolio:", err); }
+    try { initHeroSlideshow(); } catch (err) { console.warn("initHeroSlideshow:", err); }
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMainApp);
+} else {
+    initMainApp();
+}

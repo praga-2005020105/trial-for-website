@@ -645,21 +645,24 @@ button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: rgba(17, 17, 17, 0.6);
-  backdrop-filter: blur(6px);
+  background: rgba(17, 17, 17, 0.75);
+  backdrop-filter: blur(8px);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  font-size: 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  font-size: 20px;
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 100 !important;
+  pointer-events: auto !important;
   transition: all 0.2s ease;
-  opacity: 0.65;
+  opacity: 0.85;
+  user-select: none;
 }
 
 .hero-slideshow-container:hover .hero-slide-nav {
@@ -670,11 +673,16 @@ button {
   background: #ffffff;
   color: #111111;
   border-color: #ffffff;
-  transform: translateY(-50%) scale(1.08);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-.hero-slide-prev { left: 18px; }
-.hero-slide-next { right: 18px; }
+.hero-slide-nav:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.hero-slide-prev { left: 16px; }
+.hero-slide-next { right: 16px; }
 
 /* Dots */
 .hero-slide-dots {
@@ -683,16 +691,18 @@ button {
   right: 32px;
   display: flex;
   gap: 8px;
-  z-index: 10;
+  z-index: 100 !important;
+  pointer-events: auto !important;
 }
 
 .hero-dot {
   width: 26px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.4);
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.45);
   border: none;
   cursor: pointer;
+  pointer-events: auto !important;
   padding: 0;
   transition: all 0.3s ease;
 }
@@ -823,24 +833,30 @@ button {
 
 .portfolio-filter-bar {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
 }
 
 .portfolio-filter-btn {
   background: #ffffff;
-  border: 1px solid #e0e0dc;
-  color: #444444;
-  padding: 8px 16px;
+  border: 1px solid #d5d5d0;
+  color: #333333;
+  padding: 8px 18px;
   border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  pointer-events: auto !important;
+  user-select: none;
   transition: all 0.2s ease;
+  position: relative;
+  z-index: 10;
 }
 
 .portfolio-filter-btn:hover {
-  background: #f4f4f2;
+  background: #f0f0ee;
   border-color: #111111;
   color: #111111;
 }
@@ -849,6 +865,7 @@ button {
   background: #111111;
   color: #ffffff;
   border-color: #111111;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .services-portfolio-grid {

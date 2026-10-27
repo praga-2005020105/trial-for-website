@@ -13,7 +13,7 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20261027-2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,17 +176,17 @@
                 </div>
 
                 <!-- Navigation Arrows -->
-                <button type="button" class="hero-slide-nav hero-slide-prev" id="heroSlidePrev" aria-label="Projet précédent">❮</button>
-                <button type="button" class="hero-slide-nav hero-slide-next" id="heroSlideNext" aria-label="Projet suivant">❯</button>
+                <button type="button" class="hero-slide-nav hero-slide-prev" id="heroSlidePrev" aria-label="Projet précédent" onclick="window.heroSlideStep(-1); return false;">❮</button>
+                <button type="button" class="hero-slide-nav hero-slide-next" id="heroSlideNext" aria-label="Projet suivant" onclick="window.heroSlideStep(1); return false;">❯</button>
 
                 <!-- Dots / Indicators -->
                 <div class="hero-slide-dots" id="heroSlideDots">
-                    <button class="hero-dot active" data-dot="0" aria-label="Slide 1"></button>
-                    <button class="hero-dot" data-dot="1" aria-label="Slide 2"></button>
-                    <button class="hero-dot" data-dot="2" aria-label="Slide 3"></button>
-                    <button class="hero-dot" data-dot="3" aria-label="Slide 4"></button>
-                    <button class="hero-dot" data-dot="4" aria-label="Slide 5"></button>
-                    <button class="hero-dot" data-dot="5" aria-label="Slide 6"></button>
+                    <button type="button" class="hero-dot active" data-dot="0" aria-label="Slide 1" onclick="window.heroSlideGoTo(0); return false;"></button>
+                    <button type="button" class="hero-dot" data-dot="1" aria-label="Slide 2" onclick="window.heroSlideGoTo(1); return false;"></button>
+                    <button type="button" class="hero-dot" data-dot="2" aria-label="Slide 3" onclick="window.heroSlideGoTo(2); return false;"></button>
+                    <button type="button" class="hero-dot" data-dot="3" aria-label="Slide 4" onclick="window.heroSlideGoTo(3); return false;"></button>
+                    <button type="button" class="hero-dot" data-dot="4" aria-label="Slide 5" onclick="window.heroSlideGoTo(4); return false;"></button>
+                    <button type="button" class="hero-dot" data-dot="5" aria-label="Slide 6" onclick="window.heroSlideGoTo(5); return false;"></button>
                 </div>
             </div>
         </div>
@@ -275,11 +275,11 @@
                         <h2 data-i18n="portfolioTitle">Real Client Projects Completed by Our Workshop</h2>
                         <p class="portfolio-sub" data-i18n="portfolioSubtitle">Discover our recent installations: 3D illuminated letters, shopfront facade cladding, CNC custom milling and lightboxes across Île-de-France.</p>
                     </div>
-                    <div class="portfolio-filter-bar">
-                        <button class="portfolio-filter-btn active" data-portfolio-filter="all" data-i18n="portfolioFilterAll">All Projects</button>
-                        <button class="portfolio-filter-btn" data-portfolio-filter="3d-letters" data-i18n="portfolioFilter3D">3D Letters & Signs</button>
-                        <button class="portfolio-filter-btn" data-portfolio-filter="facades" data-i18n="portfolioFilterFacades">Storefronts & Dibond</button>
-                        <button class="portfolio-filter-btn" data-portfolio-filter="cnc-atelier" data-i18n="portfolioFilterAtelier">Atelier CNC Craft</button>
+                    <div class="portfolio-filter-bar" role="tablist" aria-label="Filtres réalisations atelier">
+                        <button type="button" class="portfolio-filter-btn active" data-portfolio-filter="all" data-i18n="portfolioFilterAll" onclick="window.filterPortfolio('all', this); return false;">All Projects</button>
+                        <button type="button" class="portfolio-filter-btn" data-portfolio-filter="3d-letters" data-i18n="portfolioFilter3D" onclick="window.filterPortfolio('3d-letters', this); return false;">3D Letters & Signs</button>
+                        <button type="button" class="portfolio-filter-btn" data-portfolio-filter="facades" data-i18n="portfolioFilterFacades" onclick="window.filterPortfolio('facades', this); return false;">Storefronts & Dibond</button>
+                        <button type="button" class="portfolio-filter-btn" data-portfolio-filter="cnc-atelier" data-i18n="portfolioFilterAtelier" onclick="window.filterPortfolio('cnc-atelier', this); return false;">Atelier CNC Craft</button>
                     </div>
                 </div>
 
@@ -725,8 +725,44 @@
         </div>
     </div>
 
-    <script src="js/language-switch.js"></script>
-    <script src="js/db.js"></script>
-    <script src="js/script.js"></script>
+    <!-- INLINE GUARANTEED FALLBACK FOR SLIDESHOW & PORTFOLIO -->
+    <script>
+    window.heroSlideStep = window.heroSlideStep || function(dir) {
+        var slides = document.querySelectorAll(".hero-slide");
+        var dots = document.querySelectorAll(".hero-dot");
+        if (!slides.length) return;
+        var cur = -1;
+        slides.forEach(function(s, idx) { if (s.classList.contains("active")) cur = idx; });
+        if (cur < 0) cur = 0;
+        var next = (cur + dir + slides.length) % slides.length;
+        slides.forEach(function(s, idx) { s.classList.toggle("active", idx === next); });
+        dots.forEach(function(d, idx) { d.classList.toggle("active", idx === next); });
+    };
+    window.heroSlideGoTo = window.heroSlideGoTo || function(next) {
+        var slides = document.querySelectorAll(".hero-slide");
+        var dots = document.querySelectorAll(".hero-dot");
+        if (!slides.length) return;
+        slides.forEach(function(s, idx) { s.classList.toggle("active", idx === next); });
+        dots.forEach(function(d, idx) { d.classList.toggle("active", idx === next); });
+    };
+    window.filterPortfolio = window.filterPortfolio || function(filter, btn) {
+        var btns = document.querySelectorAll(".portfolio-filter-btn");
+        var items = document.querySelectorAll(".portfolio-item");
+        btns.forEach(function(b) { b.classList.remove("active"); });
+        if (btn) btn.classList.add("active");
+        items.forEach(function(item) {
+            var cat = item.getAttribute("data-portfolio-category");
+            if (filter === "all" || cat === filter) {
+                item.style.setProperty("display", "flex", "important");
+            } else {
+                item.style.setProperty("display", "none", "important");
+            }
+        });
+    };
+    </script>
+
+    <script src="js/language-switch.js?v=20261027-2"></script>
+    <script src="js/db.js?v=20261027-2"></script>
+    <script src="js/script.js?v=20261027-2"></script>
 </body>
 </html>
