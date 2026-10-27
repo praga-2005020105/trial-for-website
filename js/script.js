@@ -3472,10 +3472,100 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =========================================================
+       16. REAL WORK SERVICES PORTFOLIO & LIGHTBOX MODAL
+    ========================================================= */
+
+    function initServicesPortfolio() {
+        const filterBtns = document.querySelectorAll(".portfolio-filter-btn");
+        const items = document.querySelectorAll(".portfolio-item");
+
+        if (filterBtns.length > 0 && items.length > 0) {
+            filterBtns.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    filterBtns.forEach(function (b) { b.classList.remove("active"); });
+                    btn.classList.add("active");
+                    const filter = btn.getAttribute("data-portfolio-filter");
+
+                    items.forEach(function (item) {
+                        const itemCat = item.getAttribute("data-portfolio-category");
+                        if (filter === "all" || itemCat === filter) {
+                            item.style.display = "flex";
+                        } else {
+                            item.style.display = "none";
+                        }
+                    });
+                });
+            });
+        }
+
+        const modal = document.getElementById("serviceLightboxModal");
+        const modalImg = document.getElementById("serviceLightboxImg");
+        const modalTitle = document.getElementById("serviceLightboxTitle");
+        const modalDesc = document.getElementById("serviceLightboxDesc");
+        const modalWhatsapp = document.getElementById("serviceLightboxWhatsapp");
+        const modalClose = document.getElementById("serviceLightboxClose");
+
+        function openLightbox(imgSrc, title, desc) {
+            if (!modal || !modalImg) return;
+            modalImg.src = imgSrc;
+            modalImg.alt = title || "Enseigne Atelier MY STICKERZ";
+            if (modalTitle) modalTitle.textContent = title || "";
+            if (modalDesc) modalDesc.textContent = desc || "";
+            if (modalWhatsapp) {
+                const encodedMsg = encodeURIComponent("Bonjour atelier MY STICKERZ, je souhaite un renseignement / devis concernant le projet : " + (title || ""));
+                modalWhatsapp.href = "https://wa.me/33698710050?text=" + encodedMsg;
+            }
+            modal.classList.add("active");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+            if (!modal) return;
+            modal.classList.remove("active");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        document.querySelectorAll(".portfolio-zoom-trigger, .portfolio-btn-view").forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest(".portfolio-item");
+                if (!card) return;
+                const img = card.querySelector(".portfolio-img-box img");
+                const title = card.querySelector(".portfolio-info h4") ? card.querySelector(".portfolio-info h4").textContent : "";
+                const desc = card.querySelector(".portfolio-info p") ? card.querySelector(".portfolio-info p").textContent : "";
+                const fullSrc = card.getAttribute("data-full-img") || (img ? img.currentSrc || img.src : "");
+                openLightbox(fullSrc, title, desc);
+            });
+        });
+
+        if (modalClose) {
+            modalClose.addEventListener("click", closeLightbox);
+        }
+
+        if (modal) {
+            modal.addEventListener("click", function (e) {
+                if (e.target === modal) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+                closeLightbox();
+            }
+        });
+    }
+
+    /* =========================================================
        15. INITIALIZATION
     ========================================================= */
 
     updateProductPage();
     updateCartCount();
     updateAllWishlistButtons();
+    initServicesPortfolio();
 });
