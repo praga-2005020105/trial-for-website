@@ -840,16 +840,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const isOpen = menu.classList.toggle("show");
                 button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+                // Toggle icon
+                const icon = button.querySelector("i");
+                if (icon) {
+                    if (isOpen) {
+                        icon.classList.remove("fa-bars");
+                        icon.classList.add("fa-xmark");
+                    } else {
+                        icon.classList.remove("fa-xmark");
+                        icon.classList.add("fa-bars");
+                    }
+                }
             });
         });
 
+        // Close when clicking outside
         document.addEventListener("click", function (event) {
             document.querySelectorAll(".mobile-menu.show").forEach(function (menu) {
                 const header = menu.closest(".navbar");
                 if (header && !header.contains(event.target)) {
                     menu.classList.remove("show");
                     const button = header.querySelector(".mobile-menu-btn");
-                    if (button) button.setAttribute("aria-expanded", "false");
+                    if (button) {
+                        button.setAttribute("aria-expanded", "false");
+                        const icon = button.querySelector("i");
+                        if (icon) {
+                            icon.classList.remove("fa-xmark");
+                            icon.classList.add("fa-bars");
+                        }
+                    }
+                }
+            });
+        });
+
+        // Close on escape key
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                document.querySelectorAll(".mobile-menu.show").forEach(function (menu) {
+                    menu.classList.remove("show");
+                    const header = menu.closest(".navbar");
+                    if (header) {
+                        const button = header.querySelector(".mobile-menu-btn");
+                        if (button) {
+                            button.setAttribute("aria-expanded", "false");
+                            const icon = button.querySelector("i");
+                            if (icon) {
+                                icon.classList.remove("fa-xmark");
+                                icon.classList.add("fa-bars");
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        // Close when a link inside mobile-menu is clicked
+        document.querySelectorAll(".mobile-menu a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                const menu = link.closest(".mobile-menu");
+                if (menu) {
+                    menu.classList.remove("show");
+                    const header = menu.closest(".navbar");
+                    if (header) {
+                        const button = header.querySelector(".mobile-menu-btn");
+                        if (button) {
+                            button.setAttribute("aria-expanded", "false");
+                            const icon = button.querySelector("i");
+                            if (icon) {
+                                icon.classList.remove("fa-xmark");
+                                icon.classList.add("fa-bars");
+                            }
+                        }
+                    }
                 }
             });
         });
