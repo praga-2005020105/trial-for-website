@@ -3561,6 +3561,108 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =========================================================
+       17. HERO CLIENT WORK SLIDESHOW
+    ========================================================= */
+
+    function initHeroSlideshow() {
+        const slides = document.querySelectorAll(".hero-slide");
+        const dots = document.querySelectorAll(".hero-dot");
+        const prevBtn = document.getElementById("heroSlidePrev");
+        const nextBtn = document.getElementById("heroSlideNext");
+        const container = document.querySelector(".hero-slideshow-container");
+
+        if (slides.length === 0) return;
+
+        let currentIndex = 0;
+        let timer = null;
+        const intervalTime = 4800;
+
+        function showSlide(index) {
+            if (index < 0) {
+                currentIndex = slides.length - 1;
+            } else if (index >= slides.length) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+
+            slides.forEach(function (slide, i) {
+                slide.classList.toggle("active", i === currentIndex);
+            });
+
+            dots.forEach(function (dot, i) {
+                dot.classList.toggle("active", i === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        function startTimer() {
+            stopTimer();
+            timer = setInterval(nextSlide, intervalTime);
+        }
+
+        function stopTimer() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener("click", function () {
+                prevSlide();
+                startTimer();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener("click", function () {
+                nextSlide();
+                startTimer();
+            });
+        }
+
+        dots.forEach(function (dot, idx) {
+            dot.addEventListener("click", function () {
+                showSlide(idx);
+                startTimer();
+            });
+        });
+
+        if (container) {
+            container.addEventListener("mouseenter", stopTimer);
+            container.addEventListener("mouseleave", startTimer);
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            container.addEventListener("touchstart", function (e) {
+                touchStartX = e.changedTouches[0].screenX;
+                stopTimer();
+            }, { passive: true });
+
+            container.addEventListener("touchend", function (e) {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 45) {
+                    nextSlide();
+                } else if (touchEndX - touchStartX > 45) {
+                    prevSlide();
+                }
+                startTimer();
+            }, { passive: true });
+        }
+
+        startTimer();
+    }
+
+    /* =========================================================
        15. INITIALIZATION
     ========================================================= */
 
@@ -3568,4 +3670,5 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCartCount();
     updateAllWishlistButtons();
     initServicesPortfolio();
+    initHeroSlideshow();
 });

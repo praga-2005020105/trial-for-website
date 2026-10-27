@@ -91,11 +91,102 @@
                 </div>
             </div>
 
-            <div class="hero-image">
-                <div class="hero-image-content">
-                    <span>MY STICKERZ</span>
-                    <h3 data-i18n="heroImageTitle">Custom Signage</h3>
-                    <p data-i18n="heroImageText">Professional visual solutions</p>
+            <!-- HERO REAL-WORK SLIDESHOW -->
+            <div class="hero-slideshow-container" aria-label="Nos réalisations en atelier" role="region">
+                <div class="hero-slides-wrapper" id="heroSlidesWrapper">
+                    
+                    <!-- Slide 1: Annachi Illuminated 3D Letters -->
+                    <div class="hero-slide active" data-slide-index="0">
+                        <picture>
+                            <source srcset="images/services/annachi-facade-night-1.webp" type="image/webp">
+                            <img src="images/services/annachi-facade-night-1.jpg" alt="Enseignes Boîtiers LED & Néon Annachi" class="hero-slide-img" width="1200" height="900">
+                        </picture>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge">✨ ENSEIGNES LUMINEUSES 3D</span>
+                            <h3>Enseignes Boîtiers LED &amp; Néon</h3>
+                            <p>Projet réalisé pour Annachi — Maison des Épices (Corbeil-Essonnes)</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Le Lion Dort & Nobelinterim Facade Cladding -->
+                    <div class="hero-slide" data-slide-index="1">
+                        <picture>
+                            <source srcset="images/services/lion-dort-storefront-front.webp" type="image/webp">
+                            <img src="images/services/lion-dort-storefront-front.jpg" alt="Devanture Composite Aluminium Le Lion Dort" class="hero-slide-img" width="1200" height="900" loading="lazy">
+                        </picture>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge">🏢 HABILLAGE FAÇADE DIBOND</span>
+                            <h3>Devantures &amp; Cassettes Alu</h3>
+                            <p>Rénovation complète Le Lion Dort &amp; Nobelinterim</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Barber Shop Illuminated Sign -->
+                    <div class="hero-slide" data-slide-index="2">
+                        <picture>
+                            <source srcset="images/services/barber-shop-illuminated-sign.webp" type="image/webp">
+                            <img src="images/services/barber-shop-illuminated-sign.jpg" alt="Caisson Lumineux Barber Shop" class="hero-slide-img" width="1200" height="900" loading="lazy">
+                        </picture>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge">💈 CAISSONS LUMINEUX LED</span>
+                            <h3>Caissons Ajourés &amp; Rétroéclairés</h3>
+                            <p>Enseigne personnalisée Barber Shop avec éclairage LED haute intensité</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Nubian Beauty Paris Prestige Sign -->
+                    <div class="hero-slide" data-slide-index="3">
+                        <picture>
+                            <source srcset="images/services/nubian-beauty-paris-sign.webp" type="image/webp">
+                            <img src="images/services/nubian-beauty-paris-sign.jpg" alt="Enseigne Nubian Beauty Paris" class="hero-slide-img" width="1200" height="900" loading="lazy">
+                        </picture>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge">✨ LETTRES DÉCOUPÉES PRESTIGE</span>
+                            <h3>Signalétique Lumineuse Haute Précision</h3>
+                            <p>Conception et pose pour Nubian Beauty Paris</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Annachi Full Building Corner Signage -->
+                    <div class="hero-slide" data-slide-index="4">
+                        <picture>
+                            <source srcset="images/services/annachi-corner-building-night.webp" type="image/webp">
+                            <img src="images/services/annachi-corner-building-night.jpg" alt="Double Enseigne d'Angle Bâtiment Commercial" class="hero-slide-img" width="1200" height="900" loading="lazy">
+                        </picture>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge">🌟 ENSEMBLE SIGNALÉTIQUE</span>
+                            <h3>Façades Commerciales d'Envergure</h3>
+                            <p>Double enseigne lumineuse 30 mètres à Corbeil-Essonnes</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Workshop CNC Milling Machine -->
+                    <div class="hero-slide" data-slide-index="5">
+                        <picture>
+                            <source srcset="images/services/cnc-machining-cosmetique-afro.webp" type="image/webp">
+                            <img src="images/services/cnc-machining-cosmetique-afro.jpg" alt="Fraisage Numérique CNC en Atelier" class="hero-slide-img" width="1200" height="900" loading="lazy">
+                        </picture>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge">⚙️ FABRICATION FRANÇAISE EN ATELIER</span>
+                            <h3>Usinage CNC &amp; Découpe de Précision</h3>
+                            <p>Atelier de fabrication à Garges-lès-Gonesse (95)</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button type="button" class="hero-slide-nav hero-slide-prev" id="heroSlidePrev" aria-label="Projet précédent">❮</button>
+                <button type="button" class="hero-slide-nav hero-slide-next" id="heroSlideNext" aria-label="Projet suivant">❯</button>
+
+                <!-- Dots / Indicators -->
+                <div class="hero-slide-dots" id="heroSlideDots">
+                    <button class="hero-dot active" data-dot="0" aria-label="Slide 1"></button>
+                    <button class="hero-dot" data-dot="1" aria-label="Slide 2"></button>
+                    <button class="hero-dot" data-dot="2" aria-label="Slide 3"></button>
+                    <button class="hero-dot" data-dot="3" aria-label="Slide 4"></button>
+                    <button class="hero-dot" data-dot="4" aria-label="Slide 5"></button>
+                    <button class="hero-dot" data-dot="5" aria-label="Slide 6"></button>
                 </div>
             </div>
         </div>
