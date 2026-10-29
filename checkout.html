@@ -429,7 +429,7 @@
                 firstName: document.getElementById("firstName").value.trim(),
                 lastName: document.getElementById("lastName").value.trim(),
                 company: document.getElementById("company").value.trim(),
-                email: document.getElementById("email").value.trim(),
+                email: document.getElementById("email").value.trim().toLowerCase(),
                 address: document.getElementById("address").value.trim(),
                 city: document.getElementById("city").value.trim(),
                 state: document.getElementById("state").value.trim(),
@@ -474,7 +474,7 @@
 
                 // Success
                 const orderData = {
-                    orderNumber: result.orderNumber,
+                    orderNumber: result.orderNumber || ("ORD-" + Date.now().toString(36).toUpperCase()),
                     items: cart,
                     subtotal,
                     shipping,
@@ -486,6 +486,15 @@
 
                 localStorage.setItem("veloraLastOrder", JSON.stringify(orderData));
                 localStorage.removeItem("veloraCart");
+
+                // Save order to Supabase Cloud Database & client backup store
+                try {
+                    if (window.DB && window.DB.saveOrder) {
+                        await window.DB.saveOrder(orderData);
+                    }
+                } catch (dbErr) {
+                    console.warn("[DB] Supabase order save failed, continuing:", dbErr);
+                }
 
                 if (paymentMethod === "whatsapp") {
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${result.orderNumber}* :\n`;

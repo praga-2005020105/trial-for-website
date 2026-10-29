@@ -1513,7 +1513,8 @@
                             }).join("<div style='height:4px;'></div>");
 
                             const status = escapeHtml(ord.status || "Pending BAT");
-                            const cleanOrderNum = escapeHtml(ord.order_number || "");
+                            const cleanOrderNum = escapeHtml(ord.order_number || ord.orderNumber || "");
+                            const cleanDate = new Date(ord.created_at || ord.date || Date.now()).toLocaleDateString();
                             let badgeClass = "badge-pending";
                             if (status === "BAT Validated") badgeClass = "badge-validated";
                             if (status === "Production") badgeClass = "badge-production";
@@ -1524,7 +1525,7 @@
                                 <tr>
                                     <td>
                                         <strong>#${cleanOrderNum}</strong><br>
-                                        <span style="font-size:11px;color:#888;">${new Date(ord.created_at).toLocaleDateString()}</span>
+                                        <span style="font-size:11px;color:#888;">${cleanDate}</span>
                                     </td>
                                     <td>${items || "Custom Product"}</td>
                                     <td><strong>€${Number(ord.total).toFixed(2)}</strong></td>

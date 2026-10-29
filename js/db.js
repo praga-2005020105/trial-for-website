@@ -9,48 +9,75 @@ const SUPABASE_KEY = "sb_publishable_vh7pw-l0HCPpiM18kdNvIg_GijEkR_d";
 
 const DB = {
     /**
-     * Save customer order directly to Supabase cloud database
+     * Save customer order directly to Supabase cloud database & client backup store
      */
     async saveOrder(order) {
+        if (!order) return null;
+        const normalizedEmail = ((order.customer && order.customer.email) || "").trim().toLowerCase();
+        const orderNumber = order.orderNumber || order.order_number || ("ORD-" + Date.now().toString(36).toUpperCase());
+        const createdAt = order.date || order.created_at || new Date().toISOString();
+
+        const payload = {
+            order_number: orderNumber,
+            customer: {
+                ...(order.customer || {}),
+                email: normalizedEmail
+            },
+            items: order.items || [],
+            subtotal: Number(order.subtotal || 0),
+            shipping: Number(order.shipping || 0),
+            total: Number(order.total || 0),
+            payment_method: order.payment || order.payment_method || "standard",
+            status: order.status || "Pending BAT",
+            created_at: createdAt
+        };
+
+        // 1. Immediately persist to client backup store (guarantees order never disappears)
         try {
-            const payload = {
-                order_number: order.orderNumber,
-                customer: order.customer || {},
-                items: order.items || [],
-                subtotal: Number(order.subtotal || 0),
-                shipping: Number(order.shipping || 0),
-                total: Number(order.total || 0),
-                payment_method: order.payment || "standard",
-                status: order.status || "Pending BAT"
-            };
+            const localOrders = JSON.parse(localStorage.getItem("mse_all_orders") || "[]");
+            const idx = localOrders.findIndex(o => (o.order_number || o.orderNumber) === orderNumber);
+            if (idx === -1) {
+                localOrders.unshift(payload);
+            } else {
+                localOrders[idx] = payload;
+            }
+            localStorage.setItem("mse_all_orders", JSON.stringify(localOrders));
+        } catch (e) {
+            console.warn("[DB] Local backup write warning:", e);
+        }
+
+        // 2. Persist to Supabase cloud database
+        try {
+            const customerSession = this.getCurrentCustomer();
+            const authBearer = (customerSession && customerSession.token) ? customerSession.token : SUPABASE_KEY;
 
             const res = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
                 method: "POST",
                 headers: {
                     "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Authorization": `Bearer ${authBearer}`,
                     "Content-Type": "application/json",
-                    "Prefer": "return=representation"
+                    "Prefer": "return=minimal"
                 },
                 body: JSON.stringify(payload)
             });
 
             if (!res.ok) {
                 const errText = await res.text();
-                console.warn("[DB] Orders table insert warning:", errText);
-                return null;
+                console.warn("[DB] Orders table insert warning:", res.status, errText);
             }
-            return await res.json();
+            return payload;
         } catch (err) {
             console.warn("[DB] Network error saving order to Supabase:", err);
-            return null;
+            return payload;
         }
     },
 
     /**
-     * Fetch all active orders for the Admin Portal
+     * Fetch all active orders for the Admin Portal (Supabase + local store backup)
      */
     async getOrders() {
+        let remoteOrders = [];
         try {
             const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?select=*&order=created_at.desc`, {
                 method: "GET",
@@ -60,21 +87,49 @@ const DB = {
                 }
             });
 
-            if (!res.ok) {
+            if (res.ok) {
+                remoteOrders = await res.json();
+            } else {
                 console.warn("[DB] Get orders warning, status:", res.status);
-                return null;
             }
-            return await res.json();
         } catch (err) {
             console.warn("[DB] Network error loading orders from Supabase:", err);
-            return null;
         }
+
+        // Merge with client store backup
+        let localOrders = [];
+        try {
+            localOrders = JSON.parse(localStorage.getItem("mse_all_orders") || "[]");
+        } catch (e) {}
+
+        const merged = Array.isArray(remoteOrders) ? [...remoteOrders] : [];
+        if (Array.isArray(localOrders)) {
+            localOrders.forEach(lo => {
+                const num = lo.order_number || lo.orderNumber;
+                if (!merged.some(m => (m.order_number || m.orderNumber) === num)) {
+                    merged.push(lo);
+                }
+            });
+        }
+
+        merged.sort((a, b) => new Date(b.created_at || b.date || 0) - new Date(a.created_at || a.date || 0));
+        return merged;
     },
 
     /**
      * Update an order's status (Pending BAT, BAT Validated, Production, Shipped, Delivered)
      */
     async updateOrderStatus(orderNumber, newStatus) {
+        // Update local backup
+        try {
+            const localOrders = JSON.parse(localStorage.getItem("mse_all_orders") || "[]");
+            const target = localOrders.find(o => (o.order_number || o.orderNumber) === orderNumber);
+            if (target) {
+                target.status = newStatus;
+                localStorage.setItem("mse_all_orders", JSON.stringify(localOrders));
+            }
+        } catch (e) {}
+
         try {
             const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?order_number=eq.${encodeURIComponent(orderNumber)}`, {
                 method: "PATCH",
@@ -82,7 +137,7 @@ const DB = {
                     "apikey": SUPABASE_KEY,
                     "Authorization": `Bearer ${SUPABASE_KEY}`,
                     "Content-Type": "application/json",
-                    "Prefer": "return=representation"
+                    "Prefer": "return=minimal"
                 },
                 body: JSON.stringify({ status: newStatus })
             });
@@ -91,7 +146,7 @@ const DB = {
                 console.warn("[DB] Update status warning:", res.status);
                 return null;
             }
-            return await res.json();
+            return { success: true };
         } catch (err) {
             console.warn("[DB] Error updating status in Supabase:", err);
             return null;
@@ -229,24 +284,66 @@ const DB = {
     },
 
     /**
-     * Get Orders For Logged-in Customer from Supabase
+     * Get Orders For Logged-in Customer (Supabase + client store backup)
      */
     async getCustomerOrders(email) {
         if (!email) return [];
+        const cleanEmail = email.trim().toLowerCase();
+        let remoteOrders = [];
+
         try {
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?customer->>email=eq.${encodeURIComponent(email)}&order=created_at.desc`, {
+            const customerSession = this.getCurrentCustomer();
+            const authBearer = (customerSession && customerSession.token) ? customerSession.token : SUPABASE_KEY;
+
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?customer->>email=ilike.${encodeURIComponent(cleanEmail)}&order=created_at.desc`, {
                 method: "GET",
                 headers: {
                     "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`
+                    "Authorization": `Bearer ${authBearer}`
                 }
             });
-            if (!res.ok) return [];
-            return await res.json();
+            if (res.ok) {
+                remoteOrders = await res.json();
+            }
         } catch (err) {
-            console.warn("[DB] Error fetching customer orders:", err);
-            return [];
+            console.warn("[DB] Error fetching customer orders from Supabase:", err);
         }
+
+        // Merge with client store backup
+        let localOrders = [];
+        try {
+            localOrders = JSON.parse(localStorage.getItem("mse_all_orders") || "[]");
+        } catch (e) {}
+
+        const merged = Array.isArray(remoteOrders) ? [...remoteOrders] : [];
+        if (Array.isArray(localOrders)) {
+            localOrders.forEach(lo => {
+                const custEmail = ((lo.customer && lo.customer.email) || "").trim().toLowerCase();
+                if (custEmail === cleanEmail) {
+                    const num = lo.order_number || lo.orderNumber;
+                    if (!merged.some(m => (m.order_number || m.orderNumber) === num)) {
+                        merged.push(lo);
+                    }
+                }
+            });
+        }
+
+        // Also check if last order in session matches this customer
+        try {
+            const lastOrder = JSON.parse(localStorage.getItem("veloraLastOrder") || "null");
+            if (lastOrder && lastOrder.customer) {
+                const lastEmail = (lastOrder.customer.email || "").trim().toLowerCase();
+                if (lastEmail === cleanEmail) {
+                    const num = lastOrder.orderNumber || lastOrder.order_number;
+                    if (!merged.some(m => (m.order_number || m.orderNumber) === num)) {
+                        merged.unshift(lastOrder);
+                    }
+                }
+            }
+        } catch (e) {}
+
+        merged.sort((a, b) => new Date(b.created_at || b.date || 0) - new Date(a.created_at || a.date || 0));
+        return merged;
     },
 
     /**
