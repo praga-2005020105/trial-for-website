@@ -5,6 +5,7 @@
  */
 
 import express from "express";
+import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import {
@@ -23,6 +24,24 @@ const PORT = process.env.PORT || 3000;
 
 // Turn off Express fingerprinting
 app.disable("x-powered-by");
+
+// CORS Origin Lockdown: Whitelist legitimate domains only
+const allowedOrigins = [
+  "https://mystickerzenseigne.com",
+  "https://mystickerzenseigne.netlify.app",
+  "http://localhost:3000"
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS: Blocked by origin lockdown security policy."));
+    }
+  },
+  credentials: true
+}));
 
 // 1. Security Headers Middleware (CSP, HSTS, X-Frame-Options, Nosniff, etc.)
 app.use((req, res, next) => {
@@ -84,7 +103,12 @@ for (const [routePath, filename] of Object.entries(routes)) {
   });
 }
 
-// 7. Turn Off Debug Mode: Production Error Handler (Suppress stack traces)
+// 7. Clean 404 Fallback
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "404.html"));
+});
+
+// 8. Turn Off Debug Mode: Production Error Handler (Suppress stack traces)
 app.use((err, req, res, next) => {
   console.error("[SECURITY LOG] Internal Server Incident:", err.message);
   res.status(500).json({

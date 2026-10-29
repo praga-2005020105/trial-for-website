@@ -1,6 +1,7 @@
 -- ========================================================
--- MY STICKERZ ENSEIGNE — SUPABASE DATABASE SCHEMA
--- Run this script in your Supabase SQL Editor (1 Click)
+-- MY STICKERZ ENSEIGNE — HARDENED PRODUCTION DATABASE SCHEMA
+-- Run this script in your Supabase SQL Editor
+-- Features: Strict RLS (Anti-IDOR, Anti-Scraping) + Query Indexes
 -- ========================================================
 
 -- 1. ORDERS TABLE
@@ -20,24 +21,41 @@ create table if not exists public.orders (
 -- Enable Row Level Security (RLS)
 alter table public.orders enable row level security;
 
--- Policies for Orders
+-- Drop legacy open policies
 drop policy if exists "Allow public insert to orders" on public.orders;
+drop policy if exists "Allow public select orders" on public.orders;
+drop policy if exists "Allow public update orders" on public.orders;
+drop policy if exists "Customers view own orders" on public.orders;
+drop policy if exists "Admin order management" on public.orders;
+
+-- Secure RLS Policies for Orders:
+-- Policy A: Anyone can place a new order (Checkout)
 create policy "Allow public insert to orders"
     on public.orders for insert
     with check (true);
 
-drop policy if exists "Allow public select orders" on public.orders;
-create policy "Allow public select orders"
+-- Policy B: Customers can only read orders matching their authenticated email OR Admin can read all
+create policy "Allow secure select orders"
     on public.orders for select
-    using (true);
+    using (
+        -- Authenticated customer viewing their own orders
+        (auth.role() = 'authenticated' and (customer->>'email') = (auth.jwt()->>'email'))
+        -- Or authenticated admin manager
+        or (auth.jwt()->>'email' = 'admin@mystickerzenseigne.com')
+        -- Or service role backend
+        or (auth.jwt()->>'role' = 'service_role')
+    );
 
-drop policy if exists "Allow public update orders" on public.orders;
-create policy "Allow public update orders"
+-- Policy C: Only authenticated admin or service role can modify order status
+create policy "Allow admin update orders"
     on public.orders for update
-    using (true)
+    using (
+        auth.jwt()->>'email' = 'admin@mystickerzenseigne.com'
+        or auth.jwt()->>'role' = 'service_role'
+    )
     with check (true);
 
--- 2. CONTACT MESSAGES TABLE
+-- 2. CONTACT MESSAGES TABLE (Data Privacy / Anti-Scraping)
 create table if not exists public.contact_messages (
     id uuid default gen_random_uuid() primary key,
     name text not null,
@@ -51,16 +69,22 @@ create table if not exists public.contact_messages (
 alter table public.contact_messages enable row level security;
 
 drop policy if exists "Allow public insert to contact_messages" on public.contact_messages;
+drop policy if exists "Allow public select contact_messages" on public.contact_messages;
+
+-- Visitors can submit inquiries
 create policy "Allow public insert to contact_messages"
     on public.contact_messages for insert
     with check (true);
 
-drop policy if exists "Allow public select contact_messages" on public.contact_messages;
-create policy "Allow public select contact_messages"
+-- Only Admin can view customer inquiries (Blocks public scraping)
+create policy "Allow admin select contact_messages"
     on public.contact_messages for select
-    using (true);
+    using (
+        auth.jwt()->>'email' = 'admin@mystickerzenseigne.com'
+        or auth.jwt()->>'role' = 'service_role'
+    );
 
--- 3. NEWSLETTER SUBSCRIBERS TABLE
+-- 3. NEWSLETTER SUBSCRIBERS TABLE (GDPR / Privacy Protected)
 create table if not exists public.newsletter_subscribers (
     id uuid default gen_random_uuid() primary key,
     email text unique not null,
@@ -70,16 +94,35 @@ create table if not exists public.newsletter_subscribers (
 alter table public.newsletter_subscribers enable row level security;
 
 drop policy if exists "Allow public insert to newsletter_subscribers" on public.newsletter_subscribers;
+drop policy if exists "Allow public select newsletter_subscribers" on public.newsletter_subscribers;
+
+-- Public can subscribe
 create policy "Allow public insert to newsletter_subscribers"
     on public.newsletter_subscribers for insert
     with check (true);
 
-drop policy if exists "Allow public select newsletter_subscribers" on public.newsletter_subscribers;
-create policy "Allow public select newsletter_subscribers"
+-- Only Admin can view subscriber list (Prevents email harvesting)
+create policy "Allow admin select newsletter_subscribers"
     on public.newsletter_subscribers for select
-    using (true);
+    using (
+        auth.jwt()->>'email' = 'admin@mystickerzenseigne.com'
+        or auth.jwt()->>'role' = 'service_role'
+    );
 
--- 4. INSERT INITIAL SEED ORDER (For Testing Admin Portal)
+-- 4. HIGH-PERFORMANCE DATABASE INDEXES (Eliminate Sequential Scans)
+create index if not exists idx_orders_created_at 
+    on public.orders (created_at desc);
+
+create index if not exists idx_orders_customer_email 
+    on public.orders (((customer->>'email')));
+
+create index if not exists idx_orders_status 
+    on public.orders (status);
+
+create index if not exists idx_contact_created_at 
+    on public.contact_messages (created_at desc);
+
+-- 5. INITIAL SEED (Idempotent)
 insert into public.orders (order_number, customer, items, subtotal, shipping, total, payment_method, status)
 values (
     'MSE-DEMO-01',

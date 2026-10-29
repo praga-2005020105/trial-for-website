@@ -1235,11 +1235,15 @@
             forgotSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending link...`;
 
             try {
-                const res = await fetch("/api/auth/customer/forgot-password", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email })
-                });
+                if (window.DB && window.DB.sendPasswordReset) {
+                    await window.DB.sendPasswordReset(email);
+                } else {
+                    await fetch("/api/auth/customer/forgot-password", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email })
+                    });
+                }
 
                 if (res.status === 429) {
                     triggerRateLimitCooldown(60);
@@ -1270,46 +1274,20 @@
         });
 
         // ----------------------------------------------------
-        // OAUTH SOCIAL BUTTONS HANDLER
+        // OAUTH SOCIAL BUTTONS HANDLER (REAL SUPABASE OAUTH)
         // ----------------------------------------------------
         document.querySelectorAll(".oauth-social-btn").forEach(btn => {
-            btn.addEventListener("click", async function () {
+            btn.addEventListener("click", function () {
                 const provider = this.getAttribute("data-provider") || "google";
                 hideAlert();
                 this.disabled = true;
                 const orig = this.innerHTML;
-                this.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Connecting ${provider}...`;
+                this.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Connecting to ${provider}...`;
 
-                try {
-                    const res = await fetch("/api/auth/customer/oauth", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ provider })
-                    });
-
-                    if (res.status === 429) {
-                        triggerRateLimitCooldown(60);
-                        return;
-                    }
-
-                    const data = await res.json();
-                    if (data.success && (data.session || data.user)) {
-                        const session = data.session || { user: data.user, token: "oauth_" + Date.now() };
-                        localStorage.setItem("mse_customer_session", JSON.stringify(session));
-                        renderDashboard(data.user || session.user);
-                    } else {
-                        showAlert(data.error || "Social authentication failed.");
-                    }
-                } catch {
-                    // Fallback to local session for demo
-                    const demoSession = {
-                        email: `client.${provider}@example.com`,
-                        name: `${provider.toUpperCase()} Verified Client`,
-                        token: "oauth_demo_" + Date.now()
-                    };
-                    localStorage.setItem("mse_customer_session", JSON.stringify(demoSession));
-                    renderDashboard(demoSession);
-                } finally {
+                if (window.DB && typeof window.DB.signInWithOAuth === "function") {
+                    window.DB.signInWithOAuth(provider);
+                } else {
+                    showAlert("Authentication client is loading. Please retry momentarily.");
                     this.disabled = false;
                     this.innerHTML = orig;
                 }
@@ -1469,6 +1447,20 @@
         // SESSION & DASHBOARD MANAGEMENT
         // ----------------------------------------------------
         async function checkCustomerSession() {
+            // 1. Check for incoming OAuth tokens or errors (e.g. redirected back from Google / Supabase)
+            if (window.DB && typeof window.DB.handleOAuthCallback === "function") {
+                const oauthRes = await window.DB.handleOAuthCallback();
+                if (oauthRes) {
+                    if (oauthRes.success && oauthRes.session) {
+                        renderDashboard(oauthRes.session);
+                        return;
+                    } else if (oauthRes.error) {
+                        showAlert(oauthRes.error);
+                    }
+                }
+            }
+
+            // 2. Check local storage session
             let customer = null;
             try {
                 customer = JSON.parse(localStorage.getItem("mse_customer_session"));

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="The page you are looking for does not exist. Explore our bespoke neon signs, 3D raised letters, and custom commercial signage." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .error-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
+        }
+        .error-card {
+            max-width: 580px;
+            background: #ffffff;
+            border: 1px solid #e5e5e0;
+            border-radius: 12px;
+            padding: 48px 36px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        .error-code {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 72px;
+            font-weight: 700;
+            color: #111;
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR WITH SYNCHRONIZED LANGUAGE SWITCH -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE" width="40" height="40">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒
+                    <span id="cartCount">0</span>
+                </a>
+                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account">👤</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button">☰</button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+            <a href="login.html" data-i18n="navAccount">👤 My Account</a>
+        </div>
+    </header>
+
+    <!-- 404 MAIN SECTION -->
+    <main class="error-hero">
+        <div class="error-card">
+            <div class="error-code">404</div>
+            <h1 style="font-family:var(--font-heading);font-size:24px;margin-bottom:12px;color:#111;">Page Not Found</h1>
+            <p style="font-size:14px;color:#666;line-height:1.6;margin-bottom:28px;">
+                The link you followed may be broken or the page may have been relocated. Our bespoke atelier is ready to craft your next signage project.
+            </p>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                <a href="index.html" class="btn btn-dark" style="padding:12px 24px;font-size:13px;font-weight:700;">
+                    ← Return to Homepage
+                </a>
+                <a href="products.html" class="btn" style="background:#f0f0ed;color:#111;padding:12px 24px;font-size:13px;font-weight:700;">
+                    Explore Catalog →
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>MY STICKERZ ENSEIGNE</h3>
+                <p data-i18n="footerTagline">Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="cart.html" data-i18n="navCart">Cart</a>
+                <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+                <a href="login.html" data-i18n="navAccount">My Account</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+        </div>
+    </footer>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

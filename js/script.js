@@ -1468,6 +1468,7 @@ function initMainApp() {
                 dimensions: dimensions,
                 image: product.image || "images/company-logo.jpeg",
                 fileName: product.fileName || "",
+                designNotes: product.designNotes || "",
                 designService: Boolean(product.designService),
                 customText: product.customText || "",
                 font: font,
@@ -2426,6 +2427,11 @@ function initMainApp() {
         coveragePrice: 0,
         windowOpt: "none",
         windowPrice: 0,
+        designMode: "upload", // "upload" | "text"
+        fileName: "",
+        fileSize: "",
+        fileDataUrl: "",
+        designNotes: "",
         brandingText: "MY BRAND FLEET",
         font: "'Libre Franklin', sans-serif",
         phone: "06 98 71 00 50",
@@ -2435,21 +2441,64 @@ function initMainApp() {
     function initEngine4Vehicle(product) {
         const vehicleDoorText = document.getElementById("vehicleDoorText");
         const vehicleSiretText = document.getElementById("vehicleSiretText");
+        const vehicleUploadedGraphic = document.getElementById("vehicleUploadedGraphic");
         const vehicleCoverageZone = document.getElementById("vehicleCoverageZone");
         const vehicleCoverageBadge = document.getElementById("vehicleCoverageBadge");
         const vehicleBrandingText = document.getElementById("vehicleBrandingText");
         const vehiclePhone = document.getElementById("vehiclePhone");
         const vehicleSiret = document.getElementById("vehicleSiret");
 
+        // Upload and mode elements
+        const vehicleModeUploadBtn = document.getElementById("vehicleModeUploadBtn");
+        const vehicleModeTextBtn = document.getElementById("vehicleModeTextBtn");
+        const vehicleUploadContainer = document.getElementById("vehicleUploadContainer");
+        const vehicleTextContainer = document.getElementById("vehicleTextContainer");
+        const vehicleDropzone = document.getElementById("vehicleDropzone");
+        const vehicleDesignFile = document.getElementById("vehicleDesignFile");
+        const vehicleFileInfoCard = document.getElementById("vehicleFileInfoCard");
+        const vehicleFileName = document.getElementById("vehicleFileName");
+        const vehicleFileSize = document.getElementById("vehicleFileSize");
+        const vehicleFileIcon = document.getElementById("vehicleFileIcon");
+        const vehicleFileRemoveBtn = document.getElementById("vehicleFileRemoveBtn");
+        const vehicleDesignNotes = document.getElementById("vehicleDesignNotes");
+
         function renderVehicle() {
-            if (vehicleDoorText) {
-                vehicleDoorText.textContent = vehicleState.brandingText;
-                if (vehicleState.font) {
-                    vehicleDoorText.setAttribute("font-family", vehicleState.font);
-                    vehicleDoorText.style.fontFamily = vehicleState.font;
+            // Visualizer rendering: Uploaded graphic vs Studio text
+            if (vehicleState.designMode === "upload" && vehicleState.fileDataUrl) {
+                if (vehicleUploadedGraphic) {
+                    vehicleUploadedGraphic.setAttribute("href", vehicleState.fileDataUrl);
+                    vehicleUploadedGraphic.setAttributeNS("http://www.w3.org/1999/xlink", "href", vehicleState.fileDataUrl);
+                    vehicleUploadedGraphic.style.display = "block";
+                }
+                if (vehicleDoorText) vehicleDoorText.style.display = "none";
+                if (vehicleSiretText) vehicleSiretText.style.display = "none";
+            } else if (vehicleState.designMode === "upload" && vehicleState.fileName) {
+                // Vector file (.ai, .eps, .pdf) without inline raster preview
+                if (vehicleUploadedGraphic) vehicleUploadedGraphic.style.display = "none";
+                if (vehicleDoorText) {
+                    vehicleDoorText.textContent = `📁 ${vehicleState.fileName}`;
+                    vehicleDoorText.style.display = "block";
+                    vehicleDoorText.style.fontFamily = "'JetBrains Mono', monospace";
+                }
+                if (vehicleSiretText) {
+                    vehicleSiretText.textContent = "BAT Vector Artwork Loaded";
+                    vehicleSiretText.style.display = "block";
+                }
+            } else {
+                if (vehicleUploadedGraphic) vehicleUploadedGraphic.style.display = "none";
+                if (vehicleDoorText) {
+                    vehicleDoorText.textContent = vehicleState.brandingText;
+                    vehicleDoorText.style.display = "block";
+                    if (vehicleState.font) {
+                        vehicleDoorText.setAttribute("font-family", vehicleState.font);
+                        vehicleDoorText.style.fontFamily = vehicleState.font;
+                    }
+                }
+                if (vehicleSiretText) {
+                    vehicleSiretText.textContent = `${vehicleState.phone} · ${vehicleState.siret}`;
+                    vehicleSiretText.style.display = "block";
                 }
             }
-            if (vehicleSiretText) vehicleSiretText.textContent = `${vehicleState.phone} · ${vehicleState.siret}`;
 
             if (vehicleCoverageZone) {
                 if (vehicleState.coverage === "lettering") {
@@ -2471,7 +2520,8 @@ function initMainApp() {
                 let covLabel = "Lettrage 2 Portes + Arrière";
                 if (vehicleState.coverage === "half") covLabel = "Semi-Covering 50% Carrosserie Arrière";
                 if (vehicleState.coverage === "full") covLabel = "Total Covering 100% Intégral";
-                vehicleCoverageBadge.textContent = `${vehicleState.makeModel} · ${covLabel}`;
+                const fileInfo = vehicleState.fileName ? ` · Fichier: ${vehicleState.fileName}` : "";
+                vehicleCoverageBadge.textContent = `${vehicleState.makeModel} · ${covLabel}${fileInfo}`;
             }
 
             updateHudPill(508, 197, 1, `${vehicleState.makeModel}`);
@@ -2496,6 +2546,13 @@ function initMainApp() {
                 triggerPricePulse();
             }
 
+            let summaryText = "";
+            if (vehicleState.designMode === "upload" && vehicleState.fileName) {
+                summaryText = `Maquette Client: ${vehicleState.fileName}${vehicleState.designNotes ? ` (${vehicleState.designNotes})` : ""}`;
+            } else {
+                summaryText = `${vehicleState.brandingText} (${vehicleState.phone})${vehicleState.designNotes ? ` · Note: ${vehicleState.designNotes}` : ""}`;
+            }
+
             customizerItemPayload = {
                 id: product.id,
                 name: `${product.name} — ${vehicleState.makeModel} (${vehicleState.coverage.toUpperCase()})`,
@@ -2505,16 +2562,121 @@ function initMainApp() {
                 dimensions: "Gabarit Vectoriel Constructeur",
                 material: "Vinyle Coulé 3D Polymère Hexis / 3M",
                 finish: `Finition Anti-UV Protection Carrosserie · Vitre: ${vehicleState.windowOpt.toUpperCase()}`,
-                customText: `${vehicleState.brandingText} (${vehicleState.phone})`,
-                font: vehicleState.font,
+                customText: summaryText,
+                font: vehicleState.designMode === "text" ? vehicleState.font : "Custom Artwork File",
+                fileName: vehicleState.fileName || "",
+                designNotes: vehicleState.designNotes || "",
                 options: {
                     vehicleType: vehicleState.type,
                     makeModel: vehicleState.makeModel,
                     coverage: vehicleState.coverage,
-                    window: vehicleState.windowOpt
+                    window: vehicleState.windowOpt,
+                    designMode: vehicleState.designMode,
+                    fileName: vehicleState.fileName,
+                    designNotes: vehicleState.designNotes
                 },
                 image: product.image
             };
+        }
+
+        // Mode Toggling: Upload vs Text
+        if (vehicleModeUploadBtn && vehicleModeTextBtn) {
+            vehicleModeUploadBtn.addEventListener("click", function () {
+                vehicleModeUploadBtn.classList.add("active");
+                vehicleModeTextBtn.classList.remove("active");
+                vehicleState.designMode = "upload";
+                if (vehicleUploadContainer) vehicleUploadContainer.style.display = "block";
+                if (vehicleTextContainer) vehicleTextContainer.style.display = "none";
+                renderVehicle();
+            });
+
+            vehicleModeTextBtn.addEventListener("click", function () {
+                vehicleModeTextBtn.classList.add("active");
+                vehicleModeUploadBtn.classList.remove("active");
+                vehicleState.designMode = "text";
+                if (vehicleUploadContainer) vehicleUploadContainer.style.display = "none";
+                if (vehicleTextContainer) vehicleTextContainer.style.display = "block";
+                renderVehicle();
+            });
+        }
+
+        // Dropzone & File Upload Handling
+        if (vehicleDropzone && vehicleDesignFile) {
+            vehicleDropzone.addEventListener("click", () => vehicleDesignFile.click());
+
+            vehicleDropzone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                vehicleDropzone.style.borderColor = "#ff0f39";
+                vehicleDropzone.style.background = "rgba(255, 15, 57, 0.08)";
+            });
+
+            vehicleDropzone.addEventListener("dragleave", () => {
+                vehicleDropzone.style.borderColor = "#2563eb";
+                vehicleDropzone.style.background = "rgba(37, 99, 235, 0.04)";
+            });
+
+            vehicleDropzone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                vehicleDropzone.style.borderColor = "#2563eb";
+                vehicleDropzone.style.background = "rgba(37, 99, 235, 0.04)";
+                if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    processVehicleFile(e.dataTransfer.files[0]);
+                }
+            });
+
+            vehicleDesignFile.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                    processVehicleFile(this.files[0]);
+                }
+            });
+        }
+
+        function processVehicleFile(file) {
+            if (!file) return;
+            vehicleState.fileName = file.name;
+            const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+            vehicleState.fileSize = `${sizeMb} MB`;
+
+            if (vehicleFileName) vehicleFileName.textContent = file.name;
+            if (vehicleFileSize) vehicleFileSize.textContent = `${vehicleState.fileSize} · Ready for atelier production`;
+            if (vehicleFileIcon) {
+                const ext = file.name.split(".").pop().toLowerCase();
+                if (["ai", "eps", "svg"].includes(ext)) vehicleFileIcon.textContent = "📐";
+                else if (["pdf", "psd"].includes(ext)) vehicleFileIcon.textContent = "📑";
+                else vehicleFileIcon.textContent = "🖼️";
+            }
+            if (vehicleFileInfoCard) vehicleFileInfoCard.style.display = "flex";
+
+            // If image or SVG, generate visual preview
+            if (file.type.startsWith("image/") || /\.svg$/i.test(file.name)) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    vehicleState.fileDataUrl = e.target.result;
+                    renderVehicle();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                vehicleState.fileDataUrl = "";
+                renderVehicle();
+            }
+        }
+
+        if (vehicleFileRemoveBtn) {
+            vehicleFileRemoveBtn.addEventListener("click", function () {
+                vehicleState.fileName = "";
+                vehicleState.fileSize = "";
+                vehicleState.fileDataUrl = "";
+                if (vehicleDesignFile) vehicleDesignFile.value = "";
+                if (vehicleFileInfoCard) vehicleFileInfoCard.style.display = "none";
+                renderVehicle();
+            });
+        }
+
+        if (vehicleDesignNotes) {
+            vehicleDesignNotes.addEventListener("input", function () {
+                vehicleState.designNotes = this.value;
+                renderVehicle();
+            });
         }
 
         const vehicleMakeModelInput = document.getElementById("vehicleMakeModel");
@@ -3144,6 +3306,8 @@ function initMainApp() {
             if (item.material) details += `<p><strong>${isFr ? "Matériau" : "Material"}:</strong> ${escapeHtml(item.material)}</p>`;
             if (item.finish) details += `<p><strong>${isFr ? "Finition" : "Finish"}:</strong> ${escapeHtml(item.finish)}</p>`;
             if (item.customText) details += `<p><strong>${isFr ? "Texte" : "Text"}:</strong> ${escapeHtml(item.customText)}</p>`;
+            if (item.fileName) details += `<p><strong>${isFr ? "Fichier Maquette / BAT" : "Design File"}:</strong> <span style="color:#2563eb;font-weight:600;">📁 ${escapeHtml(item.fileName)}</span></p>`;
+            if (item.designNotes) details += `<p><strong>${isFr ? "Instructions Atelier" : "Workshop Notes"}:</strong> ${escapeHtml(item.designNotes)}</p>`;
             if (item.font) details += `<p><strong>${isFr ? "Police" : "Font"}:</strong> ${escapeHtml(item.font)}</p>`;
 
             itemsHtml += `

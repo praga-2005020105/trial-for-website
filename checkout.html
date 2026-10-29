@@ -332,7 +332,9 @@
             itemsContainer.innerHTML = cart.map(item => {
                 const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 1);
                 let details = [];
-                if (item.customText) details.push(`Text: "${item.customText}"`);
+                if (item.fileName) details.push(`Fichier: 📁 ${item.fileName}`);
+                if (item.customText) details.push(`Détails: "${item.customText}"`);
+                if (item.designNotes) details.push(`Instructions: "${item.designNotes}"`);
                 if (item.dimensions || item.size) details.push(`Size: ${item.dimensions || item.size}`);
                 if (item.thickness) details.push(`Relief: ${item.thickness}`);
                 if (item.finish) details.push(`Finish: ${item.finish}`);

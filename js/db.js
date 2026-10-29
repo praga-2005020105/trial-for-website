@@ -247,6 +247,100 @@ const DB = {
             console.warn("[DB] Error fetching customer orders:", err);
             return [];
         }
+    },
+
+    /**
+     * Trigger Single-Use Secure Password Reset via Supabase Auth
+     */
+    async sendPasswordReset(email) {
+        if (!email) return { success: false, error: "Please enter a valid email address." };
+        try {
+            const res = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email.trim().toLowerCase() })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                return { success: false, error: data.msg || data.error_description || "Could not send reset instructions." };
+            }
+            return { success: true };
+        } catch (err) {
+            return { success: false, error: "Network error sending reset link." };
+        }
+    },
+
+    /**
+     * Trigger Real Supabase OAuth Login (Google, GitHub, Apple)
+     */
+    signInWithOAuth(provider = "google") {
+        const redirectUrl = `${window.location.origin}/login.html`;
+        const authUrl = `${SUPABASE_URL}/auth/v1/authorize?provider=${encodeURIComponent(provider)}&redirect_to=${encodeURIComponent(redirectUrl)}`;
+        window.location.href = authUrl;
+    },
+
+    /**
+     * Handle OAuth Callback from Hash on Login Page Load
+     */
+    async handleOAuthCallback() {
+        // 1. Check for errors in URL (search or hash)
+        const searchParams = new URLSearchParams(window.location.search);
+        const hashStr = window.location.hash.startsWith("#") ? window.location.hash.substring(1) : window.location.hash;
+        const hashParams = new URLSearchParams(hashStr);
+
+        const errorDesc = hashParams.get("error_description") || searchParams.get("error_description");
+        const error = hashParams.get("error") || searchParams.get("error");
+        if (error || errorDesc) {
+            return {
+                success: false,
+                error: decodeURIComponent(errorDesc || error || "OAuth authorization failed.")
+            };
+        }
+
+        const accessToken = hashParams.get("access_token");
+        const refreshToken = hashParams.get("refresh_token");
+
+        if (!accessToken) return null;
+
+        try {
+            const res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            });
+
+            if (!res.ok) {
+                return { success: false, error: "Failed to retrieve authenticated user profile from Supabase." };
+            }
+
+            const user = await res.json();
+            const meta = user.user_metadata || {};
+            const userSession = {
+                token: accessToken,
+                refreshToken: refreshToken,
+                user: user,
+                email: user.email,
+                name: meta.full_name || meta.name || user.email.split("@")[0],
+                avatar: meta.avatar_url || meta.picture || "",
+                provider: user.app_metadata?.provider || "oauth"
+            };
+
+            localStorage.setItem("mse_customer_session", JSON.stringify(userSession));
+
+            // Clean hash to avoid keeping tokens in browser URL bar
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, "", window.location.pathname);
+            }
+
+            return { success: true, session: userSession };
+        } catch (err) {
+            console.warn("[DB] OAuth session error:", err);
+            return { success: false, error: "Network error establishing session." };
+        }
     }
 };
 

@@ -178,6 +178,8 @@
                         <!-- Lettering Preview Text on Doors -->
                         <text id="vehicleDoorText" x="220" y="155" fill="#ffffff" font-family="'Libre Franklin', sans-serif" font-weight="800" font-size="14" letter-spacing="1">MY BRAND FLEET</text>
                         <text id="vehicleSiretText" x="220" y="172" fill="#9999a5" font-family="'JetBrains Mono', monospace" font-size="9">06 98 71 00 50 · SIRET 848972827</text>
+                        <!-- Uploaded Custom Design Preview on Doors / Panels -->
+                        <image id="vehicleUploadedGraphic" x="210" y="125" width="230" height="55" preserveAspectRatio="xMidYMid meet" style="display:none;"/>
                         <!-- Wheels -->
                         <circle cx="175" cy="195" r="28" fill="#0a0a0c" stroke="#555" stroke-width="3"/>
                         <circle cx="175" cy="195" r="14" fill="#252530" stroke="#777"/>
@@ -834,37 +836,95 @@
 
                 <div class="config-card">
                     <div class="config-card-title">
-                        <span data-i18n="vehicleStep3Title">Step 3: Fleet Branding Information</span>
+                        <span data-i18n="vehicleStep3Title">Step 3: Vehicle Design &amp; Fleet Branding</span>
                         <span class="config-step-num">Step 3</span>
                     </div>
-                    <div style="margin-bottom:10px;">
-                        <label for="vehicleBrandingText" data-i18n="vehicleBrandLabel">Company Name / Brand</label>
-                        <input type="text" id="vehicleBrandingText" value="MY BRAND FLEET">
+
+                    <!-- Design Source Toggle: Upload Custom Artwork vs Studio Typography -->
+                    <label data-i18n="vehicleDesignModeLabel">Design Method</label>
+                    <div class="config-grid-2" style="margin-bottom:14px;">
+                        <button type="button" class="option-btn-card vehicle-design-mode-btn active" id="vehicleModeUploadBtn" data-mode="upload">
+                            <strong data-i18n="vehicleModeUpload">📁 Upload Custom Design</strong>
+                            <span data-i18n="vehicleModeUploadSub">Vector artwork / Wrap mockup</span>
+                        </button>
+                        <button type="button" class="option-btn-card vehicle-design-mode-btn" id="vehicleModeTextBtn" data-mode="text">
+                            <strong data-i18n="vehicleModeText">✍️ Studio Lettering</strong>
+                            <span data-i18n="vehicleModeTextSub">Typography &amp; company info</span>
+                        </button>
                     </div>
-                    <div style="margin-bottom:12px;">
-                        <label for="vehicleFontSelect" data-i18n="vehicleFontLabel">Fleet Lettering Typography</label>
-                        <select id="vehicleFontSelect">
-                            <option value="'Libre Franklin', sans-serif" selected style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Ultra Bold Pro)</option>
-                            <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Corporate)</option>
-                            <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (High-Impact Condensed)</option>
-                            <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Heavy Fleet Sans)</option>
-                            <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Heavy Headline)</option>
-                            <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Modern Clean)</option>
-                            <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Tall Commercial Display)</option>
-                            <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (High-Tech Fleet)</option>
-                            <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Artisan &amp; Craft)</option>
-                            <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Executive)</option>
-                        </select>
+
+                    <!-- SECTION A: UPLOAD CUSTOM WRAP DESIGN / LOGO -->
+                    <div id="vehicleUploadContainer" style="display:block;">
+                        <label for="vehicleDesignFile" data-i18n="vehicleUploadLabel">Custom Wrap Design / Vector File (.AI, .EPS, .PDF, .SVG, .PNG, .JPG)</label>
+                        <div class="vehicle-upload-dropzone" id="vehicleDropzone" style="border:2px dashed #2563eb;border-radius:8px;padding:22px 16px;text-align:center;background:rgba(37,99,235,0.04);cursor:pointer;transition:all 0.2s ease;">
+                            <input type="file" id="vehicleDesignFile" accept=".ai,.eps,.svg,.pdf,.png,.jpg,.jpeg,.psd,.zip" style="display:none;">
+                            <div style="font-size:30px;margin-bottom:6px;">📤</div>
+                            <div style="font-weight:700;font-size:13px;color:var(--customizer-text-primary);" data-i18n="vehicleUploadPrompt">
+                                Click or drag &amp; drop your vehicle wrap design here
+                            </div>
+                            <div style="font-size:11px;color:var(--customizer-text-muted);margin-top:4px;" data-i18n="vehicleUploadFormats">
+                                High-res wrap mockup, livery template or vector logo (Max 50 MB)
+                            </div>
+                        </div>
+
+                        <!-- Uploaded File Status Card -->
+                        <div id="vehicleFileInfoCard" style="display:none;margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:6px;align-items:center;justify-content:space-between;">
+                            <div style="display:flex;align-items:center;gap:10px;overflow:hidden;">
+                                <span id="vehicleFileIcon" style="font-size:24px;">📄</span>
+                                <div style="overflow:hidden;">
+                                    <div id="vehicleFileName" style="font-size:12px;font-weight:700;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;">filename.ai</div>
+                                    <div id="vehicleFileSize" style="font-size:10px;color:#64748b;">Uploaded · Ready for atelier production</div>
+                                </div>
+                            </div>
+                            <button type="button" id="vehicleFileRemoveBtn" style="background:none;border:none;color:#dc2626;font-size:12px;font-weight:700;cursor:pointer;padding:4px 8px;">✕ Remove</button>
+                        </div>
+
+                        <!-- Atelier BAT Assurance -->
+                        <div style="margin-top:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+                            <span style="font-size:18px;">🛡️</span>
+                            <span style="font-size:11px;color:#065f46;font-weight:600;line-height:1.4;" data-i18n="vehicleBatIncluded">
+                                <strong>Free Atelier BAT Guarantee:</strong> Our prepress graphics team will scale your file to your vehicle template and email a digital proof for final approval before printing.
+                            </span>
+                        </div>
                     </div>
-                    <div class="config-grid-2">
-                        <div>
-                            <label for="vehiclePhone" data-i18n="vehiclePhoneLabel">Business Phone</label>
-                            <input type="text" id="vehiclePhone" value="06 98 71 00 50">
+
+                    <!-- SECTION B: ONLINE STUDIO LETTERING -->
+                    <div id="vehicleTextContainer" style="display:none;">
+                        <div style="margin-bottom:10px;">
+                            <label for="vehicleBrandingText" data-i18n="vehicleBrandLabel">Company Name / Brand</label>
+                            <input type="text" id="vehicleBrandingText" value="MY BRAND FLEET">
                         </div>
-                        <div>
-                            <label for="vehicleSiret" data-i18n="vehicleSiretLabel">Legal Reg. (SIRET)</label>
-                            <input type="text" id="vehicleSiret" value="SIRET 848972827">
+                        <div style="margin-bottom:12px;">
+                            <label for="vehicleFontSelect" data-i18n="vehicleFontLabel">Fleet Lettering Typography</label>
+                            <select id="vehicleFontSelect">
+                                <option value="'Libre Franklin', sans-serif" selected style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Ultra Bold Pro)</option>
+                                <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Corporate)</option>
+                                <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (High-Impact Condensed)</option>
+                                <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Heavy Fleet Sans)</option>
+                                <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Heavy Headline)</option>
+                                <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Modern Clean)</option>
+                                <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Tall Commercial Display)</option>
+                                <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (High-Tech Fleet)</option>
+                                <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Artisan &amp; Craft)</option>
+                                <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Executive)</option>
+                            </select>
                         </div>
+                        <div class="config-grid-2">
+                            <div>
+                                <label for="vehiclePhone" data-i18n="vehiclePhoneLabel">Business Phone</label>
+                                <input type="text" id="vehiclePhone" value="06 98 71 00 50">
+                            </div>
+                            <div>
+                                <label for="vehicleSiret" data-i18n="vehicleSiretLabel">Legal Reg. (SIRET)</label>
+                                <input type="text" id="vehicleSiret" value="SIRET 848972827">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workshop notes for vehicle wrap -->
+                    <div style="margin-top:14px;">
+                        <label for="vehicleDesignNotes" data-i18n="vehicleNotesLabel">Special Instructions &amp; Placement Notes</label>
+                        <textarea id="vehicleDesignNotes" rows="2" placeholder="Ex: Place logo on side panels and rear window, specific Pantone / RAL colors, fleet vehicle number..."></textarea>
                     </div>
                 </div>
 
