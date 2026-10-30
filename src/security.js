@@ -264,11 +264,12 @@ export function applySecurityHeaders(res) {
   res.setHeader(
     "Content-Security-Policy",
     "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; " +
-      "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; " +
+      "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://js.stripe.com; " +
+      "frame-src 'self' https://js.stripe.com https://hooks.stripe.com; " +
       "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; " +
       "img-src 'self' data: https: blob:; " +
       "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; " +
-      "connect-src 'self' https:; " +
+      "connect-src 'self' https: https://api.stripe.com; " +
       "frame-ancestors 'self' https://aistudio.google.com https://*.google.com https://*.run.app;"
   );
 
