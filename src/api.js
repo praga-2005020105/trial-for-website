@@ -365,11 +365,46 @@ export async function handleApiRequest(req, res) {
     });
   }
 
-  // 12. Checkout Order Processing with Diagnostics (Supports Payment Failure Simulation)
+  // 12. Checkout Order Processing with Stripe Integration & Diagnostics
   if (pathname === "/api/checkout/process" && method === "POST") {
     return strictFormRateLimiter(req, res, async () => {
       const rawOrder = await parseJsonBody(req);
       const order = sanitizePayload(rawOrder);
+      const { stripeToken, payment, total } = rawOrder;
+
+      // Real Stripe Processing (if STRIPE_SECRET_KEY is defined in environment)
+      const stripeKey = process.env.STRIPE_SECRET_KEY;
+      if (stripeKey && stripeToken && payment === "card") {
+        try {
+          const { default: Stripe } = await import("stripe");
+          const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
+          const amountInCents = Math.round(Number(total || 0) * 100);
+
+          const charge = await stripe.charges.create({
+            amount: amountInCents > 50 ? amountInCents : 100,
+            currency: "eur",
+            source: stripeToken,
+            description: `Commande ${order.orderNumber || "MSE"} — Atelier MY STICKERZ ENSEIGNE`,
+            receipt_email: order.customer?.email
+          });
+
+          if (!charge.paid) {
+            logSecurityEvent("STRIPE_DECLINE", `Card declined for ${order.customer?.email}`, "WARNING");
+            return sendJson(res, 402, {
+              success: false,
+              error: "Payment could not be completed by your bank. Please verify or try another card.",
+              redirectUrl: "payment-failed.html"
+            });
+          }
+        } catch (stripeErr) {
+          logSecurityEvent("STRIPE_ERROR", stripeErr.message, "WARNING");
+          return sendJson(res, 402, {
+            success: false,
+            error: stripeErr.message || "Payment authorization declined.",
+            redirectUrl: "payment-failed.html"
+          });
+        }
+      }
 
       // Check card number or simulator trigger for failure testing
       const rawCard = String(rawOrder.cardNumber || "").replace(/\s+/g, "");
