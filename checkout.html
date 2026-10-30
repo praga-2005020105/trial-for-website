@@ -562,12 +562,8 @@
                 localStorage.removeItem("veloraCart");
 
                 // Save order to Supabase Cloud Database & client backup store
-                try {
-                    if (window.DB && window.DB.saveOrder) {
-                        await window.DB.saveOrder(orderData);
-                    }
-                } catch (dbErr) {
-                    console.warn("[DB] Supabase order save failed, continuing:", dbErr);
+                if (window.DB && window.DB.saveOrder) {
+                    await window.DB.saveOrder(orderData);
                 }
 
                 if (paymentMethod === "whatsapp") {
@@ -602,12 +598,8 @@
                 localStorage.removeItem("veloraCart");
 
                 // Save order to Supabase Cloud Database
-                try {
-                    if (window.DB && window.DB.saveOrder) {
-                        await window.DB.saveOrder(orderData);
-                    }
-                } catch (dbErr) {
-                    console.warn("[DB] Supabase order save failed, continuing:", dbErr);
+                if (window.DB && window.DB.saveOrder) {
+                    await window.DB.saveOrder(orderData);
                 }
 
                 // Send instant order dispatch notification to store owner via Web3Forms
