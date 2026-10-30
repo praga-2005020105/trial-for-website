@@ -79,11 +79,21 @@ const DB = {
     async getOrders() {
         let remoteOrders = [];
         try {
+            // Check if admin is signed into Supabase or local session
+            const adminSessionRaw = localStorage.getItem("mse_admin_session");
+            let adminToken = SUPABASE_KEY;
+            try {
+                if (adminSessionRaw) {
+                    const parsed = JSON.parse(adminSessionRaw);
+                    if (parsed.token) adminToken = parsed.token;
+                }
+            } catch (e) {}
+
             const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?select=*&order=created_at.desc`, {
                 method: "GET",
                 headers: {
                     "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`
+                    "Authorization": `Bearer ${adminToken}`
                 }
             });
 
