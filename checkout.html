@@ -566,6 +566,9 @@
                     await window.DB.saveOrder(orderData);
                 }
 
+                // Send instant order dispatch notification directly to store admin (pragadeeshp63@gmail.com)
+                await sendOrderDispatchNotification(orderData);
+
                 if (paymentMethod === "whatsapp") {
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${result.orderNumber}* :\n`;
                     cart.forEach((it, idx) => {
@@ -602,39 +605,8 @@
                     await window.DB.saveOrder(orderData);
                 }
 
-                // Send instant order dispatch notification to store owner via Web3Forms
-                try {
-                    let orderSummary = `New Order Placed: #${fallbackOrderNumber}\n\n`;
-                    orderSummary += `Customer: ${customer.firstName} ${customer.lastName}\n`;
-                    orderSummary += `Email: ${customer.email}\n`;
-                    orderSummary += `Phone: ${customer.phone}\n`;
-                    orderSummary += `Address: ${customer.address}, ${customer.city} ${customer.postcode}, ${customer.country}\n\n`;
-                    orderSummary += `Payment Method: ${paymentMethod}\n`;
-                    orderSummary += `Subtotal: €${subtotal.toFixed(2)}\n`;
-                    orderSummary += `Shipping: €${shipping.toFixed(2)}\n`;
-                    orderSummary += `Total: €${total.toFixed(2)}\n\n`;
-                    orderSummary += `Items Ordered:\n`;
-                    cart.forEach((it, idx) => {
-                        orderSummary += `${idx + 1}. ${it.name} (Qty: ${it.quantity}) - €${(it.price * it.quantity).toFixed(2)}\n`;
-                        if (it.customText) orderSummary += `   - Custom Text: "${it.customText}"\n`;
-                    });
-
-                    await fetch("https://api.web3forms.com/submit", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                        body: JSON.stringify({
-                            access_key: "3509eeff-f80f-4989-8d2d-fe5f6ddcf417",
-                            from_name: "MY STICKERZ ENSEIGNE Checkout",
-                            subject: `New Store Order #${fallbackOrderNumber} - €${total.toFixed(2)}`,
-                            name: `${customer.firstName} ${customer.lastName}`,
-                            email: customer.email,
-                            phone: customer.phone,
-                            message: orderSummary
-                        })
-                    });
-                } catch (notifyErr) {
-                    // Fail silently so customer checkout flow is never blocked
-                }
+                // Send instant order dispatch notification directly to store admin (pragadeeshp63@gmail.com)
+                await sendOrderDispatchNotification(orderData);
 
                 if (paymentMethod === "whatsapp") {
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${fallbackOrderNumber}* :\n`;
@@ -652,6 +624,59 @@
                 }
             }
         });
+
+        // Instant order dispatch notification helper
+        async function sendOrderDispatchNotification(orderData) {
+            try {
+                const targetAdminEmail = "pragadeeshp63@gmail.com";
+                let orderSummary = `🚨 NOUVELLE COMMANDE REÇUE / NEW ORDER NOTIFICATION: #${orderData.orderNumber}\n`;
+                orderSummary += `==================================================\n`;
+                orderSummary += `Admin Recipient: ${targetAdminEmail}\n\n`;
+                orderSummary += `👤 CLIENT DETAILS:\n`;
+                orderSummary += `Name: ${orderData.customer.firstName} ${orderData.customer.lastName}\n`;
+                if (orderData.customer.company) orderSummary += `Company: ${orderData.customer.company}\n`;
+                orderSummary += `Email: ${orderData.customer.email}\n`;
+                orderSummary += `Phone: ${orderData.customer.phone}\n`;
+                orderSummary += `Shipping Address:\n`;
+                orderSummary += `${orderData.customer.address}, ${orderData.customer.city} ${orderData.customer.postcode}, ${orderData.customer.country}\n\n`;
+                orderSummary += `💳 PAYMENT & TOTALS:\n`;
+                orderSummary += `Payment Method: ${String(orderData.payment).toUpperCase()}\n`;
+                orderSummary += `Subtotal: €${Number(orderData.subtotal).toFixed(2)}\n`;
+                orderSummary += `Shipping: €${Number(orderData.shipping).toFixed(2)}\n`;
+                orderSummary += `TOTAL: €${Number(orderData.total).toFixed(2)}\n\n`;
+                orderSummary += `📦 ORDERED ITEMS:\n`;
+                (orderData.items || []).forEach((it, idx) => {
+                    orderSummary += `${idx + 1}. ${it.name} (Qty: ${it.quantity}) - €${(Number(it.price) * Number(it.quantity)).toFixed(2)}\n`;
+                    if (it.customText) orderSummary += `   - Custom Text: "${it.customText}"\n`;
+                    if (it.fileName) orderSummary += `   - Uploaded Artwork/File: ${it.fileName}\n`;
+                    if (it.designNotes) orderSummary += `   - Workshop Notes: ${it.designNotes}\n`;
+                });
+                orderSummary += `\n==================================================\n`;
+                orderSummary += `Ordered at: ${new Date(orderData.date || Date.now()).toLocaleString("fr-FR")}\n`;
+                orderSummary += `Store: MY STICKERZ ENSEIGNE (mystickerzenseigne.com)\n`;
+
+                await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify({
+                        access_key: "3509eeff-f80f-4989-8d2d-fe5f6ddcf417",
+                        from_name: "MY STICKERZ ENSEIGNE Checkout",
+                        subject: `[NEW ORDER #${orderData.orderNumber}] €${Number(orderData.total).toFixed(2)} - ${orderData.customer.firstName} ${orderData.customer.lastName}`,
+                        name: `${orderData.customer.firstName} ${orderData.customer.lastName}`,
+                        email: orderData.customer.email,
+                        phone: orderData.customer.phone,
+                        replyto: orderData.customer.email,
+                        to: targetAdminEmail,
+                        target_admin_email: targetAdminEmail,
+                        recipient_email: targetAdminEmail,
+                        message: orderSummary
+                    })
+                });
+            } catch (notifyErr) {
+                // Keep checkout flow smooth even if notification network drops
+                console.warn("[Checkout] Order notification dispatch warning:", notifyErr);
+            }
+        }
     });
     </script>
 </body>
