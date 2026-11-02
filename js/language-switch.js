@@ -401,6 +401,17 @@
             wishlistEmptyText: "Save your favorite custom signs and products here.",
             adminPortal: "Admin Portal",
 
+            // Reviews
+            recommendedNotice: "100% Recommended",
+            writeReviewBtn: "Write a Review",
+            writeReviewTitle: "Write a Verified Customer Review",
+            reviewScoreLabel: "YOUR OVERALL RATING:",
+            reviewNameLabel: "Your Name or Business *",
+            reviewEmailLabel: "Your Email (Verification) *",
+            reviewHeadlineLabel: "Review Headline *",
+            reviewCommentLabel: "Your Detailed Feedback *",
+            submitReviewBtn: "Submit Review ✓",
+
             // Footer
             footerTagline: "Custom neon signs, signage, adhesive stickers, and commercial storefront solutions.",
             footerQuickLinks: "Quick Links",
@@ -808,6 +819,17 @@
             wishlistEmptyTitle: "Votre liste de favoris est vide",
             wishlistEmptyText: "Enregistrez vos enseignes et produits favoris pour les retrouver plus tard.",
             adminPortal: "Portail Admin",
+
+            // Reviews
+            recommendedNotice: "100% Recommandé",
+            writeReviewBtn: "Donner mon avis",
+            writeReviewTitle: "Écrire un avis client vérifié",
+            reviewScoreLabel: "VOTRE NOTE GLOBALE :",
+            reviewNameLabel: "Votre Nom ou Entreprise *",
+            reviewEmailLabel: "Votre Email (Vérification) *",
+            reviewHeadlineLabel: "Titre de votre avis *",
+            reviewCommentLabel: "Votre retour d'expérience détaillé *",
+            submitReviewBtn: "Publier mon avis ✓",
 
             // Footer
             footerTagline: "Néons sur-mesure, enseignes, stickers adhésifs et solutions de devanture commerciale.",

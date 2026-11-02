@@ -568,6 +568,8 @@
 
                 // Send instant order dispatch notification directly to store admin (pragadeeshp63@gmail.com)
                 await sendOrderDispatchNotification(orderData);
+                // Send direct customer transactional email receipt (customer.email)
+                await sendCustomerReceiptNotification(orderData);
 
                 if (paymentMethod === "whatsapp") {
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${result.orderNumber}* :\n`;
@@ -607,6 +609,8 @@
 
                 // Send instant order dispatch notification directly to store admin (pragadeeshp63@gmail.com)
                 await sendOrderDispatchNotification(orderData);
+                // Send direct customer transactional email receipt (customer.email)
+                await sendCustomerReceiptNotification(orderData);
 
                 if (paymentMethod === "whatsapp") {
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${fallbackOrderNumber}* :\n`;
@@ -675,6 +679,68 @@
             } catch (notifyErr) {
                 // Keep checkout flow smooth even if notification network drops
                 console.warn("[Checkout] Order notification dispatch warning:", notifyErr);
+            }
+        }
+
+        // Feature 5: Customer Transactional Email Receipt Dispatch
+        async function sendCustomerReceiptNotification(orderData) {
+            try {
+                if (!orderData || !orderData.customer || !orderData.customer.email) return;
+                const cust = orderData.customer;
+
+                let receiptMsg = `Bonjour ${cust.firstName} ${cust.lastName},\n\n`;
+                receiptMsg += `Nous avons le plaisir de vous confirmer la réception de votre commande #${orderData.orderNumber} auprès de l'Atelier MY STICKERZ ENSEIGNE.\n\n`;
+                receiptMsg += `==================================================\n`;
+                receiptMsg += `RÉCAPITULATIF DE VOTRE COMMANDE / ORDER RECEIPT\n`;
+                receiptMsg += `==================================================\n`;
+                receiptMsg += `Référence Commande : #${orderData.orderNumber}\n`;
+                receiptMsg += `Date d'enregistrement : ${new Date(orderData.date || Date.now()).toLocaleString("fr-FR")}\n`;
+                receiptMsg += `Mode de règlement : ${String(orderData.payment).toUpperCase()}\n`;
+                receiptMsg += `Délai de fabrication : 5 à 8 jours ouvrés (fabrication sur-mesure en France 🇫🇷)\n\n`;
+                receiptMsg += `📦 ARTICLES COMMANDÉS :\n`;
+                (orderData.items || []).forEach((it, idx) => {
+                    receiptMsg += `${idx + 1}. ${it.name} (Quantité: ${it.quantity}) — €${(Number(it.price) * Number(it.quantity)).toFixed(2)} HT\n`;
+                    if (it.customText) receiptMsg += `   • Texte personnalisé : "${it.customText}"\n`;
+                    if (it.fileName) receiptMsg += `   • Fichier maquette téléversé : ${it.fileName}\n`;
+                    if (it.designNotes) receiptMsg += `   • Instructions de production : ${it.designNotes}\n`;
+                });
+                receiptMsg += `\nSous-total : €${Number(orderData.subtotal).toFixed(2)}\n`;
+                receiptMsg += `Frais d'expédition & emballage renforcé : €${Number(orderData.shipping).toFixed(2)}\n`;
+                receiptMsg += `TOTAL RÉGLÉ : €${Number(orderData.total).toFixed(2)}\n\n`;
+                receiptMsg += `📍 ADRESSE DE LIVRAISON CONFIRMÉE :\n`;
+                receiptMsg += `${cust.firstName} ${cust.lastName}${cust.company ? " (" + cust.company + ")" : ""}\n`;
+                receiptMsg += `${cust.address}\n`;
+                receiptMsg += `${cust.city} ${cust.postcode}, ${cust.country}\n`;
+                receiptMsg += `Téléphone client : ${cust.phone}\n\n`;
+                receiptMsg += `--------------------------------------------------\n`;
+                receiptMsg += `PROCHAINES ÉTAPES DE VOTRE PROJET :\n`;
+                receiptMsg += `1. Notre bureau d'études prépare votre Bon à Tirer numérique (BAT).\n`;
+                receiptMsg += `2. Dès validation, usinage et assemblage dans notre atelier de Garges-lès-Gonesse.\n`;
+                receiptMsg += `3. Expédition soignée avec numéro de suivi transporteur.\n\n`;
+                receiptMsg += `Besoin d'un renseignement ou d'une modification ?\n`;
+                receiptMsg += `• Téléphone direct atelier : 06 98 71 00 50\n`;
+                receiptMsg += `• Email atelier : mystickerz75@gmail.com\n`;
+                receiptMsg += `• Atelier : 29-31, Boulevard de la Muette, 95140 Garges-lès-Gonesse\n\n`;
+                receiptMsg += `Merci pour votre confiance,\nL'Équipe MY STICKERZ ENSEIGNE`;
+
+                await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify({
+                        access_key: "3509eeff-f80f-4989-8d2d-fe5f6ddcf417",
+                        from_name: "Atelier MY STICKERZ ENSEIGNE",
+                        subject: `Confirmation de votre commande #${orderData.orderNumber} — MY STICKERZ ENSEIGNE`,
+                        name: `${cust.firstName} ${cust.lastName}`,
+                        email: cust.email,
+                        phone: cust.phone,
+                        replyto: "mystickerz75@gmail.com",
+                        to: cust.email,
+                        recipient_email: cust.email,
+                        message: receiptMsg
+                    })
+                });
+            } catch (receiptErr) {
+                console.warn("[Checkout] Customer transactional receipt notice:", receiptErr);
             }
         }
     });

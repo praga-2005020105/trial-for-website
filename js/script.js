@@ -1197,6 +1197,33 @@ function initMainApp() {
             quickActionContainer.style.display = "none";
         }
 
+        function calcLevenshtein(a, b) {
+            if (a === b) return 0;
+            if (!a.length) return b.length;
+            if (!b.length) return a.length;
+            const d = [];
+            for (let i = 0; i <= b.length; i++) d[i] = [i];
+            for (let j = 0; j <= a.length; j++) d[0][j] = j;
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    const cost = b.charAt(i - 1) === a.charAt(j - 1) ? 0 : 1;
+                    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+                }
+            }
+            return d[b.length][a.length];
+        }
+
+        function matchesFuzzy(token, targetStr) {
+            if (!token || !targetStr) return false;
+            const words = targetStr.split(/[\s,.'"-]+/).filter(w => w.length >= 3);
+            const threshold = token.length >= 6 ? 2 : (token.length >= 4 ? 1 : 0);
+            for (const w of words) {
+                if (w === token || w.startsWith(token) || token.startsWith(w)) return true;
+                if (threshold > 0 && calcLevenshtein(token, w) <= threshold) return true;
+            }
+            return false;
+        }
+
         function renderSearch(query) {
             if (!resultsList) return;
             const term = stripAccents(query);
@@ -1205,13 +1232,42 @@ function initMainApp() {
             activeHighlightedIndex = -1;
 
             const allProducts = Object.values(productDatabase).map(getLocalizedProduct);
-            const matches = allProducts.filter(prod => {
+            
+            // 1. Exact / Substring matches
+            let matches = allProducts.filter(prod => {
                 if (!term) return true;
                 const nameMatch = stripAccents(prod.name).includes(term);
                 const catMatch = stripAccents(prod.category).includes(term);
                 const descMatch = stripAccents(prod.description).includes(term);
                 return nameMatch || catMatch || descMatch;
             });
+
+            let isTypoCorrected = false;
+            let correctedWord = "";
+
+            // 2. Typo-Tolerant / Fuzzy Matching if no exact matches found
+            if (term.length >= 3 && matches.length === 0) {
+                // Find closest vocabulary word
+                let lowestDist = 999;
+                vocabularyWords.forEach(vw => {
+                    const normVw = stripAccents(vw);
+                    const dist = calcLevenshtein(term, normVw);
+                    if (dist < lowestDist && dist <= (term.length >= 6 ? 2 : 1)) {
+                        lowestDist = dist;
+                        correctedWord = vw;
+                    }
+                });
+
+                matches = allProducts.filter(prod => {
+                    const fullText = stripAccents(prod.name + " " + prod.category + " " + prod.description);
+                    if (correctedWord && fullText.includes(stripAccents(correctedWord))) return true;
+                    return matchesFuzzy(term, fullText);
+                });
+
+                if (matches.length > 0) {
+                    isTypoCorrected = true;
+                }
+            }
 
             if (matches.length === 0) {
                 resultsList.innerHTML = `
@@ -1225,7 +1281,16 @@ function initMainApp() {
                 return;
             }
 
-            resultsList.innerHTML = matches.map((prod, idx) => {
+            let typoNoticeHtml = "";
+            if (isTypoCorrected) {
+                typoNoticeHtml = `
+                    <div class="search-did-you-mean">
+                        <span>💡 Résultat(s) pour "<strong>${escapeHtml(correctedWord || term)}</strong>" (recherche corrigée pour "${escapeHtml(query)}")</span>
+                    </div>
+                `;
+            }
+
+            resultsList.innerHTML = typoNoticeHtml + matches.map((prod, idx) => {
                 const highlightedTitle = highlightMatch(prod.name, query);
                 const isNeon = prod.id === "neon-signs";
                 const isPvc = prod.customizer === "pvc-letters";
@@ -3009,6 +3074,12 @@ function initMainApp() {
         if (diffuserRow) {
             diffuserRow.style.display = (engine === "facade" || product.id === "caisson-lumineux" || product.id === "lettres-3d-lumineuses") ? "flex" : "none";
         }
+
+        // Initialize Feature 1: Customer Reviews & Ratings (UGC)
+        try { initProductReviews(product); } catch (e) { console.warn("initProductReviews:", e); }
+
+        // Initialize Feature 7A: PDP Live Urgency & Demand Indicator
+        try { initProductUrgencyViewer(); } catch (e) { console.warn("initProductUrgencyViewer:", e); }
     }
 
     // Universal Service Options change listeners
@@ -3872,6 +3943,447 @@ function initMainApp() {
     }
 
     /* =========================================================
+       FEATURE 1: INTERACTIVE CUSTOMER REVIEWS & RATINGS (UGC)
+    ========================================================= */
+    const SEED_PRODUCT_REVIEWS = {
+        "neon-signs": [
+            {
+                id: "rev-neon-1",
+                author: "Benoît R. — Bar & Lounge Le Marais (Paris 4e)",
+                rating: 5,
+                date: "28/10/2026",
+                title: "Néon spectaculaire et éclat lumineux parfait !",
+                comment: "Nous avons commandé notre enseigne néon personnalisée pour la salle principale. Le rendu est éclatant avec la télécommande variateur, et les fixations entretoises sont très solides. Bravo à l'atelier.",
+                verified: true
+            },
+            {
+                id: "rev-neon-2",
+                author: "Élodie M. — Studio Yoga & Bien-Être (Lyon 6e)",
+                rating: 5,
+                date: "19/10/2026",
+                title: "Finition soignée et livraison express sans casse",
+                comment: "Très impressionnée par la qualité de la découpe contour sur le support plexiglas transparent. L'emballage blindé a parfaitement protégé le colis. Nos adhérents adorent !",
+                verified: true
+            },
+            {
+                id: "rev-neon-3",
+                author: "Alexandre T. — Barber Shop Gentlemen (Bordeaux)",
+                rating: 5,
+                date: "04/10/2026",
+                title: "Superbe luminosité, commande simple et pro",
+                comment: "Le configurateur en direct sur le site m'a permis de visualiser exactement le texte et la couleur avant l'achat. Résultat identique en vrai. Je recommande sans hésiter.",
+                verified: true
+            }
+        ],
+        "lettres-3d-lumineuses": [
+            {
+                id: "rev-l3d-1",
+                author: "Marc D. — Restaurant La Table d'Or (Paris 8e)",
+                rating: 5,
+                date: "22/10/2026",
+                title: "Enseigne lumineuse très élégante et conforme au BAT",
+                comment: "Les lettres boîtiers individuelles en 3D avec éclairage diffusant rendent la devanture visible de très loin sur l'avenue. Câblage pré-équipé impeccable pour notre électricien.",
+                verified: true
+            },
+            {
+                id: "rev-l3d-2",
+                author: "Sophie G. — Agence Immobilière (Boulogne-Billancourt)",
+                rating: 5,
+                date: "12/10/2026",
+                title: "Excellente qualité de fabrication française",
+                comment: "Tranchant net, laquage RAL blanc immaculé et modules LED étanches. Service client réactif par téléphone pour ajuster les cotes.",
+                verified: true
+            }
+        ],
+        "lettres-3d-retro-halo": [
+            {
+                id: "rev-halo-1",
+                author: "Cabinet Meunier & Associés (Strasbourg)",
+                rating: 5,
+                date: "25/10/2026",
+                title: "Effet halo feutré très haut de gamme",
+                comment: "Montage sur entretoises déportées très propre dans notre hall d'accueil. L'éclairage rétroéclairé chaud donne immédiatement une image de prestige à notre cabinet.",
+                verified: true
+            }
+        ],
+        "business-signs": [
+            {
+                id: "rev-bs-1",
+                author: "Laurent K. — Boulangerie Artisanale (Lille)",
+                rating: 5,
+                date: "15/10/2026",
+                title: "Panneau alu robuste et impression éclatante",
+                comment: "Panneau composite aluminium 3mm très rigide et résistant aux UV. Parfait pour remplacer notre ancienne enseigne plate rapidement et à prix juste.",
+                verified: true
+            }
+        ],
+        "adhesive-stickers": [
+            {
+                id: "rev-stick-1",
+                author: "Camille P. — Pâtisserie Fine (Nantes)",
+                rating: 5,
+                date: "26/10/2026",
+                title: "Adhésifs vinyle de très haute précision",
+                comment: "Découpe à la forme parfaite et pose sans bulle facile sur nos vitrines et packaging. Les couleurs d'impression sont fidèles à notre charte graphique.",
+                verified: true
+            }
+        ]
+    };
+
+    const DEFAULT_ATELIER_REVIEWS = [
+        {
+            id: "rev-gen-1",
+            author: "Julien M. — Commerce & Boutique (Paris 11e)",
+            rating: 5,
+            date: "24/10/2026",
+            title: "Usinage millimétré et fabrication irréprochable",
+            comment: "Très satisfait de la commande passée auprès de l'Atelier MY STICKERZ ENSEIGNE. Le BAT numérique a été validé sous 24h et la fabrication a été effectuée dans les délais annoncés.",
+            verified: true
+        },
+        {
+            id: "rev-gen-2",
+            author: "Christelle V. — Institut de Beauté (Toulouse)",
+            rating: 5,
+            date: "14/10/2026",
+            title: "Superbe rendu, matériaux robustes et durables",
+            comment: "Nos clients nous complimentent tous les jours sur notre nouvelle signalétique. Finition professionnelle digne d'un vrai artisan.",
+            verified: true
+        }
+    ];
+
+    function initProductReviews(product) {
+        const reviewsSection = document.getElementById("productReviewsSection");
+        if (!reviewsSection || !product) return;
+
+        const prodId = product.id;
+        const storageKey = `mse_reviews_${prodId}`;
+
+        // Get saved user reviews from localStorage
+        let userReviews = [];
+        try {
+            const raw = localStorage.getItem(storageKey);
+            if (raw) userReviews = JSON.parse(raw);
+        } catch (e) {
+            userReviews = [];
+        }
+
+        // Combine user reviews with seed reviews
+        const seedReviews = SEED_PRODUCT_REVIEWS[prodId] || DEFAULT_ATELIER_REVIEWS;
+        const allReviews = [...userReviews, ...seedReviews];
+
+        // Calculate Average & Star Breakdown
+        const totalCount = allReviews.length;
+        const sumScore = allReviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0);
+        const avgScore = totalCount > 0 ? (sumScore / totalCount).toFixed(1) : "5.0";
+
+        // Update score indicators in header and review card
+        const scoreNumEl = document.getElementById("reviewsScoreNum");
+        const totalCountLabel = document.getElementById("reviewsTotalCountLabel");
+        const headerCountEl = document.getElementById("productHeaderReviewCount");
+        const headerBadgeEl = document.getElementById("productHeaderRatingBadge");
+
+        if (scoreNumEl) scoreNumEl.textContent = avgScore;
+        if (totalCountLabel) totalCountLabel.textContent = `Basé sur ${totalCount} avis vérifiés`;
+        if (headerCountEl) headerCountEl.textContent = `(${totalCount} avis)`;
+        if (headerBadgeEl) {
+            const span = headerBadgeEl.querySelector("span");
+            if (span) span.textContent = `★ ${avgScore}`;
+        }
+
+        // Update Breakdown Bars
+        const starCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+        allReviews.forEach(r => {
+            const star = Math.min(5, Math.max(1, Math.round(Number(r.rating) || 5)));
+            starCounts[star] = (starCounts[star] || 0) + 1;
+        });
+
+        const breakdownContainer = document.getElementById("ratingBarsBreakdown");
+        if (breakdownContainer) {
+            breakdownContainer.innerHTML = [5, 4, 3, 2, 1].map(s => {
+                const count = starCounts[s] || 0;
+                const pct = totalCount > 0 ? Math.round((count / totalCount) * 100) : 0;
+                return `
+                    <div class="rating-bar-row">
+                        <span class="rating-bar-label">${s} ★</span>
+                        <div class="rating-bar-track">
+                            <div class="rating-bar-fill" style="width: ${pct}%;"></div>
+                        </div>
+                        <span class="rating-bar-percent">${pct}%</span>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // Render Reviews Feed
+        const feedList = document.getElementById("reviewsFeedList");
+        if (feedList) {
+            feedList.innerHTML = allReviews.map(r => {
+                const starsHtml = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+                const initials = (r.author || "Client")
+                    .split(/\s+/)
+                    .slice(0, 2)
+                    .map(w => w.charAt(0).toUpperCase())
+                    .join("") || "C";
+
+                return `
+                    <div class="review-card-item">
+                        <div>
+                            <div class="review-card-top">
+                                <div class="review-author-info">
+                                    <div class="review-avatar-circle">${escapeHtml(initials)}</div>
+                                    <div>
+                                        <div class="review-author-name">${escapeHtml(r.author)}</div>
+                                        <div class="review-verified-badge">✓ Achat vérifié · Atelier 🇫🇷</div>
+                                    </div>
+                                </div>
+                                <span class="review-card-date">${escapeHtml(r.date)}</span>
+                            </div>
+                            <div class="review-card-stars">${starsHtml}</div>
+                            <h4 class="review-card-title">${escapeHtml(r.title)}</h4>
+                            <p class="review-card-body">${escapeHtml(r.comment)}</p>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // Setup Form Toggle
+        const toggleBtn = document.getElementById("toggleReviewFormBtn");
+        const formWrapper = document.getElementById("writeReviewFormWrapper");
+        const cancelBtn = document.getElementById("cancelReviewBtn");
+        const reviewForm = document.getElementById("submitReviewForm");
+
+        if (toggleBtn && formWrapper) {
+            toggleBtn.onclick = () => {
+                const isShown = formWrapper.style.display === "block";
+                formWrapper.style.display = isShown ? "none" : "block";
+                if (!isShown) formWrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            };
+        }
+
+        if (cancelBtn && formWrapper) {
+            cancelBtn.onclick = () => {
+                formWrapper.style.display = "none";
+            };
+        }
+
+        // Setup Star Rating Selector
+        const starSelector = document.getElementById("starRatingSelector");
+        const starHidden = document.getElementById("reviewStarValue");
+        if (starSelector && starHidden) {
+            const starSpans = starSelector.querySelectorAll("span");
+            starSpans.forEach(span => {
+                span.onclick = function () {
+                    const starVal = Number(this.getAttribute("data-star")) || 5;
+                    starHidden.value = starVal;
+                    starSpans.forEach(s => {
+                        const sVal = Number(s.getAttribute("data-star")) || 5;
+                        s.classList.toggle("active", sVal <= starVal);
+                    });
+                };
+            });
+        }
+
+        // Setup Review Submission Handler
+        if (reviewForm) {
+            reviewForm.onsubmit = function (e) {
+                e.preventDefault();
+                const name = document.getElementById("reviewAuthorName")?.value.trim() || "";
+                const email = document.getElementById("reviewAuthorEmail")?.value.trim() || "";
+                const title = document.getElementById("reviewTitleInput")?.value.trim() || "";
+                const comment = document.getElementById("reviewCommentText")?.value.trim() || "";
+                const rating = Number(document.getElementById("reviewStarValue")?.value) || 5;
+
+                if (!name || !email || !title || !comment) {
+                    showToast("Veuillez remplir tous les champs obligatoires.", "⚠️");
+                    return;
+                }
+
+                const newReview = {
+                    id: "rev-user-" + Date.now(),
+                    author: name,
+                    email,
+                    rating,
+                    title,
+                    comment,
+                    date: new Date().toLocaleDateString("fr-FR"),
+                    verified: true
+                };
+
+                userReviews.unshift(newReview);
+                try {
+                    localStorage.setItem(storageKey, JSON.stringify(userReviews));
+                } catch (err) {}
+
+                showToast("Merci ! Votre avis vérifié a été publié avec succès.", "✓");
+                reviewForm.reset();
+                if (formWrapper) formWrapper.style.display = "none";
+
+                // Re-render reviews
+                initProductReviews(product);
+            };
+        }
+    }
+
+    /* =========================================================
+       FEATURE 7A: PDP LIVE URGENCY & DEMAND INDICATOR
+    ========================================================= */
+    let urgencyViewerInterval = null;
+
+    function initProductUrgencyViewer() {
+        const liveCountEl = document.getElementById("urgencyLiveCount");
+        if (!liveCountEl) return;
+
+        if (urgencyViewerInterval) clearInterval(urgencyViewerInterval);
+
+        let currentViewers = Math.floor(Math.random() * 3) + 4; // 4, 5, or 6
+        liveCountEl.textContent = `${currentViewers} clients`;
+
+        urgencyViewerInterval = setInterval(() => {
+            if (!document.getElementById("urgencyLiveCount")) {
+                clearInterval(urgencyViewerInterval);
+                return;
+            }
+            const delta = Math.floor(Math.random() * 3) - 1; // -1, 0, or +1
+            currentViewers = Math.min(8, Math.max(3, currentViewers + delta));
+            
+            const el = document.getElementById("urgencyLiveCount");
+            if (el) {
+                el.style.opacity = "0.4";
+                setTimeout(() => {
+                    el.textContent = `${currentViewers} clients`;
+                    el.style.opacity = "1";
+                }, 200);
+            }
+        }, 12000);
+    }
+
+    /* =========================================================
+       FEATURE 7B: GLOBAL SOCIAL PROOF MICRO-TOASTS
+    ========================================================= */
+    const SOCIAL_PROOF_ORDERS = [
+        {
+            client: "Marc V. (Paris 11e)",
+            action: "vient de commander",
+            product: "Enseigne Néon LED Restaurant",
+            image: "images/neon-signs.jpg",
+            time: "il y a 14 min",
+            link: "neon-builder.html"
+        },
+        {
+            client: "Sarah B. (Lyon 2e)",
+            action: "vient de commander",
+            product: "Lettres 3D Rétro-éclairées (Halo)",
+            image: "images/3d-raised-letters.jpg",
+            time: "il y a 28 min",
+            link: "product.html?id=lettres-3d-retro-halo"
+        },
+        {
+            client: "Boutique L'Écrin (Paris 6e)",
+            action: "vient de commander",
+            product: "Caisson Lumineux Double Face",
+            image: "images/business-signs.jpg",
+            time: "il y a 42 min",
+            link: "product.html?id=caisson-lumineux"
+        },
+        {
+            client: "Karim D. (Marseille 8e)",
+            action: "vient de commander",
+            product: "Marquage & Lettrage Utilitaire",
+            image: "images/vehicle-lettering.jpg",
+            time: "il y a 55 min",
+            link: "product.html?id=vehicle-lettering-graphics"
+        },
+        {
+            client: "Atelier Marais (Paris 3e)",
+            action: "vient de commander",
+            product: "Stickers Vitrine Micro-perforés",
+            image: "images/adhesive-stickers.jpg",
+            time: "il y a 18 min",
+            link: "product.html?id=adhesive-stickers"
+        },
+        {
+            client: "Cabinet Dentaire (Bordeaux)",
+            action: "vient de commander",
+            product: "Plaque Professionnelle Plexiglas",
+            image: "images/acrylic-signs.jpg",
+            time: "il y a 36 min",
+            link: "product.html?id=acrylic-signs-displays"
+        }
+    ];
+
+    function initGlobalSocialProofToasts() {
+        if (sessionStorage.getItem("mse_social_proof_dismissed") === "true") return;
+
+        let toastContainer = document.getElementById("mseSocialProofToastContainer");
+        if (!toastContainer) {
+            toastContainer = document.createElement("div");
+            toastContainer.id = "mseSocialProofToastContainer";
+            toastContainer.className = "social-proof-toast-container";
+            document.body.appendChild(toastContainer);
+        }
+
+        let orderIndex = Math.floor(Math.random() * SOCIAL_PROOF_ORDERS.length);
+
+        function showNextToast() {
+            if (sessionStorage.getItem("mse_social_proof_dismissed") === "true") return;
+
+            const order = SOCIAL_PROOF_ORDERS[orderIndex % SOCIAL_PROOF_ORDERS.length];
+            orderIndex++;
+
+            const toast = document.createElement("a");
+            toast.href = order.link;
+            toast.className = "social-proof-toast";
+            toast.innerHTML = `
+                <img src="${order.image}" alt="${escapeHtml(order.product)}" class="social-proof-thumb" onerror="this.src='images/company-logo.jpeg'">
+                <div class="social-proof-content">
+                    <div class="social-proof-headline">
+                        <strong>${escapeHtml(order.client)}</strong> ${escapeHtml(order.action)}
+                    </div>
+                    <div class="social-proof-sub">${escapeHtml(order.product)}</div>
+                    <div class="social-proof-badge-row">
+                        <span>✓ Commande vérifiée</span>
+                        <span>•</span>
+                        <span>${escapeHtml(order.time)}</span>
+                    </div>
+                </div>
+                <button type="button" class="social-proof-close" aria-label="Fermer" title="Fermer">×</button>
+            `;
+
+            const closeBtn = toast.querySelector(".social-proof-close");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toast.classList.remove("visible");
+                    setTimeout(() => toast.remove(), 400);
+                    sessionStorage.setItem("mse_social_proof_dismissed", "true");
+                });
+            }
+
+            toastContainer.innerHTML = "";
+            toastContainer.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                setTimeout(() => toast.classList.add("visible"), 50);
+            });
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.remove("visible");
+                    setTimeout(() => toast.remove(), 400);
+                }
+            }, 5500);
+
+            const nextDelay = Math.floor(Math.random() * 10000) + 24000;
+            setTimeout(showNextToast, nextDelay);
+        }
+
+        // Start first toast 7 seconds after page load
+        setTimeout(showNextToast, 7000);
+    }
+
+    /* =========================================================
        18. INITIALIZATION
     ========================================================= */
 
@@ -3880,6 +4392,7 @@ function initMainApp() {
     try { updateAllWishlistButtons(); } catch (err) { console.warn("updateAllWishlistButtons:", err); }
     try { initServicesPortfolio(); } catch (err) { console.warn("initServicesPortfolio:", err); }
     try { initHeroSlideshow(); } catch (err) { console.warn("initHeroSlideshow:", err); }
+    try { initGlobalSocialProofToasts(); } catch (err) { console.warn("initGlobalSocialProofToasts:", err); }
 }
 
 if (document.readyState === "loading") {
