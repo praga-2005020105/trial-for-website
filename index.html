@@ -95,8 +95,20 @@
             <div class="hero-slideshow-container" aria-label="Nos réalisations en atelier" role="region">
                 <div class="hero-slides-wrapper" id="heroSlidesWrapper">
                     
-                    <!-- Slide 1: Annachi Illuminated 3D Letters -->
+                    <!-- Slide 0: Workshop In Action Real Video Showcase -->
                     <div class="hero-slide active" data-slide-index="0">
+                        <video class="hero-slide-video" autoplay muted loop playsinline preload="auto">
+                            <source src="videos/atelier-showcase.mp4" type="video/mp4">
+                        </video>
+                        <div class="hero-slide-overlay">
+                            <span class="hero-slide-badge" style="background:#ff0f39;color:#fff;">▶ ENSEIGNE & ATELIER EN ACTION</span>
+                            <h3>Fabrication &amp; Pose Enseignes Sur Mesure</h3>
+                            <p>Découvrez notre savoir-faire en atelier et sur chantier à Garges-lès-Gonesse (95)</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 1: Annachi Illuminated 3D Letters -->
+                    <div class="hero-slide" data-slide-index="1">
                         <picture>
                             <source srcset="images/services/annachi-facade-night-1.webp" type="image/webp">
                             <img src="images/services/annachi-facade-night-1.jpg" alt="Enseignes Boîtiers LED & Néon Annachi" class="hero-slide-img" width="1200" height="900">
@@ -109,7 +121,7 @@
                     </div>
 
                     <!-- Slide 2: Le Lion Dort & Nobelinterim Facade Cladding -->
-                    <div class="hero-slide" data-slide-index="1">
+                    <div class="hero-slide" data-slide-index="2">
                         <picture>
                             <source srcset="images/services/lion-dort-storefront-front.webp" type="image/webp">
                             <img src="images/services/lion-dort-storefront-front.jpg" alt="Devanture Composite Aluminium Le Lion Dort" class="hero-slide-img" width="1200" height="900" loading="lazy">
@@ -122,7 +134,7 @@
                     </div>
 
                     <!-- Slide 3: Barber Shop Illuminated Sign -->
-                    <div class="hero-slide" data-slide-index="2">
+                    <div class="hero-slide" data-slide-index="3">
                         <picture>
                             <source srcset="images/services/barber-shop-illuminated-sign.webp" type="image/webp">
                             <img src="images/services/barber-shop-illuminated-sign.jpg" alt="Caisson Lumineux Barber Shop" class="hero-slide-img" width="1200" height="900" loading="lazy">
@@ -135,7 +147,7 @@
                     </div>
 
                     <!-- Slide 4: Nubian Beauty Paris Prestige Sign -->
-                    <div class="hero-slide" data-slide-index="3">
+                    <div class="hero-slide" data-slide-index="4">
                         <picture>
                             <source srcset="images/services/nubian-beauty-paris-sign.webp" type="image/webp">
                             <img src="images/services/nubian-beauty-paris-sign.jpg" alt="Enseigne Nubian Beauty Paris" class="hero-slide-img" width="1200" height="900" loading="lazy">
@@ -148,7 +160,7 @@
                     </div>
 
                     <!-- Slide 5: Annachi Full Building Corner Signage -->
-                    <div class="hero-slide" data-slide-index="4">
+                    <div class="hero-slide" data-slide-index="5">
                         <picture>
                             <source srcset="images/services/annachi-corner-building-night.webp" type="image/webp">
                             <img src="images/services/annachi-corner-building-night.jpg" alt="Double Enseigne d'Angle Bâtiment Commercial" class="hero-slide-img" width="1200" height="900" loading="lazy">
@@ -161,7 +173,7 @@
                     </div>
 
                     <!-- Slide 6: Workshop CNC Milling Machine -->
-                    <div class="hero-slide" data-slide-index="5">
+                    <div class="hero-slide" data-slide-index="6">
                         <picture>
                             <source srcset="images/services/cnc-machining-cosmetique-afro.webp" type="image/webp">
                             <img src="images/services/cnc-machining-cosmetique-afro.jpg" alt="Fraisage Numérique CNC en Atelier" class="hero-slide-img" width="1200" height="900" loading="lazy">
@@ -181,12 +193,13 @@
 
                 <!-- Dots / Indicators -->
                 <div class="hero-slide-dots" id="heroSlideDots">
-                    <button type="button" class="hero-dot active" data-dot="0" aria-label="Slide 1" onclick="window.heroSlideGoTo(0); return false;"></button>
+                    <button type="button" class="hero-dot active" data-dot="0" aria-label="Slide 1 (Video)" onclick="window.heroSlideGoTo(0); return false;"></button>
                     <button type="button" class="hero-dot" data-dot="1" aria-label="Slide 2" onclick="window.heroSlideGoTo(1); return false;"></button>
                     <button type="button" class="hero-dot" data-dot="2" aria-label="Slide 3" onclick="window.heroSlideGoTo(2); return false;"></button>
                     <button type="button" class="hero-dot" data-dot="3" aria-label="Slide 4" onclick="window.heroSlideGoTo(3); return false;"></button>
                     <button type="button" class="hero-dot" data-dot="4" aria-label="Slide 5" onclick="window.heroSlideGoTo(4); return false;"></button>
                     <button type="button" class="hero-dot" data-dot="5" aria-label="Slide 6" onclick="window.heroSlideGoTo(5); return false;"></button>
+                    <button type="button" class="hero-dot" data-dot="6" aria-label="Slide 7" onclick="window.heroSlideGoTo(6); return false;"></button>
                 </div>
             </div>
         </div>
@@ -265,6 +278,28 @@
                         </div>
                     </div>
                 </a>
+            </div>
+
+            <!-- ATELIER IN ACTION SHOWCASE VIDEO -->
+            <div style="margin: 30px 0 40px; background: #0c0d10; border-radius: 12px; overflow: hidden; border: 1px solid #222; box-shadow: 0 14px 34px rgba(0,0,0,0.18);">
+                <div style="padding: 18px 24px; border-bottom: 1px solid #1a1c23; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #ff0f39; box-shadow: 0 0 10px #ff0f39;"></span>
+                        <strong style="color: #fff; font-size: 14px; letter-spacing: 0.5px;">ATELIER EN ACTION · SAVOIR-FAIRE &amp; POSE</strong>
+                    </div>
+                    <span style="font-size: 12px; color: #999;">Garges-lès-Gonesse &amp; Île-de-France 🇫🇷</span>
+                </div>
+                <div style="position: relative; max-height: 520px; background: #000; display: flex; justify-content: center; align-items: center;">
+                    <video 
+                        controls 
+                        playsinline 
+                        preload="metadata"
+                        poster="images/services/annachi-facade-night-1.jpg"
+                        style="width: 100%; max-height: 520px; object-fit: contain; background: #000; display: block;">
+                        <source src="videos/atelier-showcase.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture vidéo.
+                    </video>
+                </div>
             </div>
 
             <!-- REAL CLIENT WORK & WORKSHOP REALIZATIONS -->
