@@ -319,6 +319,106 @@
             return { subtotal, shipping, tva, total };
         }
 
+        // Universal specification formatter for custom signage, neon, vinyl & relief products
+        function getItemSpecificationLines(it, isHtml = false) {
+            const lines = [];
+
+            // 1. Custom Text / Inscription
+            if (it.customText) {
+                lines.push({ label: "Texte / Text", value: `"${it.customText}"` });
+            }
+
+            // 2. Font / Typography
+            const fontVal = it.font || (it.options && it.options.font);
+            if (fontVal) {
+                lines.push({ label: "Police / Font", value: fontVal });
+            }
+
+            // 3. Dimensions / Size
+            const sizeVal = it.dimensions || it.estimatedDimensions || it.size || (it.options && (it.options.dimensions || (it.options.widthCm && it.options.heightCm ? `${it.options.widthCm} × ${it.options.heightCm} cm` : it.options.sizeTier)));
+            if (sizeVal) {
+                lines.push({ label: "Dimensions / Size", value: sizeVal });
+            }
+
+            // 4. Color / Illumination Glow
+            const colorVal = it.color || it.colorName || (it.options && (it.options.colorName || it.options.colorHex));
+            if (colorVal) {
+                lines.push({ label: "Couleur / Color", value: colorVal });
+            }
+
+            // 5. Thickness / Relief Depth
+            const thicknessVal = it.thickness || (it.options && it.options.thickness);
+            if (thicknessVal) {
+                lines.push({ label: "Épaisseur / Relief", value: thicknessVal });
+            }
+
+            // 6. Material / Substrate
+            const materialVal = it.material || (it.options && it.options.substrate);
+            if (materialVal) {
+                lines.push({ label: "Matériau / Material", value: materialVal });
+            }
+
+            // 7. Acrylic Backing & Cut Style
+            const cutVal = it.acrylicCut || (it.options && it.options.cutStyle) || (it.options && it.options.cut);
+            if (cutVal) {
+                lines.push({ label: "Découpe support / Cut", value: cutVal });
+            }
+            const backingColor = it.acrylicColor || (it.options && it.options.finishStyle) || (it.options && it.options.sheen);
+            if (backingColor) {
+                lines.push({ label: "Finition support / Backing", value: backingColor });
+            }
+
+            // 8. Environment (Indoor/Outdoor)
+            const envVal = it.environment || (it.options && (it.options.waterproof === "outdoor" ? "Outdoor (IP67 Étanche)" : (it.options.waterproof === "indoor" ? "Indoor (IP20)" : it.options.waterproof)));
+            if (envVal) {
+                lines.push({ label: "Usage / Environment", value: envVal });
+            }
+
+            // 9. Dimmer & Controller
+            const dimmerVal = it.dimmer || (it.options && it.options.dimmer);
+            if (dimmerVal) {
+                lines.push({ label: "Variateur / Dimmer", value: dimmerVal });
+            }
+
+            // 10. Mounting Hardware
+            const mountVal = it.mounting || (it.options && (it.options.mounting || it.options.fixing));
+            if (mountVal) {
+                lines.push({ label: "Fixation / Mounting", value: mountVal });
+            }
+
+            // 11. Lighting & Finish
+            const finishVal = it.finish || (it.options && it.options.lighting);
+            if (finishVal) {
+                lines.push({ label: "Finition & Éclairage", value: finishVal });
+            }
+
+            // 12. Vehicle make / model / coverage
+            if (it.options && it.options.makeModel) {
+                lines.push({ label: "Véhicule / Modèle", value: it.options.makeModel });
+            }
+            if (it.options && it.options.coverage) {
+                lines.push({ label: "Couverture / Coverage", value: it.options.coverage });
+            }
+
+            // 13. File Upload / Artwork
+            const fileVal = it.fileName || (it.options && it.options.fileName);
+            if (fileVal) {
+                lines.push({ label: "Fichier maquette / Artwork", value: `📁 ${fileVal}` });
+            }
+
+            // 14. Design Notes / Workshop Instructions
+            const notesVal = it.designNotes || (it.options && it.options.designNotes);
+            if (notesVal) {
+                lines.push({ label: "Instructions atelier / Notes", value: notesVal });
+            }
+
+            if (isHtml) {
+                return lines.map(l => `<span style="display:inline-block;margin-right:8px;margin-bottom:3px;background:#f3f4f6;padding:2px 7px;border-radius:4px;font-size:11px;color:#374151;"><strong>${escapeHtml(l.label)}:</strong> ${escapeHtml(l.value)}</span>`).join("");
+            } else {
+                return lines.map(l => `   • ${l.label}: ${l.value}`).join("\n");
+            }
+        }
+
         function renderCheckoutItems() {
             const cart = getCart();
             if (!cart.length) {
@@ -334,21 +434,15 @@
 
             itemsContainer.innerHTML = cart.map(item => {
                 const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 1);
-                let details = [];
-                if (item.fileName) details.push(`Fichier: 📁 ${item.fileName}`);
-                if (item.customText) details.push(`Détails: "${item.customText}"`);
-                if (item.designNotes) details.push(`Instructions: "${item.designNotes}"`);
-                if (item.dimensions || item.size) details.push(`Size: ${item.dimensions || item.size}`);
-                if (item.thickness) details.push(`Relief: ${item.thickness}`);
-                if (item.finish) details.push(`Finish: ${item.finish}`);
+                const specsHtml = getItemSpecificationLines(item, true);
 
                 return `
                     <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eee;font-size:13px;">
-                        <div>
-                            <strong>${item.name}</strong> × ${item.quantity}
-                            ${details.length ? `<br><span style='color:#777;font-size:11px;'>${details.join(" · ")}</span>` : ""}
+                        <div style="flex:1;padding-right:15px;">
+                            <strong>${escapeHtml(item.name)}</strong> × ${item.quantity}
+                            ${specsHtml ? `<div style='margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;'>${specsHtml}</div>` : ""}
                         </div>
-                        <strong>${itemTotal.toFixed(2)} € HT</strong>
+                        <strong style="white-space:nowrap;">${itemTotal.toFixed(2)} € HT</strong>
                     </div>
                 `;
             }).join("");
@@ -684,7 +778,8 @@
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${result.orderNumber}* :\n`;
                     cart.forEach((it, idx) => {
                         msg += `\n${idx + 1}. *${it.name}* (x${it.quantity}) - €${(it.price * it.quantity).toFixed(2)}`;
-                        if (it.customText) msg += `\n   - Texte: "${it.customText}"`;
+                        const specs = getItemSpecificationLines(it, false);
+                        if (specs) msg += `\n${specs}`;
                     });
                     msg += `\n\n*Total:* €${total.toFixed(2)}`;
                     msg += `\n*Client:* ${customer.firstName} ${customer.lastName} (${customer.phone})`;
@@ -725,7 +820,8 @@
                     let msg = `Bonjour MY STICKERZ ENSEIGNE,\n\nJe confirme ma commande *#${fallbackOrderNumber}* :\n`;
                     cart.forEach((it, idx) => {
                         msg += `\n${idx + 1}. *${it.name}* (x${it.quantity}) - ${(it.price * it.quantity).toFixed(2)} € HT`;
-                        if (it.customText) msg += `\n   - Texte: "${it.customText}"`;
+                        const specs = getItemSpecificationLines(it, false);
+                        if (specs) msg += `\n${specs}`;
                     });
                     msg += `\n\n*Total TTC:* ${total.toFixed(2)} €`;
                     msg += `\n*Client:* ${customer.firstName} ${customer.lastName} (${customer.phone})`;
@@ -757,12 +853,11 @@
                 orderSummary += `Subtotal: €${Number(orderData.subtotal).toFixed(2)}\n`;
                 orderSummary += `Shipping: €${Number(orderData.shipping).toFixed(2)}\n`;
                 orderSummary += `TOTAL: €${Number(orderData.total).toFixed(2)}\n\n`;
-                orderSummary += `📦 ORDERED ITEMS:\n`;
+                orderSummary += `📦 ARTICLES COMMANDÉS / ORDERED ITEMS & COMPLETE SPECIFICATIONS:\n`;
                 (orderData.items || []).forEach((it, idx) => {
-                    orderSummary += `${idx + 1}. ${it.name} (Qty: ${it.quantity}) - €${(Number(it.price) * Number(it.quantity)).toFixed(2)}\n`;
-                    if (it.customText) orderSummary += `   - Custom Text: "${it.customText}"\n`;
-                    if (it.fileName) orderSummary += `   - Uploaded Artwork/File: ${it.fileName}\n`;
-                    if (it.designNotes) orderSummary += `   - Workshop Notes: ${it.designNotes}\n`;
+                    orderSummary += `\n${idx + 1}. ${it.name} (Qté: ${it.quantity}) — €${(Number(it.price) * Number(it.quantity)).toFixed(2)} HT\n`;
+                    const specs = getItemSpecificationLines(it, false);
+                    if (specs) orderSummary += specs + "\n";
                 });
                 orderSummary += `\n==================================================\n`;
                 orderSummary += `Ordered at: ${new Date(orderData.date || Date.now()).toLocaleString("fr-FR")}\n`;
@@ -806,12 +901,11 @@
                 receiptMsg += `Date d'enregistrement : ${new Date(orderData.date || Date.now()).toLocaleString("fr-FR")}\n`;
                 receiptMsg += `Mode de règlement : ${String(orderData.payment).toUpperCase()}\n`;
                 receiptMsg += `Délai de fabrication : 5 à 8 jours ouvrés (fabrication sur-mesure en France 🇫🇷)\n\n`;
-                receiptMsg += `📦 ARTICLES COMMANDÉS :\n`;
+                receiptMsg += `📦 ARTICLES COMMANDÉS & SPÉCIFICATIONS ATELIER :\n`;
                 (orderData.items || []).forEach((it, idx) => {
-                    receiptMsg += `${idx + 1}. ${it.name} (Quantité: ${it.quantity}) — €${(Number(it.price) * Number(it.quantity)).toFixed(2)} HT\n`;
-                    if (it.customText) receiptMsg += `   • Texte personnalisé : "${it.customText}"\n`;
-                    if (it.fileName) receiptMsg += `   • Fichier maquette téléversé : ${it.fileName}\n`;
-                    if (it.designNotes) receiptMsg += `   • Instructions de production : ${it.designNotes}\n`;
+                    receiptMsg += `\n${idx + 1}. ${it.name} (Quantité: ${it.quantity}) — €${(Number(it.price) * Number(it.quantity)).toFixed(2)} HT\n`;
+                    const specs = getItemSpecificationLines(it, false);
+                    if (specs) receiptMsg += specs + "\n";
                 });
                 receiptMsg += `\nSous-total : €${Number(orderData.subtotal).toFixed(2)}\n`;
                 receiptMsg += `Frais d'expédition & emballage renforcé : €${Number(orderData.shipping).toFixed(2)}\n`;

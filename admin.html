@@ -466,6 +466,38 @@
         }
 
         // Load Orders from Supabase Cloud Database
+        function getItemSpecsHtml(i) {
+            const specs = [];
+            if (i.customText) specs.push(`<strong>Texte:</strong> "${escapeHtml(i.customText)}"`);
+            const fontVal = i.font || (i.options && i.options.font);
+            if (fontVal) specs.push(`<strong>Police / Font:</strong> ${escapeHtml(fontVal)}`);
+            const sizeVal = i.dimensions || i.estimatedDimensions || i.size || (i.options && (i.options.dimensions || (i.options.widthCm && i.options.heightCm ? `${i.options.widthCm} × ${i.options.heightCm} cm` : i.options.sizeTier)));
+            if (sizeVal) specs.push(`<strong>Dimensions:</strong> ${escapeHtml(sizeVal)}`);
+            const colorVal = i.color || i.colorName || (i.options && (i.options.colorName || i.options.colorHex));
+            if (colorVal) specs.push(`<strong>Couleur:</strong> ${escapeHtml(colorVal)}`);
+            const thickVal = i.thickness || (i.options && i.options.thickness);
+            if (thickVal) specs.push(`<strong>Relief:</strong> ${escapeHtml(thickVal)}`);
+            const matVal = i.material || (i.options && i.options.substrate);
+            if (matVal) specs.push(`<strong>Matériau:</strong> ${escapeHtml(matVal)}`);
+            const cutVal = i.acrylicCut || (i.options && i.options.cutStyle) || (i.options && i.options.cut);
+            if (cutVal) specs.push(`<strong>Découpe:</strong> ${escapeHtml(cutVal)}`);
+            const finishVal = i.finish || (i.options && i.options.lighting);
+            if (finishVal) specs.push(`<strong>Finition / Éclairage:</strong> ${escapeHtml(finishVal)}`);
+            const dimmerVal = i.dimmer || (i.options && i.options.dimmer);
+            if (dimmerVal) specs.push(`<strong>Variateur:</strong> ${escapeHtml(dimmerVal)}`);
+            const mountVal = i.mounting || (i.options && (i.options.mounting || i.options.fixing));
+            if (mountVal) specs.push(`<strong>Fixation:</strong> ${escapeHtml(mountVal)}`);
+            const fileVal = i.fileName || (i.options && i.options.fileName);
+            if (fileVal) specs.push(`<span style="color:#2563eb;font-weight:700;">📁 Fichier: ${escapeHtml(fileVal)}</span>`);
+            const notesVal = i.designNotes || (i.options && i.options.designNotes);
+            if (notesVal) specs.push(`<strong>Instructions:</strong> ${escapeHtml(notesVal)}`);
+
+            if (!specs.length) return "";
+            return `<div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:4px;">` + 
+                   specs.map(s => `<span style="background:#f3f4f6;padding:2px 7px;border-radius:4px;font-size:11px;color:#374151;">${s}</span>`).join("") + 
+                   `</div>`;
+        }
+
         async function loadOrders() {
             const token = getStoredToken();
             try {
@@ -493,7 +525,15 @@
                 if (orders && orders.length > 0) {
                     ordersBody.innerHTML = orders.map(ord => {
                         const cust = ord.customer || {};
-                        const itemsSummary = (ord.items || []).map(i => `<strong>${escapeHtml(i.name)}</strong> × ${Number(i.quantity) || 1} ${i.customText ? `("${escapeHtml(i.customText)}")` : ""}`).join("<br>");
+                        const itemsSummary = (ord.items || []).map(i => {
+                            const specs = getItemSpecsHtml(i);
+                            return `
+                                <div style="margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed #e5e7eb;">
+                                    <strong>${escapeHtml(i.name)}</strong> × ${Number(i.quantity) || 1}
+                                    ${specs}
+                                </div>
+                            `;
+                        }).join("");
                         const orderNum = escapeHtml(ord.order_number || ord.orderNumber || "ORD-UNKNOWN");
                         const orderDate = ord.created_at || ord.date || new Date().toISOString();
                         const orderStatus = escapeHtml(ord.status || "Pending BAT");
@@ -506,7 +546,7 @@
                             <tr>
                                 <td><strong>${orderNum}</strong><br><span style="font-size:11px;color:#888;">${new Date(orderDate).toLocaleDateString()}</span></td>
                                 <td>${custName || "Valued Client"}<br><span style="font-size:11px;color:#777;">${custEmail} · ${custCity}</span></td>
-                                <td>${itemsSummary || "Custom Signage"}</td>
+                                <td style="max-width:400px;">${itemsSummary || "Custom Signage"}</td>
                                 <td><strong>€${orderTotal}</strong></td>
                                 <td>
                                     <span style="display:inline-block;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700;background:#edf2f7;color:#2d3748;">

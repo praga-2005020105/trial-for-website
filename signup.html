@@ -1501,6 +1501,44 @@
                 .replace(/'/g, "&#039;");
         }
 
+        function getItemSpecsHtml(i) {
+            const specs = [];
+            if (i.customText) specs.push(`<strong>Texte:</strong> "${escapeHtml(i.customText)}"`);
+            const fontVal = i.font || (i.options && i.options.font);
+            if (fontVal) specs.push(`<strong>Police:</strong> ${escapeHtml(fontVal)}`);
+            const sizeVal = i.dimensions || i.estimatedDimensions || i.size || (i.options && (i.options.dimensions || (i.options.widthCm && i.options.heightCm ? `${i.options.widthCm} × ${i.options.heightCm} cm` : i.options.sizeTier)));
+            if (sizeVal) specs.push(`<strong>Dimensions:</strong> ${escapeHtml(sizeVal)}`);
+            const colorVal = i.color || i.colorName || (i.options && (i.options.colorName || i.options.colorHex));
+            if (colorVal) specs.push(`<strong>Couleur:</strong> ${escapeHtml(colorVal)}`);
+            const thickVal = i.thickness || (i.options && i.options.thickness);
+            if (thickVal) specs.push(`<strong>Relief:</strong> ${escapeHtml(thickVal)}`);
+            const matVal = i.material || (i.options && i.options.substrate);
+            if (matVal) specs.push(`<strong>Matériau:</strong> ${escapeHtml(matVal)}`);
+            const cutVal = i.acrylicCut || (i.options && i.options.cutStyle) || (i.options && i.options.cut);
+            if (cutVal) specs.push(`<strong>Découpe:</strong> ${escapeHtml(cutVal)}`);
+            const backVal = i.acrylicColor || (i.options && i.options.finishStyle);
+            if (backVal) specs.push(`<strong>Finition support:</strong> ${escapeHtml(backVal)}`);
+            const envVal = i.environment || (i.options && (i.options.waterproof ? 'Extérieur (Étanche IP67)' : 'Intérieur'));
+            if (envVal) specs.push(`<strong>Usage:</strong> ${escapeHtml(envVal)}`);
+            const dimmerVal = i.dimmer || (i.options && i.options.dimmer);
+            if (dimmerVal) specs.push(`<strong>Variateur:</strong> ${escapeHtml(dimmerVal)}`);
+            const mountVal = i.mounting || (i.options && (i.options.mounting || i.options.fixing));
+            if (mountVal) specs.push(`<strong>Fixation:</strong> ${escapeHtml(mountVal)}`);
+            const finishVal = i.finish || (i.options && i.options.lighting);
+            if (finishVal) specs.push(`<strong>Finition / Éclairage:</strong> ${escapeHtml(finishVal)}`);
+            const vehVal = i.options && (i.options.makeModel ? `${i.options.makeModel} (${i.options.coverage || ''})` : null);
+            if (vehVal) specs.push(`<strong>Véhicule:</strong> ${escapeHtml(vehVal)}`);
+            const fileVal = i.fileName || (i.options && i.options.fileName);
+            if (fileVal) specs.push(`<span style="color:#2563eb;font-weight:700;">📁 Fichier: ${escapeHtml(fileVal)}</span>`);
+            const notesVal = i.designNotes || (i.options && i.options.designNotes);
+            if (notesVal) specs.push(`<strong>Instructions:</strong> ${escapeHtml(notesVal)}`);
+
+            if (!specs.length) return "";
+            return `<div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:4px;">` + 
+                   specs.map(s => `<span style="background:#f3f4f6;padding:2px 7px;border-radius:4px;font-size:11px;color:#374151;border:1px solid #e5e7eb;">${s}</span>`).join("") + 
+                   `</div>`;
+        }
+
         async function renderDashboard(customer) {
             // Check for post-signup redirect (e.g. returning to checkout.html)
             const redirectUrl = new URLSearchParams(window.location.search).get("redirect");
@@ -1526,10 +1564,14 @@
                     if (orders && orders.length > 0) {
                         customerOrdersBody.innerHTML = orders.map(ord => {
                             const items = (ord.items || []).map(i => {
-                                let desc = `<strong>${escapeHtml(i.name)}</strong> × ${Number(i.quantity) || 1}`;
-                                if (i.customText) desc += `<br><span style="font-size:11px;color:#2563eb;">Text: "${escapeHtml(i.customText)}"</span>`;
-                                return desc;
-                            }).join("<div style='height:4px;'></div>");
+                                const specsHtml = getItemSpecsHtml(i);
+                                return `
+                                    <div style="margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed #e5e7eb;">
+                                        <strong>${escapeHtml(i.name)}</strong> × ${Number(i.quantity) || 1}
+                                        ${specsHtml}
+                                    </div>
+                                `;
+                            }).join("");
 
                             const status = escapeHtml(ord.status || "Pending BAT");
                             const cleanOrderNum = escapeHtml(ord.order_number || "");
