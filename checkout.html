@@ -88,6 +88,9 @@
             <div class="checkout-layout">
                 <!-- CUSTOMER DETAILS -->
                 <div class="checkout-details">
+                    <!-- AUTHENTICATION STATUS & MANDATORY SIGN-IN BANNER -->
+                    <div id="checkoutAuthBanner"></div>
+
                     <section class="checkout-section">
                         <h2>Contact Information</h2>
                         <div class="form-group">
@@ -358,23 +361,113 @@
 
         renderCheckoutItems();
 
-        // Auto-fill customer details if logged into account
-        if (window.DB && window.DB.getCurrentCustomer) {
-            const loggedCust = window.DB.getCurrentCustomer();
-            if (loggedCust) {
-                if (loggedCust.name && document.getElementById("firstName")) {
-                    const parts = loggedCust.name.split(" ");
-                    document.getElementById("firstName").value = parts[0] || "";
-                    if (parts.length > 1 && document.getElementById("lastName")) {
-                        document.getElementById("lastName").value = parts.slice(1).join(" ");
-                    }
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // ----------------------------------------------------
+        // CUSTOMER AUTHENTICATION CHECK & PROFILE AUTO-FILL
+        // ----------------------------------------------------
+        function getActiveCustomer() {
+            if (window.DB && typeof window.DB.getCurrentCustomer === "function") {
+                const c = window.DB.getCurrentCustomer();
+                if (c && c.email) return c;
+            }
+            try {
+                const raw = localStorage.getItem("mse_customer_session");
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && parsed.email) return parsed;
+                    if (parsed && parsed.user && parsed.user.email) return parsed.user;
                 }
-                if (loggedCust.email && document.getElementById("email")) {
-                    document.getElementById("email").value = loggedCust.email;
+            } catch (e) {}
+            return null;
+        }
+
+        const activeCustomer = getActiveCustomer();
+        const authBanner = document.getElementById("checkoutAuthBanner");
+        const isFrench = (window.getCurrentLanguage && window.getCurrentLanguage() === "fr") || document.documentElement.lang === "fr";
+
+        if (activeCustomer) {
+            // Customer is signed in
+            if (authBanner) {
+                const custName = activeCustomer.name || activeCustomer.fullName || (activeCustomer.email ? activeCustomer.email.split("@")[0] : "Client");
+                authBanner.innerHTML = `
+                    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,0.02);">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <span style="font-size:22px;color:#16a34a;line-height:1;">✓</span>
+                            <div>
+                                <span style="font-size:13px;color:#166534;font-weight:700;">
+                                    ${isFrench ? "Connecté en tant que" : "Signed in as"} ${escapeHtml(custName)}
+                                </span>
+                                <div style="font-size:12px;color:#15803d;margin-top:2px;">
+                                    ✉️ ${escapeHtml(activeCustomer.email)} · ${isFrench ? "Votre commande sera automatiquement liée à votre espace client" : "Order will be linked to your account"}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="login.html?redirect=checkout.html" style="font-size:12px;color:#15803d;font-weight:700;text-decoration:underline;">
+                            ${isFrench ? "Changer de compte" : "Switch Account"}
+                        </a>
+                    </div>
+                `;
+            }
+
+            // Auto-fill customer details
+            if (activeCustomer.name && document.getElementById("firstName")) {
+                const parts = activeCustomer.name.trim().split(" ");
+                document.getElementById("firstName").value = parts[0] || "";
+                if (parts.length > 1 && document.getElementById("lastName")) {
+                    document.getElementById("lastName").value = parts.slice(1).join(" ");
                 }
-                if (loggedCust.phone && document.getElementById("phone")) {
-                    document.getElementById("phone").value = loggedCust.phone;
-                }
+            }
+            if (activeCustomer.email && document.getElementById("email")) {
+                document.getElementById("email").value = activeCustomer.email;
+                document.getElementById("email").readOnly = true;
+                document.getElementById("email").style.background = "#f9fafb";
+                document.getElementById("email").title = isFrench ? "Lié à votre compte connecté" : "Linked to your signed-in account";
+            }
+            if (activeCustomer.phone && document.getElementById("phone")) {
+                document.getElementById("phone").value = activeCustomer.phone;
+            }
+        } else {
+            // Customer is NOT signed in -> Mandatory Sign-in Gate Banner
+            if (authBanner) {
+                authBanner.innerHTML = `
+                    <div style="background:#fffbeb;border:2px solid #f59e0b;border-radius:10px;padding:20px 22px;margin-bottom:26px;box-shadow:0 4px 18px rgba(245, 158, 11, 0.1);">
+                        <div style="display:flex;align-items:flex-start;gap:14px;">
+                            <span style="font-size:30px;line-height:1;">🔐</span>
+                            <div style="flex:1;">
+                                <h3 style="font-size:16px;font-weight:700;color:#92400e;margin:0 0 6px;">
+                                    ${isFrench ? "Connexion requise pour passer commande" : "Sign In Required to Place an Order"}
+                                </h3>
+                                <p style="font-size:13px;color:#78350f;margin:0 0 16px;line-height:1.5;">
+                                    ${isFrench 
+                                        ? "Pour valider votre commande et assurer le suivi de production de votre Bon à Tirer (BAT) en atelier, vous devez être connecté à votre compte client." 
+                                        : "To place your custom signage order and track workshop fabrication and digital proofs (BAT), you must sign in or create an account."}
+                                </p>
+                                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                                    <a href="login.html?redirect=checkout.html" class="btn btn-dark" style="padding:10px 22px;font-size:13px;font-weight:700;text-decoration:none;">
+                                        ${isFrench ? "Se connecter →" : "Sign In →"}
+                                    </a>
+                                    <a href="signup.html?redirect=checkout.html" class="btn" style="border:1px solid #d97706;color:#92400e;background:#ffffff;padding:10px 20px;font-size:13px;font-weight:700;text-decoration:none;">
+                                        ${isFrench ? "Créer un compte client" : "Create Customer Account"}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (placeOrderBtn) {
+                placeOrderBtn.textContent = isFrench ? "🔐 Se connecter pour commander" : "🔐 Sign In to Place Order";
+                placeOrderBtn.style.background = "#d97706";
             }
         }
 
@@ -445,6 +538,22 @@
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
             errorMsg.style.display = "none";
+
+            // 1. Mandatory Customer Sign-in Verification Gate
+            const activeCustomer = getActiveCustomer();
+            if (!activeCustomer) {
+                const isFr = (window.getCurrentLanguage && window.getCurrentLanguage() === "fr") || document.documentElement.lang === "fr";
+                errorMsg.innerHTML = isFr 
+                    ? `⚠️ <strong>Connexion obligatoire :</strong> Vous devez être connecté pour finaliser votre commande. Redirection en cours vers la page de connexion...`
+                    : `⚠️ <strong>Sign In Required:</strong> You must be signed in to complete your order. Redirecting to login...`;
+                errorMsg.style.display = "block";
+                errorMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+                setTimeout(() => {
+                    window.location.href = "login.html?redirect=checkout.html";
+                }, 800);
+                return;
+            }
+
             const cart = getCart();
 
             if (!cart.length) {

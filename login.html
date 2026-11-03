@@ -1476,6 +1476,10 @@
             } else {
                 authSection.style.display = "grid";
                 accountDashboardSection.style.display = "none";
+                const redirectParam = new URLSearchParams(window.location.search).get("redirect");
+                if (redirectParam && redirectParam.includes("checkout")) {
+                    showAlert("Veuillez vous connecter ou créer un compte pour finaliser votre commande. / Please sign in or create an account to place your order.", false);
+                }
             }
         }
 
@@ -1490,6 +1494,13 @@
         }
 
         async function renderDashboard(customer) {
+            // Check for post-login redirect (e.g. returning to checkout.html)
+            const redirectUrl = new URLSearchParams(window.location.search).get("redirect");
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+                return;
+            }
+
             authSection.style.display = "none";
             accountDashboardSection.style.display = "block";
 
