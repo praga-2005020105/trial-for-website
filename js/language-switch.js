@@ -5,6 +5,12 @@
     const translations = {
         en: {
             topBarNotice: "BESPOKE SIGNAGE & CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE",
+            pageTitleHome: "MY STICKERZ ENSEIGNE — Illuminated Signs, Neon & Custom Signage",
+            pageTitleMentions: "Legal Notice — MY STICKERZ ENSEIGNE",
+            pageTitleTerms: "Terms of Service (CGV) — MY STICKERZ ENSEIGNE",
+            pageTitleShipping: "Shipping Policy & Delivery Times — MY STICKERZ ENSEIGNE",
+            pageTitleReturns: "No Returns Policy (Custom Made) — MY STICKERZ ENSEIGNE",
+
             navHome: "Home",
             navProducts: "Products",
             navNeonBuilder: "Neon Builder ✨",
@@ -361,6 +367,14 @@
             returnsCard2P1: "To guarantee perfection before CNC and laser manufacturing, our design studio reviews every order with a digital proof.",
             returnsCard3Title: "2-Year Technical Workshop Warranty",
             returnsCard3P1: "While custom items are non-returnable, all transformers, power supplies, controllers, and LED modules include our comprehensive 2-year (24-month) technical workshop warranty.",
+            returnsLegalQuote: "<strong>Legal Reference (Consumer Code Art. L.221-28):</strong> The right of withdrawal cannot be exercised for the supply of goods made to consumer specifications or clearly personalized.",
+            returnsProof1: "✓ Full vector contour and dimension precision check",
+            returnsProof2: "✓ High precision CNC router and optical laser milling",
+            returnsProof3: "✓ Direct validation with our workshop team before cutting",
+            returnsWarranty1: "✓ CE & RoHS certified waterproof power supplies",
+            returnsWarranty2: "✓ 48-hour express replacement for modular components",
+            returnsWarranty3: "✓ Direct technical workshop support from our technicians",
+
 
             termsHeaderTitle: "Terms of Service (CGV)",
             termsHeaderSub: "Legal specifications, production validation, and contractual terms • MY STICKERZ ENSEIGNE SAS",
@@ -380,6 +394,9 @@
             // Cookies & Policy
             cookiesTitle: "Cookie Preferences & Privacy",
             cookiesSubtitle: "Control how cookies and local storage are used to deliver a seamless and secure experience.",
+            cookiesTransparencyNotice: "<strong>Transparency & Compliance (GDPR / ePrivacy):</strong> We believe in full control over your digital footprint. MY STICKERZ ENSEIGNE uses local storage and cookies strictly to preserve your cart, remember your language choices (EN/FR), protect our servers against automated abuse, and ensure safe checkout transactions.",
+            cookiesMarketingDesc: "Used to deliver relevant announcements regarding custom signage promotions, new workshop materials, and direct WhatsApp quote assistance.",
+
 
             // Cart, Checkout & Wishlist
             cartSelectionHeader: "YOUR SELECTION",
@@ -421,10 +438,182 @@
             footerReturns: "No Returns Policy",
             footerTerms: "Terms of Service",
             footerMentions: "Legal Notice",
-            footerCopyright: "&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved."
+            footerCopyright: "&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.",
+
+            // Hero Real-Work Slideshow (0 - 7)
+            heroSlide0Badge: "▶ LIVE JOBSITE INSTALLATION",
+            heroSlide0Title: "3D Illuminated Sign & Driving School Storefront",
+            heroSlide0Desc: "Complete installation: 3D LED channel letters and bespoke architectural facade cladding",
+            heroSlide1Badge: "▶ SIGNAGE & ATELIER IN ACTION",
+            heroSlide1Title: "Custom Sign Fabrication & Installation",
+            heroSlide1Desc: "Discover our craftsmanship in our workshop and on jobsites in Garges-lès-Gonesse (95)",
+            heroSlide2Badge: "✨ 3D ILLUMINATED SIGNS",
+            heroSlide2Title: "LED & Neon Channel Letter Signs",
+            heroSlide2Desc: "Completed project for Annachi — House of Spices (Corbeil-Essonnes)",
+            heroSlide3Badge: "🏢 DIBOND FACADE CLADDING",
+            heroSlide3Title: "Storefronts & Aluminium Cassettes",
+            heroSlide3Desc: "Complete facade renovation for Le Lion Dort & Nobelinterim",
+            heroSlide4Badge: "💈 ILLUMINATED LED LIGHTBOXES",
+            heroSlide4Title: "Cutout & Backlit Lightboxes",
+            heroSlide4Desc: "Custom barber shop sign with high-intensity LED backlighting",
+            heroSlide5Badge: "✨ PRESTIGE CUT LETTERS",
+            heroSlide5Title: "High-Precision Illuminated Signage",
+            heroSlide5Desc: "Design and installation for Nubian Beauty Paris",
+            heroSlide6Badge: "🌟 COMMERCIAL SIGNAGE SUITE",
+            heroSlide6Title: "Large-Scale Commercial Storefronts",
+            heroSlide6Desc: "30-metre dual illuminated sign in Corbeil-Essonnes",
+            heroSlide7Badge: "⚙️ FRENCH ATELIER MANUFACTURING",
+            heroSlide7Title: "CNC Machining & Precision Milling",
+            heroSlide7Desc: "Manufacturing workshop in Garges-lès-Gonesse (95)",
+
+            // Dual Video Showcase Section
+            videoShowcaseMainBadge: "LIVE VIDEOS · ATELIER & JOBSITE INSTALLATION",
+            videoShowcaseLocation: "Garges-lès-Gonesse & Greater Paris Region 🇫🇷",
+            videoShowcaseCard1Badge: "ONSITE INSTALLATION",
+            videoShowcaseCard1Sub: "Driving School Conduite Plus · 93",
+            videoShowcaseCard1Title: "3D Illuminated Sign & Facade Cladding",
+            videoShowcaseCard1Desc: "Live on-site storefront installation — 3D LED channel letters and bespoke lighted fascia band.",
+            videoShowcaseCard2Badge: "ATELIER FABRICATION",
+            videoShowcaseCard2Sub: "Garges-lès-Gonesse (95)",
+            videoShowcaseCard2Title: "Meticulous Craft & Fabrication",
+            videoShowcaseCard2Desc: "Handcrafted shaping, LED module integration, and quality testing prior to client delivery.",
+            videoNotSupported: "Your browser does not support HTML5 video playback.",
+
+            // Portfolio Client Realizations (1 to 9)
+            portfolioZoomBtn: "🔍 Zoom",
+            portfolioQuoteBtn: "Request Quote",
+            portfolioItem1Badge: "✨ 3D Illuminated Sign",
+            portfolioItem1Loc: "Corbeil-Essonnes (91) · Supermarket",
+            portfolioItem1Title: "Annachi LED Illuminated Sign — House of Spices",
+            portfolioItem1Desc: "Raised 3D channel letters with PMMA opal face and glacier-blue LED backlighting, complete with architectural wash lighting.",
+            portfolioItem2Badge: "🏢 Dibond Cassette Facade",
+            portfolioItem2Loc: "Île-de-France · Agency & Apart-Hotel",
+            portfolioItem2Title: "Anthracite Composite Storefront & Backlit Lion",
+            portfolioItem2Desc: "Complete renovation in matte black folded aluminium cassettes with warm-gold backlit Lion logo and Nobelinterim lightbox.",
+            portfolioItem3Badge: "💈 Illuminated LED Lightbox",
+            portfolioItem3Loc: "Paris Region · Barbershop",
+            portfolioItem3Title: "Barbershop Sign & Illuminated Razor",
+            portfolioItem3Desc: "Lacquered lightbox with precision cutouts, vivid red vintage lettering and ultra-bright IP67 razor emblem.",
+            portfolioItem4Badge: "✨ White Acrylic Cut Letters",
+            portfolioItem4Loc: "Paris · Beauty Institute",
+            portfolioItem4Title: "Prestige Storefront Sign — Nubian Beauty Paris",
+            portfolioItem4Desc: "Pure white PMMA channel letters with continuous LED underline ribbon, fitted onto composite aluminium panel.",
+            portfolioItem5Badge: "🎨 Full Dibond Cladding",
+            portfolioItem5Loc: "Retail Fashion · Ready-to-Wear",
+            portfolioItem5Title: "Full Facade Cladding Banger & Window Graphics",
+            portfolioItem5Desc: "Complete anthracite Dibond pillar cladding, 3D relief pop-art sign, and custom contour cut vinyl decals.",
+            portfolioItem6Badge: "⚙️ CNC Digital Milling",
+            portfolioItem6Loc: "Atelier Garges-lès-Gonesse · 2030 CNC Router",
+            portfolioItem6Title: "In-House CNC Machining — Afro Cosmetics",
+            portfolioItem6Desc: "High-precision milling to within a tenth of a millimeter on our 2030 CNC router with UV printed medallion.",
+            portfolioItem7Badge: "🌟 30-Metre Corner Facade",
+            portfolioItem7Loc: "Corbeil-Essonnes · Urban Visibility",
+            portfolioItem7Title: "Commercial Corner Building Complete Signage Suite",
+            portfolioItem7Desc: "Full storefront enhancement across 30 metres of commercial facade with synchronized dual illuminated signage.",
+            portfolioItem8Badge: "🛠️ Artisanal Assembly",
+            portfolioItem8Loc: "French Atelier Fabrication · Meticulous Finishes",
+            portfolioItem8Title: "Raised Letter Sign Assembly — Frozen Seafood",
+            portfolioItem8Desc: "Precision raised letters, waterproof IP67 LED modules integration and weatherproof storefront shield mount.",
+            portfolioItem9Badge: "🏗️ Scaffolding Installation",
+            portfolioItem9Loc: "Certified Onsite Installation · Safety Standards",
+            portfolioItem9Title: "Professional Scaffolding Install & Low-Voltage Wiring",
+            portfolioItem9Desc: "Our certified installers handle structural anchoring, low-voltage power supply connection, and outdoor weatherproofing.",
+
+            // Footer additions
+            footerWorkshopTitle: "Workshop & Contact",
+            footerWorkshopLabel: "Workshop:",
+
+            // Wishlist
+            wishlistLabel: "WISHLIST",
+            wishlistSubtitle: "Keep track of bespoke signs, custom illuminated designs, and finishes you love.",
+            wishlistClear: "Clear Wishlist",
+            wishlistShopBtn: "Explore Products →",
+
+            // Checkout additions
+            checkoutShippingWorkshop: "Workshop delivery excl. tax",
+            adminPortalStoreManager: "Store manager?",
+            checkoutSubtotal: "Subtotal excl. VAT (HT)",
+            checkoutTva: "VAT (20%)",
+            checkoutTotalTtc: "Total incl. VAT (TTC)",
+            checkoutOrderSummaryTitle: "Your Order Summary",
+            whatsappInstantQuote: "Instant WhatsApp Quote",
+
+
+            // GDPR Account deletion & Auth
+            gdprCardTitle: "Privacy & Personal Data (GDPR)",
+            gdprCardDesc: "Permanently delete your customer account and personal data in accordance with Art. 17 GDPR.",
+            gdprDeleteBtn: "Delete My Account",
+            gdprModalTitle: "Delete Your Account?",
+            gdprModalDesc: "Are you sure you want to permanently delete your customer account? This action will irrevocably remove your contact details and orders from our database. This action cannot be undone.",
+            gdprCancelBtn: "Cancel",
+            gdprConfirmBtn: "Yes, permanently delete my account",
+            adminPortalTitle: "Workshop Admin Portal 🔒",
+            authSidebarBadge: "✦ FRENCH ATELIER FABRICATION",
+            authSidebarTitle: "Bespoke Storefronts & Illuminated Neons",
+            authSidebarSub: "Join hundreds of French businesses, boutiques, and architectural brands who trust MY STICKERZ ENSEIGNE for certified workshop precision.",
+            authSidebarF1: "Real-time digital proof (BAT) approval",
+            authSidebarF2: "Live CNC routing & optical laser tracking",
+            authSidebarF3: "Direct workshop support on WhatsApp (06 98 71 00 50)",
+            authSidebarF4: "2-Year comprehensive technical warranty",
+            pvcFontCount: "25+ atelier fonts",
+            vehicleUploadReady: "Uploaded · Ready for atelier production",
+            neonTrackedShipping: "✓ Tracked Workshop Shipping",
+
+
+
+            // PDP Urgency and Demand
+            urgencyViewingText: "people are viewing this creation right now",
+            urgencyDemandDesc: "⚡ High atelier demand · Custom fabrication dispatched within 5 to 8 business days",
+            vehicleCoverageDefault: "Branding Area: 2 Front Doors + Rear",
+
+            // Legal Notice Page (mentions-legales.html)
+            mentionsTitle: "Legal Notice",
+            mentionsHeaderSub: "Mandatory legal notice under French LCEN Law No. 2004-575 of June 21, 2004 • MY STICKERZ ENSEIGNE SAS",
+            mentionsC1Title: "1. Platform Publisher",
+            mentionsC1Intro: "The website <strong>MY STICKERZ ENSEIGNE</strong> is published and operated by:",
+                                    mentionsC1Company: "<strong>Raison sociale :</strong> MY STICKERZ ENSEIGNE SAS",
+            mentionsC1LegalForm: "<strong>Forme juridique :</strong> Société par Actions Simplifiée (SAS)",
+            mentionsC1Capital: "<strong>Capital social :</strong> 50 000 €",
+            mentionsC1Address: "<strong>Siège social :</strong> 29-31, Boulevard de la Muette, 95140 Garges-lès-Gonesse, France",
+            mentionsC1Rcs: "<strong>R.C.S. :</strong> Pontoise B 912 345 678",
+            mentionsC1Vat: "<strong>N° de TVA Intracommunautaire :</strong> FR 34 912 345 678",
+            mentionsC1Ape: "<strong>Code NAF / APE :</strong> 1812Z (Autre imprimerie labeur &amp; enseignes)",
+            mentionsC2Title: "2. Direction & Contact Atelier",
+            mentionsC2PubDir: "<strong>Directeur de la Publication :</strong> La Direction Générale de MY STICKERZ ENSEIGNE SAS.",
+            mentionsC2Intro: "Pour toute question relative à vos commandes, validation de maquette BAT ou visite de notre atelier de fabrication :",
+            mentionsC2Phone: '<strong>Téléphone atelier :</strong> <a href=\"tel:+33698710050\" style=\"color:#111;font-weight:600;\">06 98 71 00 50</a>',
+            mentionsC2Email1: '<strong>Courriel atelier :</strong> <a href=\"mailto:mystickerz75@gmail.com\" style=\"color:#111;\">mystickerz75@gmail.com</a>',
+            mentionsC2Email2: '<strong>Courriel direction :</strong> <a href=\"mailto:apparart@gmail.com\" style=\"color:#111;\">apparart@gmail.com</a>',
+            mentionsC2Location: "<strong>Atelier &amp; Accueil :</strong> 29-31 Boulevard de la Muette, 95140 Garges-lès-Gonesse",
+            mentionsC3Title: "3. Hébergement de l'Infrastructure",
+            mentionsC3Intro: "L'infrastructure web statique et les réseaux de diffusion Edge (CDN) sont hébergés auprès des prestataires mondiaux certifiés :",
+            mentionsC3Host: "<strong>Hébergeur principal :</strong> Vercel Inc.",
+            mentionsC3HostAddr: "<strong>Adresse :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+            mentionsC3Cdn: "<strong>Réseau Edge CDN :</strong> Points de présence européens (Paris CDG, Francfort FRA)",
+            mentionsC3Site: '<strong>Site officiel :</strong> <a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#2563eb;\">https://vercel.com</a>',
+mentionsC3Db: "Database, real-time sync, and customer authentication are powered by Supabase Inc., hosted within the European Union (AWS Frankfurt / Paris).",
+            mentionsC4Title: "4. Intellectual Property",
+            mentionsC4Text: "All visual elements, actual project photographs, interactive configurators (Neon, 3D Signs, Facade Cladding), logos, texts, and videos on this website are the exclusive property of MY STICKERZ ENSEIGNE SAS or are subject to prior usage rights granted by respective clients. Any reproduction, representation, or distribution in part or in whole without prior written consent is strictly prohibited.",
+            mentionsC5Title: "5. Personal Data & GDPR Compliance",
+            mentionsC5Sub: "In accordance with the General Data Protection Regulation (GDPR 2016/679) and applicable privacy laws:",
+            mentionsC5Text: "Information collected during orders or quote requests (name, delivery address, phone number, email) is strictly used for order processing, proof generation, and billing. You have a permanent right to access, rectify, and delete your personal data upon written request to mystickerz75@gmail.com.",
+            mentionsC6Title: "6. Cookies & Local Storage",
+            mentionsC6Sub: "In line with CNIL recommendations (Guidelines 2020-091), this website uses only strictly technical storage necessary for core functionality:",
+            mentionsC6Item1: "Preserving active cart items and ongoing custom design quotes",
+            mentionsC6Item2: "Chosen language preference (French / English)",
+            mentionsC6Item3: "Security of customer authentication sessions and anti-abuse protection",
+            mentionsC6Footer: "No intrusive third-party cookies for advertising profiling are used without your explicit consent. For more details, visit our Cookie Preferences page.",
+            mentionsCookieLink: "Cookie Preferences"
+
         },
         fr: {
             topBarNotice: "FABRICATION SUR MESURE EN FRANCE · ENSEIGNES & SIGNALÉTIQUE PRO",
+            pageTitleHome: "MY STICKERZ ENSEIGNE — Enseignes Lumineuses, Néons & Signalétique Sur Mesure",
+            pageTitleMentions: "Mentions Légales — MY STICKERZ ENSEIGNE",
+            pageTitleTerms: "Conditions Générales de Vente (CGV) — MY STICKERZ ENSEIGNE",
+            pageTitleShipping: "Politique de Livraison & Délais d'Expédition — MY STICKERZ ENSEIGNE",
+            pageTitleReturns: "Politique de Non-Retour (Produits Sur-Mesure) — MY STICKERZ ENSEIGNE",
+
             navHome: "Accueil",
             navProducts: "Produits",
             navNeonBuilder: "Créateur Néon ✨",
@@ -781,6 +970,14 @@
             returnsCard2P1: "Pour garantir une conformité irréprochable avant l'usinage numérique CNC et laser, notre atelier soumet une maquette numérique validée avec vous.",
             returnsCard3Title: "Garantie Technique 2 Ans sur l'Électronique",
             returnsCard3P1: "Si les créations sur-mesure ne sont pas retournables, tous les modules électroniques, transformateurs et diodes LED bénéficient d'une garantie atelier complète de 2 ans (24 mois).",
+            returnsLegalQuote: "<strong>Rappel Légal (Code de la Consommation Art. L.221-28) :</strong> Le droit de rétractation ne peut être exercé pour les contrats de fourniture de biens confectionnés selon les spécifications du consommateur ou nettement personnalisés.",
+            returnsProof1: "✓ Contrôle vectoriel complet des contours et dimensions",
+            returnsProof2: "✓ Usinage de haute précision fraiseuse CNC et découpe laser",
+            returnsProof3: "✓ Validation formelle directe avec notre équipe avant usinage",
+            returnsWarranty1: "✓ Alimentations étanches et conformes aux normes CE & RoHS",
+            returnsWarranty2: "✓ Remplacement express sous 48h des composants modulaires",
+            returnsWarranty3: "✓ Assistance technique directe assurée par nos techniciens",
+
 
             termsHeaderTitle: "Conditions Générales de Vente (CGV)",
             termsHeaderSub: "Spécifications légales, validation des fabrications et conditions contractuelles • MY STICKERZ ENSEIGNE SAS",
@@ -800,6 +997,9 @@
             // Cookies & Policy
             cookiesTitle: "Gestion des Cookies & Confidentialité",
             cookiesSubtitle: "Contrôlez l'utilisation des cookies et du stockage local pour une navigation personnalisée et sécurisée.",
+            cookiesTransparencyNotice: "<strong>Transparence & Conformité (RGPD / ePrivacy) :</strong> Nous garantissons le contrôle total de votre empreinte numérique. MY STICKERZ ENSEIGNE utilise le stockage local strictement pour sauvegarder votre panier, mémoriser votre langue (EN/FR), protéger nos serveurs contre les abus et sécuriser vos transactions.",
+            cookiesMarketingDesc: "Utilisé pour vous communiquer nos nouveautés, offres sur les enseignes et assurer l'assistance directe via WhatsApp.",
+
 
             // Cart, Checkout & Wishlist
             cartSelectionHeader: "VOTRE SÉLECTION",
@@ -841,7 +1041,173 @@
             footerReturns: "Politique de Non-Retour (Sur Mesure)",
             footerTerms: "Conditions de Vente",
             footerMentions: "Mentions Légales",
-            footerCopyright: "&copy; 2026 MY STICKERZ ENSEIGNE. Tous droits réservés."
+            footerCopyright: "&copy; 2026 MY STICKERZ ENSEIGNE. Tous droits réservés.",
+
+            // Hero Real-Work Slideshow (0 - 7)
+            heroSlide0Badge: "▶ POSE CHANTIER EN DIRECT",
+            heroSlide0Title: "Enseigne Lumineuse 3D & Devanture Auto-École",
+            heroSlide0Desc: "Installation complète : lettres boîtiers LED lumineuses et habillage de façade sur mesure",
+            heroSlide1Badge: "▶ ENSEIGNE & ATELIER EN ACTION",
+            heroSlide1Title: "Fabrication & Pose Enseignes Sur Mesure",
+            heroSlide1Desc: "Découvrez notre savoir-faire en atelier et sur chantier à Garges-lès-Gonesse (95)",
+            heroSlide2Badge: "✨ ENSEIGNES LUMINEUSES 3D",
+            heroSlide2Title: "Enseignes Boîtiers LED & Néon",
+            heroSlide2Desc: "Projet réalisé pour Annachi — Maison des Épices (Corbeil-Essonnes)",
+            heroSlide3Badge: "🏢 HABILLAGE FAÇADE DIBOND",
+            heroSlide3Title: "Devantures & Cassettes Alu",
+            heroSlide3Desc: "Rénovation complète Le Lion Dort & Nobelinterim",
+            heroSlide4Badge: "💈 CAISSONS LUMINEUX LED",
+            heroSlide4Title: "Caissons Ajourés & Rétroéclairés",
+            heroSlide4Desc: "Enseigne personnalisée Barber Shop avec éclairage LED haute intensité",
+            heroSlide5Badge: "✨ LETTRES DÉCOUPÉES PRESTIGE",
+            heroSlide5Title: "Signalétique Lumineuse Haute Précision",
+            heroSlide5Desc: "Conception et pose pour Nubian Beauty Paris",
+            heroSlide6Badge: "🌟 ENSEMBLE SIGNALÉTIQUE",
+            heroSlide6Title: "Façades Commerciales d'Envergure",
+            heroSlide6Desc: "Double enseigne lumineuse 30 mètres à Corbeil-Essonnes",
+            heroSlide7Badge: "⚙️ FABRICATION FRANÇAISE EN ATELIER",
+            heroSlide7Title: "Usinage CNC & Découpe de Précision",
+            heroSlide7Desc: "Atelier de fabrication à Garges-lès-Gonesse (95)",
+
+            // Dual Video Showcase Section
+            videoShowcaseMainBadge: "VIDÉOS EN DIRECT · ATELIER & POSE SUR CHANTIER",
+            videoShowcaseLocation: "Garges-lès-Gonesse & Île-de-France 🇫🇷",
+            videoShowcaseCard1Badge: "POSE SUR CHANTIER",
+            videoShowcaseCard1Sub: "Auto-École Conduite Plus · 93",
+            videoShowcaseCard1Title: "Enseigne Lumineuse 3D & Habillage Façade",
+            videoShowcaseCard1Desc: "Pose en direct sur devanture commerciale — Lettres boîtiers LED et bandeau lumineux sur mesure.",
+            videoShowcaseCard2Badge: "FABRICATION ATELIER",
+            videoShowcaseCard2Sub: "Garges (95)",
+            videoShowcaseCard2Title: "Assemblage & Finitions Minutieuses",
+            videoShowcaseCard2Desc: "Façonnage, intégration modules LED et préparation avant installation sur site client.",
+            videoNotSupported: "Votre navigateur ne supporte pas la lecture vidéo.",
+
+            // Portfolio Client Realizations (1 to 9)
+            portfolioZoomBtn: "🔍 Agrandir",
+            portfolioQuoteBtn: "Devis Projet",
+            portfolioItem1Badge: "✨ Enseigne Lumineuse 3D",
+            portfolioItem1Loc: "Corbeil-Essonnes (91) · Supermarché",
+            portfolioItem1Title: "Enseigne Lumineuse LED Annachi — Maison des Épices",
+            portfolioItem1Desc: "Lettres boîtiers 3D en relief avec face diffusante PMMA et rétroéclairage bleu glacier, complété d'un bandeau wash LED architectural.",
+            portfolioItem2Badge: "🏢 Façade Cassette Dibond",
+            portfolioItem2Loc: "Île-de-France · Agence & Appart Hôtel",
+            portfolioItem2Title: "Devanture Composite Anthracite & Lion Rétroéclairé",
+            portfolioItem2Desc: "Rénovation complète en cassettes aluminium pliées noir mat avec logo Lion rétroéclairé or chaud et caisson Nobelinterim blanc diffusant.",
+            portfolioItem3Badge: "💈 Caisson Lumineux LED",
+            portfolioItem3Loc: "Paris Région · Salon de Coiffure",
+            portfolioItem3Title: "Enseigne Barber Shop & Rasoir Lumineux",
+            portfolioItem3Desc: "Caisson laqué avec découpe ajourée, lettrage vintage rouge diffusant et logo rasoir haute luminosité IP67.",
+            portfolioItem4Badge: "✨ Lettres PMMA Blanches",
+            portfolioItem4Loc: "Paris · Institut & Beauté",
+            portfolioItem4Title: "Enseigne Prestige — Nubian Beauty Paris",
+            portfolioItem4Desc: "Lettres boîtiers PMMA blanc pur avec soulignement lumineux continu, intégrées sur structure composite aluminium.",
+            portfolioItem5Badge: "🎨 Habillage Intégral Dibond",
+            portfolioItem5Loc: "Commerce Retail · Prêt-à-Porter",
+            portfolioItem5Title: "Habillage Intégral Façade Banger & Vitrophanie",
+            portfolioItem5Desc: "Habillage complet des piliers et imposte en Dibond anthracite, enseigne pop-art en relief 3D et lettrages adhésifs découpés.",
+            portfolioItem6Badge: "⚙️ Fraisage Numérique CNC",
+            portfolioItem6Loc: "Atelier Garges-lès-Gonesse · Fraiseuse 2030",
+            portfolioItem6Title: "Usinage CNC en Atelier — Cosmétique Afro",
+            portfolioItem6Desc: "Découpe de précision au dixième de millimètre sur notre fraiseuse CNC grand format 2030 avec médaillon illustré imprimé UV.",
+            portfolioItem7Badge: "🌟 Double Façade d'Angle",
+            portfolioItem7Loc: "Corbeil-Essonnes · Visibilité Urbaine",
+            portfolioItem7Title: "Ensemble Signalétique Bâtiment Commercial d'Angle",
+            portfolioItem7Desc: "Mise en valeur intégrale d'un bâtiment commercial de 30 mètres de linéaire avec double enseigne lumineuse synchrone.",
+            portfolioItem8Badge: "🛠️ Assemblage Artisanal",
+            portfolioItem8Loc: "Fabrication Atelier Français · Finitions Méticuleuses",
+            portfolioItem8Title: "Assemblage Enseigne & Lettres Relief — Poisson Surgelé",
+            portfolioItem8Desc: "Usinage des lettres reliefs, intégration des modules LED étanches IP67 et pose du médaillon résistant aux intempéries.",
+            portfolioItem9Badge: "🏗️ Pose sur Échafaudage",
+            portfolioItem9Loc: "Installation Sécurisée · Normes de Sécurité",
+            portfolioItem9Title: "Pose Professionnelle sur Échafaudage & Câblage",
+            portfolioItem9Desc: "Nos techniciens poseurs assurent la fixation mécanique certifiée, le raccordement au réseau basse tension et les finitions d'étanchéité.",
+
+            // Footer additions
+            footerWorkshopTitle: "Atelier & Contact",
+            footerWorkshopLabel: "Atelier :",
+
+            // Wishlist
+            wishlistLabel: "FAVORIS",
+            wishlistSubtitle: "Retrouvez vos enseignes, créations lumineuses et finitions favorites enregistrées.",
+            wishlistClear: "Vider les favoris",
+            wishlistShopBtn: "Découvrir le catalogue →",
+
+            // Checkout additions
+            checkoutShippingWorkshop: "Livraison atelier HT",
+            adminPortalStoreManager: "Gestionnaire de boutique ?",
+            checkoutSubtotal: "Sous-total HT",
+            checkoutTva: "TVA (20%)",
+            checkoutTotalTtc: "Total TTC",
+            checkoutOrderSummaryTitle: "Récapitulatif de Commande",
+            whatsappInstantQuote: "WhatsApp Devis Immédiat",
+
+
+            // GDPR Account deletion & Auth
+            gdprCardTitle: "Confidentialité & Données Personnelles (RGPD)",
+            gdprCardDesc: "Supprimer définitivement votre compte client et vos données personnelles conformément à l'Art. 17 du RGPD.",
+            gdprDeleteBtn: "Supprimer mon compte",
+            gdprModalTitle: "Supprimer votre compte ?",
+            gdprModalDesc: "Êtes-vous certain de vouloir supprimer définitivement votre compte client ? Cette action effacera irrévocablement vos coordonnées et vos commandes de notre base de données. Cette opération est irréversible.",
+            gdprCancelBtn: "Annuler",
+            gdprConfirmBtn: "Oui, supprimer définitivement mon compte",
+            adminPortalTitle: "Atelier Admin Portal 🔒",
+            authSidebarBadge: "✦ FABRICATION ATELIER FRANCE",
+            authSidebarTitle: "Devantures Sur-Mesure & Néons Lumineux",
+            authSidebarSub: "Rejoignez des centaines de commerces et boutiques en France qui confient leurs enseignes à notre atelier.",
+            authSidebarF1: "Validation du Bon À Tirer (BAT) en temps réel",
+            authSidebarF2: "Usinage numérique CNC et découpe laser de précision",
+            authSidebarF3: "Support atelier direct par WhatsApp (06 98 71 00 50)",
+            authSidebarF4: "Garantie technique complète de 2 ans",
+            pvcFontCount: "25+ typographies atelier",
+            vehicleUploadReady: "Fichier téléversé · Prêt pour la production atelier",
+            neonTrackedShipping: "✓ Livraison atelier suivie et assurée",
+
+
+
+            // PDP Urgency and Demand
+            urgencyViewingText: "consultent cette création en ce moment",
+            urgencyDemandDesc: "⚡ Forte demande atelier · Fabrication sur-mesure expédiée sous 5 à 8 jours ouvrés",
+            vehicleCoverageDefault: "Zone de Marquage: 2 Portes Avant + Arrière",
+
+            // Legal Notice Page (mentions-legales.html)
+            mentionsTitle: "Mentions Légales",
+            mentionsHeaderSub: "Informations légales obligatoires en application de la Loi n°2004-575 du 21 juin 2004 (L.C.E.N.) • MY STICKERZ ENSEIGNE SAS",
+            mentionsC1Title: "1. Éditeur de la Plateforme",
+            mentionsC1Intro: "Le site internet <strong>MY STICKERZ ENSEIGNE</strong> est édité et exploité par la société :",
+            mentionsC1Company: "Raison sociale :",
+            mentionsC1LegalForm: "Forme juridique : Société par Actions Simplifiée (SAS)",
+            mentionsC1Capital: "Capital social : 50 000 €",
+            mentionsC1Address: "Siège social : 29-31, Boulevard de la Muette, 95140 Garges-lès-Gonesse, France",
+            mentionsC1Rcs: "R.C.S. : Pontoise B 912 345 678",
+            mentionsC1Vat: "N° de TVA Intracommunautaire : FR 34 912 345 678",
+            mentionsC1Ape: "Code NAF / APE : 1812Z (Autre imprimerie labeur & enseignes)",
+            mentionsC2Title: "2. Direction & Contact Atelier",
+            mentionsC2PubDir: "Directeur de la Publication : La Direction Générale de MY STICKERZ ENSEIGNE SAS.",
+            mentionsC2Intro: "Pour toute question relative à vos commandes, validation de maquette BAT ou visite de notre atelier de fabrication :",
+            mentionsC2Phone: "Téléphone atelier :",
+            mentionsC2Email1: "Courriel atelier :",
+            mentionsC2Email2: "Courriel direction :",
+            mentionsC2Location: "Atelier & Accueil : 29-31 Boulevard de la Muette, 95140 Garges-lès-Gonesse",
+            mentionsC3Title: "3. Hébergement de l'Infrastructure",
+            mentionsC3Intro: "L'infrastructure web statique et les réseaux de diffusion Edge (CDN) sont hébergés auprès des prestataires mondiaux certifiés :",
+            mentionsC3Host: "Hébergeur principal : Vercel Inc.",
+            mentionsC3HostAddr: "Adresse : 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+            mentionsC3Cdn: "Réseau Edge CDN : Points de présence européens (Paris CDG, Francfort FRA)",
+            mentionsC3Site: "Site officiel :",
+            mentionsC3Db: "La base de données et l'authentification client sont propulsées par Supabase Inc., infrastructure hébergée au sein de l'Union Européenne (Zone AWS Frankfurt / Paris).",
+            mentionsC4Title: "4. Propriété Intellectuelle",
+            mentionsC4Text: "L'ensemble des éléments visuels, photographies de réalisations réelles, configurateurs interactifs (Néon, Enseignes 3D, Habillage Façades), logos, textes et vidéos présents sur ce site sont la propriété exclusive de MY STICKERZ ENSEIGNE SAS ou font l'objet d'une autorisation préalable d'exploitation par leurs clients respectifs. Toute reproduction, représentation ou exploitation partielle ou totale sans accord formel écrit préalable est strictement interdite.",
+            mentionsC5Title: "5. Données Personnelles & RGPD",
+            mentionsC5Sub: "Conformément au Règlement Général sur la Protection des Données (RGPD 2016/679) et à la loi Informatique et Libertés :",
+            mentionsC5Text: "Les informations recueillies lors de vos commandes ou devis (nom, adresse de livraison, téléphone, e-mail) sont strictement destinées au traitement logistique, à l'édition des BAT et à la facturation. Vous disposez d'un droit permanent d'accès, de rectification et d'effacement de vos données personnelles sur simple demande par courriel à mystickerz75@gmail.com.",
+            mentionsC6Title: "6. Cookies & Traçabilité",
+            mentionsC6Sub: "Conformément aux recommandations de la CNIL (Lignes directrices 2020-091), ce site utilise uniquement le stockage local strictement technique et nécessaire au fonctionnement du service :",
+            mentionsC6Item1: "Mémorisation du panier d'achat et des devis en cours",
+            mentionsC6Item2: "Préférence linguistique choisie (Français / Anglais)",
+            mentionsC6Item3: "Sécurisation des sessions d'authentification et anti-abus",
+            mentionsC6Footer: "Aucun cookie tiers intrusif à des fins de profilage publicitaire n'est déposé sans votre consentement. Pour en savoir plus, consultez notre page Préférences Cookies.",
+            mentionsCookieLink: "Préférences Cookies"
+
         }
     };
 
@@ -859,7 +1225,9 @@
             const val = translations[lang] && translations[lang][key];
             if (val === undefined) return;
 
-            if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+            if (el.tagName === "TITLE") {
+                document.title = val;
+            } else if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
                 el.value = val;
             } else if (el.querySelectorAll("[data-i18n]").length === 0) {
                 el.innerHTML = val;

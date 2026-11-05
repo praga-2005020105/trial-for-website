@@ -467,30 +467,31 @@
 
         // Load Orders from Supabase Cloud Database
         function getItemSpecsHtml(i) {
+            const isEn = (window.getCurrentLanguage ? window.getCurrentLanguage() : 'en') === 'en';
             const specs = [];
-            if (i.customText) specs.push(`<strong>Texte:</strong> "${escapeHtml(i.customText)}"`);
+            if (i.customText) specs.push(`<strong>${isEn ? 'Text:' : 'Texte:'}</strong> "${escapeHtml(i.customText)}"`);
             const fontVal = i.font || (i.options && i.options.font);
-            if (fontVal) specs.push(`<strong>Police / Font:</strong> ${escapeHtml(fontVal)}`);
+            if (fontVal) specs.push(`<strong>${isEn ? 'Font:' : 'Police:'}</strong> ${escapeHtml(fontVal)}`);
             const sizeVal = i.dimensions || i.estimatedDimensions || i.size || (i.options && (i.options.dimensions || (i.options.widthCm && i.options.heightCm ? `${i.options.widthCm} × ${i.options.heightCm} cm` : i.options.sizeTier)));
-            if (sizeVal) specs.push(`<strong>Dimensions:</strong> ${escapeHtml(sizeVal)}`);
+            if (sizeVal) specs.push(`<strong>${isEn ? 'Dimensions:' : 'Dimensions:'}</strong> ${escapeHtml(sizeVal)}`);
             const colorVal = i.color || i.colorName || (i.options && (i.options.colorName || i.options.colorHex));
-            if (colorVal) specs.push(`<strong>Couleur:</strong> ${escapeHtml(colorVal)}`);
+            if (colorVal) specs.push(`<strong>${isEn ? 'Color:' : 'Couleur:'}</strong> ${escapeHtml(colorVal)}`);
             const thickVal = i.thickness || (i.options && i.options.thickness);
-            if (thickVal) specs.push(`<strong>Relief:</strong> ${escapeHtml(thickVal)}`);
+            if (thickVal) specs.push(`<strong>${isEn ? 'Thickness:' : 'Relief:'}</strong> ${escapeHtml(thickVal)}`);
             const matVal = i.material || (i.options && i.options.substrate);
-            if (matVal) specs.push(`<strong>Matériau:</strong> ${escapeHtml(matVal)}`);
+            if (matVal) specs.push(`<strong>${isEn ? 'Material:' : 'Matériau:'}</strong> ${escapeHtml(matVal)}`);
             const cutVal = i.acrylicCut || (i.options && i.options.cutStyle) || (i.options && i.options.cut);
-            if (cutVal) specs.push(`<strong>Découpe:</strong> ${escapeHtml(cutVal)}`);
+            if (cutVal) specs.push(`<strong>${isEn ? 'Cut:' : 'Découpe:'}</strong> ${escapeHtml(cutVal)}`);
             const finishVal = i.finish || (i.options && i.options.lighting);
-            if (finishVal) specs.push(`<strong>Finition / Éclairage:</strong> ${escapeHtml(finishVal)}`);
+            if (finishVal) specs.push(`<strong>${isEn ? 'Finish / Illumination:' : 'Finition / Éclairage:'}</strong> ${escapeHtml(finishVal)}`);
             const dimmerVal = i.dimmer || (i.options && i.options.dimmer);
-            if (dimmerVal) specs.push(`<strong>Variateur:</strong> ${escapeHtml(dimmerVal)}`);
+            if (dimmerVal) specs.push(`<strong>${isEn ? 'Dimmer:' : 'Variateur:'}</strong> ${escapeHtml(dimmerVal)}`);
             const mountVal = i.mounting || (i.options && (i.options.mounting || i.options.fixing));
-            if (mountVal) specs.push(`<strong>Fixation:</strong> ${escapeHtml(mountVal)}`);
+            if (mountVal) specs.push(`<strong>${isEn ? 'Mounting:' : 'Fixation:'}</strong> ${escapeHtml(mountVal)}`);
             const fileVal = i.fileName || (i.options && i.options.fileName);
-            if (fileVal) specs.push(`<span style="color:#2563eb;font-weight:700;">📁 Fichier: ${escapeHtml(fileVal)}</span>`);
+            if (fileVal) specs.push(`<span style="color:#2563eb;font-weight:700;">📁 ${isEn ? 'File:' : 'Fichier:'} ${escapeHtml(fileVal)}</span>`);
             const notesVal = i.designNotes || (i.options && i.options.designNotes);
-            if (notesVal) specs.push(`<strong>Instructions:</strong> ${escapeHtml(notesVal)}`);
+            if (notesVal) specs.push(`<strong>${isEn ? 'Instructions:' : 'Instructions:'}</strong> ${escapeHtml(notesVal)}`);
 
             if (!specs.length) return "";
             return `<div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:4px;">` + 

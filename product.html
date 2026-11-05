@@ -186,7 +186,7 @@
                         <circle cx="465" cy="195" r="28" fill="#0a0a0c" stroke="#555" stroke-width="3"/>
                         <circle cx="465" cy="195" r="14" fill="#252530" stroke="#777"/>
                     </svg>
-                    <div class="vehicle-coverage-badge" id="vehicleCoverageBadge">
+                    <div class="vehicle-coverage-badge" id="vehicleCoverageBadge" data-i18n="vehicleCoverageDefault">
                         Zone de Marquage: 2 Portes Avant + Arrière
                     </div>
                 </div>
@@ -250,10 +250,10 @@
                     <div class="urgency-pulse-row">
                         <span class="urgency-pulse-dot"></span>
                         <span class="urgency-live-text" id="urgencyLiveText">
-                            🔥 <strong id="urgencyLiveCount">4 clients</strong> consultent cette création en ce moment
+                            🔥 <strong id="urgencyLiveCount">4 clients</strong> <span data-i18n="urgencyViewingText">consultent cette création en ce moment</span>
                         </span>
                     </div>
-                    <div class="urgency-demand-text" id="urgencyDemandText">
+                    <div class="urgency-demand-text" id="urgencyDemandText" data-i18n="urgencyDemandDesc">
                         ⚡ Forte demande atelier · Fabrication sur-mesure expédiée sous 5 à 8 jours ouvrés
                     </div>
                 </div>
@@ -496,7 +496,7 @@
                     <div class="config-grid-2" style="margin-bottom:14px;">
                         <button type="button" class="option-btn-card relief-method-btn active" data-method="text">
                             <strong data-i18n="reliefMethodText">Direct Text</strong>
-                            <span>25+ atelier fonts</span>
+                            <span data-i18n="pvcFontCount">25+ atelier fonts</span>
                         </button>
                         <button type="button" class="option-btn-card relief-method-btn" data-method="upload">
                             <strong data-i18n="reliefMethodUpload">Vector File Upload</strong>
@@ -887,7 +887,7 @@
                                 <span id="vehicleFileIcon" style="font-size:24px;">📄</span>
                                 <div style="overflow:hidden;">
                                     <div id="vehicleFileName" style="font-size:12px;font-weight:700;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;">filename.ai</div>
-                                    <div id="vehicleFileSize" style="font-size:10px;color:#64748b;">Uploaded · Ready for atelier production</div>
+                                    <div id="vehicleFileSize" style="font-size:10px;color:#64748b;" data-i18n="vehicleUploadReady">Uploaded · Ready for atelier production</div>
                                 </div>
                             </div>
                             <button type="button" id="vehicleFileRemoveBtn" style="background:none;border:none;color:#dc2626;font-size:12px;font-weight:700;cursor:pointer;padding:4px 8px;">✕ Remove</button>
@@ -1161,9 +1161,9 @@
                 <a href="cookies.html" data-i18n="cookiesTitle">Cookie Preferences</a>
             </div>
             <div>
-                <h4>Atelier &amp; Contact</h4>
+                <h4 data-i18n="footerWorkshopTitle">Atelier &amp; Contact</h4>
                 <p style="margin-bottom:8px;">
-                    📍 <strong>Atelier:</strong><br>
+                    📍 <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
                     29-31, Boulevard de la Muette<br>
                     95140 Garges-lès-Gonesse
                 </p>

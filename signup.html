@@ -382,27 +382,25 @@
         <aside class="auth-hero-sidebar" aria-label="Atelier Credentials">
             <div>
                 <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fca5a5;margin-bottom:18px;">
-                    <span>✦ ATELIER FABRICATION FRANCE</span>
+                    <span data-i18n="authSidebarBadge">✦ ATELIER FABRICATION FRANCE</span>
                 </div>
                 <h2 style="font-family:var(--font-heading);font-size:27px;line-height:1.25;margin:0 0 14px;color:#ffffff;">
-                    Bespoke Storefronts &amp; Illuminated Neons
+                    <span data-i18n="authSidebarTitle">Bespoke Storefronts &amp; Illuminated Neons</span>
                 </h2>
-                <p style="font-size:13px;line-height:1.65;color:#a1a1aa;margin:0 0 24px;">
-                    Join hundreds of French businesses, boutiques, and architectural brands who trust MY STICKERZ ENSEIGNE for certified workshop precision.
-                </p>
+                <p style="font-size:13px;line-height:1.65;color:#a1a1aa;margin:0 0 24px;" data-i18n="authSidebarSub">Join hundreds of French businesses, boutiques, and architectural brands who trust MY STICKERZ ENSEIGNE for certified workshop precision.</p>
 
                 <ul style="list-style:none;padding:0;margin:0;display:grid;gap:13px;font-size:12px;color:#e4e4e7;">
                     <li style="display:flex;align-items:center;gap:10px;">
-                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> Real-time digital proof (BAT) approval
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> <span data-i18n="authSidebarF1">Real-time digital proof (BAT) approval</span>
                     </li>
                     <li style="display:flex;align-items:center;gap:10px;">
-                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> Live CNC routing &amp; optical laser tracking
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> <span data-i18n="authSidebarF2">Live CNC routing &amp; optical laser tracking</span>
                     </li>
                     <li style="display:flex;align-items:center;gap:10px;">
-                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> Direct workshop support on WhatsApp (<strong style="color:#fff;">06 98 71 00 50</strong>)
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> <span data-i18n="authSidebarF3">Direct workshop support on WhatsApp (<strong style="color:#fff;">06 98 71 00 50</strong>)</span>
                     </li>
                     <li style="display:flex;align-items:center;gap:10px;">
-                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> 2-Year comprehensive technical warranty
+                        <span style="color:#22c55e;font-size:14px;font-weight:bold;">✓</span> <span data-i18n="authSidebarF4">2-Year comprehensive technical warranty</span>
                     </li>
                 </ul>
             </div>
@@ -657,7 +655,7 @@
 
             <div style="margin-top:25px;padding-top:18px;border-top:1px solid #f3f4f6;text-align:center;">
                 <p style="font-size:11px;color:#6b7280;margin:0;">
-                    Store manager? <a href="admin.html" style="color:#111827;font-weight:700;text-decoration:none;">Atelier Admin Portal 🔒</a>
+                    <span data-i18n="adminPortalStoreManager">Store manager?</span> <a href="admin.html" style="color:#111827;font-weight:700;text-decoration:none;" data-i18n="adminPortalTitle">Atelier Admin Portal 🔒</a>
                 </p>
             </div>
         </div>
@@ -769,11 +767,11 @@
             <!-- ACCOUNT PRIVACY & DELETION (RGPD ART. 17) -->
             <div style="margin-top:28px;padding-top:18px;border-top:1px solid #f0f0eb;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
                 <div>
-                    <span style="font-size:12px;font-weight:700;color:#374151;">Confidentialité &amp; Données Personnelles (RGPD)</span>
-                    <p style="font-size:11px;color:#6b7280;margin:2px 0 0;">Supprimer définitivement votre compte client et vos données personnelles conformément à l'Art. 17 du RGPD.</p>
+                    <span style="font-size:12px;font-weight:700;color:#374151;" data-i18n="gdprCardTitle">Confidentialité &amp; Données Personnelles (RGPD)</span>
+                    <p style="font-size:11px;color:#6b7280;margin:2px 0 0;" data-i18n="gdprCardDesc">Supprimer définitivement votre compte client et vos données personnelles conformément à l'Art. 17 du RGPD.</p>
                 </div>
                 <button type="button" id="deleteAccountTriggerBtn" class="btn" style="background:#fff;color:#dc2626;border:1px solid #fca5a5;font-weight:600;padding:7px 14px;border-radius:4px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;">
-                    <i class="fa-regular fa-trash-can"></i> Supprimer mon compte
+                    <i class="fa-regular fa-trash-can"></i> <span data-i18n="gdprDeleteBtn">Supprimer mon compte</span>
                 </button>
             </div>
         </div>
@@ -784,16 +782,14 @@
         <div class="modal-card" style="background:#fff;border-radius:10px;max-width:440px;width:100%;padding:24px;box-shadow:0 15px 35px rgba(0,0,0,0.2);position:relative;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#dc2626;">
                 <i class="fa-solid fa-triangle-exclamation" style="font-size:20px;"></i>
-                <h3 id="deleteModalTitle" style="font-size:18px;margin:0;font-weight:700;color:#111827;">Supprimer votre compte ?</h3>
+                <h3 id="deleteModalTitle" style="font-size:18px;margin:0;font-weight:700;color:#111827;" data-i18n="gdprModalTitle">Supprimer votre compte ?</h3>
             </div>
-            <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:18px;">
-                Êtes-vous certain de vouloir supprimer définitivement votre compte client ? Cette action est irréversible et effacera l'ensemble de vos données de session et d'identification conformément au Règlement Général sur la Protection des Données (RGPD Art. 17).
-            </p>
+            <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:18px;" data-i18n="gdprModalDesc">Êtes-vous certain de vouloir supprimer définitivement votre compte client ? Cette action est irréversible et effacera l'ensemble de vos données de session et d'identification conformément au Règlement Général sur la Protection des Données (RGPD Art. 17).</p>
             <div style="display:flex;justify-content:flex-end;gap:10px;">
-                <button type="button" id="cancelDeleteAccountBtn" class="btn" style="background:#f3f4f6;color:#374151;border:1px solid #d1d5db;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">
+                <button type="button" id="cancelDeleteAccountBtn" class="btn" style="background:#f3f4f6;color:#374151;border:1px solid #d1d5db;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;" data-i18n="gdprCancelBtn">
                     Annuler
                 </button>
-                <button type="button" id="confirmDeleteAccountBtn" class="btn" style="background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">
+                <button type="button" id="confirmDeleteAccountBtn" class="btn" style="background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;" data-i18n="gdprConfirmBtn">
                     Confirmer la suppression
                 </button>
             </div>
@@ -826,9 +822,9 @@
                 <a href="cookies.html">Cookie Preferences</a>
             </div>
             <div>
-                <h4>Atelier &amp; Contact</h4>
+                <h4 data-i18n="footerWorkshopTitle">Atelier &amp; Contact</h4>
                 <p style="margin-bottom:8px;">
-                    📍 <strong>Atelier:</strong><br>
+                    📍 <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
                     29-31, Boulevard de la Muette<br>
                     95140 Garges-lès-Gonesse
                 </p>
