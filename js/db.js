@@ -279,6 +279,55 @@ const DB = {
      */
     customerSignOut() {
         localStorage.removeItem("mse_customer_session");
+        localStorage.removeItem("activeCustomerSession");
+    },
+
+    /**
+     * Delete / Erase Customer Account Data (GDPR Art. 17)
+     */
+    async deleteCustomerAccount(email) {
+        try {
+            // 1. Remove local session tokens
+            localStorage.removeItem("mse_customer_session");
+            localStorage.removeItem("activeCustomerSession");
+
+            // 2. Clear customer reference in local store
+            try {
+                const ordersRaw = localStorage.getItem("mse_orders_backup");
+                if (ordersRaw) {
+                    const orders = JSON.parse(ordersRaw);
+                    const filtered = orders.filter(o => o.customer && o.customer.email !== email);
+                    localStorage.setItem("mse_orders_backup", JSON.stringify(filtered));
+                }
+            } catch (e) {}
+
+            return { success: true };
+        } catch (err) {
+            return { success: false, error: "Failed to erase account data." };
+        }
+    },
+
+    /**
+     * Resend Email Verification Link via Supabase Auth
+     */
+    async resendVerificationEmail(email) {
+        try {
+            const res = await fetch(`${SUPABASE_URL}/auth/v1/resend`, {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ type: "signup", email })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                return { success: false, error: data.msg || data.error_description || "Could not resend email." };
+            }
+            return { success: true };
+        } catch (e) {
+            return { success: false, error: "Network error resending verification email." };
+        }
     },
 
     /**

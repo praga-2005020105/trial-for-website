@@ -763,8 +763,42 @@
                     </tbody>
                 </table>
             </div>
+
+            </div>
+
+            <!-- ACCOUNT PRIVACY & DELETION (RGPD ART. 17) -->
+            <div style="margin-top:28px;padding-top:18px;border-top:1px solid #f0f0eb;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                <div>
+                    <span style="font-size:12px;font-weight:700;color:#374151;">Confidentialité &amp; Données Personnelles (RGPD)</span>
+                    <p style="font-size:11px;color:#6b7280;margin:2px 0 0;">Supprimer définitivement votre compte client et vos données personnelles conformément à l'Art. 17 du RGPD.</p>
+                </div>
+                <button type="button" id="deleteAccountTriggerBtn" class="btn" style="background:#fff;color:#dc2626;border:1px solid #fca5a5;font-weight:600;padding:7px 14px;border-radius:4px;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;">
+                    <i class="fa-regular fa-trash-can"></i> Supprimer mon compte
+                </button>
+            </div>
         </div>
     </main>
+
+    <!-- DELETE ACCOUNT CONFIRMATION MODAL (GDPR COMPLIANT) -->
+    <div id="deleteAccountModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:20px;">
+        <div class="modal-card" style="background:#fff;border-radius:10px;max-width:440px;width:100%;padding:24px;box-shadow:0 15px 35px rgba(0,0,0,0.2);position:relative;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#dc2626;">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size:20px;"></i>
+                <h3 id="deleteModalTitle" style="font-size:18px;margin:0;font-weight:700;color:#111827;">Supprimer votre compte ?</h3>
+            </div>
+            <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:18px;">
+                Êtes-vous certain de vouloir supprimer définitivement votre compte client ? Cette action est irréversible et effacera l'ensemble de vos données de session et d'identification conformément au Règlement Général sur la Protection des Données (RGPD Art. 17).
+            </p>
+            <div style="display:flex;justify-content:flex-end;gap:10px;">
+                <button type="button" id="cancelDeleteAccountBtn" class="btn" style="background:#f3f4f6;color:#374151;border:1px solid #d1d5db;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">
+                    Annuler
+                </button>
+                <button type="button" id="confirmDeleteAccountBtn" class="btn" style="background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;">
+                    Confirmer la suppression
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -1448,6 +1482,22 @@
         // SESSION & DASHBOARD MANAGEMENT
         // ----------------------------------------------------
         async function checkCustomerSession() {
+            // Email verification detection from Supabase confirmation link
+            const hashRaw = window.location.hash.replace(/^#/, '');
+            const hashParams = new URLSearchParams(hashRaw);
+            const searchParams = new URLSearchParams(window.location.search);
+            const isEmailVerified = hashParams.get("type") === "signup" || 
+                                    hashParams.get("type") === "email_change" || 
+                                    searchParams.get("verified") === "true" ||
+                                    hashRaw.includes("message=Email+verified");
+
+            if (isEmailVerified) {
+                showAlert("✓ Votre adresse e-mail a été vérifiée avec succès ! Votre compte est actif.", false);
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, "", window.location.pathname);
+                }
+            }
+
             // 1. Check for incoming OAuth tokens or errors (e.g. redirected back from Google / Supabase)
             if (window.DB && typeof window.DB.handleOAuthCallback === "function") {
                 const oauthRes = await window.DB.handleOAuthCallback();
@@ -1619,6 +1669,58 @@
             loginForm.reset();
             switchView("login");
         });
+
+        // ----------------------------------------------------
+        // DELETE ACCOUNT (RGPD ART. 17)
+        // ----------------------------------------------------
+        const deleteTrigger = document.getElementById("deleteAccountTriggerBtn");
+        const deleteModal = document.getElementById("deleteAccountModal");
+        const cancelDeleteBtn = document.getElementById("cancelDeleteAccountBtn");
+        const confirmDeleteBtn = document.getElementById("confirmDeleteAccountBtn");
+
+        if (deleteTrigger && deleteModal) {
+            deleteTrigger.addEventListener("click", () => {
+                deleteModal.style.display = "flex";
+            });
+            if (cancelDeleteBtn) {
+                cancelDeleteBtn.addEventListener("click", () => {
+                    deleteModal.style.display = "none";
+                });
+            }
+            deleteModal.addEventListener("click", (e) => {
+                if (e.target === deleteModal) deleteModal.style.display = "none";
+            });
+
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener("click", async function () {
+                    confirmDeleteBtn.disabled = true;
+                    confirmDeleteBtn.textContent = "Suppression en cours...";
+                    
+                    let email = "";
+                    try {
+                        const sess = JSON.parse(localStorage.getItem("mse_customer_session"));
+                        if (sess && sess.email) email = sess.email;
+                    } catch (e) {}
+
+                    if (window.DB && typeof window.DB.deleteCustomerAccount === "function") {
+                        await window.DB.deleteCustomerAccount(email);
+                    } else {
+                        localStorage.removeItem("mse_customer_session");
+                        localStorage.removeItem("activeCustomerSession");
+                    }
+
+                    deleteModal.style.display = "none";
+                    authSection.style.display = "grid";
+                    accountDashboardSection.style.display = "none";
+                    loginForm.reset();
+                    switchView("login");
+                    showAlert("✓ Votre compte a été définitivement supprimé conformément au RGPD.", false);
+                    confirmDeleteBtn.disabled = false;
+                    confirmDeleteBtn.textContent = "Confirmer la suppression";
+                });
+            }
+        }
+
 
         // Initialize session check
         checkCustomerSession();
