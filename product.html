@@ -239,9 +239,6 @@
                     <span class="hud-live-dot" style="width:5px;height:5px;"></span>
                     <span id="productCategoryText" data-i18n="customizerBadge">CUSTOM SIGNAGE</span>
                 </div>
-                <a href="#productReviewsSection" class="product-header-rating-badge" id="productHeaderRatingBadge">
-                    <span>★ 4.9</span> <span id="productHeaderReviewCount">(28 avis)</span> · <span data-i18n="recommendedNotice">100% Recommandé</span>
-                </a>
                 <h1 id="productTitle" class="product-customizer-title">Custom Signage</h1>
                 <div class="product-price-row">
                     <span id="productPriceDisplay" class="live-price-ticker">100,00 € HT</span>
@@ -1137,107 +1134,6 @@
 
         </div>
     </main>
-
-    <!-- =========================================================
-         FEATURE 1: INTERACTIVE CUSTOMER REVIEWS & RATINGS (UGC)
-    ========================================================== -->
-    <section class="product-reviews-section" id="productReviewsSection">
-        <div class="reviews-header-card">
-            <div class="rating-score-box">
-                <div class="rating-huge-number" id="reviewsScoreNum">4.9</div>
-                <div class="rating-stars-gold">★★★★★</div>
-                <div class="rating-count-label" id="reviewsTotalCountLabel">Basé sur 28 avis vérifiés</div>
-            </div>
-
-            <div class="rating-bars-breakdown" id="ratingBarsBreakdown">
-                <div class="rating-bar-row">
-                    <span class="rating-bar-label">5 ★</span>
-                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 88%;"></div></div>
-                    <span class="rating-bar-percent">88%</span>
-                </div>
-                <div class="rating-bar-row">
-                    <span class="rating-bar-label">4 ★</span>
-                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 10%;"></div></div>
-                    <span class="rating-bar-percent">10%</span>
-                </div>
-                <div class="rating-bar-row">
-                    <span class="rating-bar-label">3 ★</span>
-                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 2%;"></div></div>
-                    <span class="rating-bar-percent">2%</span>
-                </div>
-                <div class="rating-bar-row">
-                    <span class="rating-bar-label">2 ★</span>
-                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 0%;"></div></div>
-                    <span class="rating-bar-percent">0%</span>
-                </div>
-                <div class="rating-bar-row">
-                    <span class="rating-bar-label">1 ★</span>
-                    <div class="rating-bar-track"><div class="rating-bar-fill" style="width: 0%;"></div></div>
-                    <span class="rating-bar-percent">0%</span>
-                </div>
-            </div>
-
-            <div class="reviews-cta-box">
-                <button type="button" class="btn-write-review" id="toggleReviewFormBtn">
-                    <span>✍️</span> <span data-i18n="writeReviewBtn">Donner mon avis</span>
-                </button>
-                <span style="font-size:11px;color:#059669;font-weight:700;">✓ 100% Avis d'acheteurs vérifiés</span>
-            </div>
-        </div>
-
-        <!-- Write a Review Form -->
-        <div class="write-review-form-wrapper" id="writeReviewFormWrapper">
-            <h3 class="review-form-title" data-i18n="writeReviewTitle">Écrire un avis client vérifié</h3>
-            <form id="submitReviewForm">
-                <div style="margin-bottom:12px;">
-                    <label style="font-size:12px;font-weight:700;color:#4b5563;display:block;margin-bottom:6px;" data-i18n="reviewScoreLabel">VOTRE NOTE GLOBALE :</label>
-                    <div class="star-rating-selector" id="starRatingSelector">
-                        <span data-star="1" class="active">★</span>
-                        <span data-star="2" class="active">★</span>
-                        <span data-star="3" class="active">★</span>
-                        <span data-star="4" class="active">★</span>
-                        <span data-star="5" class="active">★</span>
-                    </div>
-                    <input type="hidden" id="reviewStarValue" value="5">
-                </div>
-
-                <div class="review-input-grid">
-                    <div class="review-input-group">
-                        <label for="reviewAuthorName" data-i18n="reviewNameLabel">Votre Nom ou Entreprise *</label>
-                        <input type="text" id="reviewAuthorName" required placeholder="ex. Marc Valadier (Boutique Paris 3e)">
-                    </div>
-                    <div class="review-input-group">
-                        <label for="reviewAuthorEmail" data-i18n="reviewEmailLabel">Votre Email (Vérification) *</label>
-                        <input type="email" id="reviewAuthorEmail" required placeholder="nom@entreprise.fr">
-                    </div>
-                </div>
-
-                <div class="review-input-group" style="margin-bottom:16px;">
-                    <label for="reviewTitleInput" data-i18n="reviewHeadlineLabel">Titre de votre avis *</label>
-                    <input type="text" id="reviewTitleInput" required placeholder="ex. Qualité remarquable et livraison soignée">
-                </div>
-
-                <div class="review-input-group" style="margin-bottom:20px;">
-                    <label for="reviewCommentText" data-i18n="reviewCommentLabel">Votre retour d'expérience détaillé *</label>
-                    <textarea id="reviewCommentText" rows="4" required placeholder="Partagez vos impressions sur la finition, la luminosité et l'installation..."></textarea>
-                </div>
-
-                <div style="display:flex;gap:12px;align-items:center;">
-                    <button type="submit" class="btn btn-dark" style="padding:12px 28px;font-size:14px;font-weight:700;" data-i18n="submitReviewBtn">
-                        Publier mon avis ✓
-                    </button>
-                    <button type="button" id="cancelReviewBtn" class="btn btn-secondary" style="padding:12px 20px;font-size:14px;">
-                        Annuler
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Reviews Feed List -->
-        <div class="reviews-feed-list" id="reviewsFeedList">
-            <!-- Populated dynamically by script.js -->
-        </div>
-    </section>
 
     <!-- FOOTER -->
     <footer class="footer" style="margin-top:60px;">
