@@ -11,7 +11,7 @@ if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true });
 }
 
-const copyDirs = ['js', 'images', 'data', 'css'];
+const copyDirs = ['js', 'images', 'data', 'css', 'videos'];
 for (const dir of copyDirs) {
   const src = path.join(rootDir, dir);
   const dest = path.join(distDir, dir);

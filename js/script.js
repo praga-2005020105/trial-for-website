@@ -3853,7 +3853,22 @@ function initMainApp() {
             }
 
             slides.forEach(function (slide, i) {
-                slide.classList.toggle("active", i === currentIndex);
+                const isActive = (i === currentIndex);
+                slide.classList.toggle("active", isActive);
+                const vid = slide.querySelector("video");
+                if (vid) {
+                    if (isActive) {
+                        try {
+                            const p = vid.play();
+                            if (p && typeof p.catch === "function") p.catch(function () {});
+                        } catch (e) {}
+                    } else {
+                        try {
+                            vid.pause();
+                            vid.currentTime = 0;
+                        } catch (e) {}
+                    }
+                }
             });
 
             dots.forEach(function (dot, i) {
