@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /success.html
+Disallow: /success
+Disallow: /payment-failed.html
+Disallow: /payment-failed
+
+Sitemap: https://mystickerzenseigne.com/sitemap.xml

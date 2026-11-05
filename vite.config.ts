@@ -77,6 +77,7 @@ export default defineConfig(() => {
           shipping: path.resolve(__dirname, 'shipping.html'),
           returns: path.resolve(__dirname, 'returns.html'),
           terms: path.resolve(__dirname, 'terms.html'),
+          mentionsLegales: path.resolve(__dirname, 'mentions-legales.html'),
           success: path.resolve(__dirname, 'success.html'),
           cookies: path.resolve(__dirname, 'cookies.html'),
           paymentFailed: path.resolve(__dirname, 'payment-failed.html'),

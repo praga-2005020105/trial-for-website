@@ -21,7 +21,7 @@ for (const dir of copyDirs) {
   }
 }
 
-const copyFiles = ['favicon.svg'];
+const copyFiles = ['favicon.svg', 'robots.txt', 'sitemap.xml'];
 for (const file of copyFiles) {
   const src = path.join(rootDir, file);
   const dest = path.join(distDir, file);

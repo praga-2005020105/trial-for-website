@@ -99,6 +99,11 @@
   status = 200
 
 [[redirects]]
+  from = "/mentions-legales"
+  to = "/mentions-legales.html"
+  status = 200
+
+[[redirects]]
   from = "/shipping"
   to = "/shipping.html"
   status = 200

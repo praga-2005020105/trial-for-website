@@ -420,6 +420,7 @@
             footerShipping: "Shipping Policy",
             footerReturns: "No Returns Policy",
             footerTerms: "Terms of Service",
+            footerMentions: "Legal Notice",
             footerCopyright: "&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved."
         },
         fr: {
@@ -839,12 +840,13 @@
             footerShipping: "Politique de Livraison",
             footerReturns: "Politique de Non-Retour (Sur Mesure)",
             footerTerms: "Conditions de Vente",
+            footerMentions: "Mentions Légales",
             footerCopyright: "&copy; 2026 MY STICKERZ ENSEIGNE. Tous droits réservés."
         }
     };
 
     function getCurrentLanguage() {
-        return localStorage.getItem("site_lang") || "en";
+        return localStorage.getItem("site_lang") || "fr";
     }
 
     function setLang(lang) {
