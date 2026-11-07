@@ -3534,23 +3534,43 @@ function initMainApp() {
             countText.textContent = wishlist.length === 1 ? "1 item" : `${wishlist.length} items`;
         }
 
-        grid.innerHTML = wishlist.map((item, index) => `
+        const defaultImages = {
+            "neon-signs": "images/neon-signs.jpg",
+            "3d-raised-letters": "images/3d-raised-letters.jpg",
+            "acrylic-signs": "images/acrylic-signs.jpg",
+            "business-signs": "images/business-signs.jpg",
+            "adhesive-stickers": "images/adhesive-stickers.jpg",
+            "wall-stickers": "images/wall-stickers.jpg",
+            "vehicle-lettering": "images/vehicle-lettering.jpg",
+            "vehicle-wrapping": "images/vehicle-wrapping.jpg",
+            "aluminium-facades": "images/aluminium-facades.jpg",
+            "retractable-awnings": "images/retractable-awnings.jpg",
+            "suspended-ceilings": "images/suspended-ceilings.jpg"
+        };
+
+        grid.innerHTML = wishlist.map((item, index) => {
+            const rawImg = item.image || defaultImages[item.id] || "images/neon-signs.jpg";
+            const productLink = (item.id === "neon-signs" || (item.name && item.name.toLowerCase().includes("neon"))) 
+                ? "neon-builder.html" 
+                : `product.html?id=${encodeURIComponent(item.id || 'neon-signs')}`;
+            return `
             <div class="wishlist-card">
                 <div class="card-img-wrap">
-                    <a href="product.html?id=${encodeURIComponent(item.id || 'neon-signs')}">
-                        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" onerror="this.src='images/company-logo.jpeg'">
+                    <a href="${productLink}">
+                        <img src="${escapeHtml(rawImg)}" alt="${escapeHtml(item.name || 'Product')}" onerror="this.onerror=null;this.src='images/neon-signs.jpg';">
                     </a>
-                    <button type="button" class="wishlist-remove-btn" data-index="${index}" title="Remove item">×</button>
+                    <button type="button" class="wishlist-remove-btn" data-index="${index}" title="Remove item" aria-label="Remove item">×</button>
                 </div>
                 <div class="card-body">
-                    <h3><a href="product.html?id=${encodeURIComponent(item.id || 'neon-signs')}">${escapeHtml(item.name)}</a></h3>
+                    <h3><a href="${productLink}">${escapeHtml(item.name || 'Custom Product')}</a></h3>
                     <div class="card-price">${formatPrice(item.price)}</div>
                     <div class="card-actions">
                         <button type="button" class="wishlist-to-cart-btn" data-index="${index}">Add to Cart</button>
                     </div>
                 </div>
             </div>
-        `).join("");
+            `;
+        }).join("");
 
         grid.querySelectorAll(".wishlist-remove-btn").forEach(btn => {
             btn.addEventListener("click", function () {
