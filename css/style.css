@@ -3289,15 +3289,15 @@ button {
 ========================================================= */
 
 .neon-builder-page {
-  max-width: 1300px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 30px 4% 90px;
+  padding: 0 4% 60px;
 }
 
 .neon-builder-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: 40px;
+  gap: 36px;
   align-items: start;
   position: relative;
 }
@@ -3316,11 +3316,11 @@ button {
 .neon-stage-wrapper {
   position: relative;
   width: 100%;
-  height: clamp(380px, calc(100vh - 220px), 520px);
-  border-radius: 12px;
+  height: clamp(380px, calc(100vh - 220px), 500px);
+  border-radius: var(--radius-card, 12px);
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3637,23 +3637,27 @@ button {
 .neon-align-group {
   display: inline-flex;
   gap: 4px;
-  background: #f0f0ee;
-  border-radius: 6px;
+  background: #f1f5f9;
+  border-radius: var(--radius-btn, 6px);
   padding: 3px;
+  border: 1px solid var(--customizer-border-light, #e2e8f0);
 }
 
 .neon-align-btn {
   border: none;
   background: transparent;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--customizer-text-secondary, #475569);
   cursor: pointer;
   border-radius: 4px;
-  transition: all 0.15s;
+  transition: all 0.2s var(--ease-spring);
 }
 
 .neon-align-btn.active {
-  background: #ffffff;
+  background: #151515;
+  color: #ffffff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   font-weight: 700;
 }
@@ -3668,28 +3672,28 @@ button {
 }
 
 .font-filter-pill {
-  padding: 5px 11px;
+  padding: 6px 13px;
   font-size: 11px;
   font-weight: 600;
-  border-radius: 20px;
-  border: 1px solid #dcdcdc;
+  border-radius: var(--radius-pill, 9999px);
+  border: 1px solid var(--customizer-border-light, #e2e8f0);
   background: #ffffff;
-  color: #555555;
+  color: var(--customizer-text-secondary, #475569);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s var(--ease-spring);
   white-space: nowrap;
 }
 
 .font-filter-pill:hover {
-  border-color: #111111;
-  color: #111111;
-  background: #f8f8f8;
+  border-color: #151515;
+  color: #151515;
+  background: #f8fafc;
 }
 
 .font-filter-pill.active {
-  background: #111111;
-  color: #ffffff;
-  border-color: #111111;
+  background: #151515 !important;
+  color: #ffffff !important;
+  border-color: #151515 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -3729,26 +3733,34 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  background: #fff;
-  padding: 10px 6px;
+  border: 1px solid var(--customizer-border-light, #e2e8f0);
+  border-radius: var(--radius-btn, 8px);
+  background: #ffffff;
+  padding: 10px 8px;
   text-align: center;
   cursor: pointer;
-  min-height: 62px;
-  transition: all 0.2s ease;
+  min-height: 64px;
+  transition: all 0.2s var(--ease-spring);
 }
 
 .neon-font-card:hover {
-  border-color: #111;
+  border-color: #151515;
   transform: translateY(-1px);
 }
 
 .neon-font-card.active {
-  border: 2px solid #111;
-  background: #f8f8f7;
-  font-weight: 700;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border: 2px solid #151515 !important;
+  background: #151515 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+.neon-font-card.active .neon-font-preview {
+  color: #ffffff !important;
+}
+
+.neon-font-card.active .neon-font-name {
+  color: #94a3b8 !important;
 }
 
 .neon-font-preview {
@@ -3762,7 +3774,7 @@ button {
 
 .neon-font-name {
   font-size: 10px;
-  color: #777;
+  color: var(--customizer-text-muted, #777);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
@@ -3780,26 +3792,27 @@ button {
 }
 
 .neon-color-btn {
-  border: 1px solid #d5d5d2;
-  border-radius: 8px;
+  border: 1px solid var(--customizer-border-light, #e2e8f0);
+  border-radius: var(--radius-btn, 8px);
   background: #ffffff;
   padding: 8px 10px;
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s var(--ease-spring);
   position: relative;
 }
 
 .neon-color-btn:hover {
-  border-color: #111;
+  border-color: #151515;
+  background: #f8fafc;
 }
 
 .neon-color-btn.active {
-  border: 2px solid #111;
-  background: #fcfcfb;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 2px solid var(--accent-crimson, #ff0f39) !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 1px var(--accent-crimson, #ff0f39), 0 4px 12px rgba(255, 15, 57, 0.15) !important;
 }
 
 .neon-swatch-circle {
@@ -3817,7 +3830,7 @@ button {
 .neon-color-title {
   font-size: 11px;
   font-weight: 600;
-  color: #222;
+  color: var(--customizer-text-primary, #1e293b);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3831,45 +3844,67 @@ button {
   margin-top: 10px;
 }
 
+.neon-options-grid-3 {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
 .neon-option-card {
-  border: 1px solid #d5d5d2;
-  border-radius: 8px;
-  background: #fff;
+  border: 1px solid var(--customizer-border-light, #e2e8f0);
+  border-radius: var(--radius-btn, 8px);
+  background: #ffffff;
   padding: 12px 14px;
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .neon-option-card:hover {
-  border-color: #111;
+  border-color: var(--customizer-border-hover, #94a3b8);
+  background: #f8fafc;
 }
 
 .neon-option-card.active {
-  border: 2px solid #111;
-  background: #f7f7f5;
+  background: #151515 !important;
+  border-color: #151515 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .neon-option-card strong {
   display: block;
-  font-size: 13px;
-  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: inherit;
 }
 
 .neon-option-card span {
   font-size: 11px;
-  color: #666;
+  color: var(--customizer-text-muted, #64748b);
+}
+
+.neon-option-card.active span {
+  color: #cbd5e1 !important;
 }
 
 .neon-price-badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  color: #111;
-  background: #eee;
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: var(--accent-crimson, #ff0f39);
+  background: var(--accent-crimson-subtle, rgba(255, 15, 57, 0.08));
+  padding: 2px 7px;
+  border-radius: var(--radius-pill, 9999px);
   display: inline-block;
+  align-self: flex-start;
   margin-top: 4px;
+  transition: all 0.2s;
+}
+
+.neon-option-card.active .neon-price-badge {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
 }
 
 /* Sticky Live Pricing Bar */
