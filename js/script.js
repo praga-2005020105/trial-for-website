@@ -3434,6 +3434,17 @@ function initMainApp() {
         });
     }
 
+    // Sync mouse wheel scrolling from sticky visualizer column to scrollable configurator column on desktop
+    const vizColEl = document.querySelector(".visualizer-column");
+    const cfgColEl = document.querySelector(".configurator-column");
+    if (vizColEl && cfgColEl) {
+        vizColEl.addEventListener("wheel", function (e) {
+            if (window.innerWidth >= 992) {
+                cfgColEl.scrollTop += e.deltaY;
+            }
+        }, { passive: true });
+    }
+
     window.onSiteLanguageChanged = function (lang) {
         updateProductPage();
         if (typeof activeEngineRenderFn === "function") {

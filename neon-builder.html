@@ -1116,6 +1116,17 @@
             }, 2500);
         });
 
+        // Sync mouse wheel scrolling from sticky simulator column to scrollable configurator column on desktop
+        const neonSimCol = document.querySelector(".neon-simulator-column");
+        const neonCfgCol = document.querySelector(".neon-configurator-column");
+        if (neonSimCol && neonCfgCol) {
+            neonSimCol.addEventListener("wheel", function (e) {
+                if (window.innerWidth >= 992) {
+                    neonCfgCol.scrollTop += e.deltaY;
+                }
+            }, { passive: true });
+        }
+
         // Initial render
         updateSimulator();
     })();
