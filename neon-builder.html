@@ -45,20 +45,20 @@
             <nav class="desktop-menu">
                 <a href="index.html" data-i18n="navHome">Home</a>
                 <a href="products.html" data-i18n="navProducts">Products</a>
-                <a href="neon-builder.html" class="active" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="neon-builder.html" class="active" data-i18n="navNeonBuilder">Neon Builder</a>
                 <a href="index.html#services" data-i18n="navServices">Services</a>
                 <a href="index.html#about" data-i18n="navAbout">About</a>
                 <a href="contact.html" data-i18n="navContact">Contact</a>
             </nav>
 
             <div class="nav-icons">
-                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
-                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <button class="icon-btn search-toggle" aria-label="Search" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></a>
                 <a href="cart.html" class="cart-icon" aria-label="Cart">
-                    🛒
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cartCount">0</span>
                 </a>
-                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account">👤</a>
+                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account"><i class="fa-regular fa-user"></i></a>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
@@ -66,12 +66,12 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="index.html" data-i18n="navHome">Home</a>
             <a href="products.html" data-i18n="navProducts">Products</a>
-            <a href="neon-builder.html" class="active" data-i18n="navNeonBuilder">Neon Builder ✨</a>
-            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><span>🔍</span> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="neon-builder.html" class="active" data-i18n="navNeonBuilder">Neon Builder</a>
+            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="searchAction">Search Catalog</span></a>
             <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
             <a href="cart.html" data-i18n="navCart">Cart</a>
             <a href="contact.html" data-i18n="navContact">Contact</a>
-            <a href="login.html" style="font-weight:700;color:#111;" data-i18n="navAccount">👤 My Account</a>
+            <a href="login.html" style="font-weight:700;color:#111;" data-i18n="navAccount"><i class="fa-regular fa-user"></i> My Account</a>
         </div>
     </header>
 
@@ -117,22 +117,22 @@
                     <div style="display:flex;align-items:center;gap:8px;">
                         <span style="font-weight:700;color:#333;">Wall Texture:</span>
                         <div class="neon-wall-btns">
-                            <button type="button" class="neon-wall-btn" data-wall="wall-clean-white">⚪ White Studio</button>
-                            <button type="button" class="neon-wall-btn active" data-wall="wall-anthracite">⬛ Anthracite</button>
-                            <button type="button" class="neon-wall-btn" data-wall="wall-exposed-brick">🧱 Brick Loft</button>
-                            <button type="button" class="neon-wall-btn" data-wall="wall-wood-slats">🪵 Timber Slats</button>
+                            <button type="button" class="neon-wall-btn" data-wall="wall-clean-white">White Studio</button>
+                            <button type="button" class="neon-wall-btn active" data-wall="wall-anthracite">Anthracite</button>
+                            <button type="button" class="neon-wall-btn" data-wall="wall-exposed-brick">Brick Loft</button>
+                            <button type="button" class="neon-wall-btn" data-wall="wall-wood-slats">Timber Slats</button>
                         </div>
                     </div>
 
                     <div style="display:flex;align-items:center;gap:6px;">
                         <button type="button" class="btn btn-light" id="btnToggleDayNight" style="padding:6px 12px;font-size:11px;border-radius:20px;border:1px solid #ccc;">
-                            ☀️ / 🌙 Toggle Ambient Light
+                            <i class="fa-solid fa-circle-half-stroke"></i> Toggle Ambient Light
                         </button>
                     </div>
                 </div>
 
                 <div style="margin-top:14px;padding:12px 16px;background:#fafaf8;border:1px solid #e7e7e2;border-radius:6px;font-size:12px;color:#666;line-height:1.5;" data-i18n="neonAtelierAssurance">
-                    💡 <strong>Atelier Assurance:</strong> 100% hand-crafted with shatterproof LED flex silicone tubing. Powered by low voltage 12V adapter with 2-Year Workshop Warranty.
+                    <strong>Atelier Assurance:</strong> 100% hand-crafted with shatterproof LED flex silicone tubing. Powered by low voltage 12V adapter with 2-Year Workshop Warranty.
                 </div>
             </div>
 
@@ -168,12 +168,12 @@
                             <!-- Font Category Filter Pills -->
                             <div class="neon-font-filter-pills" id="neonFontFilterPills">
                                 <button type="button" class="font-filter-pill active" data-filter="all">All (30+)</button>
-                                <button type="button" class="font-filter-pill" data-filter="cursive">✨ Cursive &amp; Script</button>
-                                <button type="button" class="font-filter-pill" data-filter="modern">🏢 Modern Sans</button>
-                                <button type="button" class="font-filter-pill" data-filter="bold">⚡ Bold Display</button>
-                                <button type="button" class="font-filter-pill" data-filter="retro">🌈 Retro Neon</button>
-                                <button type="button" class="font-filter-pill" data-filter="serif">👑 Luxury Serif</button>
-                                <button type="button" class="font-filter-pill" data-filter="cyber">🤖 Cyber / Tech</button>
+                                <button type="button" class="font-filter-pill" data-filter="cursive">Cursive &amp; Script</button>
+                                <button type="button" class="font-filter-pill" data-filter="modern">Modern Sans</button>
+                                <button type="button" class="font-filter-pill" data-filter="bold">Bold Display</button>
+                                <button type="button" class="font-filter-pill" data-filter="retro">Retro Neon</button>
+                                <button type="button" class="font-filter-pill" data-filter="serif">Luxury Serif</button>
+                                <button type="button" class="font-filter-pill" data-filter="cyber">Cyber / Tech</button>
                             </div>
 
                             <div class="neon-fonts-scroll-container">
@@ -580,10 +580,10 @@
 
                     <div style="display:flex;gap:12px;margin-top:20px;">
                         <button type="button" id="neonAddToCartBtn" class="primary-button" style="flex:1;height:52px;background:#111;color:#fff;font-size:13px;font-weight:700;">
-                            🛒 Add Custom Neon to Cart
+                            Add Custom Neon to Cart
                         </button>
                         <button type="button" id="neonBuyNowBtn" class="btn" style="flex:1;height:52px;border:2px solid #111;background:#fff;color:#111;font-size:13px;font-weight:700;">
-                            ⚡ Buy Now
+                            Buy Now
                         </button>
                     </div>
 
@@ -624,14 +624,14 @@
             <div>
                 <h4 data-i18n="footerWorkshopTitle">Atelier &amp; Contact</h4>
                 <p style="margin-bottom:8px;">
-                    📍 <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
+                    <i class="fa-solid fa-location-dot"></i> <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
                     29-31, Boulevard de la Muette<br>
                     95140 Garges-lès-Gonesse
                 </p>
                 <p style="margin-bottom:8px;">
-                    📞 <strong>Mobile:</strong> <a href="tel:+33698710050" style="display:inline;color:#fff;">06 98 71 00 50</a><br>
-                    ✉️ <strong>Email:</strong> <a href="mailto:mystickerz75@gmail.com" style="display:inline;color:#fff;">mystickerz75@gmail.com</a><br>
-                    ✉️ <a href="mailto:apparart@gmail.com" style="display:inline;color:#888;">apparart@gmail.com</a>
+                    <i class="fa-solid fa-phone"></i> <strong>Mobile:</strong> <a href="tel:+33698710050" style="display:inline;color:#fff;">06 98 71 00 50</a><br>
+                    <i class="fa-solid fa-envelope"></i> <strong>Email:</strong> <a href="mailto:mystickerz75@gmail.com" style="display:inline;color:#fff;">mystickerz75@gmail.com</a><br>
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:apparart@gmail.com" style="display:inline;color:#888;">apparart@gmail.com</a>
                 </p>
                 <div class="footer-social-row">
                     <a href="https://wa.me/33698710050?text=Bonjour,%20je%20souhaite%20un%20renseignement%20/%20devis%20aupr%C3%A8s%20de%20l'atelier" target="_blank" class="btn" style="background:#25d366;color:#fff;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;">
@@ -645,7 +645,7 @@
         </div>
         <div class="footer-bottom">
             <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
-            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">Admin</a></p>
         </div>
     </footer>
 
@@ -1085,7 +1085,7 @@
             const toast = document.createElement("div");
             toast.className = "toast-item";
             toast.style.cssText = "position:fixed;top:24px;right:24px;z-index:999999;background:#111;color:#fff;padding:14px 20px;border-radius:8px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,0.25);";
-            toast.innerHTML = `<span>✨</span> <span><strong>${item.name}</strong> added to cart!</span>`;
+            toast.innerHTML = `<span><strong>${item.name}</strong> added to cart!</span>`;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 3200);
         });

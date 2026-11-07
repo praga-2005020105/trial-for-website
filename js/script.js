@@ -932,14 +932,14 @@ function initMainApp() {
             searchModal.innerHTML = `
                 <div class="search-modal-box">
                     <div class="search-input-wrap">
-                        <div class="search-icon-badge">🔍</div>
+                        <div class="search-icon-badge"><i class="fa-solid fa-magnifying-glass"></i></div>
                         <input type="text" id="globalSearchInput" placeholder="Search signs, neon, PVC letters, stickers..." autocomplete="off" spellcheck="false">
                         <button type="button" class="search-clear-btn" id="searchClearBtn" style="display:none;" title="Clear search">✕</button>
                         <button type="button" class="search-modal-close" id="searchModalClose" aria-label="Close search">×</button>
                     </div>
                     <div id="searchQuickActionContainer"></div>
                     <div class="search-suggestions-box" id="searchSuggestionsBox">
-                        <div class="search-suggestion-label" id="searchSuggestionsLabel">💡 Suggestions / Popular Searches</div>
+                        <div class="search-suggestion-label" id="searchSuggestionsLabel">Popular Searches</div>
                         <div class="search-tags-row" id="searchSuggestionsList"></div>
                     </div>
                     <div class="search-results-list" id="searchResultsList"></div>
@@ -1133,10 +1133,10 @@ function initMainApp() {
             currentSuggestions = suggestions;
 
             if (!cleanQuery) {
-                if (suggestionsLabel) suggestionsLabel.innerHTML = "💡 Popular & Trending Searches";
+                if (suggestionsLabel) suggestionsLabel.innerHTML = "Popular Searches";
             } else {
                 if (suggestionsLabel) {
-                    suggestionsLabel.innerHTML = `🔍 Suggestions for "<strong>${escapeHtml(cleanQuery)}</strong>"`;
+                    suggestionsLabel.innerHTML = `Suggestions for "<strong>${escapeHtml(cleanQuery)}</strong>"`;
                 }
             }
 
@@ -1144,7 +1144,7 @@ function initMainApp() {
                 const highlighted = highlightMatch(sug, cleanQuery);
                 return `
                     <button type="button" class="search-tag-chip" data-query="${escapeHtml(sug)}" data-index="${idx}">
-                        <span>🔎</span> <span>${highlighted}</span>
+                        <span><i class="fa-solid fa-magnifying-glass"></i></span> <span>${highlighted}</span>
                     </button>
                 `;
             }).join("");
@@ -1169,7 +1169,7 @@ function initMainApp() {
                 quickActionContainer.innerHTML = `
                     <a href="neon-builder.html" class="search-quick-action">
                         <div class="search-quick-action-text">
-                            <strong>✨ Interactive LED Neon Sign Builder</strong>
+                            <strong>Interactive LED Neon Sign Builder</strong>
                             <span>Design custom text in 2.5D with 12 glow colors, Day/Night toggle &amp; live pricing.</span>
                         </div>
                         <span class="search-quick-action-btn">Open Builder →</span>
@@ -1183,7 +1183,7 @@ function initMainApp() {
                 quickActionContainer.innerHTML = `
                     <a href="product.html?id=pvc-cut-letters" class="search-quick-action" style="border-color:#a855f7;">
                         <div class="search-quick-action-text">
-                            <strong style="color:#c084fc;">✨ Custom Cut PVC Letters Customizer</strong>
+                            <strong style="color:#c084fc;">Custom Cut PVC Letters Customizer</strong>
                             <span>Real-time 3D relief visualizer, thickness selection &amp; RAL paint finishes.</span>
                         </div>
                         <span class="search-quick-action-btn" style="background:#c084fc;">Open Studio →</span>
@@ -1272,7 +1272,7 @@ function initMainApp() {
             if (matches.length === 0) {
                 resultsList.innerHTML = `
                     <div style="padding:32px 20px;text-align:center;color:#666;">
-                        <div style="font-size:32px;margin-bottom:8px;">🔍</div>
+                        <div style="font-size:32px;margin-bottom:8px;color:#94a3b8;"><i class="fa-solid fa-magnifying-glass"></i></div>
                         <p style="font-weight:600;font-size:15px;color:#111;margin-bottom:4px;">No products found matching "${escapeHtml(query)}"</p>
                         <p style="font-size:13px;color:#777;margin-bottom:16px;">Try searching for "neon", "pvc letters", "stickers", or build custom signage.</p>
                         <a href="neon-builder.html" class="btn btn-dark" style="font-size:12px;padding:10px 18px;">Open LED Neon Sign Builder →</a>
@@ -1285,7 +1285,7 @@ function initMainApp() {
             if (isTypoCorrected) {
                 typoNoticeHtml = `
                     <div class="search-did-you-mean">
-                        <span>💡 Résultat(s) pour "<strong>${escapeHtml(correctedWord || term)}</strong>" (recherche corrigée pour "${escapeHtml(query)}")</span>
+                        <span>Résultat(s) pour "<strong>${escapeHtml(correctedWord || term)}</strong>" (recherche corrigée pour "${escapeHtml(query)}")</span>
                     </div>
                 `;
             }
@@ -1295,7 +1295,7 @@ function initMainApp() {
                 const isNeon = prod.id === "neon-signs";
                 const isPvc = prod.customizer === "pvc-letters";
                 const targetUrl = isNeon ? "neon-builder.html" : `product.html?id=${prod.id}`;
-                const badgeText = isNeon ? "✨ 2.5D Neon Builder" : (isPvc ? "✨ 3D Customizer" : "");
+                const badgeText = isNeon ? "2.5D Neon Builder" : (isPvc ? "3D Customizer" : "");
 
                 return `
                     <a href="${targetUrl}" class="search-result-item" data-index="${idx}">
@@ -1547,7 +1547,7 @@ function initMainApp() {
         updateCartCount();
 
         const isFr = window.getCurrentLanguage && window.getCurrentLanguage() === "fr";
-        showToast(isFr ? `${product.name} ajouté au panier !` : `${product.name} added to cart!`, "🛒");
+        showToast(isFr ? `${product.name} ajouté au panier !` : `${product.name} added to cart!`, "✓");
     }
 
     function getCardProduct(button, card) {
@@ -2701,7 +2701,7 @@ function initMainApp() {
                 // Vector file (.ai, .eps, .pdf) without inline raster preview
                 if (vehicleUploadedGraphic) vehicleUploadedGraphic.style.display = "none";
                 if (vehicleDoorText) {
-                    vehicleDoorText.textContent = `📁 ${vehicleState.fileName}`;
+                    vehicleDoorText.textContent = vehicleState.fileName;
                     vehicleDoorText.style.display = "block";
                     vehicleDoorText.style.fontFamily = "'JetBrains Mono', monospace";
                 }
@@ -2903,9 +2903,9 @@ function initMainApp() {
             if (vehicleFileSize) vehicleFileSize.textContent = `${vehicleState.fileSize} · Ready for atelier production`;
             if (vehicleFileIcon) {
                 const ext = file.name.split(".").pop().toLowerCase();
-                if (["ai", "eps", "svg"].includes(ext)) vehicleFileIcon.textContent = "📐";
-                else if (["pdf", "psd"].includes(ext)) vehicleFileIcon.textContent = "📑";
-                else vehicleFileIcon.textContent = "🖼️";
+                if (["ai", "eps", "svg"].includes(ext)) vehicleFileIcon.innerHTML = '<i class="fa-solid fa-ruler-combined"></i>';
+                else if (["pdf", "psd"].includes(ext)) vehicleFileIcon.innerHTML = '<i class="fa-regular fa-file-lines"></i>';
+                else vehicleFileIcon.innerHTML = '<i class="fa-regular fa-image"></i>';
             }
             if (vehicleFileInfoCard) vehicleFileInfoCard.style.display = "flex";
 
@@ -3055,9 +3055,9 @@ function initMainApp() {
             }
 
             if (stickerCutBadge) {
-                let badgeText = "✂️ Découpe à la Forme (Die-Cut)";
-                if (stickerState.cut === "kiss-cut") badgeText = "✂️ Mi-Chair en Planche (Kiss-Cut)";
-                if (stickerState.cut === "transfer") badgeText = "✂️ Lettrage Vinyle Transfert Échenillé";
+                let badgeText = "Découpe à la Forme (Die-Cut)";
+                if (stickerState.cut === "kiss-cut") badgeText = "Mi-Chair en Planche (Kiss-Cut)";
+                if (stickerState.cut === "transfer") badgeText = "Lettrage Vinyle Transfert Échenillé";
                 stickerCutBadge.textContent = badgeText;
             }
 
@@ -3356,7 +3356,7 @@ function initMainApp() {
             this.classList.toggle("lights-active", isNightMode);
 
             const isFr = window.getCurrentLanguage && window.getCurrentLanguage() === "fr";
-            if (dayNightIcon) dayNightIcon.textContent = isNightMode ? "🌙" : "☀️";
+            if (dayNightIcon) dayNightIcon.innerHTML = isNightMode ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
             if (dayNightLabel) dayNightLabel.textContent = isNightMode ? (isFr ? "Éclairage ON" : "Lights ON") : (isFr ? "Éclairage OFF" : "Lights OFF");
 
             // Trigger re-render of active visualizer
@@ -3425,7 +3425,7 @@ function initMainApp() {
                     this.classList.remove("active");
                 } else {
                     wishlist.push(customizerItemPayload);
-                    showToast(isFr ? "Ajouté aux favoris !" : "Added to wishlist!", "❤️");
+                    showToast(isFr ? "Ajouté aux favoris !" : "Added to wishlist!", "♡");
                     this.classList.add("active");
                 }
                 saveWishlist();
@@ -3483,7 +3483,7 @@ function initMainApp() {
             showToast(isFr ? `${product.name} retiré des favoris` : `${product.name} removed from wishlist`, "♡");
         } else {
             wishlist.push(product);
-            showToast(isFr ? `${product.name} ajouté aux favoris !` : `${product.name} added to wishlist!`, "❤️");
+            showToast(isFr ? `${product.name} ajouté aux favoris !` : `${product.name} added to wishlist!`, "♡");
         }
 
         saveWishlist();
@@ -3597,7 +3597,7 @@ function initMainApp() {
         if (!cart.length) {
             cartContent.innerHTML = `
                 <div class="empty-cart" style="text-align:center;padding:70px 20px;background:#fbfbf9;border:1px dashed #dcdcd8;border-radius:8px;">
-                    <div style="font-size:44px;margin-bottom:14px;">🛒</div>
+                    <div style="font-size:44px;margin-bottom:14px;color:#cbd5e1;"><i class="fa-solid fa-cart-shopping"></i></div>
                     <h2 style="font-family:var(--font-heading);font-size:28px;margin-bottom:8px;">${isFr ? "Votre panier est vide" : "Your cart is empty"}</h2>
                     <p style="color:#666;max-width:440px;margin:0 auto 24px;">${isFr ? "Explorez nos enseignes, néons LED et créations sur-mesure pour donner vie à votre projet." : "Browse our custom signage, neon signs, and stickers to create your project."}</p>
                     <a href="products.html" class="primary-button btn btn-dark" style="display:inline-block;padding:14px 28px;background:#111;color:#fff;text-decoration:none;border-radius:4px;font-weight:700;">
@@ -3622,7 +3622,7 @@ function initMainApp() {
             if (item.material) details += `<p><strong>${isFr ? "Matériau" : "Material"}:</strong> ${escapeHtml(item.material)}</p>`;
             if (item.finish) details += `<p><strong>${isFr ? "Finition" : "Finish"}:</strong> ${escapeHtml(item.finish)}</p>`;
             if (item.customText) details += `<p><strong>${isFr ? "Texte" : "Text"}:</strong> ${escapeHtml(item.customText)}</p>`;
-            if (item.fileName) details += `<p><strong>${isFr ? "Fichier Maquette / BAT" : "Design File"}:</strong> <span style="color:#2563eb;font-weight:600;">📁 ${escapeHtml(item.fileName)}</span></p>`;
+            if (item.fileName) details += `<p><strong>${isFr ? "Fichier Maquette / BAT" : "Design File"}:</strong> <span style="color:#2563eb;font-weight:600;">${escapeHtml(item.fileName)}</span></p>`;
             if (item.designNotes) details += `<p><strong>${isFr ? "Instructions Atelier" : "Workshop Notes"}:</strong> ${escapeHtml(item.designNotes)}</p>`;
             if (item.font) details += `<p><strong>${isFr ? "Police" : "Font"}:</strong> ${escapeHtml(item.font)}</p>`;
 
@@ -3662,7 +3662,7 @@ function initMainApp() {
                         ${isFr ? "Passer la Commande →" : "Proceed to Checkout →"}
                     </a>
                     <button type="button" id="clearCartBtn" style="display:block;width:100%;margin-top:10px;padding:10px;background:transparent;border:1px solid #ddd;color:#777;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;">
-                        ${isFr ? "🗑️ Vider le panier" : "🗑️ Clear Cart"}
+                        ${isFr ? "Vider le panier" : "Clear Cart"}
                     </button>
                 </aside>
             </div>
@@ -3788,7 +3788,7 @@ function initMainApp() {
             banner.innerHTML = `
                 <div class="cookie-banner-content">
                     <div class="cookie-banner-text">
-                        🍪 <strong>Cookie & Privacy Settings:</strong> We use cookies to secure your session, store custom signage specs in your cart, and remember your language choice. You can customize your preferences anytime in our <a href="cookies.html">Cookie Policy</a>.
+                        <strong>Cookie & Privacy Settings:</strong> We use cookies to secure your session, store custom signage specs in your cart, and remember your language choice. You can customize your preferences anytime in our <a href="cookies.html">Cookie Policy</a>.
                     </div>
                     <div class="cookie-banner-buttons">
                         <button type="button" id="cookieAcceptAll" class="btn btn-dark" style="padding:10px 18px;font-size:12px;">Accept All</button>
@@ -3815,7 +3815,7 @@ function initMainApp() {
                 necessary: true, functional: false, analytics: false, marketing: false, updatedAt: new Date().toISOString()
             }));
             banner.classList.remove("show");
-            showToast("Non-essential cookies disabled", "🛡️");
+            showToast("Non-essential cookies disabled", "✓");
         });
     }
 
@@ -3837,7 +3837,7 @@ function initMainApp() {
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(cleanEmail)) {
-                showToast(isFr ? "Veuillez entrer une adresse email valide." : "Please enter a valid email address.", "⚠️");
+                showToast(isFr ? "Veuillez entrer une adresse email valide." : "Please enter a valid email address.", "!");
                 return;
             }
 
@@ -3864,16 +3864,16 @@ function initMainApp() {
                 });
                 const data = await res.json();
                 if (res.ok && data.success) {
-                    showToast(isFr ? "Merci pour votre inscription !" : "Thank you for subscribing!", "✉️");
+                    showToast(isFr ? "Merci pour votre inscription !" : "Thank you for subscribing!", "✓");
                     newsletterForm.reset();
                     if (window.DB && window.DB.saveNewsletterSubscriber) {
                         window.DB.saveNewsletterSubscriber(cleanEmail);
                     }
                 } else {
-                    showToast(data.message || (isFr ? "Échec de l'abonnement." : "Subscription failed."), "⚠️");
+                    showToast(data.message || (isFr ? "Échec de l'abonnement." : "Subscription failed."), "!");
                 }
             } catch (err) {
-                showToast(isFr ? "Erreur réseau lors de l'inscription." : "Network error during subscription.", "⚠️");
+                showToast(isFr ? "Erreur réseau lors de l'inscription." : "Network error during subscription.", "!");
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;
@@ -3896,13 +3896,13 @@ function initMainApp() {
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                showToast(isFr ? "Veuillez entrer une adresse email valide." : "Please enter a valid email address.", "⚠️");
+                showToast(isFr ? "Veuillez entrer une adresse email valide." : "Please enter a valid email address.", "!");
                 return;
             }
 
             const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
             if (phone && !phoneRegex.test(phone.replace(/\s+/g, ""))) {
-                showToast(isFr ? "Numéro de téléphone français non valide (ex: 06 12 34 56 78)." : "Invalid French phone number format (e.g. 06 12 34 56 78).", "⚠️");
+                showToast(isFr ? "Numéro de téléphone français non valide (ex: 06 12 34 56 78)." : "Invalid French phone number format (e.g. 06 12 34 56 78).", "!");
                 return;
             }
 
@@ -3932,16 +3932,16 @@ function initMainApp() {
                 });
                 const data = await res.json();
                 if (res.ok && data.success) {
-                    showToast(isFr ? "Votre message a bien été envoyé ! Réponse sous 24h." : "Your message has been received! Our workshop will reply within 24h.", "✉️");
+                    showToast(isFr ? "Votre message a bien été envoyé ! Réponse sous 24h." : "Your message has been received! Our workshop will reply within 24h.", "✓");
                     contactForm.reset();
                     if (window.DB && window.DB.saveContactMessage) {
                         window.DB.saveContactMessage({ name, email, phone, subject, message });
                     }
                 } else {
-                    showToast(data.message || (isFr ? "Erreur d'envoi du message." : "Could not send message."), "⚠️");
+                    showToast(data.message || (isFr ? "Erreur d'envoi du message." : "Could not send message."), "!");
                 }
             } catch (err) {
-                showToast(isFr ? "Erreur de connexion. Veuillez nous contacter via WhatsApp ou réessayer." : "Connection error. Please contact us via WhatsApp or try again.", "⚠️");
+                showToast(isFr ? "Erreur de connexion. Veuillez nous contacter via WhatsApp ou réessayer." : "Connection error. Please contact us via WhatsApp or try again.", "!");
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;

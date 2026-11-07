@@ -44,20 +44,20 @@
             <nav class="desktop-menu">
                 <a href="index.html" data-i18n="navHome">Home</a>
                 <a href="products.html" class="active" data-i18n="navProducts">Products</a>
-                <a href="neon-builder.html" style="font-weight:700;color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder</a>
                 <a href="index.html#services" data-i18n="navServices">Services</a>
                 <a href="index.html#about" data-i18n="navAbout">About</a>
                 <a href="contact.html" data-i18n="navContact">Contact</a>
             </nav>
 
             <div class="nav-icons">
-                <button class="icon-btn search-toggle" aria-label="Search" type="button">🔍</button>
-                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">♡</a>
+                <button class="icon-btn search-toggle" aria-label="Search" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></a>
                 <a href="cart.html" class="cart-icon" aria-label="Cart">
-                    🛒
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cartCount">0</span>
                 </a>
-                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account">👤</a>
+                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account"><i class="fa-regular fa-user"></i></a>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
@@ -65,14 +65,14 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="index.html" data-i18n="navHome">Home</a>
             <a href="products.html" class="active" data-i18n="navProducts">Products</a>
-            <a href="neon-builder.html" style="font-weight:700;color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
-            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><span>🔍</span> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="neon-builder.html" style="font-weight:700;color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder</a>
+            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="searchAction">Search Catalog</span></a>
             <a href="index.html#services" data-i18n="navServices">Services</a>
             <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
             <a href="cart.html" data-i18n="navCart">Cart</a>
             <a href="index.html#about" data-i18n="navAbout">About</a>
             <a href="contact.html" data-i18n="navContact">Contact</a>
-            <a href="login.html" style="font-weight:700;color:#111;" data-i18n="navAccount">👤 My Account</a>
+            <a href="login.html" style="font-weight:700;color:#111;" data-i18n="navAccount"><i class="fa-regular fa-user"></i> My Account</a>
         </div>
     </header>
 
@@ -200,7 +200,7 @@
                             CUSTOM STICKER
                         </div>
                         <div id="stickerCutBadge" style="margin-top:10px;font-family:'JetBrains Mono', monospace;font-size:10px;color:#ff0f39;font-weight:700;">
-                            ✂️ Kiss-Cut (Easy Peel)
+                            Kiss-Cut (Easy Peel)
                         </div>
                     </div>
                 </div>
@@ -211,20 +211,20 @@
             <div class="stage-controls-bar">
                 <div class="wall-buttons-group">
                     <span style="font-size:10px;font-weight:700;color:var(--customizer-text-muted);padding-left:4px;" data-i18n="wallLabel">WALL:</span>
-                    <button type="button" class="wall-pill-btn" data-wall="wall-clean-white" data-i18n="wallWhite" title="White Studio">⚪ White</button>
+                    <button type="button" class="wall-pill-btn" data-wall="wall-clean-white" data-i18n="wallWhite" title="White Studio">White</button>
                     <button type="button" class="wall-pill-btn active" data-wall="wall-anthracite" data-i18n="wallAnthracite" title="Anthracite Slate">⬛ Slate</button>
-                    <button type="button" class="wall-pill-btn" data-wall="wall-brick" data-i18n="wallBrick" title="Red Brick">🧱 Brick</button>
-                    <button type="button" class="wall-pill-btn" data-wall="wall-wood" data-i18n="wallWood" title="Timber Wood">🪵 Wood</button>
+                    <button type="button" class="wall-pill-btn" data-wall="wall-brick" data-i18n="wallBrick" title="Red Brick">Brick</button>
+                    <button type="button" class="wall-pill-btn" data-wall="wall-wood" data-i18n="wallWood" title="Timber Wood">Wood</button>
                 </div>
 
                 <button type="button" class="day-night-btn lights-active" id="stageDayNightToggle" title="Toggle Day / Night Lighting">
-                    <span id="dayNightIcon">🌙</span>
+                    <span id="dayNightIcon"><i class="fa-solid fa-moon"></i></span>
                     <span id="dayNightLabel" data-i18n="lightsOn">Lights ON</span>
                 </button>
             </div>
 
             <div class="stage-atelier-badge" data-i18n="atelierAssuranceBadge">
-                ⚡ 2.5D ATELIER SIMULATOR · REAL-TIME VECTOR RENDERING
+                2.5D ATELIER SIMULATOR · REAL-TIME VECTOR RENDERING
             </div>
         </div>
 
@@ -250,16 +250,16 @@
                     <div class="urgency-pulse-row">
                         <span class="urgency-pulse-dot"></span>
                         <span class="urgency-live-text" id="urgencyLiveText">
-                            🔥 <strong id="urgencyLiveCount">4 clients</strong> <span data-i18n="urgencyViewingText">consultent cette création en ce moment</span>
+                            <strong id="urgencyLiveCount">4 clients</strong> <span data-i18n="urgencyViewingText">consultent cette création en ce moment</span>
                         </span>
                     </div>
                     <div class="urgency-demand-text" id="urgencyDemandText" data-i18n="urgencyDemandDesc">
-                        ⚡ Forte demande atelier · Fabrication sur-mesure expédiée sous 5 à 8 jours ouvrés
+                        Forte demande atelier · Fabrication sur-mesure expédiée sous 5 à 8 jours ouvrés
                     </div>
                 </div>
 
                 <div class="dispatch-badge-pill">
-                    <span data-i18n="dispatchBadge">⚡ Dispatched in 5 to 8 business days · Handcrafted in France 🇫🇷</span>
+                    <span data-i18n="dispatchBadge">Dispatched in 5 to 8 business days · Handcrafted in France</span>
                 </div>
                 <p id="productDescription" class="config-product-desc" data-i18n="customizerDefaultDesc">
                     High-end visual solution engineered and manufactured in our French atelier. Customize finishes, dimensions, and illumination options.
@@ -298,7 +298,7 @@
                     <div>
                         <label for="neonFontSelect" data-i18n="neonFontLabel">Neon Font Style (30+ Atelier Typographies)</label>
                         <select id="neonFontSelect">
-                            <optgroup label="✨ Cursive &amp; Flowing Scripts">
+                            <optgroup label="Cursive &amp; Flowing Scripts">
                                 <option value="'Dancing Script', cursive" selected style="font-family:'Dancing Script', cursive;">Dancing Script (Cursive Flow)</option>
                                 <option value="'Caveat', cursive" style="font-family:'Caveat', cursive;">Caveat (Casual Signature)</option>
                                 <option value="'Pacifico', cursive" style="font-family:'Pacifico', cursive;">Pacifico (Retro Vintage Script)</option>
@@ -308,7 +308,7 @@
                                 <option value="'Yellowtail', cursive" style="font-family:'Yellowtail', cursive;">Yellowtail (Retro 50s Diner Script)</option>
                                 <option value="'Alex Brush', cursive" style="font-family:'Alex Brush', cursive;">Alex Brush (Fine Luxury Cursive)</option>
                             </optgroup>
-                            <optgroup label="🏢 Modern Clean &amp; Geometric">
+                            <optgroup label="Modern Clean &amp; Geometric">
                                 <option value="'DM Sans', sans-serif" style="font-family:'DM Sans', sans-serif;">DM Sans (Modern Clean)</option>
                                 <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Contemporary)</option>
                                 <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Geometric Rounded)</option>
@@ -316,7 +316,7 @@
                                 <option value="'Raleway', sans-serif" style="font-family:'Raleway', sans-serif;">Raleway (Haute Couture Sans)</option>
                                 <option value="'Inter', sans-serif" style="font-family:'Inter', sans-serif;">Inter (Ultra-Legible Sans)</option>
                             </optgroup>
-                            <optgroup label="⚡ Bold Display &amp; Heavy Impact">
+                            <optgroup label="Bold Display &amp; Heavy Impact">
                                 <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (Condensed Bold)</option>
                                 <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Heavy Commercial Impact)</option>
                                 <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Maximum Impact Headline)</option>
@@ -324,20 +324,20 @@
                                 <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Tall Geometric Display)</option>
                                 <option value="'Libre Franklin', sans-serif" style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Industrial Bold)</option>
                             </optgroup>
-                            <optgroup label="🌈 Retro, Art Deco &amp; Iconic Neon">
+                            <optgroup label="Retro, Art Deco &amp; Iconic Neon">
                                 <option value="'Monoton', cursive" style="font-family:'Monoton', cursive;">Monoton (Retro Multi-Line Neon)</option>
                                 <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Deco Geometric)</option>
                                 <option value="'Shrikhand', cursive" style="font-family:'Shrikhand', cursive;">Shrikhand (Fat Retro Psychedelic)</option>
                                 <option value="'Limelight', cursive" style="font-family:'Limelight', cursive;">Limelight (Art Deco Cinema)</option>
                                 <option value="'Bungee', cursive" style="font-family:'Bungee', cursive;">Bungee (Urban Block Signage)</option>
                             </optgroup>
-                            <optgroup label="👑 Luxury Serif &amp; Heritage">
+                            <optgroup label="Luxury Serif &amp; Heritage">
                                 <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Editorial Serif)</option>
                                 <option value="'Cinzel', serif" style="font-family:'Cinzel', serif;">Cinzel (Roman Classical Monumental)</option>
                                 <option value="'Cormorant Garamond', serif" style="font-family:'Cormorant Garamond', serif;">Cormorant Garamond (Fine French Atelier)</option>
                                 <option value="'Prata', serif" style="font-family:'Prata', serif;">Prata (Sophisticated Boutique Serif)</option>
                             </optgroup>
-                            <optgroup label="🤖 Cyber, Tech &amp; Futuristic">
+                            <optgroup label="Cyber, Tech &amp; Futuristic">
                                 <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (Cyberpunk Illuminated)</option>
                                 <option value="'Audiowide', sans-serif" style="font-family:'Audiowide', sans-serif;">Audiowide (Techno Synthetic)</option>
                                 <option value="'Syncopate', sans-serif" style="font-family:'Syncopate', sans-serif;">Syncopate (Wide Runway Display)</option>
@@ -533,14 +533,14 @@
                         <div style="margin-top:12px;">
                             <label for="reliefFontSelect" data-i18n="reliefFontLabel">Relief Typography (25+ Atelier Fonts)</label>
                             <select id="reliefFontSelect">
-                                <optgroup label="🏢 Modern Architectural Sans">
+                                <optgroup label="Modern Architectural Sans">
                                     <option value="'DM Sans', sans-serif" selected style="font-family:'DM Sans', sans-serif;">DM Sans (Modern Clean)</option>
                                     <option value="'Montserrat', sans-serif" style="font-family:'Montserrat', sans-serif;">Montserrat (Geometric Bold)</option>
                                     <option value="'Poppins', sans-serif" style="font-family:'Poppins', sans-serif;">Poppins (Contemporary Clean)</option>
                                     <option value="'Outfit', sans-serif" style="font-family:'Outfit', sans-serif;">Outfit (Minimalist Studio)</option>
                                     <option value="'Raleway', sans-serif" style="font-family:'Raleway', sans-serif;">Raleway (Refined Sans)</option>
                                 </optgroup>
-                                <optgroup label="⚡ Heavy Commercial &amp; Condensed">
+                                <optgroup label="Heavy Commercial &amp; Condensed">
                                     <option value="'Bebas Neue', sans-serif" style="font-family:'Bebas Neue', sans-serif;">Bebas Neue (Condensed Block)</option>
                                     <option value="'Oswald', sans-serif" style="font-family:'Oswald', sans-serif;">Oswald (Industrial High-Impact)</option>
                                     <option value="'Anton', sans-serif" style="font-family:'Anton', sans-serif;">Anton (Heavy Headline)</option>
@@ -548,19 +548,19 @@
                                     <option value="'Teko', sans-serif" style="font-family:'Teko', sans-serif;">Teko (Monumental Display)</option>
                                     <option value="'Libre Franklin', sans-serif" style="font-family:'Libre Franklin', sans-serif;">Libre Franklin (Storefront Heavy)</option>
                                 </optgroup>
-                                <optgroup label="👑 Luxury Roman &amp; Classical Serif">
+                                <optgroup label="Luxury Roman &amp; Classical Serif">
                                     <option value="'Cinzel', serif" style="font-family:'Cinzel', serif;">Cinzel (Roman Inscriptional)</option>
                                     <option value="'Playfair Display', serif" style="font-family:'Playfair Display', serif;">Playfair Display (Luxury Serif)</option>
                                     <option value="'Cormorant Garamond', serif" style="font-family:'Cormorant Garamond', serif;">Cormorant Garamond (Heritage Atelier)</option>
                                     <option value="'Prata', serif" style="font-family:'Prata', serif;">Prata (Sophisticated Boutique)</option>
                                 </optgroup>
-                                <optgroup label="📜 Elegant Script &amp; Signature">
+                                <optgroup label="Elegant Script &amp; Signature">
                                     <option value="'Dancing Script', cursive" style="font-family:'Dancing Script', cursive;">Dancing Script (Relief Cursive)</option>
                                     <option value="'Pacifico', cursive" style="font-family:'Pacifico', cursive;">Pacifico (Retro Script Relief)</option>
                                     <option value="'Great Vibes', cursive" style="font-family:'Great Vibes', cursive;">Great Vibes (Formal Calligraphy)</option>
                                     <option value="'Caveat', cursive" style="font-family:'Caveat', cursive;">Caveat (Signature Relief)</option>
                                 </optgroup>
-                                <optgroup label="🤖 Tech &amp; Futuristic">
+                                <optgroup label="Tech &amp; Futuristic">
                                     <option value="'Orbitron', sans-serif" style="font-family:'Orbitron', sans-serif;">Orbitron (Geometric Tech)</option>
                                     <option value="'Audiowide', sans-serif" style="font-family:'Audiowide', sans-serif;">Audiowide (Futuristic Curve)</option>
                                     <option value="'Righteous', cursive" style="font-family:'Righteous', cursive;">Righteous (Deco Geometric)</option>
@@ -943,11 +943,11 @@
                     <label data-i18n="vehicleDesignModeLabel">Design Method</label>
                     <div class="config-grid-2" style="margin-bottom:14px;">
                         <button type="button" class="option-btn-card vehicle-design-mode-btn active" id="vehicleModeUploadBtn" data-mode="upload">
-                            <strong data-i18n="vehicleModeUpload">📁 Upload Custom Design</strong>
+                            <strong data-i18n="vehicleModeUpload">Upload Custom Design</strong>
                             <span data-i18n="vehicleModeUploadSub">Vector artwork / Wrap mockup</span>
                         </button>
                         <button type="button" class="option-btn-card vehicle-design-mode-btn" id="vehicleModeTextBtn" data-mode="text">
-                            <strong data-i18n="vehicleModeText">✍️ Studio Lettering</strong>
+                            <strong data-i18n="vehicleModeText">Studio Lettering</strong>
                             <span data-i18n="vehicleModeTextSub">Typography &amp; company info</span>
                         </button>
                     </div>
@@ -957,7 +957,7 @@
                         <label for="vehicleDesignFile" data-i18n="vehicleUploadLabel">Custom Wrap Design / Vector File (.AI, .EPS, .PDF, .SVG, .PNG, .JPG)</label>
                         <div class="vehicle-upload-dropzone" id="vehicleDropzone" style="border:2px dashed #2563eb;border-radius:8px;padding:22px 16px;text-align:center;background:rgba(37,99,235,0.04);cursor:pointer;transition:all 0.2s ease;">
                             <input type="file" id="vehicleDesignFile" accept=".ai,.eps,.svg,.pdf,.png,.jpg,.jpeg,.psd,.zip" style="display:none;">
-                            <div style="font-size:30px;margin-bottom:6px;">📤</div>
+                            <div style="font-size:30px;margin-bottom:6px;color:#2563eb;"><i class="fa-solid fa-cloud-arrow-up"></i></div>
                             <div style="font-weight:700;font-size:13px;color:var(--customizer-text-primary);" data-i18n="vehicleUploadPrompt">
                                 Click or drag &amp; drop your vehicle wrap design here
                             </div>
@@ -969,7 +969,7 @@
                         <!-- Uploaded File Status Card -->
                         <div id="vehicleFileInfoCard" style="display:none;margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:6px;align-items:center;justify-content:space-between;">
                             <div style="display:flex;align-items:center;gap:10px;overflow:hidden;">
-                                <span id="vehicleFileIcon" style="font-size:24px;">📄</span>
+                                <span id="vehicleFileIcon" style="font-size:24px;"><i class="fa-regular fa-file"></i></span>
                                 <div style="overflow:hidden;">
                                     <div id="vehicleFileName" style="font-size:12px;font-weight:700;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;">filename.ai</div>
                                     <div id="vehicleFileSize" style="font-size:10px;color:#64748b;" data-i18n="vehicleUploadReady">Uploaded · Ready for atelier production</div>
@@ -980,7 +980,7 @@
 
                         <!-- Atelier BAT Assurance -->
                         <div style="margin-top:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
-                            <span style="font-size:18px;">🛡️</span>
+                            <span style="font-size:18px;color:#059669;"><i class="fa-solid fa-shield-halved"></i></span>
                             <span style="font-size:11px;color:#065f46;font-weight:600;line-height:1.4;" data-i18n="vehicleBatIncluded">
                                 <strong>Free Atelier BAT Guarantee:</strong> Our prepress graphics team will scale your file to your vehicle template and email a digital proof for final approval before printing.
                             </span>
@@ -1208,17 +1208,17 @@
 
                 <div class="reassurance-strip">
                     <div class="reassurance-item">
-                        <span class="reassurance-icon">🛡️</span>
+                        <span class="reassurance-icon"><i class="fa-solid fa-shield-halved"></i></span>
                         <strong data-i18n="reassuranceWarrantyTitle">2-Year Warranty</strong>
                         <span data-i18n="reassuranceWarrantySub">Certified atelier</span>
                     </div>
                     <div class="reassurance-item">
-                        <span class="reassurance-icon">🇫🇷</span>
+                        <span class="reassurance-icon"><i class="fa-solid fa-award"></i></span>
                         <strong data-i18n="reassuranceFranceTitle">100% Made in France</strong>
                         <span data-i18n="reassuranceFranceSub">Precision machining</span>
                     </div>
                     <div class="reassurance-item">
-                        <span class="reassurance-icon">🚚</span>
+                        <span class="reassurance-icon"><i class="fa-solid fa-truck-fast"></i></span>
                         <strong data-i18n="reassuranceShippingTitle">Anti-Breakage</strong>
                         <span data-i18n="reassuranceShippingSub">Reinforced packaging</span>
                     </div>
@@ -1239,7 +1239,7 @@
                 <h4 data-i18n="footerQuickLinks">Quick Links</h4>
                 <a href="index.html" data-i18n="navHome">Home</a>
                 <a href="products.html" data-i18n="navProducts">Products</a>
-                <a href="neon-builder.html" style="color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder ✨</a>
+                <a href="neon-builder.html" style="color:#ff0f39;" data-i18n="navNeonBuilder">Neon Builder</a>
                 <a href="cart.html" data-i18n="navCart">Cart</a>
                 <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
                 <a href="admin.html" data-i18n="adminPortal">Admin Portal</a>
@@ -1256,14 +1256,14 @@
             <div>
                 <h4 data-i18n="footerWorkshopTitle">Atelier &amp; Contact</h4>
                 <p style="margin-bottom:8px;">
-                    📍 <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
+                    <i class="fa-solid fa-location-dot"></i> <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
                     29-31, Boulevard de la Muette<br>
                     95140 Garges-lès-Gonesse
                 </p>
                 <p style="margin-bottom:8px;">
-                    📞 <strong>Mobile:</strong> <a href="tel:+33698710050" style="display:inline;color:#fff;">06 98 71 00 50</a><br>
-                    ✉️ <strong>Email:</strong> <a href="mailto:mystickerz75@gmail.com" style="display:inline;color:#fff;">mystickerz75@gmail.com</a><br>
-                    ✉️ <a href="mailto:apparart@gmail.com" style="display:inline;color:#888;">apparart@gmail.com</a>
+                    <i class="fa-solid fa-phone"></i> <strong>Mobile:</strong> <a href="tel:+33698710050" style="display:inline;color:#fff;">06 98 71 00 50</a><br>
+                    <i class="fa-solid fa-envelope"></i> <strong>Email:</strong> <a href="mailto:mystickerz75@gmail.com" style="display:inline;color:#fff;">mystickerz75@gmail.com</a><br>
+                    <i class="fa-solid fa-envelope"></i> <a href="mailto:apparart@gmail.com" style="display:inline;color:#888;">apparart@gmail.com</a>
                 </p>
                 <div class="footer-social-row">
                     <a href="https://wa.me/33698710050?text=Bonjour,%20je%20souhaite%20un%20renseignement%20/%20devis%20aupr%C3%A8s%20de%20l'atelier" target="_blank" class="btn" style="background:#25d366;color:#fff;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;">
@@ -1277,7 +1277,7 @@
         </div>
         <div class="footer-bottom">
             <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
-            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">🔒 Admin</a></p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">Admin</a></p>
         </div>
     </footer>
 
