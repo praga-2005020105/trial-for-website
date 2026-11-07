@@ -1563,18 +1563,32 @@ function initMainApp() {
         let price = parseFloat(button?.getAttribute("data-price")) || parseFloat(card.getAttribute("data-price")) || 0;
         let image = button?.getAttribute("data-image") || card.querySelector("img")?.getAttribute("src") || "";
 
+        let defaultSize = "Standard: 60 × 40 cm (Personnalisable)";
+        if (id === "neon-signs") defaultSize = "Medium (~75 cm, Personnalisable)";
+        else if (id.includes("3d") || id.includes("relief") || id.includes("letters")) defaultSize = "20 cm de hauteur (Personnalisable)";
+        else if (id === "adhesive-stickers" || id === "wall-stickers") defaultSize = "15 × 15 cm (Sur-mesure)";
+        else if (id.includes("vehicle")) defaultSize = "Medium Van · Trafic / Transporter (Personnalisable)";
+        else if (id === "suspended-ceilings") defaultSize = "25 m² (Personnalisable)";
+        else if (id.includes("awning")) defaultSize = "300 × 250 cm (Personnalisable)";
+        else if (id.includes("caisson") || id.includes("drapeau") || id.includes("facades") || id.includes("signs")) defaultSize = "200 × 50 cm (Personnalisable)";
+
         return {
             id: id || "product",
             name: name || "Product",
             price: Number(price) || 0,
             quantity: 1,
-            size: "",
+            size: defaultSize,
+            dimensions: defaultSize,
             image: image,
             fileName: "",
             designService: false,
             customText: "",
             material: "",
-            finish: ""
+            finish: "",
+            options: {
+                size: defaultSize,
+                dimensions: defaultSize
+            }
         };
     }
 
@@ -1713,6 +1727,8 @@ function initMainApp() {
         glowColor: "#ec4899",
         size: "Medium",
         widthCm: 75,
+        customHeightCm: 35,
+        isCustomSize: false,
         sizeMult: 1.25,
         cutStyle: "shape",
         cutPrice: 0,
@@ -1780,8 +1796,14 @@ function initMainApp() {
 
             // Dimensions calculation
             const charCount = rawText.replace(/\s+/g, "").length || 8;
-            const approxWidth = Math.max(35, Math.min(220, Math.round(neonState.widthCm + (charCount > 10 ? (charCount - 10) * 3 : 0))));
-            const approxHeight = Math.round(18 * displayLines.length * (neonState.sizeMult * 0.9));
+            let approxWidth, approxHeight;
+            if (neonState.isCustomSize) {
+                approxWidth = Math.round(neonState.widthCm);
+                approxHeight = Math.round(neonState.customHeightCm);
+            } else {
+                approxWidth = Math.max(35, Math.min(220, Math.round(neonState.widthCm + (charCount > 10 ? (charCount - 10) * 3 : 0))));
+                approxHeight = Math.round(18 * displayLines.length * (neonState.sizeMult * 0.9));
+            }
             updateHudPill(approxWidth, approxHeight, charCount);
 
             // 2026 Commercial Schedule: Base 350 € + (charCount × 14 € scaled by size) + add-ons
@@ -1804,18 +1826,26 @@ function initMainApp() {
             }
 
             // Build payload for cart
+            const sizeLabel = neonState.isCustomSize
+                ? `Custom: ${approxWidth} × ${approxHeight} cm`
+                : `${neonState.size} (~${approxWidth} × ${approxHeight} cm)`;
             customizerItemPayload = {
                 id: "neon-signs",
                 name: `Enseigne Néon LED "${displayLines[0]}"`,
                 price: customizerCalculatedUnitPrice,
                 quantity: qty,
-                size: `${neonState.size} (~${approxWidth} × ${approxHeight} cm)`,
+                size: sizeLabel,
                 dimensions: `${approxWidth} × ${approxHeight} cm`,
                 material: `Plexiglas Acrylique ${neonState.finishStyle.toUpperCase()}`,
                 finish: `Néon LED Flex ${neonState.colorName} (${neonState.waterproof.toUpperCase()})`,
                 customText: rawText,
                 font: neonState.font,
                 options: {
+                    sizeTier: neonState.size,
+                    widthCm: approxWidth,
+                    heightCm: approxHeight,
+                    dimensions: `${approxWidth} × ${approxHeight} cm`,
+                    isCustomSize: neonState.isCustomSize,
                     cutStyle: neonState.cutStyle,
                     finishStyle: neonState.finishStyle,
                     waterproof: neonState.waterproof,
@@ -1871,11 +1901,42 @@ function initMainApp() {
                 document.querySelectorAll(".neon-size-btn").forEach(b => b.classList.remove("active"));
                 this.classList.add("active");
                 neonState.size = this.getAttribute("data-size") || "Medium";
-                neonState.widthCm = parseFloat(this.getAttribute("data-width")) || 75;
-                neonState.sizeMult = parseFloat(this.getAttribute("data-mult")) || 1.25;
+                neonState.isCustomSize = (neonState.size === "Custom");
+
+                const customInputs = document.getElementById("neonCustomSizeInputs");
+                if (customInputs) {
+                    customInputs.style.display = neonState.isCustomSize ? "block" : "none";
+                }
+
+                if (neonState.isCustomSize) {
+                    const wInput = document.getElementById("neonCustomWidth");
+                    const hInput = document.getElementById("neonCustomHeight");
+                    neonState.widthCm = parseFloat(wInput ? wInput.value : 90) || 90;
+                    neonState.customHeightCm = parseFloat(hInput ? hInput.value : 35) || 35;
+                    neonState.sizeMult = Math.max(0.8, (neonState.widthCm / 75) * 1.25);
+                } else {
+                    neonState.widthCm = parseFloat(this.getAttribute("data-width")) || 75;
+                    neonState.sizeMult = parseFloat(this.getAttribute("data-mult")) || 1.25;
+                }
                 renderNeon();
             });
         });
+
+        const neonCustomWidthInput = document.getElementById("neonCustomWidth");
+        const neonCustomHeightInput = document.getElementById("neonCustomHeight");
+        if (neonCustomWidthInput) {
+            neonCustomWidthInput.addEventListener("input", function () {
+                neonState.widthCm = Math.max(20, parseFloat(this.value) || 90);
+                neonState.sizeMult = Math.max(0.8, (neonState.widthCm / 75) * 1.25);
+                if (neonState.isCustomSize) renderNeon();
+            });
+        }
+        if (neonCustomHeightInput) {
+            neonCustomHeightInput.addEventListener("input", function () {
+                neonState.customHeightCm = Math.max(15, parseFloat(this.value) || 35);
+                if (neonState.isCustomSize) renderNeon();
+            });
+        }
 
         // Event: Cut Style
         document.querySelectorAll(".neon-cut-btn").forEach(btn => {
@@ -1944,6 +2005,9 @@ function initMainApp() {
         text: "YOUR SIGN",
         font: "'DM Sans', sans-serif",
         heightCm: 20,
+        customHeightCm: 35,
+        customWidthCm: 0,
+        isCustomHeight: false,
         thickness: "10mm",
         thicknessPrice: 15,
         thicknessMult: 0.12,
@@ -1999,8 +2063,10 @@ function initMainApp() {
 
             // Live dimensions
             const charCount = text.replace(/\s+/g, "").length || 6;
-            const approxWidth = Math.round(charCount * (reliefState.heightCm * 0.65));
-            const approxHeight = reliefState.heightCm;
+            const approxWidth = (reliefState.isCustomHeight && reliefState.customWidthCm > 0)
+                ? Math.round(reliefState.customWidthCm)
+                : Math.round(charCount * (reliefState.heightCm * 0.65));
+            const approxHeight = Math.round(reliefState.heightCm);
             updateHudPill(approxWidth, approxHeight, charCount);
 
             // 2026 Commercial Schedule Calculations
@@ -2041,12 +2107,15 @@ function initMainApp() {
                 triggerPricePulse();
             }
 
+            const sizeString = reliefState.isCustomHeight
+                ? `Custom: ${reliefState.heightCm} cm (${approxWidth} × ${approxHeight} cm)`
+                : `${reliefState.heightCm} cm (${approxWidth} × ${approxHeight} cm)`;
             customizerItemPayload = {
                 id: product.id,
                 name: `${product.name} "${text}" (${reliefState.thickness})`,
                 price: customizerCalculatedUnitPrice,
                 quantity: qty,
-                size: `${reliefState.heightCm} cm de hauteur (${approxWidth} × ${approxHeight} cm)`,
+                size: sizeString,
                 dimensions: `${approxWidth} × ${approxHeight} cm`,
                 material: `${reliefState.material.toUpperCase()} (Relief ${reliefState.thickness})`,
                 finish: reliefState.material === "ral-lacquer" ? `Laquage RAL ${reliefState.ralCode}` : "Finition Usine",
@@ -2054,6 +2123,9 @@ function initMainApp() {
                 font: reliefState.font,
                 options: {
                     heightCm: reliefState.heightCm,
+                    widthCm: approxWidth,
+                    dimensions: `${approxWidth} × ${approxHeight} cm`,
+                    isCustomSize: reliefState.isCustomHeight,
                     thickness: reliefState.thickness,
                     material: reliefState.material,
                     led: reliefState.led,
@@ -2074,8 +2146,34 @@ function initMainApp() {
         }
         if (reliefHeightSelect) {
             reliefHeightSelect.addEventListener("change", function () {
-                reliefState.heightCm = parseFloat(this.value) || 20;
+                if (this.value === "custom") {
+                    reliefState.isCustomHeight = true;
+                    const container = document.getElementById("reliefCustomHeightInputs");
+                    if (container) container.style.display = "block";
+                    const customHVal = document.getElementById("reliefCustomHeightVal");
+                    reliefState.heightCm = parseFloat(customHVal ? customHVal.value : 35) || 35;
+                } else {
+                    reliefState.isCustomHeight = false;
+                    const container = document.getElementById("reliefCustomHeightInputs");
+                    if (container) container.style.display = "none";
+                    reliefState.heightCm = parseFloat(this.value) || 20;
+                }
                 renderRelief();
+            });
+        }
+
+        const reliefCustomHeightVal = document.getElementById("reliefCustomHeightVal");
+        const reliefCustomWidthVal = document.getElementById("reliefCustomWidthVal");
+        if (reliefCustomHeightVal) {
+            reliefCustomHeightVal.addEventListener("input", function () {
+                reliefState.heightCm = Math.max(5, parseFloat(this.value) || 35);
+                if (reliefState.isCustomHeight) renderRelief();
+            });
+        }
+        if (reliefCustomWidthVal) {
+            reliefCustomWidthVal.addEventListener("input", function () {
+                reliefState.customWidthCm = parseFloat(this.value) || 0;
+                if (reliefState.isCustomHeight) renderRelief();
             });
         }
 
@@ -2220,6 +2318,9 @@ function initMainApp() {
         font: "'Montserrat', sans-serif",
         widthCm: 200,
         heightCm: 50,
+        customWidthCm: 250,
+        customHeightCm: 70,
+        isCustomDim: false,
         type: "lightbox",
         substrate: "alu-black",
         substratePrice: 0,
@@ -2282,12 +2383,15 @@ function initMainApp() {
                 const universalAddons = getUniversalServicesFee(facadeState.widthCm || 300, 250);
                 unitPrice = Math.round(baseAwning + facadeState.substratePrice + facadeState.lightingPrice + facadeState.typePrice + universalAddons);
 
+                const sizeString = facadeState.isCustomDim
+                    ? `Custom: ${facadeState.widthCm} × 250 cm`
+                    : `${facadeState.widthCm} × 250 cm`;
                 customizerItemPayload = {
                     id: product.id,
                     name: `Store Banne Rétractable (${facadeState.widthCm} cm)`,
                     price: unitPrice,
                     quantity: Math.max(1, parseInt(productQuantity?.value, 10) || 1),
-                    size: `${facadeState.widthCm} × 250 cm`,
+                    size: sizeString,
                     dimensions: `${facadeState.widthCm} × 250 cm`,
                     material: "Toile Déperlante Anti-UV Dickson",
                     finish: `Motorisation & Éclairage: ${facadeState.lighting.toUpperCase()}`,
@@ -2296,6 +2400,9 @@ function initMainApp() {
                     options: {
                         type: "awning",
                         widthCm: facadeState.widthCm,
+                        heightCm: 250,
+                        dimensions: `${facadeState.widthCm} × 250 cm`,
+                        isCustomSize: facadeState.isCustomDim,
                         lighting: facadeState.lighting
                     },
                     image: product.image
@@ -2313,7 +2420,7 @@ function initMainApp() {
                     name: `Faux Plafond Dalles 600×600 (${facadeState.ceilingArea} m²)`,
                     price: unitPrice,
                     quantity: Math.max(1, parseInt(productQuantity?.value, 10) || 1),
-                    size: `${facadeState.ceilingArea} m²`,
+                    size: `Custom: ${facadeState.ceilingArea} m²`,
                     dimensions: `${facadeState.ceilingArea} m²`,
                     material: "Dalles Minérales Acoustiques 600×600 mm",
                     finish: `${facadeState.ceilingLedCount} Pavés LED Inclus`,
@@ -2321,6 +2428,8 @@ function initMainApp() {
                     options: {
                         type: "ceiling",
                         area: facadeState.ceilingArea,
+                        dimensions: `${facadeState.ceilingArea} m²`,
+                        isCustomSize: true,
                         ledCount: facadeState.ceilingLedCount
                     },
                     image: product.image
@@ -2372,12 +2481,15 @@ function initMainApp() {
                     unitPrice = Math.round(Math.max(100, areaM2 * 100) + facadeState.substratePrice + facadeState.lightingPrice + universalAddons);
                 }
 
+                const sizeString = facadeState.isCustomDim
+                    ? `Custom: ${facadeState.widthCm} × ${facadeState.heightCm} cm`
+                    : `${facadeState.widthCm} × ${facadeState.heightCm} cm`;
                 customizerItemPayload = {
                     id: product.id,
                     name: `${product.name} (${facadeState.widthCm} × ${facadeState.heightCm} cm)`,
                     price: unitPrice,
                     quantity: Math.max(1, parseInt(productQuantity?.value, 10) || 1),
-                    size: `${facadeState.widthCm} × ${facadeState.heightCm} cm`,
+                    size: sizeString,
                     dimensions: `${facadeState.widthCm} × ${facadeState.heightCm} cm`,
                     material: facadeState.substrate.toUpperCase(),
                     finish: `Éclairage ${facadeState.lighting.toUpperCase()}`,
@@ -2387,6 +2499,8 @@ function initMainApp() {
                         type: currentType,
                         widthCm: facadeState.widthCm,
                         heightCm: facadeState.heightCm,
+                        dimensions: `${facadeState.widthCm} × ${facadeState.heightCm} cm`,
+                        isCustomSize: facadeState.isCustomDim,
                         substrate: facadeState.substrate,
                         lighting: facadeState.lighting
                     },
@@ -2437,11 +2551,50 @@ function initMainApp() {
             btn.addEventListener("click", function () {
                 document.querySelectorAll(".facade-dim-btn").forEach(b => b.classList.remove("active"));
                 this.classList.add("active");
-                facadeState.widthCm = parseFloat(this.getAttribute("data-w")) || 200;
-                facadeState.heightCm = parseFloat(this.getAttribute("data-h")) || 50;
+                const dimMode = this.getAttribute("data-dim");
+                facadeState.isCustomDim = (dimMode === "custom");
+
+                const customInputs = document.getElementById("facadeCustomDimInputs");
+                if (customInputs) {
+                    customInputs.style.display = facadeState.isCustomDim ? "block" : "none";
+                    const ceilingRow = document.getElementById("facadeCeilingAreaRow");
+                    if (ceilingRow) ceilingRow.style.display = (facadeState.type === "ceiling") ? "block" : "none";
+                }
+
+                if (facadeState.isCustomDim) {
+                    const wInput = document.getElementById("facadeCustomWidth");
+                    const hInput = document.getElementById("facadeCustomHeight");
+                    facadeState.widthCm = parseFloat(wInput ? wInput.value : 250) || 250;
+                    facadeState.heightCm = parseFloat(hInput ? hInput.value : 70) || 70;
+                } else {
+                    facadeState.widthCm = parseFloat(this.getAttribute("data-w")) || 200;
+                    facadeState.heightCm = parseFloat(this.getAttribute("data-h")) || 50;
+                }
                 renderFacade();
             });
         });
+
+        const facadeCustomWidthInput = document.getElementById("facadeCustomWidth");
+        const facadeCustomHeightInput = document.getElementById("facadeCustomHeight");
+        const facadeCeilingAreaInput = document.getElementById("facadeCeilingAreaInput");
+        if (facadeCustomWidthInput) {
+            facadeCustomWidthInput.addEventListener("input", function () {
+                facadeState.widthCm = Math.max(30, parseFloat(this.value) || 250);
+                if (facadeState.isCustomDim) renderFacade();
+            });
+        }
+        if (facadeCustomHeightInput) {
+            facadeCustomHeightInput.addEventListener("input", function () {
+                facadeState.heightCm = Math.max(15, parseFloat(this.value) || 70);
+                if (facadeState.isCustomDim) renderFacade();
+            });
+        }
+        if (facadeCeilingAreaInput) {
+            facadeCeilingAreaInput.addEventListener("input", function () {
+                facadeState.ceilingArea = Math.max(1, parseFloat(this.value) || 25);
+                if (facadeState.type === "ceiling") renderFacade();
+            });
+        }
 
         // Facade text input
         const facadeTextInput = document.getElementById("facadeTextInput");
@@ -2488,6 +2641,9 @@ function initMainApp() {
         typePrice: 249,
         makeModel: "Renault Trafic L2H1",
         year: 2024,
+        hasCustomDim: false,
+        customWidthCm: 180,
+        customHeightCm: 75,
         coverage: "lettering",
         coveragePrice: 0,
         windowOpt: "none",
@@ -2526,6 +2682,10 @@ function initMainApp() {
         const vehicleFileIcon = document.getElementById("vehicleFileIcon");
         const vehicleFileRemoveBtn = document.getElementById("vehicleFileRemoveBtn");
         const vehicleDesignNotes = document.getElementById("vehicleDesignNotes");
+        const vehicleCustomDimCheck = document.getElementById("vehicleCustomDimCheck");
+        const vehicleCustomDimInputs = document.getElementById("vehicleCustomDimInputs");
+        const vehicleCustomWidth = document.getElementById("vehicleCustomWidth");
+        const vehicleCustomHeight = document.getElementById("vehicleCustomHeight");
 
         function renderVehicle() {
             // Visualizer rendering: Uploaded graphic vs Studio text
@@ -2589,7 +2749,11 @@ function initMainApp() {
                 vehicleCoverageBadge.textContent = `${vehicleState.makeModel} · ${covLabel}${fileInfo}`;
             }
 
-            updateHudPill(508, 197, 1, `${vehicleState.makeModel}`);
+            if (vehicleState.hasCustomDim) {
+                updateHudPill(vehicleState.customWidthCm, vehicleState.customHeightCm, 1, `Marquage ${vehicleState.makeModel}`);
+            } else {
+                updateHudPill(508, 197, 1, `${vehicleState.makeModel}`);
+            }
 
             // 2026 Commercial Schedule: 350 € lettrage / 750 € 50% semi-covering / 1350 € 100% total covering
             let coverageBase = 350;
@@ -2618,13 +2782,20 @@ function initMainApp() {
                 summaryText = `${vehicleState.brandingText} (${vehicleState.phone})${vehicleState.designNotes ? ` · Note: ${vehicleState.designNotes}` : ""}`;
             }
 
+            const dimsVal = vehicleState.hasCustomDim
+                ? `${vehicleState.customWidthCm} × ${vehicleState.customHeightCm} cm`
+                : "Gabarit Vectoriel Constructeur";
+            const sizeVal = vehicleState.hasCustomDim
+                ? `${vehicleState.makeModel} · Custom (${dimsVal})`
+                : `${vehicleState.makeModel} (${vehicleState.coverage.toUpperCase()})`;
+
             customizerItemPayload = {
                 id: product.id,
                 name: `${product.name} — ${vehicleState.makeModel} (${vehicleState.coverage.toUpperCase()})`,
                 price: unitPrice,
                 quantity: qty,
-                size: vehicleState.makeModel,
-                dimensions: "Gabarit Vectoriel Constructeur",
+                size: sizeVal,
+                dimensions: dimsVal,
                 material: "Vinyle Coulé 3D Polymère Hexis / 3M",
                 finish: `Finition Anti-UV Protection Carrosserie · Vitre: ${vehicleState.windowOpt.toUpperCase()}`,
                 customText: summaryText,
@@ -2638,10 +2809,36 @@ function initMainApp() {
                     window: vehicleState.windowOpt,
                     designMode: vehicleState.designMode,
                     fileName: vehicleState.fileName,
-                    designNotes: vehicleState.designNotes
+                    designNotes: vehicleState.designNotes,
+                    isCustomSize: vehicleState.hasCustomDim,
+                    widthCm: vehicleState.hasCustomDim ? vehicleState.customWidthCm : null,
+                    heightCm: vehicleState.hasCustomDim ? vehicleState.customHeightCm : null,
+                    dimensions: dimsVal
                 },
                 image: product.image
             };
+        }
+
+        if (vehicleCustomDimCheck) {
+            vehicleCustomDimCheck.addEventListener("change", function () {
+                vehicleState.hasCustomDim = this.checked;
+                if (vehicleCustomDimInputs) {
+                    vehicleCustomDimInputs.style.display = this.checked ? "grid" : "none";
+                }
+                renderVehicle();
+            });
+        }
+        if (vehicleCustomWidth) {
+            vehicleCustomWidth.addEventListener("input", function () {
+                vehicleState.customWidthCm = Math.max(10, parseFloat(this.value) || 180);
+                if (vehicleState.hasCustomDim) renderVehicle();
+            });
+        }
+        if (vehicleCustomHeight) {
+            vehicleCustomHeight.addEventListener("input", function () {
+                vehicleState.customHeightCm = Math.max(10, parseFloat(this.value) || 75);
+                if (vehicleState.hasCustomDim) renderVehicle();
+            });
         }
 
         // Mode Toggling: Upload vs Text
@@ -2909,7 +3106,7 @@ function initMainApp() {
                 name: `${product.name} (${stickerState.widthCm} × ${stickerState.heightCm} cm)`,
                 price: calculatedUnit,
                 quantity: qty,
-                size: `${stickerState.widthCm} × ${stickerState.heightCm} cm`,
+                size: `Custom: ${stickerState.widthCm} × ${stickerState.heightCm} cm`,
                 dimensions: `${stickerState.widthCm} × ${stickerState.heightCm} cm`,
                 material: `Vinyle Adhésif Haute Résistance (${stickerState.sheen.toUpperCase()})`,
                 finish: `Découpe ${stickerState.cut.toUpperCase()}`,
@@ -2918,6 +3115,8 @@ function initMainApp() {
                 options: {
                     widthCm: stickerState.widthCm,
                     heightCm: stickerState.heightCm,
+                    dimensions: `${stickerState.widthCm} × ${stickerState.heightCm} cm`,
+                    isCustomSize: true,
                     cut: stickerState.cut,
                     sheen: stickerState.sheen,
                     prepress: stickerState.prepress
@@ -2926,15 +3125,50 @@ function initMainApp() {
             };
         }
 
+        document.querySelectorAll(".sticker-preset-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".sticker-preset-btn").forEach(b => {
+                    b.classList.remove("active");
+                    b.style.borderColor = "#475569";
+                    b.style.background = "rgba(255,255,255,0.06)";
+                    b.style.fontWeight = "normal";
+                });
+                this.classList.add("active");
+                this.style.borderColor = "#ff0f39";
+                this.style.background = "rgba(255,15,57,0.15)";
+                this.style.fontWeight = "700";
+
+                const w = parseFloat(this.getAttribute("data-w")) || 15;
+                const h = parseFloat(this.getAttribute("data-h")) || 15;
+                stickerState.widthCm = w;
+                stickerState.heightCm = h;
+                if (stickerWidthCm) stickerWidthCm.value = w;
+                if (stickerHeightCm) stickerHeightCm.value = h;
+                renderStickers();
+            });
+        });
+
         if (stickerWidthCm) {
             stickerWidthCm.addEventListener("input", function () {
                 stickerState.widthCm = parseFloat(this.value) || 15;
+                document.querySelectorAll(".sticker-preset-btn").forEach(b => {
+                    b.classList.remove("active");
+                    b.style.borderColor = "#475569";
+                    b.style.background = "rgba(255,255,255,0.06)";
+                    b.style.fontWeight = "normal";
+                });
                 renderStickers();
             });
         }
         if (stickerHeightCm) {
             stickerHeightCm.addEventListener("input", function () {
                 stickerState.heightCm = parseFloat(this.value) || 15;
+                document.querySelectorAll(".sticker-preset-btn").forEach(b => {
+                    b.classList.remove("active");
+                    b.style.borderColor = "#475569";
+                    b.style.background = "rgba(255,255,255,0.06)";
+                    b.style.fontWeight = "normal";
+                });
                 renderStickers();
             });
         }

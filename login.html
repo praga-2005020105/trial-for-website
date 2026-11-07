@@ -1547,7 +1547,11 @@
             const fontVal = i.font || (i.options && i.options.font);
             if (fontVal) specs.push(`<strong>${isEn ? 'Font:' : 'Police:'}</strong> ${escapeHtml(fontVal)}`);
             const sizeVal = i.dimensions || i.estimatedDimensions || i.size || (i.options && (i.options.dimensions || (i.options.widthCm && i.options.heightCm ? `${i.options.widthCm} × ${i.options.heightCm} cm` : i.options.sizeTier)));
-            if (sizeVal) specs.push(`<strong>${isEn ? 'Dimensions:' : 'Dimensions:'}</strong> ${escapeHtml(sizeVal)}`);
+            if (sizeVal) {
+                const isCustom = /custom|sur-mesure/i.test(String(sizeVal)) || (i.options && i.options.isCustomSize);
+                const badgeStyle = isCustom ? "color:#b91c1c;background:#fee2e2;border:1px solid #fca5a5;padding:1px 6px;border-radius:3px;font-weight:700;" : "";
+                specs.push(`<strong>${isEn ? 'Dimensions / Size:' : 'Dimensions / Taille:'}</strong> <span style="${badgeStyle}">${escapeHtml(sizeVal)}</span>`);
+            }
             const colorVal = i.color || i.colorName || (i.options && (i.options.colorName || i.options.colorHex));
             if (colorVal) specs.push(`<strong>${isEn ? 'Color:' : 'Couleur:'}</strong> ${escapeHtml(colorVal)}`);
             const thickVal = i.thickness || (i.options && i.options.thickness);

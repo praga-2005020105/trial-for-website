@@ -421,6 +421,25 @@
                                 <strong>XL (~150 cm)</strong>
                                 <span>Architectural business signage</span>
                             </button>
+                            <button type="button" class="neon-option-card" data-size="Custom" data-mult="1.4" data-char-rate="12" data-target-w="90">
+                                <strong>Custom Size</strong>
+                                <span>Bespoke Dimensions (Sur-mesure)</span>
+                            </button>
+                        </div>
+
+                        <!-- Custom Dimensions Input Row (shown when Custom is active) -->
+                        <div id="neonBuilderCustomDimRow" style="display:none;margin-top:12px;padding:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;">
+                            <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;color:#111;">Custom Dimensions (Width × Height cm):</label>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                                <div>
+                                    <label for="neonBuilderCustomWidth" style="font-size:11px;font-weight:600;color:#555;">Width (cm):</label>
+                                    <input type="number" id="neonBuilderCustomWidth" min="25" max="500" value="90" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
+                                </div>
+                                <div>
+                                    <label for="neonBuilderCustomHeight" style="font-size:11px;font-weight:600;color:#555;">Height (cm):</label>
+                                    <input type="number" id="neonBuilderCustomHeight" min="15" max="300" value="35" style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:13px;">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -658,6 +677,8 @@
             sizeMult: 1.2,
             charRate: 14,
             targetWidthCm: 75,
+            customWidthCm: 90,
+            customHeightCm: 35,
             acrylicCut: "cut-shape",
             acrylicCutLabel: "Cut to Shape / Contour",
             acrylicCutExtra: 0,
@@ -698,6 +719,9 @@
         const buyNowBtn = document.getElementById("neonBuyNowBtn");
         const wishlistBtn = document.getElementById("neonWishlistBtn");
         const btnToggleDayNight = document.getElementById("btnToggleDayNight");
+        const customDimRow = document.getElementById("neonBuilderCustomDimRow");
+        const customWidthInput = document.getElementById("neonBuilderCustomWidth");
+        const customHeightInput = document.getElementById("neonBuilderCustomHeight");
 
         // Dimensional calculation helper
         function calculateDimensions() {
@@ -706,6 +730,15 @@
             const lineCount = Math.max(1, lines.length);
             const maxLineChars = lines.reduce((max, l) => Math.max(max, l.length), 0);
             const totalChars = rawText.replace(/\s/g, "").length || 1;
+
+            if (state.sizeTier === "Custom") {
+                return {
+                    width: Math.max(25, Number(state.customWidthCm) || 90),
+                    height: Math.max(15, Number(state.customHeightCm) || 35),
+                    chars: totalChars,
+                    lines: lineCount
+                };
+            }
 
             // Base width is determined by size tier & longest line
             const baseW = state.targetWidthCm;
@@ -879,9 +912,26 @@
                 state.sizeMult = parseFloat(this.getAttribute("data-mult"));
                 state.charRate = parseFloat(this.getAttribute("data-char-rate"));
                 state.targetWidthCm = parseFloat(this.getAttribute("data-target-w"));
+
+                if (customDimRow) {
+                    customDimRow.style.display = (state.sizeTier === "Custom") ? "block" : "none";
+                }
                 updateSimulator();
             });
         });
+
+        if (customWidthInput) {
+            customWidthInput.addEventListener("input", function () {
+                state.customWidthCm = Math.max(20, parseFloat(this.value) || 90);
+                if (state.sizeTier === "Custom") updateSimulator();
+            });
+        }
+        if (customHeightInput) {
+            customHeightInput.addEventListener("input", function () {
+                state.customHeightCm = Math.max(15, parseFloat(this.value) || 35);
+                if (state.sizeTier === "Custom") updateSimulator();
+            });
+        }
 
         // Step 4: Acrylic Cut
         document.querySelectorAll("#neonCutGrid .neon-option-card").forEach(card => {
@@ -989,6 +1039,8 @@
             const dims = calculateDimensions();
             const pricing = calculateNeonPrice();
             const cleanText = state.text.trim() || "Custom Neon";
+            const isCustom = state.sizeTier === "Custom";
+            const sizeLabel = isCustom ? `Custom (${dims.width} × ${dims.height} cm)` : `${state.sizeTier} (~${dims.width} × ${dims.height} cm)`;
 
             return {
                 id: "neon-signs",
@@ -998,13 +1050,21 @@
                 customText: cleanText,
                 font: state.font,
                 color: state.colorName,
-                size: state.sizeTier,
+                size: sizeLabel,
+                dimensions: `${dims.width} × ${dims.height} cm`,
                 estimatedDimensions: `${dims.width} × ${dims.height} cm`,
                 acrylicCut: state.acrylicCutLabel,
                 acrylicColor: state.acrylicFinishLabel,
                 environment: state.isOutdoor ? "Outdoor (IP67)" : "Indoor (IP20)",
                 dimmer: state.dimmerLabel,
                 mounting: state.mountLabel,
+                options: {
+                    sizeTier: state.sizeTier,
+                    widthCm: dims.width,
+                    heightCm: dims.height,
+                    dimensions: `${dims.width} × ${dims.height} cm`,
+                    isCustomSize: isCustom
+                },
                 image: "images/neon-signs.jpg"
             };
         }

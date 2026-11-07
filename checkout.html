@@ -414,7 +414,12 @@
             }
 
             if (isHtml) {
-                return lines.map(l => `<span style="display:inline-block;margin-right:8px;margin-bottom:3px;background:#f3f4f6;padding:2px 7px;border-radius:4px;font-size:11px;color:#374151;"><strong>${escapeHtml(l.label)}:</strong> ${escapeHtml(l.value)}</span>`).join("");
+                return lines.map(l => {
+                    const isDim = l.label.includes("Dimensions");
+                    const isCustom = isDim && (/custom|sur-mesure/i.test(l.value));
+                    const bg = isCustom ? "background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;font-weight:600;" : "background:#f3f4f6;color:#374151;";
+                    return `<span style="display:inline-block;margin-right:8px;margin-bottom:3px;${bg}padding:2px 7px;border-radius:4px;font-size:11px;"><strong>${escapeHtml(l.label)}:</strong> ${escapeHtml(l.value)}</span>`;
+                }).join("");
             } else {
                 return lines.map(l => `   • ${l.label}: ${l.value}`).join("\n");
             }

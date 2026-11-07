@@ -378,7 +378,7 @@
                         <span data-i18n="neonStep3Title">Step 3: Size &amp; Dimensions</span>
                         <span class="config-step-num">Step 3</span>
                     </div>
-                    <div class="config-grid-4">
+                    <div class="config-grid-5" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));gap:10px;">
                         <button type="button" class="option-btn-card neon-size-btn" data-size="Small" data-width="50" data-mult="1.0">
                             <strong data-i18n="neonSizeSmall">Small</strong>
                             <span data-i18n="neonSizeSmallSub">~50 cm</span>
@@ -395,6 +395,28 @@
                             <strong data-i18n="neonSizeXL">XL</strong>
                             <span data-i18n="neonSizeXLSub">~150 cm</span>
                         </button>
+                        <button type="button" class="option-btn-card neon-size-btn" data-size="Custom" data-width="90" data-mult="1.4">
+                            <strong data-i18n="neonSizeCustom">Custom Size</strong>
+                            <span data-i18n="neonSizeCustomSub">Sur-mesure (cm)</span>
+                        </button>
+                    </div>
+
+                    <!-- Custom Dimensions Input Fields (Shown when Custom is active) -->
+                    <div id="neonCustomSizeInputs" style="display:none;margin-top:12px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
+                        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;" data-i18n="neonCustomDimensionsLabel">Custom Dimensions (Width × Height)</label>
+                        <div class="config-grid-2">
+                            <div>
+                                <label for="neonCustomWidth" style="font-size:11px;" data-i18n="customWidthLabel">Width (cm):</label>
+                                <input type="number" id="neonCustomWidth" min="20" max="600" value="90">
+                            </div>
+                            <div>
+                                <label for="neonCustomHeight" style="font-size:11px;" data-i18n="customHeightLabel">Height (cm):</label>
+                                <input type="number" id="neonCustomHeight" min="15" max="300" value="35">
+                            </div>
+                        </div>
+                        <p style="font-size:11px;color:var(--customizer-text-muted);margin:6px 0 0;" data-i18n="customDimensionNotice">
+                            Enter your desired dimensions. Our atelier scales your text proportionally.
+                        </p>
                     </div>
                 </div>
 
@@ -570,7 +592,26 @@
                             <option value="30">30 cm (High Street Frontage)</option>
                             <option value="40">40 cm (High Visibility)</option>
                             <option value="50">50 cm (Monument Scale)</option>
+                            <option value="custom" data-i18n="reliefHeightCustom">Custom Height / Dimensions (Sur-mesure)...</option>
                         </select>
+                    </div>
+
+                    <!-- Custom Height / Dimension Inputs (Shown when custom is selected) -->
+                    <div id="reliefCustomHeightInputs" style="display:none;margin-top:10px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
+                        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;" data-i18n="reliefCustomDimensionsLabel">Custom Letter Height &amp; Sign Dimensions</label>
+                        <div class="config-grid-2">
+                            <div>
+                                <label for="reliefCustomHeightVal" style="font-size:11px;" data-i18n="reliefCustomHeightLabel">Letter Height (cm):</label>
+                                <input type="number" id="reliefCustomHeightVal" min="5" max="300" value="35">
+                            </div>
+                            <div>
+                                <label for="reliefCustomWidthVal" style="font-size:11px;" data-i18n="reliefCustomWidthLabel">Total Sign Width (cm, optional):</label>
+                                <input type="number" id="reliefCustomWidthVal" min="10" max="1500" placeholder="Auto-calculated" value="">
+                            </div>
+                        </div>
+                        <p style="font-size:11px;color:var(--customizer-text-muted);margin:6px 0 0;" data-i18n="reliefCustomNotice">
+                            Custom letter height machined to the millimeter in our workshop.
+                        </p>
                     </div>
                 </div>
 
@@ -724,7 +765,7 @@
                         <span data-i18n="facadeStep3Title">Step 3: Dimensions &amp; Aspect</span>
                         <span class="config-step-num">Step 3</span>
                     </div>
-                    <div class="config-grid-3" style="margin-bottom:12px;">
+                    <div class="config-grid-4" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));gap:10px;margin-bottom:12px;">
                         <button type="button" class="option-btn-card facade-dim-btn active" data-dim="standard" data-w="200" data-h="50" data-price="0">
                             <strong data-i18n="facadeDimStandard">Standard (200 × 50 cm)</strong>
                             <span data-i18n="facadeDimStandardSub">1.00 m² facade</span>
@@ -737,6 +778,32 @@
                             <strong data-i18n="facadeDimXL">Grand Monument (400 × 80 cm)</strong>
                             <span data-i18n="facadeDimXLSub">3.20 m² storefront</span>
                         </button>
+                        <button type="button" class="option-btn-card facade-dim-btn" data-dim="custom" data-w="250" data-h="70" data-price="0">
+                            <strong data-i18n="facadeDimCustom">Custom Dimensions</strong>
+                            <span data-i18n="facadeDimCustomSub">Sur-mesure (cm)</span>
+                        </button>
+                    </div>
+
+                    <!-- Custom Facade Dimensions (Shown when custom is selected) -->
+                    <div id="facadeCustomDimInputs" style="display:none;margin-bottom:12px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
+                        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:6px;" data-i18n="facadeCustomDimLabel">Custom Facade Dimensions</label>
+                        <div class="config-grid-2">
+                            <div>
+                                <label for="facadeCustomWidth" style="font-size:11px;" data-i18n="customWidthLabel">Width (cm):</label>
+                                <input type="number" id="facadeCustomWidth" min="50" max="2000" value="250">
+                            </div>
+                            <div>
+                                <label for="facadeCustomHeight" style="font-size:11px;" data-i18n="customHeightLabel">Height (cm):</label>
+                                <input type="number" id="facadeCustomHeight" min="20" max="800" value="70">
+                            </div>
+                        </div>
+                        <div id="facadeCeilingAreaRow" style="display:none;margin-top:8px;">
+                            <label for="facadeCeilingAreaInput" style="font-size:11px;" data-i18n="facadeCeilingAreaLabel">Surface Area (m²):</label>
+                            <input type="number" id="facadeCeilingAreaInput" min="5" max="500" value="25">
+                        </div>
+                        <p style="font-size:11px;color:var(--customizer-text-muted);margin:6px 0 0;" data-i18n="facadeCustomDimNotice">
+                            Precision custom manufacturing tailored to your exact storefront facade aperture.
+                        </p>
                     </div>
                     <div>
                         <label for="facadeTextInput" data-i18n="facadeTextLabel">Storefront / Lambrequin Text:</label>
@@ -808,6 +875,24 @@
                         <div>
                             <label for="vehicleYear" data-i18n="vehicleYearLabel">Vehicle Year</label>
                             <input type="number" id="vehicleYear" min="2000" max="2027" value="2024">
+                        </div>
+                    </div>
+
+                    <!-- Custom Vehicle Marking Dimensions -->
+                    <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:6px;">
+                        <label style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:8px;">
+                            <input type="checkbox" id="vehicleCustomDimCheck" style="width:16px;height:16px;accent-color:var(--accent-crimson);">
+                            <span data-i18n="vehicleCustomDimCheck">Custom Graphics &amp; Decal Dimensions (Sur-mesure)</span>
+                        </label>
+                        <div id="vehicleCustomDimInputs" style="display:none;" class="config-grid-2">
+                            <div>
+                                <label for="vehicleCustomWidth" style="font-size:11px;" data-i18n="vehicleMarkingWidth">Marking Width (cm):</label>
+                                <input type="number" id="vehicleCustomWidth" min="20" max="800" value="180">
+                            </div>
+                            <div>
+                                <label for="vehicleCustomHeight" style="font-size:11px;" data-i18n="vehicleMarkingHeight">Marking Height (cm):</label>
+                                <input type="number" id="vehicleCustomHeight" min="10" max="300" value="75">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -954,6 +1039,14 @@
                     <div class="config-card-title">
                         <span data-i18n="stickerStep1Title">Step 1: Dimensions &amp; Cut Style</span>
                         <span class="config-step-num">Step 1</span>
+                    </div>
+                    <!-- Quick Size Presets -->
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+                        <button type="button" class="sticker-preset-btn" data-w="10" data-h="10" style="padding:4px 10px;border-radius:4px;border:1px solid #475569;background:rgba(255,255,255,0.06);color:#f1f5f9;font-size:11px;cursor:pointer;">10 × 10 cm</button>
+                        <button type="button" class="sticker-preset-btn active" data-w="15" data-h="15" style="padding:4px 10px;border-radius:4px;border:1px solid #ff0f39;background:rgba(255,15,57,0.15);color:#fff;font-weight:700;font-size:11px;cursor:pointer;">15 × 15 cm</button>
+                        <button type="button" class="sticker-preset-btn" data-w="30" data-h="20" style="padding:4px 10px;border-radius:4px;border:1px solid #475569;background:rgba(255,255,255,0.06);color:#f1f5f9;font-size:11px;cursor:pointer;">30 × 20 cm</button>
+                        <button type="button" class="sticker-preset-btn" data-w="50" data-h="50" style="padding:4px 10px;border-radius:4px;border:1px solid #475569;background:rgba(255,255,255,0.06);color:#f1f5f9;font-size:11px;cursor:pointer;">50 × 50 cm</button>
+                        <button type="button" class="sticker-preset-btn" data-w="100" data-h="100" style="padding:4px 10px;border-radius:4px;border:1px solid #475569;background:rgba(255,255,255,0.06);color:#f1f5f9;font-size:11px;cursor:pointer;">100 × 100 cm</button>
                     </div>
                     <div class="config-grid-2" style="margin-bottom:12px;">
                         <div>
