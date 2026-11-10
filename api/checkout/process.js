@@ -20,6 +20,92 @@ if (stripeSecretKey) {
   });
 }
 
+// Base catalogue pricing table (EUR)
+const CATALOG_BASE_PRICES = {
+  "neon-signs": 350,
+  "business-signs": 100,
+  "aluminium-facades": 175,
+  "pvc-cut-letters": 100,
+  "lettres-3d-lumineuses": 365,
+  "lettres-3d-retro-halo": 390,
+  "lettres-3d-lateral": 390,
+  "lettres-3d-plateau-acp": 600,
+  "caisson-lumineux": 460,
+  "enseigne-drapeau": 850,
+  "vehicle-wrapping": 750,
+  "vehicle-lettering-graphics": 350,
+  "3d-raised-letters": 180,
+  "acrylic-signs-displays": 129,
+  "retractable-awnings": 299,
+  "suspended-ceilings": 399,
+  "adhesive-stickers": 29,
+  "wall-stickers": 49
+};
+
+/**
+ * Recalculate and verify cart subtotal, shipping, TVA (20%), and total.
+ * Guards against client-side tampering of payment totals.
+ */
+function verifyOrderPricing(items, clientTotal) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return {
+      isValid: false,
+      error: "Cart is empty or invalid.",
+      subtotal: 0,
+      shipping: 0,
+      tva: 0,
+      total: 0,
+      finalTotal: 0
+    };
+  }
+
+  let subtotal = 0;
+  for (const item of items) {
+    const qty = Math.max(1, parseInt(item.quantity || 1, 10));
+    let price = Number(item.price) || 0;
+
+    // Check if standard catalog product without custom dimensions or customizer
+    const isCustom = Boolean(
+      item.customSize ||
+      item.isCustom ||
+      item.customizer ||
+      item.customText ||
+      item.text ||
+      (item.options && Object.keys(item.options).length > 0)
+    );
+
+    if (item.id && CATALOG_BASE_PRICES[item.id] && !isCustom) {
+      if (price < CATALOG_BASE_PRICES[item.id]) {
+        price = CATALOG_BASE_PRICES[item.id];
+      }
+    }
+
+    // Minimum product baseline: custom signage requires at least €10 workshop minimum
+    if (price < 10) {
+      price = 10;
+    }
+
+    subtotal += price * qty;
+  }
+
+  const shipping = subtotal > 0 ? 10 : 0;
+  const tva = (subtotal + shipping) * 0.20;
+  const verifiedTotal = Number((subtotal + shipping + tva).toFixed(2));
+
+  // Verify client total: allow minor roundoff up to €1.00
+  const cTotal = Number(clientTotal) || 0;
+  const isSevereUnderpayment = cTotal > 0 && (verifiedTotal - cTotal) > 1.00;
+
+  return {
+    isValid: !isSevereUnderpayment,
+    subtotal: Number(subtotal.toFixed(2)),
+    shipping,
+    tva: Number(tva.toFixed(2)),
+    verifiedTotal,
+    finalTotal: isSevereUnderpayment ? verifiedTotal : (cTotal > 0 ? cTotal : verifiedTotal)
+  };
+}
+
 export default async function handler(req, res) {
   // Enforce POST method
   if (req.method !== "POST") {
@@ -41,20 +127,32 @@ export default async function handler(req, res) {
       });
     }
 
-    const orderNumber = "ORD-" + Date.now().toString(36).toUpperCase();
-    const amountInCents = Math.round(Number(total || 0) * 100);
+    // 2. Server-side price calculation & integrity verification
+    const pricing = verifyOrderPricing(items, total);
+    if (!pricing.isValid) {
+      console.warn(`[SECURITY ALERT] Price mismatch detected for ${customer.email}: submitted €${total}, verified €${pricing.verifiedTotal}`);
+      return res.status(400).json({
+        success: false,
+        error: "Price verification failed. The submitted order total does not match the cart contents. Please refresh and try again."
+      });
+    }
 
-    // 2. Direct Workshop Order (WhatsApp) or In-Store
+    const orderNumber = "ORD-" + Date.now().toString(36).toUpperCase();
+    const finalAmount = pricing.finalTotal;
+    const amountInCents = Math.round(finalAmount * 100);
+
+    // 3. Direct Workshop Order (WhatsApp) or In-Store
     if (payment === "whatsapp" || payment === "store") {
       return res.status(200).json({
         success: true,
         orderNumber,
+        verifiedTotal: pricing.finalTotal,
         status: "Pending BAT",
         message: "Order placed for direct workshop confirmation."
       });
     }
 
-    // 3. Real Stripe Payment Processing (when STRIPE_SECRET_KEY is configured)
+    // 4. Real Stripe Payment Processing (when STRIPE_SECRET_KEY is configured)
     if (stripe && stripeToken) {
       try {
         const charge = await stripe.charges.create({

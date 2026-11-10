@@ -370,7 +370,22 @@ export async function handleApiRequest(req, res) {
     return strictFormRateLimiter(req, res, async () => {
       const rawOrder = await parseJsonBody(req);
       const order = sanitizePayload(rawOrder);
-      const { stripeToken, payment, total } = rawOrder;
+      const { stripeToken, payment, total, items } = rawOrder;
+
+      // Server-side price integrity check
+      let computedSubtotal = 0;
+      if (Array.isArray(items)) {
+        for (const it of items) {
+          const qty = Math.max(1, parseInt(it.quantity || 1, 10));
+          const p = Math.max(10, Number(it.price) || 0);
+          computedSubtotal += p * qty;
+        }
+      }
+      const computedShipping = computedSubtotal > 0 ? 10 : 0;
+      const verifiedTotal = Number(((computedSubtotal + computedShipping) * 1.20).toFixed(2));
+      const clientTotal = Number(total || 0);
+      const isSevereUnderpayment = clientTotal > 0 && (verifiedTotal - clientTotal) > 1.00;
+      const finalTotal = isSevereUnderpayment ? verifiedTotal : (clientTotal > 0 ? clientTotal : verifiedTotal);
 
       // Real Stripe Processing (if STRIPE_SECRET_KEY is defined in environment)
       const stripeKey = process.env.STRIPE_SECRET_KEY;
@@ -378,7 +393,7 @@ export async function handleApiRequest(req, res) {
         try {
           const { default: Stripe } = await import("stripe");
           const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
-          const amountInCents = Math.round(Number(total || 0) * 100);
+          const amountInCents = Math.round(finalTotal * 100);
 
           const charge = await stripe.charges.create({
             amount: amountInCents > 50 ? amountInCents : 100,
