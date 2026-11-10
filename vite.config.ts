@@ -84,7 +84,8 @@ export default defineConfig(() => {
           admin: path.resolve(__dirname, 'admin.html'),
           neonBuilder: path.resolve(__dirname, 'neon-builder.html'),
           login: path.resolve(__dirname, 'login.html'),
-          signup: path.resolve(__dirname, 'signup.html')
+          signup: path.resolve(__dirname, 'signup.html'),
+          privacy: path.resolve(__dirname, 'privacy.html')
         }
       }
     },

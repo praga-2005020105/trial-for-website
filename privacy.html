@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitlePrivacy">Politique de Confidentialité & RGPD — MY STICKERZ ENSEIGNE</title>
+    <meta name="description" content="Protection des données personnelles et conformité RGPD de MY STICKERZ ENSEIGNE SAS." />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="images/company-logo.jpeg">
+    <meta property="og:title" content="Politique de Confidentialité & RGPD — MY STICKERZ ENSEIGNE">
+    <meta property="og:description" content="Protection des données personnelles et conformité RGPD de MY STICKERZ ENSEIGNE SAS.">
+    <meta property="og:image" content="images/company-logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <span data-i18n="topBarNotice">BESPOKE SIGNAGE &amp; CUSTOM GRAPHICS · ATELIER FABRICATION IN FRANCE</span>
+            <div class="lang-switch">
+                <button onclick="setLang('en')" id="btn-lang-en" class="btn-lang-en" type="button">EN</button>
+                <button onclick="setLang('fr')" id="btn-lang-fr" class="btn-lang-fr" type="button">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <span class="brand-text">MY STICKERZ ENSEIGNE</span>
+            </a>
+
+            <nav class="desktop-menu">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="nav-icons">
+                <button class="icon-btn search-toggle" aria-label="Search" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></a>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCount">0</span>
+                </a>
+                <a href="login.html" class="icon-btn" aria-label="Account" title="My Account"><i class="fa-regular fa-user"></i></a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" type="button"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" data-i18n="navHome">Home</a>
+            <a href="products.html" data-i18n="navProducts">Products</a>
+            <a href="neon-builder.html" style="font-weight:700;color:#111;" data-i18n="navNeonBuilder">Neon Builder</a>
+            <a href="javascript:void(0)" class="search-toggle" role="button" style="display:flex;align-items:center;gap:8px;"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="searchAction">Search Catalog</span></a>
+            <a href="index.html#services" data-i18n="navServices">Services</a>
+            <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
+            <a href="cart.html" data-i18n="navCart">Cart</a>
+            <a href="index.html#about" data-i18n="navAbout">About</a>
+            <a href="contact.html" data-i18n="navContact">Contact</a>
+            <a href="login.html" style="font-weight:700;color:#111;" data-i18n="navAccount"><i class="fa-regular fa-user"></i> My Account</a>
+        </div>
+    </header>
+
+    <!-- SHOP HEADER -->
+    <section class="shop-header">
+        <h1 data-i18n="privacyHeaderTitle">Politique de Confidentialité &amp; Données Personnelles</h1>
+        <p data-i18n="privacyHeaderSub">Protection des données personnelles conformément au Règlement Général sur la Protection des Données (RGPD - Règlement UE 2016/679) • MY STICKERZ ENSEIGNE SAS</p>
+    </section>
+
+    <!-- POLICY CONTENT -->
+    <main class="policy-main" style="max-width:1100px;margin:50px auto;padding:0 5%;">
+        <div class="policy-crosslinks" style="display:flex;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap;">
+            <a href="terms.html" class="btn" style="border:1px solid #ddd;" data-i18n="footerTerms">Terms</a>
+            <a href="privacy.html" class="btn btn-dark" data-i18n="footerPrivacy">Politique de Confidentialité</a>
+            <a href="mentions-legales.html" class="btn" style="border:1px solid #ddd;" data-i18n="footerMentions">Mentions Légales</a>
+            <a href="cookies.html" class="btn" style="border:1px solid #ddd;">Cookies</a>
+            <a href="shipping.html" class="btn" style="border:1px solid #ddd;" data-i18n="footerShipping">Shipping</a>
+            <a href="returns.html" class="btn" style="border:1px solid #ddd;" data-i18n="footerReturns">No Returns Policy</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr));gap:24px;">
+            <!-- CARD 1: RESPONSABLE DU TRAITEMENT -->
+            <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;">
+                <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-shield-halved" style="color:var(--accent-crimson,#ff0f39);"></i>
+                    <span data-i18n="privacyC1Title">1. Responsable du Traitement &amp; Contact Atelier</span>
+                </h3>
+                <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:12px;" data-i18n="privacyC1Intro">Le responsable du traitement des données personnelles collectées sur cette plateforme est la société :</p>
+                <ul style="font-size:13px;color:#444;line-height:1.8;padding-left:18px;margin:0;">
+                    <li><strong>Raison sociale :</strong> MY STICKERZ ENSEIGNE SAS</li>
+                    <li><strong>Siège social :</strong> 29-31, Boulevard de la Muette, 95140 Garges-lès-Gonesse, France</li>
+                    <li><strong>Email DPO / RGPD :</strong> <a href="mailto:mystickerz75@gmail.com" style="color:#111;text-decoration:underline;">mystickerz75@gmail.com</a></li>
+                    <li><strong>Téléphone :</strong> <a href="tel:+33698710050" style="color:#111;text-decoration:underline;">06 98 71 00 50</a></li>
+                </ul>
+            </div>
+
+            <!-- CARD 2: DONNEES COLLECTEES -->
+            <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;">
+                <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-database" style="color:var(--accent-crimson,#ff0f39);"></i>
+                    <span data-i18n="privacyC2Title">2. Données Personnelles Collectées</span>
+                </h3>
+                <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:12px;" data-i18n="privacyC2Intro">Nous collectons uniquement les informations strictement nécessaires à la fabrication sur mesure et au suivi des commandes :</p>
+                <ul style="font-size:13px;color:#444;line-height:1.8;padding-left:18px;margin:0;">
+                    <li data-i18n="privacyC2Item1"><strong>Identité &amp; Coordonnées :</strong> Nom, prénom, adresse e-mail, numéro de téléphone, adresses de facturation et de livraison.</li>
+                    <li data-i18n="privacyC2Item2"><strong>Données de Fabrication Sur Mesure :</strong> Textes des néons, logos téléversés, fichiers vectoriels (SVG/PDF), choix de typographies et cotes au millimètre.</li>
+                    <li data-i18n="privacyC2Item3"><strong>Données Techniques &amp; Transactionnelles :</strong> Adresse IP, historique des commandes, identifiants de transactions chiffrés (tokens Stripe). Aucun numéro de carte bancaire n'est conservé sur nos serveurs.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 3: FINALITES & BASES LEGALES -->
+            <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;">
+                <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-scale-balanced" style="color:var(--accent-crimson,#ff0f39);"></i>
+                    <span data-i18n="privacyC3Title">3. Finalités &amp; Bases Légales du Traitement</span>
+                </h3>
+                <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:12px;" data-i18n="privacyC3Intro">Vos données sont traitées pour des finalités précises et fondées juridiquement :</p>
+                <ul style="font-size:13px;color:#444;line-height:1.8;padding-left:18px;margin:0;">
+                    <li data-i18n="privacyC3Item1"><strong>Exécution Contractuelle (Art. 6.1.b RGPD) :</strong> Usinage atelier, validation BAT, livraison et relation client.</li>
+                    <li data-i18n="privacyC3Item2"><strong>Obligation Légale (Art. 6.1.c RGPD) :</strong> Tenue de la comptabilité générale, facturation et archivage fiscal en droit français.</li>
+                    <li data-i18n="privacyC3Item3"><strong>Intérêt Légitime (Art. 6.1.f RGPD) :</strong> Sécurité de la plateforme, lutte contre la fraude et prévention des abus.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 4: DUREES DE CONSERVATION -->
+            <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;">
+                <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-crimson,#ff0f39);"></i>
+                    <span data-i18n="privacyC4Title">4. Durée de Conservation des Données</span>
+                </h3>
+                <ul style="font-size:13px;color:#444;line-height:1.8;padding-left:18px;margin:0;">
+                    <li data-i18n="privacyC4Item1"><strong>Compte Client :</strong> Données conservées tant que le compte est actif ou jusqu'à demande de suppression dans votre profil.</li>
+                    <li data-i18n="privacyC4Item2"><strong>Factures &amp; Pièces Comptables :</strong> 10 ans conformément à l'article L. 123-22 du Code de Commerce.</li>
+                    <li data-i18n="privacyC4Item3"><strong>Fichiers Vectoriels de Fabrication :</strong> 2 ans afin de faciliter les réassorts ou prises en charge sous garantie atelier.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 5: SOUS-TRAITANTS -->
+            <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;">
+                <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-network-wired" style="color:var(--accent-crimson,#ff0f39);"></i>
+                    <span data-i18n="privacyC5Title">5. Sous-traitants &amp; Destinataires Agréés</span>
+                </h3>
+                <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:12px;" data-i18n="privacyC5Intro">Vos données ne sont transmises qu'à des prestataires rigoureusement sélectionnés et certifiés conformes au RGPD :</p>
+                <ul style="font-size:13px;color:#444;line-height:1.8;padding-left:18px;margin:0;">
+                    <li data-i18n="privacyC5Item1"><strong>Paiement Sécurisé :</strong> Stripe Payments Europe Ltd (infrastructure certifiée PCI-DSS Niveau 1).</li>
+                    <li data-i18n="privacyC5Item2"><strong>Base de Données &amp; Authentification Sécurisée :</strong> Supabase (hébergement UE, chiffrement au repos et Row-Level Security).</li>
+                    <li data-i18n="privacyC5Item3"><strong>Transporteurs Agréés :</strong> Colissimo, Chronopost ou coursier atelier pour la remise en main propre.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 6: VOS DROITS RGPD -->
+            <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;">
+                <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-user-shield" style="color:var(--accent-crimson,#ff0f39);"></i>
+                    <span data-i18n="privacyC6Title">6. Vos Droits au Titre du RGPD</span>
+                </h3>
+                <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:12px;" data-i18n="privacyC6Intro">Conformément aux articles 15 à 22 du RGPD, vous disposez des droits suivants :</p>
+                <ul style="font-size:13px;color:#444;line-height:1.8;padding-left:18px;margin:0;">
+                    <li data-i18n="privacyC6Item1">Droit d'accès et de rectification de vos informations personnelles.</li>
+                    <li data-i18n="privacyC6Item2"><strong>Droit à l'effacement (Droit à l'oubli - Art. 17 RGPD) :</strong> Possibilité de supprimer définitivement votre compte client et vos données personnelles directement depuis votre espace client ou par simple demande.</li>
+                    <li data-i18n="privacyC6Item3">Droit à la portabilité et droit d'opposition au traitement.</li>
+                    <li data-i18n="privacyC6Item4">Droit d'introduire une réclamation auprès de l'autorité de contrôle française : la <strong>CNIL</strong> (cnil.fr).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FULL-WIDTH CARD 7: SECURITE -->
+        <div style="background:#fff;border:1px solid #e5e5e2;border-radius:10px;padding:28px;margin-top:24px;">
+            <h3 style="font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+                <i class="fa-solid fa-lock" style="color:var(--accent-crimson,#ff0f39);"></i>
+                <span data-i18n="privacyC7Title">7. Sécurité &amp; Protection des Données</span>
+            </h3>
+            <p style="font-size:13px;color:#555;line-height:1.8;margin:0;" data-i18n="privacyC7Desc">Nous appliquons des mesures de sécurité de pointe incluant le chiffrement TLS/HTTPS 256 bits de tous les flux réseau, l'isolation stricte des données client via Row-Level Security (RLS) et un monitoring constant contre les intrusions.</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                    <span>MY STICKERZ ENSEIGNE</span>
+                </div>
+                <p data-i18n="footerTagline">Néons sur-mesure, enseignes, stickers adhésifs et solutions de devanture commerciale.</p>
+                <div class="footer-social-strip">
+                    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-pill" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-pill" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/33698710050" target="_blank" rel="noopener noreferrer" class="footer-social-pill" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 data-i18n="footerQuickLinks">Quick Links</h4>
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="products.html" data-i18n="navProducts">Products</a>
+                <a href="neon-builder.html" data-i18n="navNeonBuilder">Neon Builder</a>
+                <a href="index.html#services" data-i18n="navServices">Services</a>
+                <a href="index.html#about" data-i18n="navAbout">About</a>
+                <a href="contact.html" data-i18n="navContact">Contact</a>
+                <a href="admin.html">Admin Portal</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerCustomerCare">Customer Care</h4>
+                <a href="contact.html" data-i18n="footerContactUs">Contact Us</a>
+                <a href="shipping.html" data-i18n="footerShipping">Shipping Policy</a>
+                <a href="returns.html" data-i18n="footerReturns">No Returns Policy</a>
+                <a href="terms.html" data-i18n="footerTerms">Terms of Service</a>
+                <a href="privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+                <a href="mentions-legales.html" data-i18n="footerMentions">Mentions Légales</a>
+                <a href="cookies.html">Cookie Preferences</a>
+            </div>
+            <div>
+                <h4 data-i18n="footerWorkshopTitle">Atelier &amp; Contact</h4>
+                <p style="margin-bottom:8px;">
+                    <i class="fa-solid fa-location-dot"></i> <strong data-i18n="footerWorkshopLabel">Atelier:</strong><br>
+                    29-31, Boulevard de la Muette<br>
+                    95140 Garges-lès-Gonesse
+                </p>
+                <p style="margin-bottom:8px;">
+                    <i class="fa-solid fa-phone"></i> <strong>Mobile:</strong> <a href="tel:+33698710050" style="display:inline;color:#fff;">06 98 71 00 50</a><br>
+                    <i class="fa-solid fa-envelope"></i> <strong>Email:</strong> <a href="mailto:mystickerz75@gmail.com" style="display:inline;color:#fff;">mystickerz75@gmail.com</a><br>
+                    <i class="fa-brands fa-whatsapp"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/33698710050" target="_blank" rel="noopener noreferrer" style="display:inline;color:#25d366;">06 98 71 00 50</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <a href="https://wa.me/33698710050?text=Bonjour%2C%20je%20souhaite%20des%20informations%20sur%20vos%20enseignes" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp (06 98 71 00 50)</span>
+    </a>
+
+    <script src="js/language-switch.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
