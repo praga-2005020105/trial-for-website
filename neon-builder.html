@@ -610,7 +610,6 @@
                 <a href="neon-builder.html">Neon Sign Builder</a>
                 <a href="cart.html" data-i18n="navCart">Cart</a>
                 <a href="wishlist.html" data-i18n="navWishlist">Wishlist</a>
-                <a href="admin.html">Admin Portal</a>
             </div>
             <div>
                 <h4 data-i18n="footerCustomerCare">Customer Care</h4>
@@ -646,7 +645,7 @@
         </div>
         <div class="footer-bottom">
             <p data-i18n="footerCopyright">&copy; 2026 MY STICKERZ ENSEIGNE. All rights reserved.</p>
-            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay · <a href="admin.html" style="color:#777;text-decoration:none;">Admin</a></p>
+            <p class="payment-methods">Visa • Mastercard • PayPal • Apple Pay</p>
         </div>
     </footer>
 
@@ -841,7 +840,12 @@
         }
 
         function escapeHtml(str) {
-            return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return String(str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
         // =========================================================

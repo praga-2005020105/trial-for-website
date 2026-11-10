@@ -6,5 +6,7 @@ Disallow: /success.html
 Disallow: /success
 Disallow: /payment-failed.html
 Disallow: /payment-failed
+Disallow: /checkout.html
+Disallow: /checkout
 
 Sitemap: https://mystickerzenseigne.com/sitemap.xml

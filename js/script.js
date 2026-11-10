@@ -3913,6 +3913,38 @@ function initMainApp() {
             const phone = sanitizeInput(document.getElementById("contactPhone")?.value || "");
             const subject = sanitizeInput(document.getElementById("contactSubject")?.value || "");
             const message = sanitizeInput(document.getElementById("contactMessage")?.value || "");
+            const honeypot = document.querySelector('input[name="botcheck"]');
+
+            // 1. Anti-Bot Honeypot Defense
+            if (honeypot && honeypot.checked) {
+                // Silently drop bot submissions
+                showToast(isFr ? "Votre message a bien été envoyé !" : "Your message has been received!", "✓");
+                contactForm.reset();
+                return;
+            }
+
+            // 2. Client-side Rate Limiting (45 seconds cooldown)
+            const now = Date.now();
+            const lastSubmit = parseInt(sessionStorage.getItem("mse_last_contact_submit") || "0", 10);
+            if (now - lastSubmit < 45000) {
+                const remaining = Math.ceil((45000 - (now - lastSubmit)) / 1000);
+                showToast(isFr ? `Veuillez patienter ${remaining}s avant d'envoyer un autre message.` : `Please wait ${remaining}s before sending another inquiry.`, "!");
+                return;
+            }
+
+            // 3. Length Validation
+            if (name.length < 2) {
+                showToast(isFr ? "Veuillez renseigner votre nom complet." : "Please enter your full name.", "!");
+                return;
+            }
+            if (message.length < 10) {
+                showToast(isFr ? "Votre message doit contenir au moins 10 caractères." : "Your message must contain at least 10 characters.", "!");
+                return;
+            }
+            if (message.length > 4000) {
+                showToast(isFr ? "Message trop long (maximum 4000 caractères)." : "Message is too long (maximum 4000 characters).", "!");
+                return;
+            }
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
@@ -3952,6 +3984,7 @@ function initMainApp() {
                 });
                 const data = await res.json();
                 if (res.ok && data.success) {
+                    sessionStorage.setItem("mse_last_contact_submit", String(Date.now()));
                     showToast(isFr ? "Votre message a bien été envoyé ! Réponse sous 24h." : "Your message has been received! Our workshop will reply within 24h.", "✓");
                     contactForm.reset();
                     if (window.DB && window.DB.saveContactMessage) {
