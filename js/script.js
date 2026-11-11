@@ -4353,6 +4353,12 @@ function initMainApp() {
     function initGlobalSocialProofToasts() {
         if (sessionStorage.getItem("mse_social_proof_dismissed") === "true") return;
 
+        // Suppress on checkout, cart, login, and signup pages to prevent layout obstruction and customer distraction
+        const currentPath = (window.location.pathname || "").toLowerCase();
+        if (currentPath.includes("checkout") || currentPath.includes("cart") || currentPath.includes("login") || currentPath.includes("signup")) {
+            return;
+        }
+
         let toastContainer = document.getElementById("mseSocialProofToastContainer");
         if (!toastContainer) {
             toastContainer = document.createElement("div");

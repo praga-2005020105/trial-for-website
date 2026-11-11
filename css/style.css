@@ -74,7 +74,7 @@ button {
 /* Toast Notifications */
 .toast-container {
   position: fixed;
-  top: 24px;
+  top: 88px;
   right: 24px;
   z-index: 999999;
   display: flex;
@@ -2107,10 +2107,24 @@ button {
 }
 
 @media (min-width: 992px) {
+  .product-customizer-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+    gap: 36px !important;
+    align-items: start !important;
+  }
+
+  .visualizer-column {
+    position: sticky !important;
+    top: 90px !important;
+    align-self: start !important;
+    max-height: calc(100vh - 105px) !important;
+  }
+
   .configurator-column {
-    max-height: calc(100vh - 105px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    max-height: calc(100vh - 105px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
     padding-right: 14px;
     padding-bottom: 30px;
     scroll-behavior: smooth;
@@ -2811,12 +2825,12 @@ button {
 
 /* Wishlist */
 .wishlist-page {
-  padding: 50px 5% 90px;
+  padding: 30px 5% 70px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.wishlist-heading { text-align: center; margin-bottom: 35px; }
+.wishlist-heading { text-align: center; margin-bottom: 22px; }
 .wishlist-heading h1 { font-family: var(--font-heading); font-size: 38px; }
 .wishlist-toolbar {
   display: flex;
