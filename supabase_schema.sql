@@ -1,7 +1,7 @@
 -- ========================================================
 -- MY STICKERZ ENSEIGNE — HARDENED PRODUCTION DATABASE SCHEMA
 -- Run this script in your Supabase SQL Editor
--- Features: Strict RLS (Anti-IDOR, Anti-Scraping) + Query Indexes
+-- Features: Strict RLS (Anti-IDOR, Anti-Scraping, Self-Data Access Only) + Query Indexes
 -- ========================================================
 
 -- 1. ORDERS TABLE
@@ -18,10 +18,10 @@ create table if not exists public.orders (
     created_at timestamptz default now()
 );
 
--- Enable Row Level Security (RLS)
+-- Turn on Row Level Security (RLS)
 alter table public.orders enable row level security;
 
--- Drop legacy & restrictive policies
+-- Drop legacy, insecure, or conflicting policies
 drop policy if exists "Allow public insert to orders" on public.orders;
 drop policy if exists "Allow public select orders" on public.orders;
 drop policy if exists "Allow public update orders" on public.orders;
@@ -29,24 +29,47 @@ drop policy if exists "Allow secure select orders" on public.orders;
 drop policy if exists "Allow admin update orders" on public.orders;
 drop policy if exists "Customers view own orders" on public.orders;
 drop policy if exists "Admin order management" on public.orders;
+drop policy if exists "Only admin update orders" on public.orders;
+drop policy if exists "Only admin delete orders" on public.orders;
 
--- Policy A: Anyone can place a new order (Checkout)
+-- Policy A: Anyone (guest or registered customer) can place a new order during checkout
 create policy "Allow public insert to orders"
     on public.orders for insert
     with check (true);
 
--- Policy B: Allow select so Admin Portal & Customer Account can load orders
-create policy "Allow public select orders"
+-- Policy B: STRICT RLS — Customers can ONLY view their own orders; Workshop Admins view all
+create policy "Customers view own orders"
     on public.orders for select
-    using (true);
+    using (
+        -- Authenticated user can ONLY see orders where customer email matches their account email
+        lower(customer->>'email') = lower(auth.jwt()->>'email')
+        -- OR authorized workshop admin accounts
+        or auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        -- OR backend service role (never exposed to client)
+        or auth.jwt()->>'role' = 'service_role'
+    );
 
--- Policy C: Allow status updates for workshop production pipeline
-create policy "Allow public update orders"
+-- Policy C: Only authorized Workshop Admin or Service Role can update order status
+create policy "Only admin update orders"
     on public.orders for update
-    using (true)
-    with check (true);
+    using (
+        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or auth.jwt()->>'role' = 'service_role'
+    )
+    with check (
+        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or auth.jwt()->>'role' = 'service_role'
+    );
 
--- 2. CONTACT MESSAGES TABLE (Data Privacy / Anti-Scraping)
+-- Policy D: Only authorized Workshop Admin or Service Role can delete orders
+create policy "Only admin delete orders"
+    on public.orders for delete
+    using (
+        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or auth.jwt()->>'role' = 'service_role'
+    );
+
+-- 2. CONTACT MESSAGES TABLE (Data Privacy / Anti-Scraping / RLS Protected)
 create table if not exists public.contact_messages (
     id uuid default gen_random_uuid() primary key,
     name text not null,
@@ -57,46 +80,75 @@ create table if not exists public.contact_messages (
     created_at timestamptz default now()
 );
 
+-- Turn on Row Level Security (RLS)
 alter table public.contact_messages enable row level security;
 
+-- Drop legacy policies
 drop policy if exists "Allow public insert to contact_messages" on public.contact_messages;
 drop policy if exists "Allow public select contact_messages" on public.contact_messages;
+drop policy if exists "Allow admin select contact_messages" on public.contact_messages;
+drop policy if exists "Users view own inquiries or admin" on public.contact_messages;
+drop policy if exists "Only admin manage contact_messages" on public.contact_messages;
 
--- Visitors can submit inquiries
+-- Policy A: Anyone can submit a contact inquiry from the website
 create policy "Allow public insert to contact_messages"
     on public.contact_messages for insert
     with check (true);
 
--- Only Admin can view customer inquiries (Blocks public scraping)
-create policy "Allow admin select contact_messages"
+-- Policy B: STRICT RLS — Users can ONLY view inquiries they submitted; Admin views all
+create policy "Users view own inquiries or admin"
     on public.contact_messages for select
     using (
-        auth.jwt()->>'email' = 'admin@mystickerzenseigne.com'
+        lower(email) = lower(auth.jwt()->>'email')
+        or auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     );
 
--- 3. NEWSLETTER SUBSCRIBERS TABLE (GDPR / Privacy Protected)
+-- Policy C: Only Workshop Admin can update or delete inquiries
+create policy "Only admin manage contact_messages"
+    on public.contact_messages for all
+    using (
+        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or auth.jwt()->>'role' = 'service_role'
+    );
+
+-- 3. NEWSLETTER SUBSCRIBERS TABLE (GDPR Privacy Protected)
 create table if not exists public.newsletter_subscribers (
     id uuid default gen_random_uuid() primary key,
     email text unique not null,
     subscribed_at timestamptz default now()
 );
 
+-- Turn on Row Level Security (RLS)
 alter table public.newsletter_subscribers enable row level security;
 
+-- Drop legacy policies
 drop policy if exists "Allow public insert to newsletter_subscribers" on public.newsletter_subscribers;
 drop policy if exists "Allow public select newsletter_subscribers" on public.newsletter_subscribers;
+drop policy if exists "Allow admin select newsletter_subscribers" on public.newsletter_subscribers;
+drop policy if exists "Users view own subscription or admin" on public.newsletter_subscribers;
+drop policy if exists "User unsubscribe or admin manage" on public.newsletter_subscribers;
 
--- Public can subscribe
+-- Policy A: Anyone can subscribe to the newsletter
 create policy "Allow public insert to newsletter_subscribers"
     on public.newsletter_subscribers for insert
     with check (true);
 
--- Only Admin can view subscriber list (Prevents email harvesting)
-create policy "Allow admin select newsletter_subscribers"
+-- Policy B: STRICT RLS — Users can only see their own subscription; Admin views all
+create policy "Users view own subscription or admin"
     on public.newsletter_subscribers for select
     using (
-        auth.jwt()->>'email' = 'admin@mystickerzenseigne.com'
+        lower(email) = lower(auth.jwt()->>'email')
+        or auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or auth.jwt()->>'role' = 'service_role'
+    );
+
+-- Policy C: User can unsubscribe (delete own record) or Admin can manage
+create policy "User unsubscribe or admin manage"
+    on public.newsletter_subscribers for delete
+    using (
+        lower(email) = lower(auth.jwt()->>'email')
+        or auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     );
 
@@ -112,6 +164,9 @@ create index if not exists idx_orders_status
 
 create index if not exists idx_contact_created_at 
     on public.contact_messages (created_at desc);
+
+create index if not exists idx_newsletter_email 
+    on public.newsletter_subscribers (email);
 
 -- 5. INITIAL SEED (Idempotent)
 insert into public.orders (order_number, customer, items, subtotal, shipping, total, payment_method, status)
