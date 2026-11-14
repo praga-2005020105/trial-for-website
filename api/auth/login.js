@@ -14,6 +14,13 @@ const MASTER_HASH = hashPassword("AdminSecure2026!@#", SALT);
 
 const ADMIN_ACCOUNTS = [
   {
+    email: "pragadeeshp63@gmail.com",
+    name: "Master Workshop Admin",
+    role: "admin",
+    salt: SALT,
+    hash: MASTER_HASH
+  },
+  {
     email: "mystickerz75@gmail.com",
     name: "Master Workshop Admin",
     role: "admin",

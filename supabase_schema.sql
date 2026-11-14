@@ -44,7 +44,7 @@ create policy "Customers view own orders"
         -- Authenticated user can ONLY see orders where customer email matches their account email
         lower(customer->>'email') = lower(auth.jwt()->>'email')
         -- OR authorized workshop admin accounts
-        or auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or lower(auth.jwt()->>'email') in ('pragadeeshp63@gmail.com', 'mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         -- OR backend service role (never exposed to client)
         or auth.jwt()->>'role' = 'service_role'
     );
@@ -53,11 +53,11 @@ create policy "Customers view own orders"
 create policy "Only admin update orders"
     on public.orders for update
     using (
-        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        lower(auth.jwt()->>'email') in ('pragadeeshp63@gmail.com', 'mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     )
     with check (
-        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        lower(auth.jwt()->>'email') in ('pragadeeshp63@gmail.com', 'mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     );
 
@@ -65,7 +65,7 @@ create policy "Only admin update orders"
 create policy "Only admin delete orders"
     on public.orders for delete
     using (
-        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        lower(auth.jwt()->>'email') in ('pragadeeshp63@gmail.com', 'mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     );
 
@@ -100,7 +100,7 @@ create policy "Users view own inquiries or admin"
     on public.contact_messages for select
     using (
         lower(email) = lower(auth.jwt()->>'email')
-        or auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        or lower(auth.jwt()->>'email') in ('pragadeeshp63@gmail.com', 'mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     );
 
@@ -108,7 +108,7 @@ create policy "Users view own inquiries or admin"
 create policy "Only admin manage contact_messages"
     on public.contact_messages for all
     using (
-        auth.jwt()->>'email' in ('mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
+        lower(auth.jwt()->>'email') in ('pragadeeshp63@gmail.com', 'mystickerz75@gmail.com', 'admin@mystickerzenseigne.com')
         or auth.jwt()->>'role' = 'service_role'
     );
 

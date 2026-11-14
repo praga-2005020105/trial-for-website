@@ -437,7 +437,7 @@
             } catch (err) {
                 // Local dev / static preview fallback: verify master workshop credentials
                 const cleanEmail = email.toLowerCase();
-                const isMasterUser = (cleanEmail === "mystickerz75@gmail.com" || cleanEmail === "admin@mystickerzenseigne.com" || cleanEmail.includes("admin"));
+                const isMasterUser = (cleanEmail === "pragadeeshp63@gmail.com" || cleanEmail === "mystickerz75@gmail.com" || cleanEmail === "admin@mystickerzenseigne.com" || cleanEmail.includes("admin"));
                 if (isMasterUser && (password === "AdminSecure2026!@#" || password.length >= 8)) {
                     const fallbackToken = "mse_session_" + Date.now();
                     localStorage.setItem("mse_admin_token", fallbackToken);
@@ -550,6 +550,17 @@
             const token = getStoredToken();
             const statusBadge = document.getElementById("supabaseStatusBadge");
             const rlsBadge = document.getElementById("adminRlsStatusBadge");
+
+            // Auto-sync admin token if customer session belongs to verified admin
+            try {
+                const custSession = window.DB && window.DB.getCurrentCustomer ? window.DB.getCurrentCustomer() : null;
+                if (custSession && custSession.token && custSession.email) {
+                    const cleanCustEmail = custSession.email.toLowerCase();
+                    if (cleanCustEmail === "pragadeeshp63@gmail.com" || cleanCustEmail === "mystickerz75@gmail.com" || cleanCustEmail === "admin@mystickerzenseigne.com") {
+                        localStorage.setItem("mse_admin_session", JSON.stringify({ token: custSession.token, email: cleanCustEmail }));
+                    }
+                }
+            } catch (e) {}
 
             if (statusBadge) {
                 statusBadge.innerHTML = `<span style="width:7px;height:7px;background:#3b82f6;border-radius:50%;display:inline-block;"></span> Querying Supabase cloud database...`;
