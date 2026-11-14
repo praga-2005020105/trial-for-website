@@ -7,6 +7,10 @@
 const SUPABASE_URL = "https://oeombbuhpjawwfcseftm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_vh7pw-l0HCPpiM18kdNvIg_GijEkR_d";
 
+function isValidJwt(token) {
+    return typeof token === "string" && token.split(".").length === 3;
+}
+
 const DB = {
     /**
      * Save customer order directly to Supabase cloud database & client backup store
@@ -49,7 +53,7 @@ const DB = {
         // 2. Persist to Supabase cloud database
         try {
             const customerSession = this.getCurrentCustomer();
-            const authBearer = (customerSession && customerSession.token) ? customerSession.token : SUPABASE_KEY;
+            const authBearer = (customerSession && isValidJwt(customerSession.token)) ? customerSession.token : SUPABASE_KEY;
 
             const res = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
                 method: "POST",
@@ -85,7 +89,7 @@ const DB = {
             try {
                 if (adminSessionRaw) {
                     const parsed = JSON.parse(adminSessionRaw);
-                    if (parsed.token) adminToken = parsed.token;
+                    if (parsed.token && isValidJwt(parsed.token)) adminToken = parsed.token;
                 }
             } catch (e) {}
 
@@ -352,7 +356,7 @@ const DB = {
 
         try {
             const customerSession = this.getCurrentCustomer();
-            const authBearer = (customerSession && customerSession.token) ? customerSession.token : SUPABASE_KEY;
+            const authBearer = (customerSession && isValidJwt(customerSession.token)) ? customerSession.token : SUPABASE_KEY;
 
             const res = await fetch(`${SUPABASE_URL}/rest/v1/orders?customer->>email=ilike.${encodeURIComponent(cleanEmail)}&order=created_at.desc`, {
                 method: "GET",

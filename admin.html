@@ -400,6 +400,17 @@
                     const data = await res.json();
                     if (data.success && data.token) {
                         localStorage.setItem("mse_admin_token", data.token);
+
+                        // Also obtain Supabase session if account is confirmed in Supabase
+                        if (window.DB && typeof window.DB.customerSignIn === "function") {
+                            try {
+                                const sbRes = await window.DB.customerSignIn(email, password);
+                                if (sbRes && sbRes.success && sbRes.session && sbRes.session.token) {
+                                    localStorage.setItem("mse_admin_session", JSON.stringify({ token: sbRes.session.token, email }));
+                                }
+                            } catch (e) {}
+                        }
+
                         showDashboard(data.user);
                         return;
                     }
@@ -417,6 +428,16 @@
                 if (isMasterUser && (password === "AdminSecure2026!@#" || password.length >= 8)) {
                     const fallbackToken = "mse_session_" + Date.now();
                     localStorage.setItem("mse_admin_token", fallbackToken);
+
+                    if (window.DB && typeof window.DB.customerSignIn === "function") {
+                        try {
+                            const sbRes = await window.DB.customerSignIn(email, password);
+                            if (sbRes && sbRes.success && sbRes.session && sbRes.session.token) {
+                                localStorage.setItem("mse_admin_session", JSON.stringify({ token: sbRes.session.token, email }));
+                            }
+                        } catch (e) {}
+                    }
+
                     showDashboard({ name: "Workshop Admin", email: cleanEmail });
                     return;
                 }
@@ -435,6 +456,7 @@
                 });
             } catch (e) {}
             localStorage.removeItem("mse_admin_token");
+            localStorage.removeItem("mse_admin_session");
             showLogin();
         }
 
