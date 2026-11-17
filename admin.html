@@ -145,11 +145,11 @@
             <form id="adminLoginForm">
                 <div class="form-group">
                     <label for="adminEmail">Admin Email</label>
-                    <input type="email" id="adminEmail" required placeholder="mystickerz75@gmail.com">
+                    <input type="email" id="adminEmail" name="adminEmail" autocomplete="email" required placeholder="mystickerz75@gmail.com">
                 </div>
                 <div class="form-group">
                     <label for="adminPassword">Master Password</label>
-                    <input type="password" id="adminPassword" required placeholder="••••••••••••">
+                    <input type="password" id="adminPassword" name="adminPassword" autocomplete="current-password" required placeholder="••••••••••••">
                 </div>
 
                 <div id="loginErrorMsg" style="display:none;background:#fff5f5;color:#c53030;border:1px solid #feb2b2;padding:10px;border-radius:4px;font-size:12px;margin-bottom:16px;"></div>
@@ -682,7 +682,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <select class="order-status-select" data-order="${orderNum}" style="padding:4px;font-size:11px;">
+                                    <select id="order-status-${orderNum}" name="order_status_${orderNum}" aria-label="Status for order ${orderNum}" class="order-status-select" data-order="${orderNum}" style="padding:4px;font-size:11px;">
                                         <option value="Pending BAT" ${orderStatus === "Pending BAT" ? "selected" : ""}>Pending BAT</option>
                                         <option value="BAT Validated" ${orderStatus === "BAT Validated" ? "selected" : ""}>BAT Validated</option>
                                         <option value="Production" ${orderStatus === "Production" ? "selected" : ""}>Production</option>

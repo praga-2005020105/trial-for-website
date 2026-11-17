@@ -17,8 +17,13 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Preload critical mobile LCP hero poster image -->
+    <link rel="preload" as="image" href="images/services/auto-ecole-installation-poster.jpg" fetchpriority="high">
+
     <link rel="stylesheet" href="css/style.css?v=20261027-2">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Non-blocking asynchronous Font Awesome with fallback -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -40,7 +45,7 @@
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">
-                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE">
+                <img src="images/company-logo.jpeg" alt="MY STICKERZ ENSEIGNE" width="48" height="48" style="aspect-ratio:1/1;object-fit:cover;">
                 <span class="brand-text">MY STICKERZ ENSEIGNE</span>
             </a>
 
@@ -79,6 +84,8 @@
         </div>
     </header>
 
+    <main id="main-content">
+
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
@@ -101,24 +108,24 @@
                     
                     <!-- Slide 0: Storefront & 3D Sign Installation Video (Auto-École) -->
                     <div class="hero-slide active" data-slide-index="0">
-                        <video class="hero-slide-video" autoplay muted loop playsinline preload="auto" poster="images/services/auto-ecole-installation-poster.jpg">
+                        <video class="hero-slide-video" autoplay muted loop playsinline preload="metadata" poster="images/services/auto-ecole-installation-poster.jpg">
                             <source src="videos/installation-auto-ecole.mp4" type="video/mp4">
                         </video>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" style="background:#ff0f39;color:#fff;" data-i18n="heroSlide0Badge">▶ POSE CHANTIER EN DIRECT</span>
-                            <h3 data-i18n="heroSlide0Title">Enseigne Lumineuse 3D &amp; Devanture Auto-École</h3>
+                            <h2 data-i18n="heroSlide0Title">Enseigne Lumineuse 3D &amp; Devanture Auto-École</h2>
                             <p data-i18n="heroSlide0Desc">Installation complète : lettres boîtiers LED lumineuses et habillage de façade sur mesure</p>
                         </div>
                     </div>
 
                     <!-- Slide 1: Workshop In Action Real Video Showcase -->
                     <div class="hero-slide" data-slide-index="1">
-                        <video class="hero-slide-video" autoplay muted loop playsinline preload="auto" poster="images/services/annachi-facade-night-1.jpg">
+                        <video class="hero-slide-video" autoplay muted loop playsinline preload="none" poster="images/services/annachi-facade-night-1.jpg">
                             <source src="videos/atelier-showcase.mp4" type="video/mp4">
                         </video>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" style="background:#2563eb;color:#fff;" data-i18n="heroSlide1Badge">▶ ENSEIGNE &amp; ATELIER EN ACTION</span>
-                            <h3 data-i18n="heroSlide1Title">Fabrication &amp; Pose Enseignes Sur Mesure</h3>
+                            <h2 data-i18n="heroSlide1Title">Fabrication &amp; Pose Enseignes Sur Mesure</h2>
                             <p data-i18n="heroSlide1Desc">Découvrez notre savoir-faire en atelier et sur chantier à Garges-lès-Gonesse (95)</p>
                         </div>
                     </div>
@@ -131,7 +138,7 @@
                         </picture>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" data-i18n="heroSlide2Badge">ENSEIGNES LUMINEUSES 3D</span>
-                            <h3 data-i18n="heroSlide2Title">Enseignes Boîtiers LED &amp; Néon</h3>
+                            <h2 data-i18n="heroSlide2Title">Enseignes Boîtiers LED &amp; Néon</h2>
                             <p data-i18n="heroSlide2Desc">Projet réalisé pour Annachi — Maison des Épices (Corbeil-Essonnes)</p>
                         </div>
                     </div>
@@ -144,7 +151,7 @@
                         </picture>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" data-i18n="heroSlide3Badge">HABILLAGE FAÇADE DIBOND</span>
-                            <h3 data-i18n="heroSlide3Title">Devantures &amp; Cassettes Alu</h3>
+                            <h2 data-i18n="heroSlide3Title">Devantures &amp; Cassettes Alu</h2>
                             <p data-i18n="heroSlide3Desc">Rénovation complète Le Lion Dort &amp; Nobelinterim</p>
                         </div>
                     </div>
@@ -157,7 +164,7 @@
                         </picture>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" data-i18n="heroSlide4Badge">CAISSONS LUMINEUX LED</span>
-                            <h3 data-i18n="heroSlide4Title">Caissons Ajourés &amp; Rétroéclairés</h3>
+                            <h2 data-i18n="heroSlide4Title">Caissons Ajourés &amp; Rétroéclairés</h2>
                             <p data-i18n="heroSlide4Desc">Enseigne personnalisée Barber Shop avec éclairage LED haute intensité</p>
                         </div>
                     </div>
@@ -170,7 +177,7 @@
                         </picture>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" data-i18n="heroSlide5Badge">LETTRES DÉCOUPÉES PRESTIGE</span>
-                            <h3 data-i18n="heroSlide5Title">Signalétique Lumineuse Haute Précision</h3>
+                            <h2 data-i18n="heroSlide5Title">Signalétique Lumineuse Haute Précision</h2>
                             <p data-i18n="heroSlide5Desc">Conception et pose pour Nubian Beauty Paris</p>
                         </div>
                     </div>
@@ -183,7 +190,7 @@
                         </picture>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" data-i18n="heroSlide6Badge">ENSEMBLE SIGNALÉTIQUE</span>
-                            <h3 data-i18n="heroSlide6Title">Façades Commerciales d'Envergure</h3>
+                            <h2 data-i18n="heroSlide6Title">Façades Commerciales d'Envergure</h2>
                             <p data-i18n="heroSlide6Desc">Double enseigne lumineuse 30 mètres à Corbeil-Essonnes</p>
                         </div>
                     </div>
@@ -196,7 +203,7 @@
                         </picture>
                         <div class="hero-slide-overlay">
                             <span class="hero-slide-badge" data-i18n="heroSlide7Badge">FABRICATION FRANÇAISE EN ATELIER</span>
-                            <h3 data-i18n="heroSlide7Title">Usinage CNC &amp; Découpe de Précision</h3>
+                            <h2 data-i18n="heroSlide7Title">Usinage CNC &amp; Découpe de Précision</h2>
                             <p data-i18n="heroSlide7Desc">Atelier de fabrication à Garges-lès-Gonesse (95)</p>
                         </div>
                     </div>
@@ -228,28 +235,28 @@
             <div class="trust-item">
                 <div class="trust-icon">◇</div>
                 <div>
-                    <h4 data-i18n="trust1Title">Professional Quality</h4>
+                    <h3 data-i18n="trust1Title">Professional Quality</h3>
                     <p data-i18n="trust1Text">Custom visual solutions for businesses</p>
                 </div>
             </div>
             <div class="trust-item">
                 <div class="trust-icon">◉</div>
                 <div>
-                    <h4 data-i18n="trust2Title">Based in France</h4>
+                    <h3 data-i18n="trust2Title">Based in France</h3>
                     <p data-i18n="trust2Text">Serving customers from Garges-lès-Gonesse</p>
                 </div>
             </div>
             <div class="trust-item">
                 <div class="trust-icon">✓</div>
                 <div>
-                    <h4 data-i18n="trust3Title">Custom Solutions</h4>
+                    <h3 data-i18n="trust3Title">Custom Solutions</h3>
                     <p data-i18n="trust3Text">Projects adapted to your needs</p>
                 </div>
             </div>
             <div class="trust-item">
                 <div class="trust-icon">↩</div>
                 <div>
-                    <h4 data-i18n="trust4Title">Customer Support</h4>
+                    <h3 data-i18n="trust4Title">Customer Support</h3>
                     <p data-i18n="trust4Text">Contact us about your project</p>
                 </div>
             </div>
@@ -369,10 +376,10 @@
                         <p class="portfolio-sub" data-i18n="portfolioSubtitle">Discover our recent installations: 3D illuminated letters, shopfront facade cladding, CNC custom milling and lightboxes across Île-de-France.</p>
                     </div>
                     <div class="portfolio-filter-bar" role="tablist" aria-label="Filtres réalisations atelier">
-                        <button type="button" class="portfolio-filter-btn active" data-portfolio-filter="all" data-i18n="portfolioFilterAll" onclick="window.filterPortfolio('all', this); return false;">All Projects</button>
-                        <button type="button" class="portfolio-filter-btn" data-portfolio-filter="3d-letters" data-i18n="portfolioFilter3D" onclick="window.filterPortfolio('3d-letters', this); return false;">3D Letters & Signs</button>
-                        <button type="button" class="portfolio-filter-btn" data-portfolio-filter="facades" data-i18n="portfolioFilterFacades" onclick="window.filterPortfolio('facades', this); return false;">Storefronts & Dibond</button>
-                        <button type="button" class="portfolio-filter-btn" data-portfolio-filter="cnc-atelier" data-i18n="portfolioFilterAtelier" onclick="window.filterPortfolio('cnc-atelier', this); return false;">Atelier CNC Craft</button>
+                        <button type="button" class="portfolio-filter-btn active" role="tab" aria-selected="true" data-portfolio-filter="all" data-i18n="portfolioFilterAll" onclick="window.filterPortfolio('all', this); return false;">All Projects</button>
+                        <button type="button" class="portfolio-filter-btn" role="tab" aria-selected="false" data-portfolio-filter="3d-letters" data-i18n="portfolioFilter3D" onclick="window.filterPortfolio('3d-letters', this); return false;">3D Letters & Signs</button>
+                        <button type="button" class="portfolio-filter-btn" role="tab" aria-selected="false" data-portfolio-filter="facades" data-i18n="portfolioFilterFacades" onclick="window.filterPortfolio('facades', this); return false;">Storefronts & Dibond</button>
+                        <button type="button" class="portfolio-filter-btn" role="tab" aria-selected="false" data-portfolio-filter="cnc-atelier" data-i18n="portfolioFilterAtelier" onclick="window.filterPortfolio('cnc-atelier', this); return false;">Atelier CNC Craft</button>
                     </div>
                 </div>
 
@@ -389,10 +396,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem1Loc">Corbeil-Essonnes (91) · Supermarché</div>
-                            <h4 data-i18n="portfolioItem1Title">Enseigne Lumineuse LED Annachi — Maison des Épices</h4>
+                            <h3 data-i18n="portfolioItem1Title">Enseigne Lumineuse LED Annachi — Maison des Épices</h3>
                             <p data-i18n="portfolioItem1Desc">Lettres boîtiers 3D en relief avec face diffusante PMMA et rétroéclairage bleu glacier, complété d'un bandeau wash LED architectural.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20lumineuse%20comme%20Annachi" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20lumineuse%20comme%20Annachi" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Enseigne Annachi Corbeil">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -411,10 +418,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem2Loc">Île-de-France · Agence &amp; Appart Hôtel</div>
-                            <h4 data-i18n="portfolioItem2Title">Devanture Composite Anthracite &amp; Lion Rétroéclairé</h4>
+                            <h3 data-i18n="portfolioItem2Title">Devanture Composite Anthracite &amp; Lion Rétroéclairé</h3>
                             <p data-i18n="portfolioItem2Desc">Rénovation complète en cassettes aluminium pliées noir mat avec logo Lion rétroéclairé or chaud et caisson Nobelinterim blanc diffusant.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20devanture%20comme%20Le%20Lion%20Dort" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20devanture%20comme%20Le%20Lion%20Dort" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Devanture Le Lion Dort">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -433,10 +440,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem3Loc">Paris Région · Salon de Coiffure</div>
-                            <h4 data-i18n="portfolioItem3Title">Enseigne Barber Shop &amp; Rasoir Lumineux</h4>
+                            <h3 data-i18n="portfolioItem3Title">Enseigne Barber Shop &amp; Rasoir Lumineux</h3>
                             <p data-i18n="portfolioItem3Desc">Caisson laqué avec découpe ajourée, lettrage vintage rouge diffusant et logo rasoir haute luminosité IP67.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20Barber%20Shop" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20Barber%20Shop" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Enseigne Barber Shop">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -455,10 +462,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem4Loc">Paris · Institut &amp; Beauté</div>
-                            <h4 data-i18n="portfolioItem4Title">Enseigne Prestige — Nubian Beauty Paris</h4>
+                            <h3 data-i18n="portfolioItem4Title">Enseigne Prestige — Nubian Beauty Paris</h3>
                             <p data-i18n="portfolioItem4Desc">Lettres boîtiers PMMA blanc pur avec soulignement lumineux continu, intégrées sur structure composite aluminium.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20comme%20Nubian%20Beauty" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20comme%20Nubian%20Beauty" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Enseigne Nubian Beauty Paris">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -477,10 +484,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem5Loc">Commerce Retail · Prêt-à-Porter</div>
-                            <h4 data-i18n="portfolioItem5Title">Habillage Intégral Façade Banger &amp; Vitrophanie</h4>
+                            <h3 data-i18n="portfolioItem5Title">Habillage Intégral Façade Banger &amp; Vitrophanie</h3>
                             <p data-i18n="portfolioItem5Desc">Habillage complet des piliers et imposte en Dibond anthracite, enseigne pop-art en relief 3D et lettrages adhésifs découpés.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20un%20habillage%20de%20façade%20comme%20Banger" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20un%20habillage%20de%20façade%20comme%20Banger" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Habillage Façade Banger">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -499,10 +506,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem6Loc">Atelier Garges-lès-Gonesse · Fraiseuse 2030</div>
-                            <h4 data-i18n="portfolioItem6Title">Usinage CNC en Atelier — Cosmétique Afro</h4>
+                            <h3 data-i18n="portfolioItem6Title">Usinage CNC en Atelier — Cosmétique Afro</h3>
                             <p data-i18n="portfolioItem6Desc">Découpe de précision au dixième de millimètre sur notre fraiseuse CNC grand format 2030 avec médaillon illustré imprimé UV.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20de%20la%20découpe%20CNC%20sur-mesure" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20de%20la%20découpe%20CNC%20sur-mesure" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Usinage CNC Cosmétique Afro">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -521,10 +528,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem7Loc">Corbeil-Essonnes · Visibilité Urbaine</div>
-                            <h4 data-i18n="portfolioItem7Title">Ensemble Signalétique Bâtiment Commercial d'Angle</h4>
+                            <h3 data-i18n="portfolioItem7Title">Ensemble Signalétique Bâtiment Commercial d'Angle</h3>
                             <p data-i18n="portfolioItem7Desc">Mise en valeur intégrale d'un bâtiment commercial de 30 mètres de linéaire avec double enseigne lumineuse synchrone.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20signalétique%20de%20bâtiment%20d'angle" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20signalétique%20de%20bâtiment%20d'angle" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Bâtiment Commercial d'Angle Annachi">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -543,10 +550,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem8Loc">Fabrication Atelier Français · Finitions Méticuleuses</div>
-                            <h4 data-i18n="portfolioItem8Title">Assemblage Enseigne &amp; Lettres Relief — Poisson Surgelé</h4>
+                            <h3 data-i18n="portfolioItem8Title">Assemblage Enseigne &amp; Lettres Relief — Poisson Surgelé</h3>
                             <p data-i18n="portfolioItem8Desc">Usinage des lettres reliefs, intégration des modules LED étanches IP67 et pose du médaillon résistant aux intempéries.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20avec%20médaillon%20illustré" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20une%20enseigne%20avec%20médaillon%20illustré" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Assemblage Poisson Surgelé">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -565,10 +572,10 @@
                         </div>
                         <div class="portfolio-info">
                             <div class="portfolio-tag-line" data-i18n="portfolioItem9Loc">Installation Sécurisée · Normes de Sécurité</div>
-                            <h4 data-i18n="portfolioItem9Title">Pose Professionnelle sur Échafaudage &amp; Câblage</h4>
+                            <h3 data-i18n="portfolioItem9Title">Pose Professionnelle sur Échafaudage &amp; Câblage</h3>
                             <p data-i18n="portfolioItem9Desc">Nos techniciens poseurs assurent la fixation mécanique certifiée, le raccordement au réseau basse tension et les finitions d'étanchéité.</p>
                             <div class="portfolio-action-row">
-                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20la%20fabrication%20et%20la%20pose%20d'une%20enseigne" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote">
+                                <a href="https://wa.me/33698710050?text=Bonjour%20atelier%20MY%20STICKERZ,%20je%20souhaite%20un%20devis%20pour%20la%20fabrication%20et%20la%20pose%20d'une%20enseigne" target="_blank" rel="noopener noreferrer" class="portfolio-btn-quote" aria-label="Demander un devis WhatsApp pour Pose sur Échafaudage Nubian">
                                     <i class="fa-brands fa-whatsapp"></i> <span data-i18n="portfolioQuoteBtn">Devis Projet</span></a>
                                 <button type="button" class="portfolio-btn-view" data-i18n="portfolioZoomBtn">Agrandir</button>
                             </div>
@@ -704,6 +711,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -806,8 +814,14 @@
     window.filterPortfolio = window.filterPortfolio || function(filter, btn) {
         var btns = document.querySelectorAll(".portfolio-filter-btn");
         var items = document.querySelectorAll(".portfolio-item");
-        btns.forEach(function(b) { b.classList.remove("active"); });
-        if (btn) btn.classList.add("active");
+        btns.forEach(function(b) { 
+            b.classList.remove("active"); 
+            b.setAttribute("aria-selected", "false");
+        });
+        if (btn) {
+            btn.classList.add("active");
+            btn.setAttribute("aria-selected", "true");
+        }
         items.forEach(function(item) {
             var cat = item.getAttribute("data-portfolio-category");
             if (filter === "all" || cat === filter) {
@@ -819,8 +833,8 @@
     };
     </script>
 
-    <script src="js/language-switch.js?v=20261027-2"></script>
-    <script src="js/db.js?v=20261027-2"></script>
-    <script src="js/script.js?v=20261027-2"></script>
+    <script defer src="js/language-switch.js?v=20261027-2"></script>
+    <script defer src="js/db.js?v=20261027-2"></script>
+    <script defer src="js/script.js?v=20261027-2"></script>
 </body>
 </html>

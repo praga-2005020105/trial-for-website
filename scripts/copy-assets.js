@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import esbuild from 'esbuild';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +22,29 @@ for (const dir of copyDirs) {
   }
 }
 
+// Minify production JavaScript in dist/js for optimal mobile performance
+const distJsDir = path.join(distDir, 'js');
+if (fs.existsSync(distJsDir)) {
+  const jsFiles = fs.readdirSync(distJsDir);
+  for (const file of jsFiles) {
+    if (file.endsWith('.js')) {
+      const filePath = path.join(distJsDir, file);
+      try {
+        const rawCode = fs.readFileSync(filePath, 'utf-8');
+        const minified = esbuild.transformSync(rawCode, {
+          minify: true,
+          target: 'es2020',
+          legalComments: 'none'
+        });
+        fs.writeFileSync(filePath, minified.code, 'utf-8');
+        console.log(`[copy-assets] Minified dist/js/${file}`);
+      } catch (err) {
+        console.warn(`[copy-assets] Skip minifying ${file}:`, err.message);
+      }
+    }
+  }
+}
+
 const copyFiles = ['favicon.svg', 'robots.txt', 'sitemap.xml'];
 for (const file of copyFiles) {
   const src = path.join(rootDir, file);
@@ -31,4 +55,4 @@ for (const file of copyFiles) {
   }
 }
 
-console.log('[copy-assets] Static assets successfully synchronized to dist!');
+console.log('[copy-assets] Static assets successfully synchronized and optimized in dist!');
